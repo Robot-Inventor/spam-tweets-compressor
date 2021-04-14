@@ -1,0 +1,16 @@
+.decompress-button {
+    background: none;
+    border: solid 0.15em #1A91DA;
+    border-radius: 0.25em;
+    padding: 0.5em;
+    margin-top: 1em;
+    cursor: pointer;
+    display: block;
+    transition: 0.1s;
+    color: #1A91DA;
+}
+
+.decompress-button:hover {
+    background: #1A91DA;
+    color: white;
+}

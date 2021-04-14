@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "Spam Tweets Compressor",
+    "short_name": "ST Compressor",
+    "version": "1.0.1.0",
+    "description": "Compress spam Tweets.",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://twitter.com/*"
+            ],
+            "js": [
+                "main.js"
+            ],
+            "css": [
+                "main.css"
+            ]
+        }
+    ]
+}
