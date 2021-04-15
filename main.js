@@ -10,7 +10,7 @@ const compression_threshold_height = screen.height * 0.8;
 const compression_threshold_break_count = 5;
 
 const tweet_parent_selector = ".css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-kzbkwu"
-const tweet_content_selector = ".css-901oao.r-1fmj7o5.r-1tl8opc.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0";
+const tweet_content_selector = ".css-901oao.r-1tl8opc.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0";
 
 function compress() {
     document.querySelectorAll(tweet_parent_selector + ":not(.long-tweet-checked)").forEach((tweet_parent) => {
