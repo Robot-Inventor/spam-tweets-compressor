@@ -7,6 +7,7 @@
 #### Changed
 
 - Refactored
+- Improved performance
 
 ### [v1.0.2.1] - 2021-04-15
 
