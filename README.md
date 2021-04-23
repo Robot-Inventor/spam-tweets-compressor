@@ -2,6 +2,8 @@
 
 [日本語](README_ja.md)
 
+![logo](image/logo.svg)
+
 This is a browser extension which compresses spam Tweets. At the moment, it compresses "long" Tweets.
 
 ## What Is A Long Tweet ?
