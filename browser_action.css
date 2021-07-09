@@ -1,0 +1,34 @@
+:root {
+    --background_color: white;
+    --text_color: rgba(51, 51, 51, 0.87);
+}
+
+@media(prefers-color-scheme: dark) {
+    :root {
+        --background_color: #333333;
+        --text_color: rgba(255, 255, 255, 0.87);
+    }
+}
+
+* {
+    background: var(--background_color);
+    color: var(--text_color);
+    font-family: sans-serif;
+}
+
+html,
+body {
+    margin: 1rem;
+    width: 30rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+input[type=number] {
+    border: none;
+    border-bottom: 0.1rem solid var(--text_color);
+    outline: none;
+    width: 5rem;
+}

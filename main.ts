@@ -1,4 +1,3 @@
-"use strict";
 const selector = {
     // TODO: 以下のセレクターは、Twitterの配色設定によって変わる可能性があるので、配色設定に関するクラスを排除する必要がある
     tweet_outer: ".css-1dbjc4n.r-1igl3o0.r-qklmqi.r-1adg3ll.r-1ny4l3l",
@@ -6,21 +5,26 @@ const selector = {
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked"
 };
-;
+
+interface setting_object {
+    break_threshold: string
+};
+
 function get_unchecked_tweets() {
-    const tweets = document.querySelectorAll(`${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`);
-    let result = [];
-    tweets.forEach((element) => {
+    const tweets: NodeListOf<HTMLElement> = document.querySelectorAll(`${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`);
+    let result: Array<HTMLElement> = [];
+    tweets.forEach((element: any) => {
         element.classList.add(selector.checked_tweet_class_name);
+
         element.content = element.querySelector(selector.tweet_content)?.textContent;
         element.compress = function () {
             const raw_content = element.content;
             element.dataset.rawContent = raw_content;
             const content_element = element.querySelector(selector.tweet_content);
             const compressed_content = raw_content.replaceAll("\n", "");
-            if (content_element)
-                content_element.textContent = compressed_content;
+            if (content_element) content_element.textContent = compressed_content;
             element.content = compressed_content;
+
             const decompress_button = document.createElement("button");
             decompress_button.className = "decompress-button";
             decompress_button.textContent = "Decompress";
@@ -30,27 +34,32 @@ function get_unchecked_tweets() {
                 element.content = element.dataset.rawContent;
                 decompress_button.remove();
             });
-        };
+        }
         result.push(element);
     });
     return result;
 }
-function run_check(setting) {
+
+function run_check(setting: setting_object) {
     const check_target = get_unchecked_tweets();
+
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
         const breaks = target.content.match(/\n/g);
-        if (breaks && breaks.length > parseInt(setting.break_threshold))
-            target.compress();
+        if (breaks && breaks.length > parseInt(setting.break_threshold)) target.compress();
     }
 }
-browser.storage.local.get("setting").then((value) => {
-    const setting = value.setting;
+
+browser.storage.local.get("setting").then((value: any) => {
+    const setting: setting_object = value.setting;
+
     const body_observer_target = document.body;
     const body_observer = new MutationObserver(() => {
         const timeline = document.querySelector(selector.timeline);
+
         if (timeline) {
             body_observer.disconnect();
+
             const main_observer_target = timeline;
             const main_observer = new MutationObserver(() => {
                 run_check(setting);
@@ -68,4 +77,3 @@ browser.storage.local.get("setting").then((value) => {
 }).catch(() => {
     console.error("設定を読み込めませんでした1");
 });
-//# sourceMappingURL=main.js.map

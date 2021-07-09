@@ -2,6 +2,14 @@
 
 ## Released
 
+### [v1.1.4.0] - 2021-04-23
+
+#### Added
+
+- Added the ability to change the threshold value for spam detection
+- Created the logo
+- Rewrote with TypeScript
+
 ### [v1.0.3.2] - 2021-04-19
 
 #### Changed

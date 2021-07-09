@@ -2,8 +2,13 @@
     "manifest_version": 2,
     "name": "Spam Tweets Compressor",
     "short_name": "ST Compressor",
-    "version": "1.0.3.2",
+    "version": "1.1.4.0",
     "description": "Compress spam Tweets.",
+    "icons": {
+        "16": "image/icon16.png",
+        "48": "image/icon48.png",
+        "128": "image/icon128.png"
+    },
     "content_scripts": [
         {
             "matches": [
@@ -16,5 +21,19 @@
                 "main.css"
             ]
         }
-    ]
+    ],
+    "browser_action": {
+        "browser_style": true,
+        "default_icon": "image/icon.svg",
+        "default_popup": "browser_action.html",
+        "default_title": "Spam Tweets Compressor"
+    },
+    "permissions": [
+        "storage"
+    ],
+    "applications": {
+        "gecko": {
+            "id": "{feb13580-3a7d-4151-923b-2b39c1104fe4}"
+        }
+    }
 }

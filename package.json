@@ -1,0 +1,22 @@
+{
+  "name": "spam-tweets-compressor",
+  "version": "1.0.0",
+  "description": "A browser extension which compresses spam Tweets.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robot-Inventor/spam-tweets-compressor.git"
+  },
+  "author": "Robot-Inventor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Robot-Inventor/spam-tweets-compressor/issues"
+  },
+  "homepage": "https://github.com/Robot-Inventor/spam-tweets-compressor#readme",
+  "dependencies": {
+    "typescript": "^4.3.5"
+  }
+}
