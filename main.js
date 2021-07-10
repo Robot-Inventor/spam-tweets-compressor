@@ -39,7 +39,7 @@ function run_check(setting) {
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
         const breaks = target.content.match(/\n/g);
-        if (breaks && breaks.length > parseInt(setting.break_threshold))
+        if (breaks && breaks.length > setting.break_threshold)
             target.compress();
     }
 }

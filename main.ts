@@ -6,7 +6,7 @@ const selector = {
 };
 
 interface setting_object {
-    break_threshold: string
+    break_threshold: number
 };
 
 function get_unchecked_tweets() {
@@ -46,7 +46,7 @@ function run_check(setting: setting_object) {
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
         const breaks = target.content.match(/\n/g);
-        if (breaks && breaks.length > parseInt(setting.break_threshold)) target.compress();
+        if (breaks && breaks.length > setting.break_threshold) target.compress();
     }
 }
 

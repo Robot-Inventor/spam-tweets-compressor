@@ -19,7 +19,7 @@
 html,
 body {
     margin: 1rem;
-    width: 30rem;
+    width: 40rem;
 }
 
 h1 {
@@ -31,4 +31,12 @@ input[type=number] {
     border-bottom: 0.1rem solid var(--text_color);
     outline: none;
     width: 5rem;
+}
+
+.validation_message {
+    color: red;
+    border: 0.1em solid red;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+    margin-left: 1em;
 }
