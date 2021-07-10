@@ -11,22 +11,22 @@ function get_unchecked_tweets() {
     let result = [];
     tweets.forEach((element) => {
         element.classList.add(selector.checked_tweet_class_name);
-        element.content = element.querySelector(selector.tweet_content)?.textContent;
+        const content_element = element.querySelector(selector.tweet_content);
+        element.content = content_element.textContent;
         element.compress = function () {
-            const raw_content = element.content;
+            const raw_content = content_element.innerHTML;
             element.dataset.rawContent = raw_content;
-            const content_element = element.querySelector(selector.tweet_content);
-            const compressed_content = raw_content.replaceAll("\n", "");
+            const compressed_content = content_element.innerHTML.replaceAll("\n", "");
             if (content_element)
-                content_element.textContent = compressed_content;
-            element.content = compressed_content;
+                content_element.innerHTML = compressed_content;
+            element.content = content_element.textContent.replaceAll("\n", "");
             const decompress_button = document.createElement("button");
             decompress_button.className = "decompress-button";
             decompress_button.textContent = "Decompress";
             content_element.appendChild(decompress_button);
             decompress_button.addEventListener("click", () => {
-                content_element.textContent = element.dataset.rawContent;
-                element.content = element.dataset.rawContent;
+                content_element.innerHTML = element.dataset.rawContent;
+                element.content = content_element.textContent.replaceAll("\n", "");
                 decompress_button.remove();
             });
         };
