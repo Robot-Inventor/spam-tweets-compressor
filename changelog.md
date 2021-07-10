@@ -7,6 +7,7 @@
 #### Added
 
 - Added the ability to change the threshold value for spam detection
+- Added the ability to show or hide images of spam tweets.
 - Created the logo
 - Rewrote with TypeScript
 
