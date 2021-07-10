@@ -1,7 +1,6 @@
 const selector = {
-    // TODO: 以下のセレクターは、Twitterの配色設定によって変わる可能性があるので、配色設定に関するクラスを排除する必要がある
-    tweet_outer: ".css-1dbjc4n.r-1igl3o0.r-qklmqi.r-1adg3ll.r-1ny4l3l",
-    tweet_content: ".css-901oao.r-1fmj7o5.r-1tl8opc.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
+    tweet_outer: ".css-1dbjc4n.r-qklmqi.r-1adg3ll.r-1ny4l3l",
+    tweet_content: ".css-901oao.r-1tl8opc.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked"
 };
