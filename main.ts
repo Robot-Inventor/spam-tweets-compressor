@@ -1,6 +1,8 @@
 const selector = {
     tweet_outer: ".css-1dbjc4n.r-qklmqi.r-1adg3ll.r-1ny4l3l",
     tweet_content: ".css-901oao.r-1tl8opc.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
+    user_name: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0",
+    user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-1qd0xha.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0",
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked",
     media: (() => {
@@ -23,18 +25,23 @@ const selector = {
 
 interface setting_object {
     break_threshold: number,
-    hide_media: boolean
+    hide_media: boolean,
+    strict_mode: boolean
 };
 
 class TweetElement extends HTMLElement {
-    content: string
-    compress: Function
+    content: string;
+    compress: Function;
+    user_name: string;
+    user_id: string;
 
     constructor() {
         super();
 
         this.content = "";
         this.compress = () => { };
+        this.user_name = "";
+        this.user_id = "";
     }
 }
 
@@ -47,30 +54,66 @@ function get_unchecked_tweets(setting: setting_object) {
         const content_element = element.querySelector(selector.tweet_content);
         if (content_element) {
             element.content = content_element.textContent || "";
-            element.compress = function () {
-                const raw_content: string = content_element.innerHTML;
-                element.dataset.rawHTML = raw_content;
-                element.dataset.rawContent = element.content;
-                const compressed_content = content_element.innerHTML.replaceAll("\n", "");
-                if (content_element) content_element.innerHTML = compressed_content;
-                element.content = element.content.replaceAll("\n", "");
 
-                const media: HTMLElement | null = element.querySelector(selector.media);
-                if (media && setting.hide_media) media.style.display = "none";
+            element.user_name = (() => {
+                const user_name_element = element.querySelector(selector.user_name);
+                if (user_name_element) return user_name_element.textContent || "";
+                else return "";
+            })();
 
-                const decompress_button = document.createElement("button");
-                decompress_button.className = "decompress-button";
-                decompress_button.textContent = "Decompress";
-                content_element.appendChild(decompress_button);
-                decompress_button.addEventListener("click", () => {
-                    content_element.innerHTML = element.dataset.rawHTML || "";
-                    element.content = element.dataset.rawContent || "";
+            element.user_id = (() => {
+                const user_id_element = element.querySelector(selector.user_id);
+                if (user_id_element) return user_id_element.textContent || "";
+                else return "";
+            })();
 
-                    if (media && setting.hide_media) media.style.display = "block";
+            element.compress = () => {
+                if (setting.strict_mode) {
+                    const show_tweet_button = document.createElement("button");
+                    show_tweet_button.setAttribute("class", element.getAttribute("class") || "");
+                    show_tweet_button.classList.add("show-tweet-button");
 
-                    decompress_button.remove();
-                });
+                    const text_color = (() => {
+                        const user_name_element = element.querySelector(selector.user_name);
+                        if (user_name_element) return getComputedStyle(user_name_element).getPropertyValue("color");
+                        else return "#1da1f2";
+                    })();
+
+                    show_tweet_button.style.color = text_color;
+                    show_tweet_button.textContent = `${element.user_name}（${element.user_id}）のツイートを表示`;
+                    show_tweet_button.addEventListener("click", () => {
+                        element.style.display = "block";
+                        show_tweet_button.remove();
+                    });
+
+                    element.style.display = "none";
+                    element.insertAdjacentElement("afterend", show_tweet_button);
+                } else {
+                    const raw_content = content_element.innerHTML;
+                    element.dataset.rawHTML = raw_content;
+                    element.dataset.rawContent = element.content;
+                    const compressed_content = content_element.innerHTML.replaceAll("\n", "");
+                    if (content_element) content_element.innerHTML = compressed_content;
+                    element.content = element.content.replaceAll("\n", "");
+
+                    const media: HTMLElement | null = element.querySelector(selector.media);
+                    if (media && setting.hide_media) media.style.display = "none";
+
+                    const decompress_button = document.createElement("button");
+                    decompress_button.className = "decompress-button";
+                    decompress_button.textContent = "Decompress";
+                    content_element.appendChild(decompress_button);
+                    decompress_button.addEventListener("click", () => {
+                        content_element.innerHTML = element.dataset.rawHTML || "";
+                        element.content = element.dataset.rawContent || "";
+
+                        if (media && setting.hide_media) media.style.display = "block";
+
+                        decompress_button.remove();
+                    });
+                }
             }
+
             result.push(element);
         }
     });

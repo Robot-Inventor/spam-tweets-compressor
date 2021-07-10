@@ -1,7 +1,8 @@
 "use strict";
 const default_setting = {
     break_threshold: 5,
-    hide_media: true
+    hide_media: true,
+    strict_mode: false
 };
 class ValidationMessage {
     constructor(element, message) {

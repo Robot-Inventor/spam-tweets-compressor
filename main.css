@@ -14,3 +14,11 @@
     background: #1A91DA;
     color: white;
 }
+
+.show-tweet-button {
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    padding: 1em 0;
+    background: none;
+}
