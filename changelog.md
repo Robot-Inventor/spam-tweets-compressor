@@ -9,6 +9,7 @@
 - Added the ability to change the threshold value for spam detection
 - Added the ability to show or hide images of spam tweets
 - Added Strict Mode
+- Now works in places other than home (lists, search results, etc.)
 - Created the logo
 - Rewrote with TypeScript
 
