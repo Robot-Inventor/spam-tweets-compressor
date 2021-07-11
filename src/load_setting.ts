@@ -5,7 +5,8 @@ export interface setting_object {
     hide_media: boolean,
     strict_mode: boolean,
     character_repetition_threshold: number,
-    ng_word: Array<string>
+    ng_word: Array<string>,
+    exclude_url: Array<string>
 };
 
 const default_setting: setting_object = {
@@ -13,7 +14,8 @@ const default_setting: setting_object = {
     hide_media: true,
     strict_mode: false,
     character_repetition_threshold: 5,
-    ng_word: [""]
+    ng_word: [""],
+    exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"]
 };
 
 export async function load_setting() {

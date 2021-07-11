@@ -118,6 +118,12 @@ function get_unchecked_tweets(setting: setting_object) {
 }
 
 function run_check(setting: setting_object) {
+    const exclude_url = setting.exclude_url;
+
+    for (let i = 0; i < exclude_url.length; i++) {
+        if (location.href === exclude_url[i]) return;
+    }
+
     const check_target = get_unchecked_tweets(setting);
 
     for (let i = 0; i < check_target.length; i++) {

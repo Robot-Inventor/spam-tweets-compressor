@@ -9,11 +9,21 @@
 </head>
 <body>
     <h1>Spam Tweets Compressorの詳細設定</h1>
-    <h2>NGワード</h2>
+    <h2 id="ng_word_title">NGワード</h2>
     <p>
         NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。
     </p>
     <textarea id="ng_word" cols="30" rows="10" data-setting-name="ng_word"></textarea>
+    <h2 id="exclude_url_title">特定のページで無効化</h2>
+    指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。
+    <h3>参考</h3>
+    <ul>
+        <li>ホーム：https://twitter.com/home</li>
+        <li>通知：https://twitter.com/notifications</li>
+        <li>リスト：https://twitter.com/i/lists/＜リストの番号＞</li>
+        <li>ブックマーク：https://twitter.com/i/bookmarks</li>
+    </ul>
+    <textarea id="exclude_url" cols="30" rows="10" data-setting-name="exclude_url"></textarea>
     <script src="advanced_setting.js" type="module"></script>
 </body>
 </html>

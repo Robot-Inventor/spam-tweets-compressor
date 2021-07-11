@@ -4,7 +4,8 @@ const default_setting = {
     hide_media: true,
     strict_mode: false,
     character_repetition_threshold: 5,
-    ng_word: [""]
+    ng_word: [""],
+    exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"]
 };
 export async function load_setting() {
     const saved_setting = await browser.storage.local.get("setting");

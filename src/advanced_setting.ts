@@ -1,4 +1,4 @@
-import { load_setting, setting_object } from "./load_setting.js";
+import { load_setting } from "./load_setting.js";
 
 declare const browser: any;
 
