@@ -1,7 +1,7 @@
 "use strict";
 const selector = {
     tweet_outer: ".css-1dbjc4n.r-qklmqi.r-1adg3ll.r-1ny4l3l",
-    tweet_content: ".css-901oao.r-1tl8opc.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
+    tweet_content: ".css-901oao.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
     user_name: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0",
     user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-1qd0xha.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0",
     timeline: "main",
@@ -108,7 +108,10 @@ function run_check(setting) {
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
         const breaks = target.content.match(/\n/g);
-        if (breaks && breaks.length > setting.break_threshold)
+        const break_length = breaks ? breaks.length : 0;
+        const has_too_many_breaks = break_length > setting.break_threshold;
+        const repeated_character = target.content.match(new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`));
+        if (has_too_many_breaks || repeated_character)
             target.compress();
     }
 }

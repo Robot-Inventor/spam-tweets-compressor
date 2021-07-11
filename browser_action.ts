@@ -3,7 +3,8 @@ declare const browser: any;
 const default_setting: any = {
     break_threshold: 5,
     hide_media: true,
-    strict_mode: false
+    strict_mode: false,
+    character_repetition_threshold: 5
 };
 
 class ValidationMessage {
