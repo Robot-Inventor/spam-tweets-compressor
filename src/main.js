@@ -29,6 +29,7 @@ class TweetElement extends HTMLElement {
         this.compress = () => { };
         this.user_name = "";
         this.user_id = "";
+        this.language = "";
     }
 }
 function get_unchecked_tweets(setting) {
@@ -98,6 +99,7 @@ function get_unchecked_tweets(setting) {
                     });
                 }
             };
+            element.language = content_element.lang;
             result.push(element);
         }
     });
@@ -125,7 +127,16 @@ function run_check(setting) {
             }
             return false;
         })();
-        if (has_too_many_breaks || repeated_character || has_ng_word)
+        const language_filter = setting.language_filter;
+        const is_filtered_language = (() => {
+            for (let x = 0; x < language_filter.length; x++) {
+                const target_language = language_filter[x];
+                if (target_language && target.language === target_language)
+                    return true;
+            }
+            return false;
+        })();
+        if (has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language)
             target.compress();
     }
 }

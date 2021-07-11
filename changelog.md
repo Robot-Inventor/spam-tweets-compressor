@@ -11,6 +11,7 @@
 - Added the ability to compress tweets that repeat the same characters more than a certain number of times
 - Added the ability to compress tweets that contain NG words
 - Added the ability to exclude specific URLs
+- Added the ability to compress tweets in a specific language
 - Added Strict Mode
 - Now works in places other than home (lists, search results, etc.)
 - Created the logo
