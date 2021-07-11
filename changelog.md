@@ -10,6 +10,7 @@
 - Added the ability to show or hide images of spam tweets
 - Added the ability to compress tweets that repeat the same characters more than a certain number of times
 - Added the ability to compress tweets that contain NG words
+- Added the ability to exclude specific URLs
 - Added Strict Mode
 - Now works in places other than home (lists, search results, etc.)
 - Created the logo
