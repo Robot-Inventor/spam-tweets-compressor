@@ -31,6 +31,7 @@ class TweetElement extends HTMLElement {
     compress: Function;
     user_name: string;
     user_id: string;
+    language: string | null;
 
     constructor() {
         super();
@@ -39,6 +40,7 @@ class TweetElement extends HTMLElement {
         this.compress = () => { };
         this.user_name = "";
         this.user_id = "";
+        this.language = "";
     }
 }
 
@@ -48,7 +50,7 @@ function get_unchecked_tweets(setting: setting_object) {
     tweets.forEach((element: TweetElement) => {
         element.classList.add(selector.checked_tweet_class_name);
 
-        const content_element = element.querySelector(selector.tweet_content);
+        const content_element: HTMLElement | null = element.querySelector(selector.tweet_content);
         if (content_element) {
             element.content = content_element.textContent || "";
 
@@ -111,6 +113,8 @@ function get_unchecked_tweets(setting: setting_object) {
                 }
             }
 
+            element.language = content_element.lang;
+
             result.push(element);
         }
     });
@@ -143,7 +147,16 @@ function run_check(setting: setting_object) {
             return false;
         })();
 
-        if (has_too_many_breaks || repeated_character || has_ng_word) target.compress();
+        const language_filter = setting.language_filter;
+        const is_filtered_language = (() => {
+            for (let x = 0; x < language_filter.length; x++) {
+                const target_language = language_filter[x];
+                if (target_language && target.language === target_language) return true;
+            }
+            return false;
+        })();
+
+        if (has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language) target.compress();
     }
 }
 

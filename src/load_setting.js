@@ -5,7 +5,8 @@ const default_setting = {
     strict_mode: false,
     character_repetition_threshold: 5,
     ng_word: [""],
-    exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"]
+    exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"],
+    language_filter: [""]
 };
 export async function load_setting() {
     const saved_setting = await browser.storage.local.get("setting");
