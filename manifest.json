@@ -15,17 +15,17 @@
                 "https://twitter.com/*"
             ],
             "js": [
-                "main.js"
+                "dist/main.js"
             ],
             "css": [
-                "main.css"
+                "src/main.css"
             ]
         }
     ],
     "browser_action": {
         "browser_style": true,
         "default_icon": "image/icon.svg",
-        "default_popup": "browser_action.html",
+        "default_popup": "src/browser_action.html",
         "default_title": "Spam Tweets Compressor"
     },
     "permissions": [

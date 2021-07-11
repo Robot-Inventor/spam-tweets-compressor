@@ -1,10 +1,6 @@
-declare const browser: any;
+import { load_setting } from "./load_setting.js";
 
-const default_setting: any = {
-    break_threshold: 5,
-    hide_media: true,
-    strict_mode: false
-};
+declare const browser: any;
 
 class ValidationMessage {
     private message_element;
@@ -27,22 +23,13 @@ class ValidationMessage {
     }
 }
 
-function get_setting_name(element: HTMLInputElement) {
+function get_setting_name(element: HTMLElement) {
     const setting_name = element.dataset.settingName;
     if (setting_name) return setting_name;
     else throw "設定の名称が指定されていないinput要素が見つかりました";
 }
 
-(async () => {
-    const saved_setting = await browser.storage.local.get("setting");
-    const setting = (() => {
-        let result: any = {};
-        Object.keys(default_setting).forEach((key) => {
-            result[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
-        });
-        return result;
-    })();
-
+load_setting().then((setting) => {
     const number_input_element_list: NodeListOf<HTMLInputElement> = document.querySelectorAll("input[type='number']");
     number_input_element_list.forEach((input_element) => {
         const setting_name = get_setting_name(input_element);
@@ -52,9 +39,7 @@ function get_setting_name(element: HTMLInputElement) {
 
         input_element.addEventListener("input", () => {
             let new_value_string = input_element.value;
-            new_value_string = new_value_string.replace(/[０-９]/g, function (s) {
-                return String.fromCharCode(s.charCodeAt(0) - 65248);
-            });
+            new_value_string = new_value_string.normalize("NFKC");
             const is_only_number = !(new_value_string.match(/\D/));
             if (!is_only_number) {
                 validation_message.show();
@@ -94,4 +79,6 @@ function get_setting_name(element: HTMLInputElement) {
             browser.storage.local.set({ setting: setting });
         });
     });
-})();
+}).catch(() => {
+    console.error("設定を読み込めませんでした");
+});

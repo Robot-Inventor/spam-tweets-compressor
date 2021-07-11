@@ -1,0 +1,47 @@
+:root {
+    --background_color: white;
+    --high_emphasize_text_color: rgba(51, 51, 51, 0.87);
+    --medium_emphasize_text_color: rgba(51, 51, 51, 0.6);
+}
+
+@media(prefers-color-scheme: dark) {
+    :root {
+        --background_color: #121212;
+        --high_emphasize_text_color: rgba(255, 255, 255, 0.87);
+        --medium_emphasize_text_color: rgba(255, 255, 255, 0.60);
+    }
+}
+
+* {
+    background: var(--background_color);
+    color: var(--high_emphasize_text_color);
+    font-family: sans-serif;
+}
+
+html,
+body {
+    width: 40rem;
+}
+
+body {
+    padding: 2rem;
+    box-sizing: border-box;
+    max-width: 40rem;
+    margin-left: calc((100vw - min(100vw, 40rem)) / 2);
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+.medium_emphasize_text {
+    color: var(--medium_emphasize_text_color);
+}
+
+textarea {
+    border: 0.1rem solid var(--high_emphasize_text_color);
+    width: 100%;
+    border-radius: 0.25rem;
+    max-width: 100%;
+    min-width: 100%;
+}

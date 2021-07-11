@@ -1,9 +1,4 @@
-"use strict";
-const default_setting = {
-    break_threshold: 5,
-    hide_media: true,
-    strict_mode: false
-};
+import { load_setting } from "./load_setting.js";
 class ValidationMessage {
     constructor(element, message) {
         const message_element = document.createElement("span");
@@ -27,15 +22,7 @@ function get_setting_name(element) {
     else
         throw "設定の名称が指定されていないinput要素が見つかりました";
 }
-(async () => {
-    const saved_setting = await browser.storage.local.get("setting");
-    const setting = (() => {
-        let result = {};
-        Object.keys(default_setting).forEach((key) => {
-            result[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
-        });
-        return result;
-    })();
+load_setting().then((setting) => {
     const number_input_element_list = document.querySelectorAll("input[type='number']");
     number_input_element_list.forEach((input_element) => {
         const setting_name = get_setting_name(input_element);
@@ -43,9 +30,7 @@ function get_setting_name(element) {
         const validation_message = new ValidationMessage(input_element, input_element.dataset.validationMessage || "不正な値です");
         input_element.addEventListener("input", () => {
             let new_value_string = input_element.value;
-            new_value_string = new_value_string.replace(/[０-９]/g, function (s) {
-                return String.fromCharCode(s.charCodeAt(0) - 65248);
-            });
+            new_value_string = new_value_string.normalize("NFKC");
             const is_only_number = !(new_value_string.match(/\D/));
             if (!is_only_number) {
                 validation_message.show();
@@ -82,5 +67,7 @@ function get_setting_name(element) {
             browser.storage.local.set({ setting: setting });
         });
     });
-})();
+}).catch(() => {
+    console.error("設定を読み込めませんでした");
+});
 //# sourceMappingURL=browser_action.js.map

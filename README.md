@@ -4,15 +4,11 @@
 
 ![logo](image/logo.svg)
 
-This is a browser extension which compresses spam Tweets. At the moment, it compresses "long" Tweets.
-
-## What Is A Long Tweet ?
-
-A "long" tweet is a spam tweet that occupies space by inserting a large number of line breaks into the text of the tweet. This makes it difficult to browse the timeline.
+This is a browser extension which compresses spam Tweets.
 
 ## What Does It Work ?
 
-This browser extension compresses "long" tweets by removing their line breaks. Of course, you can also decompress the compressed tweets.
+This browser extension compresses spam tweets. Of course, you can also decompress the compressed tweets.
 
 Before:
 
@@ -43,3 +39,31 @@ Click [Load Unpacked] and select the folder you downloaded the extension to.
 ### Firefox
 
 Just install from [AMO](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/).
+
+## Development
+
+When developing, first install the necessary packages.
+
+```
+npm install
+```
+
+### Build
+
+To build it, run the following two commands.
+
+```
+npx tsc
+npm run build
+```
+
+``npm run build`` will webpack ``main.ts``. This is because the scripts specified in ``content_scripts``, i.e. ``main.ts``, cannot import ESModules due to browser specification. Other scripts can import ESModule, so there is no need to use webpack.
+
+Also, if you want to WATCH the file changes, please execute the following two commands.
+
+```
+npx tsc --watch
+npm run watch
+```
+
+To create a zip file of the extension, run ``npx web-ext build``.
