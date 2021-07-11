@@ -10,7 +10,10 @@
 <body>
     <h1>Spam Tweets Compressor</h1>
     <div class="setting_item_outer">
-        <label for="break_threshold">改行数の しきい値 (0 ~ 70):</label><input type="number" id="break_threshold" step="1" min="0" max="70" data-setting-name="break_threshold" data-validation-message="0~70の整数を入力してください">
+        <label for="break_threshold">改行数の しきい値 (0～70):</label><input type="number" id="break_threshold" step="1" min="0" max="70" data-setting-name="break_threshold" data-validation-message="0～70の整数を入力してください">
+    </div>
+    <div class="setting_item_outer">
+        <label for="character_repetition_threshold">同じ文字の繰り返しの しきい値（0～140）</label><input type="number" id="character_repetition_threshold" step="1" min="0" max="140" data-setting-name="character_repetition_threshold" data-validation-message="0～140の整数を入力してください">
     </div>
     <div class="setting_item_outer">
         <input type="checkbox" id="hide_media" data-setting-name="hide_media"><label for="hide_media">スパムツイートのメディアを非表示にする</label>

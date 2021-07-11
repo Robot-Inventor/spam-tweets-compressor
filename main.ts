@@ -26,7 +26,8 @@ const selector = {
 interface setting_object {
     break_threshold: number,
     hide_media: boolean,
-    strict_mode: boolean
+    strict_mode: boolean,
+    character_repetition_threshold: number
 };
 
 class TweetElement extends HTMLElement {
@@ -126,7 +127,12 @@ function run_check(setting: setting_object) {
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
         const breaks = target.content.match(/\n/g);
-        if (breaks && breaks.length > setting.break_threshold) target.compress();
+        const break_length = breaks ? breaks.length : 0;
+        const has_too_many_breaks = break_length > setting.break_threshold;
+
+        const repeated_character = target.content.match(new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`));
+
+        if (has_too_many_breaks || repeated_character) target.compress();
     }
 }
 
