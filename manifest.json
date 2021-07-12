@@ -15,6 +15,7 @@
                 "https://twitter.com/*"
             ],
             "js": [
+                "src/webextension_polyfill/browser-polyfill.min.js",
                 "dist/main.js"
             ],
             "css": [
@@ -24,7 +25,11 @@
     ],
     "browser_action": {
         "browser_style": true,
-        "default_icon": "image/icon.svg",
+        "default_icon": {
+            "16": "image/icon16.png",
+            "48": "image/icon48.png",
+            "128": "image/icon128.png"
+        },
         "default_popup": "src/browser_action.html",
         "default_title": "Spam Tweets Compressor"
     },

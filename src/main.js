@@ -1,3 +1,4 @@
+const browser = require("webextension_polyfill/browser-polyfill.min.js");
 import { load_setting } from "./load_setting.js";
 import { normalize } from "./normalize.js";
 const selector = {
