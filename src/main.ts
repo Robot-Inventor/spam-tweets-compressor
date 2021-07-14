@@ -132,17 +132,27 @@ function run_check(setting: setting_object) {
 
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
-        const breaks = target.content.match(/\n/g);
+        const target_content = normalize(target.content);
+        const breaks = target_content.match(/\n/g);
         const break_length = breaks ? breaks.length : 0;
         const has_too_many_breaks = break_length >= setting.break_threshold;
 
-        const repeated_character = target.content.match(new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`));
+        const repeated_character = target_content.match(new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`));
 
         const ng_word_list = setting.ng_word;
         const has_ng_word = (() => {
             for (let x = 0; x < ng_word_list.length; x++) {
                 const word = normalize(ng_word_list[x]);
-                if (ng_word_list[x] && normalize(target.content).includes(word)) return true;
+
+                if (!word) continue;
+
+                const is_regex = Boolean(word.match(/^\/(.*)\/\D*$/));
+                const regex_core_string = word.replace(/^\//, "").replace(/\/(\D*)$/, "");
+                const regex_flag = word.replace(/^\/.*?\/(\D*)$/, "$1");
+                const regex = new RegExp(regex_core_string, regex_flag);
+
+                if (is_regex && target_content.match(regex)) return true;
+                if (target_content.includes(word)) return true;
             }
             return false;
         })();
