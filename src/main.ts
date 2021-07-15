@@ -1,5 +1,5 @@
-import { load_setting, setting_object } from "./load_setting.js";
-import { normalize } from "./normalize.js";
+import { load_setting, setting_object } from "./load_setting";
+import { normalize } from "./normalize";
 
 const selector = {
     tweet_outer: ".css-1dbjc4n.r-qklmqi.r-1adg3ll.r-1ny4l3l",
