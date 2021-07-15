@@ -1,6 +1,8 @@
 import { load_setting, setting_object } from "./load_setting";
 import { normalize } from "./normalize";
 
+declare const browser: any;
+
 const selector = {
     tweet_outer: ".css-1dbjc4n.r-qklmqi.r-1adg3ll.r-1ny4l3l",
     tweet_content: ".css-901oao.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
@@ -31,7 +33,7 @@ class TweetElement extends HTMLElement {
     compress: Function;
     user_name: string;
     user_id: string;
-    language: string | null;
+    language: Promise<string> | null;
 
     constructor() {
         super();
@@ -40,9 +42,17 @@ class TweetElement extends HTMLElement {
         this.compress = () => { };
         this.user_name = "";
         this.user_id = "";
-        this.language = "";
+        this.language = null;
     }
 }
+
+type detect_language = {
+    isReliable: boolean,
+    languages: Array<{
+        language: string,
+        percentage: number
+    }>
+};
 
 function get_unchecked_tweets(setting: setting_object) {
     const tweets: NodeListOf<TweetElement> = document.querySelectorAll(`${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`);
@@ -113,7 +123,10 @@ function get_unchecked_tweets(setting: setting_object) {
                 }
             }
 
-            element.language = content_element.lang;
+            element.language = (async () => {
+                const detect: detect_language = await browser.i18n.detectLanguage(element.content);
+                return detect.languages[0].language.replace(/\-.*$/, "");
+            })();
 
             result.push(element);
         }
@@ -121,7 +134,7 @@ function get_unchecked_tweets(setting: setting_object) {
     return result;
 }
 
-function run_check(setting: setting_object) {
+async function run_check(setting: setting_object) {
     const exclude_url = setting.exclude_url;
 
     for (let i = 0; i < exclude_url.length; i++) {
@@ -158,10 +171,11 @@ function run_check(setting: setting_object) {
         })();
 
         const language_filter = setting.language_filter;
+        const content_language = await target.language;
         const is_filtered_language = (() => {
             for (let x = 0; x < language_filter.length; x++) {
                 const target_language = language_filter[x];
-                if (target_language && target.language === target_language) return true;
+                if (target_language && content_language === target_language) return true;
             }
             return false;
         })();
