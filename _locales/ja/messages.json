@@ -1,0 +1,93 @@
+{
+    "manifest_description": {
+        "message": "スパムツイートを圧縮します"
+    },
+    "browser_action_break_threshold": {
+        "message": "改行数の しきい値（0～70）："
+    },
+    "browser_action_character_repetition_threshold": {
+        "message": "同じ文字の繰り返しの しきい値（0～140）："
+    },
+    "browser_action_ng_word": {
+        "message": "NGワードの設定："
+    },
+    "browser_action_exclude_url": {
+        "message": "特定のページでは圧縮しない："
+    },
+    "browser_action_language_filter": {
+        "message": "言語フィルター："
+    },
+    "browser_action_hide_media": {
+        "message": "スパムツイートのメディアを非表示にする"
+    },
+    "browser_action_strict_mode": {
+        "message": "厳格モード（スパムツイートを圧縮するかわりに非表示にする）"
+    },
+    "browser_action_open_setting": {
+        "message": "設定を開く"
+    },
+    "browser_action_reload_to_apply": {
+        "message": "※設定を適用するにはページを再読み込みしてください"
+    },
+    "advanced_setting_title_tag": {
+        "message": "詳細設定 - Spam Tweets Compressor"
+    },
+    "advanced_setting_h1": {
+        "message": "Spam Tweets Compressorの詳細設定"
+    },
+    "advanced_setting_ng_word_title": {
+        "message": "NGワード"
+    },
+    "advanced_setting_ng_word_description1": {
+        "message": "NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。"
+    },
+    "advanced_setting_ng_word_description2": {
+        "message": "また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。"
+    },
+    "advanced_setting_exclude_url_title": {
+        "message": "特定のページで無効化"
+    },
+    "advanced_setting_exclude_url_description": {
+        "message": "指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。"
+    },
+    "advanced_setting_exclude_url_examples": {
+        "message": "参考"
+    },
+    "advanced_setting_exclude_url_examples_home": {
+        "message": "ホーム"
+    },
+    "advanced_setting_exclude_url_examples_notification": {
+        "message": "通知"
+    },
+    "advanced_setting_exclude_url_examples_list": {
+        "message": "リスト"
+    },
+    "advanced_setting_exclude_url_examples_list_number": {
+        "message": "リストの番号"
+    },
+    "advanced_setting_exclude_url_examples_bookmark": {
+        "message": "ブックマーク"
+    },
+    "advanced_setting_language_filter_title": {
+        "message": "言語フィルター"
+    },
+    "advanced_setting_language_filter_description": {
+        "message": "特定の言語のツイートを圧縮します。対象とする言語の言語コード（ISO 639-1）を入力してください。また、複数指定する場合は改行で区切ってください。"
+    },
+    "decompress_button_normal": {
+        "message": "展開"
+    },
+    "decompress_button_strict": {
+        "message": "$USER_NAME$（$USER_ID$）のツイートを表示",
+        "placeholders": {
+            "user_name": {
+                "content": "$1",
+                "example": "Twitter"
+            },
+            "user_id": {
+                "content": "$2",
+                "example": "@Twitter"
+            }
+        }
+    }
+}

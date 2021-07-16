@@ -89,7 +89,11 @@ function get_unchecked_tweets(setting: setting_object) {
                     })();
 
                     show_tweet_button.style.color = text_color;
-                    show_tweet_button.textContent = `${element.user_name}（${element.user_id}）のツイートを表示`;
+                    const decompress_button_strict: string = browser.i18n.getMessage("decompress_button_strict", [element.user_name, element.user_id]);
+                    console.log(decompress_button_strict);
+                    show_tweet_button.textContent = decompress_button_strict;
+                    console.log(element.user_name);
+                    console.log(element.user_id);
                     show_tweet_button.addEventListener("click", () => {
                         element.style.display = "block";
                         show_tweet_button.remove();
@@ -110,7 +114,8 @@ function get_unchecked_tweets(setting: setting_object) {
 
                     const decompress_button = document.createElement("button");
                     decompress_button.className = "decompress-button";
-                    decompress_button.textContent = "Decompress";
+                    const decompress_button_normal: string = browser.i18n.getMessage("decompress_button_normal");
+                    decompress_button.textContent = decompress_button_normal;
                     content_element.appendChild(decompress_button);
                     decompress_button.addEventListener("click", () => {
                         content_element.innerHTML = element.dataset.rawHTML || "";

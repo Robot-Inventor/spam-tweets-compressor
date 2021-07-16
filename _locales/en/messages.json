@@ -1,0 +1,93 @@
+{
+    "manifest_description": {
+        "message": "Compress spam Tweets"
+    },
+    "browser_action_break_threshold": {
+        "message": "Line Break Threshold (0-70): "
+    },
+    "browser_action_character_repetition_threshold": {
+        "message": "Same Character Repetition Threshold (0-140): "
+    },
+    "browser_action_ng_word": {
+        "message": "NG Word Setting: "
+    },
+    "browser_action_exclude_url": {
+        "message": "Exclude URL: "
+    },
+    "browser_action_language_filter": {
+        "message": "Language Filter: "
+    },
+    "browser_action_hide_media": {
+        "message": "Hide Media of Spam Tweets"
+    },
+    "browser_action_strict_mode": {
+        "message": "Strict Mode (Hide spam tweets instead of compressing)"
+    },
+    "browser_action_open_setting": {
+        "message": "Open Setting"
+    },
+    "browser_action_reload_to_apply": {
+        "message": "Note: Please reload the page to apply the setting"
+    },
+    "advanced_setting_title_tag": {
+        "message": "Advanced Setting - Spam Tweets Compressor"
+    },
+    "advanced_setting_h1": {
+        "message": "Advanced Setting of Spam Tweets Compressor"
+    },
+    "advanced_setting_ng_word_title": {
+        "message": "NG Words"
+    },
+    "advanced_setting_ng_word_description1": {
+        "message": "Input NG Words. To input multiple items, separate them with a new line. No distinction is made between uppercase and lowercase letters, or between katakana and hiragana."
+    },
+    "advanced_setting_ng_word_description2": {
+        "message": "Also, when using regular expressions, enclose the beginning and end of the NG word with /, and write the regular expression flag after the ending /."
+    },
+    "advanced_setting_exclude_url_title": {
+        "message": "Exclude URLs"
+    },
+    "advanced_setting_exclude_url_description": {
+        "message": "Disable the extension for the specified URL. To input multiple URLs, separate them with a new line."
+    },
+    "advanced_setting_exclude_url_examples": {
+        "message": "Examples"
+    },
+    "advanced_setting_exclude_url_examples_home": {
+        "message": "Home"
+    },
+    "advanced_setting_exclude_url_examples_notification": {
+        "message": "Notifications"
+    },
+    "advanced_setting_exclude_url_examples_list": {
+        "message": "Lists"
+    },
+    "advanced_setting_exclude_url_examples_list_number": {
+        "message": "the number of the list"
+    },
+    "advanced_setting_exclude_url_examples_bookmark": {
+        "message": "Bookmarks"
+    },
+    "advanced_setting_language_filter_title": {
+        "message": "Language Filter"
+    },
+    "advanced_setting_language_filter_description": {
+        "message": "Compress tweets in a specific language. Enter the language code (ISO 639-1) of the target language. If you want to input more than one language, separate them with a new line."
+    },
+    "decompress_button_normal": {
+        "message": "decompress"
+    },
+    "decompress_button_strict": {
+        "message": "Show a tweet by $USER_NAME$ ($USER_ID$)",
+        "placeholders": {
+            "user_name": {
+                "content": "$1",
+                "example": "Twitter"
+            },
+            "user_id": {
+                "content": "$2",
+                "example": "@Twitter"
+            }
+        }
+    }
+}
