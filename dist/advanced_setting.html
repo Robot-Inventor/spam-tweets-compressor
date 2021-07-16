@@ -5,32 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="advanced_setting.css">
-    <title>詳細設定 - Spam Tweets Compressor</title>
+    <title data-i18n="advanced_setting_title_tag">詳細設定 - Spam Tweets Compressor</title>
 </head>
 <body>
-    <h1>Spam Tweets Compressorの詳細設定</h1>
-    <h2 id="ng_word_title">NGワード</h2>
-    <p>
+    <h1 data-i18n="advanced_setting_h1">Spam Tweets Compressorの詳細設定</h1>
+    <h2 id="ng_word_title" data-i18n="advanced_setting_ng_word_title">NGワード</h2>
+    <p data-i18n="advanced_setting_ng_word_description1">
         NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。
     </p>
-    <p>
+    <p data-i18n="advanced_setting_ng_word_description2">
         また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。
     </p>
     <textarea id="ng_word" cols="30" rows="10" data-setting-name="ng_word"></textarea>
-    <h2 id="exclude_url_title">特定のページで無効化</h2>
-    指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。
-    <h3>参考</h3>
+    <h2 id="exclude_url_title" data-i18n="advanced_setting_exclude_url_title">特定のページで無効化</h2>
+    <p data-i18n="advanced_setting_exclude_url_description">
+        指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。
+    </p>
+    <h3 data-i18n="advanced_setting_exclude_url_examples">参考</h3>
     <ul>
-        <li>ホーム：https://twitter.com/home</li>
-        <li>通知：https://twitter.com/notifications</li>
-        <li>リスト：https://twitter.com/i/lists/＜リストの番号＞</li>
-        <li>ブックマーク：https://twitter.com/i/bookmarks</li>
+        <li><span data-i18n="advanced_setting_exclude_url_examples_home">ホーム</span>：https://twitter.com/home</li>
+        <li><span data-i18n="advanced_setting_exclude_url_examples_notification">通知</span>：https://twitter.com/notifications</li>
+        <li><span data-i18n="advanced_setting_exclude_url_examples_list">リスト</span>：https://twitter.com/i/lists/＜<span data-i18n="advanced_setting_exclude_url_examples_list_number">リストの番号</span>＞</li>
+        <li><span data-i18n="advanced_setting_exclude_url_examples_bookmark">ブックマーク</span>：https://twitter.com/i/bookmarks</li>
     </ul>
     <textarea id="exclude_url" cols="30" rows="10" data-setting-name="exclude_url"></textarea>
-    <h2 id="language_filter_title">言語フィルター</h2>
-    特定の言語のツイートを圧縮します。対象とする言語の言語コード（ISO 639-1）を入力してください。また、複数指定する場合は改行で区切ってください。
+    <h2 id="language_filter_title" data-i18n="advanced_setting_language_filter_title">言語フィルター</h2>
+    <p data-i18n="advanced_setting_language_filter_description">
+        特定の言語のツイートを圧縮します。対象とする言語の言語コード（ISO 639-1）を入力してください。また、複数指定する場合は改行で区切ってください。
+    </p>
     <textarea id="language_filter" cols="30" rows="10" data-setting-name="language_filter"></textarea>
     <script src="webextension_polyfill/browser-polyfill.min.js"></script>
+    <script src="i18n.js"></script>
     <script src="advanced_setting.js" type="module"></script>
 </body>
 </html>

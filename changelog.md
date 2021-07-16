@@ -13,6 +13,7 @@
 - Added the ability to exclude specific URLs
 - Added the ability to compress tweets in a specific language
 - Added Strict Mode
+- UI language now can be set Japanese or English
 - Now works in places other than home (lists, search results, etc.)
 - Created the logo
 - Rewrote with TypeScript
