@@ -14,7 +14,8 @@ load_setting().then((setting) => {
         const setting_name = get_setting_name(textarea);
 
         if (Object.keys(setting).includes(setting_name)) {
-            textarea.value = setting[setting_name].join("\n");
+            const saved_value = setting[setting_name];
+            textarea.value = saved_value instanceof Array ? saved_value.join("\n") : "";
 
             textarea.addEventListener("change", () => {
                 setting[setting_name] = textarea.value.split("\n");
