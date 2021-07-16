@@ -1,6 +1,7 @@
 declare const browser: any;
 
 export interface setting_object {
+    [key: string]: number | boolean | Array<string>,
     break_threshold: number,
     hide_media: boolean,
     strict_mode: boolean,

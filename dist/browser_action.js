@@ -26,7 +26,7 @@ load_setting().then((setting) => {
     const number_input_element_list = document.querySelectorAll("input[type='number']");
     number_input_element_list.forEach((input_element) => {
         const setting_name = get_setting_name(input_element);
-        input_element.value = setting[setting_name];
+        input_element.value = String(setting[setting_name]);
         const validation_message = new ValidationMessage(input_element, input_element.dataset.validationMessage || "不正な値です");
         input_element.addEventListener("input", () => {
             let new_value_string = input_element.value;
@@ -61,7 +61,8 @@ load_setting().then((setting) => {
     const checkbox_input_element = document.querySelectorAll("input[type='checkbox']");
     checkbox_input_element.forEach((input_element) => {
         const setting_name = get_setting_name(input_element);
-        input_element.checked = setting[setting_name];
+        const saved_value = setting[setting_name];
+        input_element.checked = typeof saved_value === "boolean" ? saved_value : false;
         input_element.addEventListener("change", () => {
             setting[setting_name] = input_element.checked;
             browser.storage.local.set({ setting: setting });

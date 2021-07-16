@@ -34,7 +34,7 @@ load_setting().then((setting) => {
     number_input_element_list.forEach((input_element) => {
         const setting_name = get_setting_name(input_element);
 
-        input_element.value = setting[setting_name];
+        input_element.value = String(setting[setting_name]);
         const validation_message = new ValidationMessage(input_element, input_element.dataset.validationMessage || "不正な値です");
 
         input_element.addEventListener("input", () => {
@@ -72,7 +72,8 @@ load_setting().then((setting) => {
     checkbox_input_element.forEach((input_element) => {
         const setting_name = get_setting_name(input_element);
 
-        input_element.checked = setting[setting_name];
+        const saved_value = setting[setting_name];
+        input_element.checked = typeof saved_value === "boolean" ? saved_value : false;
 
         input_element.addEventListener("change", () => {
             setting[setting_name] = input_element.checked;
