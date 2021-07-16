@@ -17,6 +17,10 @@
 - Created the logo
 - Rewrote with TypeScript
 
+#### Changed
+
+- inline-block decompress button
+
 ### [v1.0.3.2] - 2021-04-19
 
 #### Changed
