@@ -28,22 +28,12 @@ const selector = {
     })()
 };
 
-class TweetElement extends HTMLElement {
+interface TweetElement extends HTMLElement {
     content: string;
     compress: Function;
     user_name: string;
     user_id: string;
     language: Promise<string> | null;
-
-    constructor() {
-        super();
-
-        this.content = "";
-        this.compress = () => { };
-        this.user_name = "";
-        this.user_id = "";
-        this.language = null;
-    }
 }
 
 type detect_language = {
