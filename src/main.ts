@@ -1,130 +1,79 @@
+import { detect_spam } from "./detect_spam";
 import { load_setting, setting_object } from "./load_setting";
-import { normalize } from "./normalize";
+import { selector } from "./selector";
+import { TweetAnalyser } from "./tweet_analyser";
+import { TweetElement } from "./tweet_element";
 
-declare const browser: any;
 
-const selector = {
-    tweet_outer: ".css-1dbjc4n.r-qklmqi.r-1adg3ll.r-1ny4l3l",
-    tweet_content: ".css-901oao.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
-    user_name: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0",
-    user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-1qd0xha.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0",
-    timeline: "main",
-    checked_tweet_class_name: "spam-tweets-compressor-checked",
-    media: (() => {
-        const media_selector: any = {
-            image_selector: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1s2bzr4.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg",
-            video_selector: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1s2bzr4.r-1ny4l3l.r-1udh08x",
-            summary_card: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-18u37iz.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg",
-            summary_with_large_image: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg"
-        }
-
-        let merged = "";
-        Object.keys(media_selector).forEach((key) => {
-            merged += "," + media_selector[key];
-        });
-        merged = merged.replace(/^\,/, "");
-
-        return merged;
-    })()
-};
-
-interface TweetElement extends HTMLElement {
-    content: string;
-    compress: Function;
-    user_name: string;
-    user_id: string;
-    language: Promise<string> | null;
-}
-
-type detect_language = {
-    isReliable: boolean,
-    languages: Array<{
-        language: string,
-        percentage: number
-    }>
-};
-
-function get_unchecked_tweets(setting: setting_object) {
+function get_unchecked_tweets() {
     const tweets: NodeListOf<TweetElement> = document.querySelectorAll(`${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`);
     let result: Array<TweetElement> = [];
-    tweets.forEach((element: TweetElement) => {
+
+    tweets.forEach(async (element: TweetElement) => {
         element.classList.add(selector.checked_tweet_class_name);
 
-        const content_element: HTMLElement | null = element.querySelector(selector.tweet_content);
-        if (content_element) {
-            element.content = content_element.textContent || "";
+        const analyser = new TweetAnalyser(element);
 
-            element.user_name = (() => {
-                const user_name_element = element.querySelector(selector.user_name);
-                if (user_name_element) return user_name_element.textContent || "";
-                else return "";
-            })();
+        element.content = analyser.get_content();
+        element.user_name = analyser.get_user_name();
+        element.user_id = analyser.get_user_id();
+        element.language = analyser.get_language();
+        element.compress = (compressor_mode: "normal" | "strict", hide_media: boolean) => {
+            const content_element: HTMLElement | null = element.querySelector(selector.tweet_content);
+            if (!content_element) return;
 
-            element.user_id = (() => {
-                const user_id_element = element.querySelector(selector.user_id);
-                if (user_id_element) return user_id_element.textContent || "";
-                else return "";
-            })();
+            if (compressor_mode === "normal") {
+                const raw_content = content_element.innerHTML;
+                element.dataset.rawHTML = raw_content;
+                element.dataset.rawContent = element.content;
+                const compressed_content = content_element.innerHTML.replaceAll("\n", "");
+                if (content_element) content_element.innerHTML = compressed_content;
+                element.content = element.content.replaceAll("\n", "");
 
-            element.compress = () => {
-                if (setting.strict_mode) {
-                    const show_tweet_button = document.createElement("button");
-                    show_tweet_button.setAttribute("class", element.getAttribute("class") || "");
-                    show_tweet_button.classList.add("show-tweet-button");
+                const media: HTMLElement | null = element.querySelector(selector.media);
+                if (media && hide_media) media.style.display = "none";
 
-                    const text_color = (() => {
-                        const user_name_element = element.querySelector(selector.user_name);
-                        if (user_name_element) return getComputedStyle(user_name_element).getPropertyValue("color");
-                        else return "#1da1f2";
-                    })();
+                const decompress_button = document.createElement("button");
+                decompress_button.className = "decompress-button";
+                const decompress_button_normal: string = browser.i18n.getMessage("decompress_button_normal");
+                decompress_button.textContent = decompress_button_normal;
+                content_element.appendChild(decompress_button);
+                decompress_button.addEventListener("click", () => {
+                    content_element.innerHTML = element.dataset.rawHTML || "";
+                    element.content = element.dataset.rawContent || "";
 
-                    show_tweet_button.style.color = text_color;
-                    const decompress_button_strict: string = browser.i18n.getMessage("decompress_button_strict", [element.user_name, element.user_id]);
-                    console.log(decompress_button_strict);
-                    show_tweet_button.textContent = decompress_button_strict;
-                    console.log(element.user_name);
-                    console.log(element.user_id);
-                    show_tweet_button.addEventListener("click", () => {
-                        element.style.display = "block";
-                        show_tweet_button.remove();
-                    });
+                    if (media && hide_media) media.style.display = "block";
 
-                    element.style.display = "none";
-                    element.insertAdjacentElement("afterend", show_tweet_button);
-                } else {
-                    const raw_content = content_element.innerHTML;
-                    element.dataset.rawHTML = raw_content;
-                    element.dataset.rawContent = element.content;
-                    const compressed_content = content_element.innerHTML.replaceAll("\n", "");
-                    if (content_element) content_element.innerHTML = compressed_content;
-                    element.content = element.content.replaceAll("\n", "");
+                    decompress_button.remove();
+                });
+            } else {
+                const decompress_button = document.createElement("button");
+                decompress_button.setAttribute("class", element.getAttribute("class") || "");
+                decompress_button.classList.add("show-tweet-button");
 
-                    const media: HTMLElement | null = element.querySelector(selector.media);
-                    if (media && setting.hide_media) media.style.display = "none";
+                const text_color = (() => {
+                    const user_name_element = element.querySelector(selector.user_name);
+                    if (user_name_element) return getComputedStyle(user_name_element).getPropertyValue("color");
+                    else return "#1da1f2";
+                })();
 
-                    const decompress_button = document.createElement("button");
-                    decompress_button.className = "decompress-button";
-                    const decompress_button_normal: string = browser.i18n.getMessage("decompress_button_normal");
-                    decompress_button.textContent = decompress_button_normal;
-                    content_element.appendChild(decompress_button);
-                    decompress_button.addEventListener("click", () => {
-                        content_element.innerHTML = element.dataset.rawHTML || "";
-                        element.content = element.dataset.rawContent || "";
+                decompress_button.style.color = text_color;
 
-                        if (media && setting.hide_media) media.style.display = "block";
+                const user_name = element.user_name;
+                const user_id = element.user_id;
+                const button_text: string = browser.i18n.getMessage("decompress_button_strict", [user_name, user_id]);
+                decompress_button.textContent = button_text;
+                decompress_button.addEventListener("click", () => {
+                    element.style.display = "block";
+                    decompress_button.remove();
+                });
 
-                        decompress_button.remove();
-                    });
-                }
+                element.style.display = "none";
+                element.insertAdjacentElement("afterend", decompress_button);
             }
+        };
 
-            element.language = (async () => {
-                const detect: detect_language = await browser.i18n.detectLanguage(element.content);
-                return detect.languages[0].language.replace(/\-.*$/, "");
-            })();
-
-            result.push(element);
-        }
+        result.push(element);
     });
     return result;
 }
@@ -132,50 +81,17 @@ function get_unchecked_tweets(setting: setting_object) {
 async function run_check(setting: setting_object) {
     const exclude_url = setting.exclude_url;
 
-    for (let i = 0; i < exclude_url.length; i++) {
-        if (location.href === exclude_url[i]) return;
-    }
+    if (exclude_url.includes(location.href)) return;
 
-    const check_target = get_unchecked_tweets(setting);
+    const check_target = get_unchecked_tweets();
+
+    const compressor_mode = setting.strict_mode ? "strict" : "normal";
+    const hide_media = setting.hide_media;
 
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
-        const target_content = normalize(target.content);
-        const breaks = target_content.match(/\n/g);
-        const break_length = breaks ? breaks.length : 0;
-        const has_too_many_breaks = break_length >= setting.break_threshold;
-
-        const repeated_character = target_content.match(new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`));
-
-        const ng_word_list = setting.ng_word;
-        const has_ng_word = (() => {
-            for (let x = 0; x < ng_word_list.length; x++) {
-                const word = normalize(ng_word_list[x]);
-
-                if (!word) continue;
-
-                const is_regex = Boolean(word.match(/^\/(.*)\/\D*$/));
-                const regex_core_string = word.replace(/^\//, "").replace(/\/(\D*)$/, "");
-                const regex_flag = word.replace(/^\/.*?\/(\D*)$/, "$1");
-                const regex = new RegExp(regex_core_string, regex_flag);
-
-                if (is_regex && target_content.match(regex)) return true;
-                if (target_content.includes(word)) return true;
-            }
-            return false;
-        })();
-
-        const language_filter = setting.language_filter;
-        const content_language = await target.language;
-        const is_filtered_language = (() => {
-            for (let x = 0; x < language_filter.length; x++) {
-                const target_language = language_filter[x];
-                if (target_language && content_language === target_language) return true;
-            }
-            return false;
-        })();
-
-        if (has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language) target.compress();
+        const is_spam = await detect_spam(target, setting);
+        if (is_spam) target.compress(compressor_mode, hide_media);
     }
 }
 
