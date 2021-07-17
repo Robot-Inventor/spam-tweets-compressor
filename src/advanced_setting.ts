@@ -23,6 +23,39 @@ load_setting().then((setting) => {
             });
         }
     });
+
+    const copy_button = document.getElementById("copy_button");
+    if (copy_button) {
+        copy_button.addEventListener("click", () => {
+            const setting_string = JSON.stringify(setting, null, 4);
+            navigator.clipboard.writeText(setting_string);
+
+            copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copied");
+            setTimeout(() => {
+                copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copy");
+            }, 5000);
+        });
+    }
+
+    const save_button = document.getElementById("save_button");
+    if (save_button) {
+        save_button.addEventListener("click", () => {
+            const setting_string = JSON.stringify(setting, null, 4);
+
+            const download_link = document.createElement("a");
+            download_link.href = URL.createObjectURL(new Blob([setting_string], { type: "text/json" }));
+            download_link.download = "stc_setting.json";
+            download_link.style.display = "none";
+            document.body.appendChild(download_link);
+            download_link.click();
+            download_link.remove();
+
+            save_button.textContent = browser.i18n.getMessage("advanced_setting_export_saved");
+            setTimeout(() => {
+                save_button.textContent = browser.i18n.getMessage("advanced_setting_export_save");
+            }, 5000);
+        });
+    }
 }).catch(() => {
     console.error("設定を読み込めませんでした");
 });

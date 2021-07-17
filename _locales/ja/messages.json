@@ -35,6 +35,24 @@
     "advanced_setting_h1": {
         "message": "Spam Tweets Compressorの詳細設定"
     },
+    "advanced_setting_export_title": {
+        "message": "設定のエクスポート"
+    },
+    "advanced_setting_export_description": {
+        "message": "Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。"
+    },
+    "advanced_setting_export_copy": {
+        "message": "コピー"
+    },
+    "advanced_setting_export_copied": {
+        "message": "コピーしました"
+    },
+    "advanced_setting_export_save": {
+        "message": "保存"
+    },
+    "advanced_setting_export_saved": {
+        "message": "保存しました"
+    },
     "advanced_setting_ng_word_title": {
         "message": "NGワード"
     },
