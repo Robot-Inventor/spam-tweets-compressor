@@ -35,6 +35,24 @@
     "advanced_setting_h1": {
         "message": "Advanced Setting of Spam Tweets Compressor"
     },
+    "advanced_setting_export_title": {
+        "message": "Export Setting"
+    },
+    "advanced_setting_export_description": {
+        "message": "Exports the settings of the Spam Tweets Compressor. You can copy them to the clipboard or save them to a file."
+    },
+    "advanced_setting_export_copy": {
+        "message": "Copy"
+    },
+    "advanced_setting_export_copied": {
+        "message": "Copied"
+    },
+    "advanced_setting_export_save": {
+        "message": "Save"
+    },
+    "advanced_setting_export_saved": {
+        "message": "Saved"
+    },
     "advanced_setting_ng_word_title": {
         "message": "NG Words"
     },
