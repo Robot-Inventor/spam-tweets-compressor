@@ -1,6 +1,4 @@
-import { load_setting } from "./load_setting.js";
-
-declare const browser: any;
+import { load_setting } from "./load_setting";
 
 class ValidationMessage {
     private message_element;

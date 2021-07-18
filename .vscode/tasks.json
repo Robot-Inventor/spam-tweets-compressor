@@ -11,11 +11,11 @@
 		},
 		{
 			"type": "npm",
-			"script": "watch",
+			"script": "build",
 			"group": "build",
 			"problemMatcher": [],
-			"label": "tsc: watch",
-			"detail": "npx tsc --watch"
+			"label": "npm: build",
+			"detail": "npx webpack"
 		}
 	]
 }

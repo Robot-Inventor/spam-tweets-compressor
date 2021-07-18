@@ -1,11 +1,3 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -16,7 +8,51 @@
   \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"detect_spam\": () => (/* binding */ detect_spam)\n/* harmony export */ });\n/* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normalize */ \"./src/normalize.ts\");\n\r\nfunction detect_ng_word(text, ng_words) {\r\n    for (let x = 0; x < ng_words.length; x++) {\r\n        const word = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(ng_words[x]);\r\n        if (!word)\r\n            continue;\r\n        const is_regex = Boolean(word.match(/^\\/(.*)\\/\\D*$/));\r\n        const regex_core_string = word.replace(/^\\//, \"\").replace(/\\/(\\D*)$/, \"\");\r\n        const regex_flag = word.replace(/^\\/.*?\\/(\\D*)$/, \"$1\");\r\n        const regex = new RegExp(regex_core_string, regex_flag);\r\n        if (is_regex && text.match(regex))\r\n            return true;\r\n        if (text.includes(word))\r\n            return true;\r\n    }\r\n    return false;\r\n}\r\nfunction detect_filtered_language(target_language, language_filter) {\r\n    for (let i = 0; i < language_filter.length; i++) {\r\n        const filter = language_filter[i];\r\n        if (target_language === filter)\r\n            return true;\r\n    }\r\n    return false;\r\n}\r\nasync function detect_spam(target, setting) {\r\n    const target_content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);\r\n    const breaks = target_content.match(/\\n/g);\r\n    const break_length = breaks ? breaks.length : 0;\r\n    const has_too_many_breaks = break_length >= setting.break_threshold;\r\n    const repeated_character = target_content.match(new RegExp(`(.)\\\\1{${setting.character_repetition_threshold},}`));\r\n    const has_ng_word = detect_ng_word(target_content, setting.ng_word);\r\n    const content_language = await target.language;\r\n    const is_filtered_language = detect_filtered_language(content_language || \"\", setting.language_filter);\r\n    if (has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language)\r\n        return true;\r\n    else\r\n        return false;\r\n}\r\n\n\n//# sourceURL=webpack://spam-tweets-compressor/./src/detect_spam.ts?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "detect_spam": () => (/* binding */ detect_spam)
+/* harmony export */ });
+/* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
+
+function detect_ng_word(text, ng_words) {
+    for (let x = 0; x < ng_words.length; x++) {
+        const word = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(ng_words[x]);
+        if (!word)
+            continue;
+        const is_regex = Boolean(word.match(/^\/(.*)\/\D*$/));
+        const regex_core_string = word.replace(/^\//, "").replace(/\/(\D*)$/, "");
+        const regex_flag = word.replace(/^\/.*?\/(\D*)$/, "$1");
+        const regex = new RegExp(regex_core_string, regex_flag);
+        if (is_regex && text.match(regex))
+            return true;
+        if (text.includes(word))
+            return true;
+    }
+    return false;
+}
+function detect_filtered_language(target_language, language_filter) {
+    for (let i = 0; i < language_filter.length; i++) {
+        const filter = language_filter[i];
+        if (target_language === filter)
+            return true;
+    }
+    return false;
+}
+async function detect_spam(target, setting) {
+    const target_content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);
+    const breaks = target_content.match(/\n/g);
+    const break_length = breaks ? breaks.length : 0;
+    const has_too_many_breaks = break_length >= setting.break_threshold;
+    const repeated_character = target_content.match(new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`));
+    const has_ng_word = detect_ng_word(target_content, setting.ng_word);
+    const content_language = await target.language;
+    const is_filtered_language = detect_filtered_language(content_language || "", setting.language_filter);
+    if (has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language)
+        return true;
+    else
+        return false;
+}
+
 
 /***/ }),
 
@@ -26,17 +62,32 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"load_setting\": () => (/* binding */ load_setting)\n/* harmony export */ });\n;\r\nconst default_setting = {\r\n    break_threshold: 5,\r\n    hide_media: true,\r\n    strict_mode: false,\r\n    character_repetition_threshold: 5,\r\n    ng_word: [\"\"],\r\n    exclude_url: [\"https://twitter.com/home\", \"https://twitter.com/notifications\"],\r\n    language_filter: [\"\"]\r\n};\r\nasync function load_setting() {\r\n    const saved_setting = await browser.storage.local.get(\"setting\");\r\n    const setting = default_setting;\r\n    if (saved_setting.setting) {\r\n        Object.keys(default_setting).forEach((key) => {\r\n            setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];\r\n        });\r\n    }\r\n    return setting;\r\n}\r\n;\r\n\n\n//# sourceURL=webpack://spam-tweets-compressor/./src/load_setting.ts?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "load_setting": () => (/* binding */ load_setting)
+/* harmony export */ });
+;
+const default_setting = {
+    break_threshold: 5,
+    hide_media: true,
+    strict_mode: false,
+    character_repetition_threshold: 5,
+    ng_word: [""],
+    exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"],
+    language_filter: [""]
+};
+async function load_setting() {
+    const saved_setting = await browser.storage.local.get("setting");
+    const setting = default_setting;
+    if (saved_setting.setting) {
+        Object.keys(default_setting).forEach((key) => {
+            setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
+        });
+    }
+    return setting;
+}
+;
 
-/***/ }),
-
-/***/ "./src/main.ts":
-/*!*********************!*\
-  !*** ./src/main.ts ***!
-  \*********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _detect_spam__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./detect_spam */ \"./src/detect_spam.ts\");\n/* harmony import */ var _load_setting__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./load_setting */ \"./src/load_setting.ts\");\n/* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./selector */ \"./src/selector.ts\");\n/* harmony import */ var _tweet_analyser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tweet_analyser */ \"./src/tweet_analyser.ts\");\n\r\n\r\n\r\n\r\nfunction get_unchecked_tweets() {\r\n    const tweets = document.querySelectorAll(`${_selector__WEBPACK_IMPORTED_MODULE_2__.selector.tweet_outer}:not(.${_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name})`);\r\n    let result = [];\r\n    tweets.forEach(async (element) => {\r\n        element.classList.add(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name);\r\n        const analyser = new _tweet_analyser__WEBPACK_IMPORTED_MODULE_3__.TweetAnalyser(element);\r\n        element.content = analyser.get_content();\r\n        element.user_name = analyser.get_user_name();\r\n        element.user_id = analyser.get_user_id();\r\n        element.language = analyser.get_language();\r\n        element.compress = (compressor_mode, hide_media) => {\r\n            const content_element = element.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.tweet_content);\r\n            if (!content_element)\r\n                return;\r\n            if (compressor_mode === \"normal\") {\r\n                const raw_content = content_element.innerHTML;\r\n                element.dataset.rawHTML = raw_content;\r\n                element.dataset.rawContent = element.content;\r\n                const compressed_content = content_element.innerHTML.replaceAll(\"\\n\", \"\");\r\n                if (content_element)\r\n                    content_element.innerHTML = compressed_content;\r\n                element.content = element.content.replaceAll(\"\\n\", \"\");\r\n                const media = element.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.media);\r\n                if (media && hide_media)\r\n                    media.style.display = \"none\";\r\n                const decompress_button = document.createElement(\"button\");\r\n                decompress_button.className = \"decompress-button\";\r\n                const decompress_button_normal = browser.i18n.getMessage(\"decompress_button_normal\");\r\n                decompress_button.textContent = decompress_button_normal;\r\n                content_element.appendChild(decompress_button);\r\n                decompress_button.addEventListener(\"click\", () => {\r\n                    content_element.innerHTML = element.dataset.rawHTML || \"\";\r\n                    element.content = element.dataset.rawContent || \"\";\r\n                    if (media && hide_media)\r\n                        media.style.display = \"block\";\r\n                    decompress_button.remove();\r\n                });\r\n            }\r\n            else {\r\n                const decompress_button = document.createElement(\"button\");\r\n                decompress_button.setAttribute(\"class\", element.getAttribute(\"class\") || \"\");\r\n                decompress_button.classList.add(\"show-tweet-button\");\r\n                const text_color = (() => {\r\n                    const user_name_element = element.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.user_name);\r\n                    if (user_name_element)\r\n                        return getComputedStyle(user_name_element).getPropertyValue(\"color\");\r\n                    else\r\n                        return \"#1da1f2\";\r\n                })();\r\n                decompress_button.style.color = text_color;\r\n                const user_name = element.user_name;\r\n                const user_id = element.user_id;\r\n                const button_text = browser.i18n.getMessage(\"decompress_button_strict\", [user_name, user_id]);\r\n                decompress_button.textContent = button_text;\r\n                decompress_button.addEventListener(\"click\", () => {\r\n                    element.style.display = \"block\";\r\n                    decompress_button.remove();\r\n                });\r\n                element.style.display = \"none\";\r\n                element.insertAdjacentElement(\"afterend\", decompress_button);\r\n            }\r\n        };\r\n        result.push(element);\r\n    });\r\n    return result;\r\n}\r\nasync function run_check(setting) {\r\n    const exclude_url = setting.exclude_url;\r\n    if (exclude_url.includes(location.href))\r\n        return;\r\n    const check_target = get_unchecked_tweets();\r\n    const compressor_mode = setting.strict_mode ? \"strict\" : \"normal\";\r\n    const hide_media = setting.hide_media;\r\n    for (let i = 0; i < check_target.length; i++) {\r\n        const target = check_target[i];\r\n        const is_spam = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting);\r\n        if (is_spam)\r\n            target.compress(compressor_mode, hide_media);\r\n    }\r\n}\r\n(async () => {\r\n    const setting = await (0,_load_setting__WEBPACK_IMPORTED_MODULE_1__.load_setting)();\r\n    const body_observer_target = document.body;\r\n    const body_observer = new MutationObserver(() => {\r\n        const timeline = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.timeline);\r\n        if (timeline) {\r\n            body_observer.disconnect();\r\n            const main_observer_target = timeline;\r\n            const main_observer = new MutationObserver(() => {\r\n                run_check(setting);\r\n            });\r\n            main_observer.observe(main_observer_target, {\r\n                childList: true,\r\n                subtree: true\r\n            });\r\n        }\r\n    });\r\n    body_observer.observe(body_observer_target, {\r\n        childList: true,\r\n        subtree: true\r\n    });\r\n})();\r\n\n\n//# sourceURL=webpack://spam-tweets-compressor/./src/main.ts?");
 
 /***/ }),
 
@@ -46,7 +97,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _det
   \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"normalize\": () => (/* binding */ normalize)\n/* harmony export */ });\nfunction normalize(text) {\r\n    text = text.normalize(\"NFKC\").toLowerCase().replace(/[ぁ-ん]/g, (s) => {\r\n        return String.fromCharCode(s.charCodeAt(0) + 0x60);\r\n    });\r\n    return text;\r\n}\r\n;\r\n\n\n//# sourceURL=webpack://spam-tweets-compressor/./src/normalize.ts?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "normalize": () => (/* binding */ normalize)
+/* harmony export */ });
+function normalize(text) {
+    text = text.normalize("NFKC").toLowerCase().replace(/[ぁ-ん]/g, (s) => {
+        return String.fromCharCode(s.charCodeAt(0) + 0x60);
+    });
+    return text;
+}
+;
+
 
 /***/ }),
 
@@ -56,7 +118,34 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"selector\": () => (/* binding */ selector)\n/* harmony export */ });\nfunction generate_media_selector() {\r\n    const media_selector = {\r\n        image: \".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1s2bzr4.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg\",\r\n        video: \".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1s2bzr4.r-1ny4l3l.r-1udh08x\",\r\n        summary_card: \".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-18u37iz.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg\",\r\n        summary_with_large_image: \".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg\"\r\n    };\r\n    let merged = \"\";\r\n    Object.keys(media_selector).forEach((key) => {\r\n        merged += \",\" + media_selector[key];\r\n    });\r\n    merged = merged.replace(/^\\,/, \"\");\r\n    return merged;\r\n}\r\nconst selector = {\r\n    tweet_outer: \".css-1dbjc4n.r-qklmqi.r-1adg3ll.r-1ny4l3l\",\r\n    tweet_content: \".css-901oao.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0\",\r\n    user_name: \".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0\",\r\n    user_id: \".css-901oao.css-bfa6kz.r-18u37iz.r-1qd0xha.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0\",\r\n    timeline: \"main\",\r\n    checked_tweet_class_name: \"spam-tweets-compressor-checked\",\r\n    media: generate_media_selector()\r\n};\r\n\n\n//# sourceURL=webpack://spam-tweets-compressor/./src/selector.ts?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "selector": () => (/* binding */ selector)
+/* harmony export */ });
+function generate_media_selector() {
+    const media_selector = {
+        image: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1s2bzr4.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg",
+        video: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1s2bzr4.r-1ny4l3l.r-1udh08x",
+        summary_card: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-18u37iz.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg",
+        summary_with_large_image: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg"
+    };
+    let merged = "";
+    Object.keys(media_selector).forEach((key) => {
+        merged += "," + media_selector[key];
+    });
+    merged = merged.replace(/^\,/, "");
+    return merged;
+}
+const selector = {
+    tweet_outer: ".css-1dbjc4n.r-qklmqi.r-1adg3ll.r-1ny4l3l",
+    tweet_content: ".css-901oao.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
+    user_name: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0",
+    user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-1qd0xha.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0",
+    timeline: "main",
+    checked_tweet_class_name: "spam-tweets-compressor-checked",
+    media: generate_media_selector()
+};
+
 
 /***/ }),
 
@@ -66,7 +155,45 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"TweetAnalyser\": () => (/* binding */ TweetAnalyser)\n/* harmony export */ });\n/* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selector */ \"./src/selector.ts\");\n\r\nclass TweetAnalyser {\r\n    constructor(tweet) {\r\n        this.tweet = tweet;\r\n        this.content_element = tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);\r\n    }\r\n    get_content() {\r\n        if (!this.content_element)\r\n            return \"\";\r\n        return this.content_element.textContent || \"\";\r\n    }\r\n    get_user_name() {\r\n        const user_name_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_name);\r\n        if (user_name_element)\r\n            return user_name_element.textContent || \"\";\r\n        else\r\n            return \"\";\r\n    }\r\n    get_user_id() {\r\n        const user_id_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_id);\r\n        if (user_id_element)\r\n            return user_id_element.textContent || \"\";\r\n        else\r\n            return \"\";\r\n    }\r\n    async get_language() {\r\n        const detect = await browser.i18n.detectLanguage(this.get_content());\r\n        if (detect.isReliable)\r\n            return detect.languages[0].language.replace(/\\-.*$/, \"\");\r\n        else\r\n            return \"\";\r\n    }\r\n}\r\n\n\n//# sourceURL=webpack://spam-tweets-compressor/./src/tweet_analyser.ts?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "TweetAnalyser": () => (/* binding */ TweetAnalyser)
+/* harmony export */ });
+/* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
+
+class TweetAnalyser {
+    constructor(tweet) {
+        this.tweet = tweet;
+        this.content_element = tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
+    }
+    get_content() {
+        if (!this.content_element)
+            return "";
+        return this.content_element.textContent || "";
+    }
+    get_user_name() {
+        const user_name_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_name);
+        if (user_name_element)
+            return user_name_element.textContent || "";
+        else
+            return "";
+    }
+    get_user_id() {
+        const user_id_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_id);
+        if (user_id_element)
+            return user_id_element.textContent || "";
+        else
+            return "";
+    }
+    async get_language() {
+        const detect = await browser.i18n.detectLanguage(this.get_content());
+        if (detect.isReliable)
+            return detect.languages[0].language.replace(/\-.*$/, "");
+        else
+            return "";
+    }
+}
+
 
 /***/ })
 
@@ -126,11 +253,125 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/main.ts");
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!*********************!*\
+  !*** ./src/main.ts ***!
+  \*********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _detect_spam__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./detect_spam */ "./src/detect_spam.ts");
+/* harmony import */ var _load_setting__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./load_setting */ "./src/load_setting.ts");
+/* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
+/* harmony import */ var _tweet_analyser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tweet_analyser */ "./src/tweet_analyser.ts");
+
+
+
+
+function get_unchecked_tweets() {
+    const tweets = document.querySelectorAll(`${_selector__WEBPACK_IMPORTED_MODULE_2__.selector.tweet_outer}:not(.${_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name})`);
+    let result = [];
+    tweets.forEach(async (element) => {
+        element.classList.add(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name);
+        const analyser = new _tweet_analyser__WEBPACK_IMPORTED_MODULE_3__.TweetAnalyser(element);
+        element.content = analyser.get_content();
+        element.user_name = analyser.get_user_name();
+        element.user_id = analyser.get_user_id();
+        element.language = analyser.get_language();
+        element.compress = (compressor_mode, hide_media) => {
+            const content_element = element.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.tweet_content);
+            if (!content_element)
+                return;
+            if (compressor_mode === "normal") {
+                const raw_content = content_element.innerHTML;
+                element.dataset.rawHTML = raw_content;
+                element.dataset.rawContent = element.content;
+                const compressed_content = content_element.innerHTML.replaceAll("\n", "");
+                if (content_element)
+                    content_element.innerHTML = compressed_content;
+                element.content = element.content.replaceAll("\n", "");
+                const media = element.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.media);
+                if (media && hide_media)
+                    media.style.display = "none";
+                const decompress_button = document.createElement("button");
+                decompress_button.className = "decompress-button";
+                const decompress_button_normal = browser.i18n.getMessage("decompress_button_normal");
+                decompress_button.textContent = decompress_button_normal;
+                content_element.appendChild(decompress_button);
+                decompress_button.addEventListener("click", () => {
+                    content_element.innerHTML = element.dataset.rawHTML || "";
+                    element.content = element.dataset.rawContent || "";
+                    if (media && hide_media)
+                        media.style.display = "block";
+                    decompress_button.remove();
+                });
+            }
+            else {
+                const decompress_button = document.createElement("button");
+                decompress_button.setAttribute("class", element.getAttribute("class") || "");
+                decompress_button.classList.add("show-tweet-button");
+                const text_color = (() => {
+                    const user_name_element = element.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.user_name);
+                    if (user_name_element)
+                        return getComputedStyle(user_name_element).getPropertyValue("color");
+                    else
+                        return "#1da1f2";
+                })();
+                decompress_button.style.color = text_color;
+                const user_name = element.user_name;
+                const user_id = element.user_id;
+                const button_text = browser.i18n.getMessage("decompress_button_strict", [user_name, user_id]);
+                decompress_button.textContent = button_text;
+                decompress_button.addEventListener("click", () => {
+                    element.style.display = "block";
+                    decompress_button.remove();
+                });
+                element.style.display = "none";
+                element.insertAdjacentElement("afterend", decompress_button);
+            }
+        };
+        result.push(element);
+    });
+    return result;
+}
+async function run_check(setting) {
+    const exclude_url = setting.exclude_url;
+    if (exclude_url.includes(location.href))
+        return;
+    const check_target = get_unchecked_tweets();
+    const compressor_mode = setting.strict_mode ? "strict" : "normal";
+    const hide_media = setting.hide_media;
+    for (let i = 0; i < check_target.length; i++) {
+        const target = check_target[i];
+        const is_spam = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting);
+        if (is_spam)
+            target.compress(compressor_mode, hide_media);
+    }
+}
+(async () => {
+    const setting = await (0,_load_setting__WEBPACK_IMPORTED_MODULE_1__.load_setting)();
+    const body_observer_target = document.body;
+    const body_observer = new MutationObserver(() => {
+        const timeline = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.timeline);
+        if (timeline) {
+            body_observer.disconnect();
+            const main_observer_target = timeline;
+            const main_observer = new MutationObserver(() => {
+                run_check(setting);
+            });
+            main_observer.observe(main_observer_target, {
+                childList: true,
+                subtree: true
+            });
+        }
+    });
+    body_observer.observe(body_observer_target, {
+        childList: true,
+        subtree: true
+    });
+})();
+
+})();
+
 /******/ })()
 ;

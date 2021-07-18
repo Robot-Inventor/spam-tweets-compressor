@@ -1,4 +1,10 @@
-"use strict";
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
+/*!*********************!*\
+  !*** ./src/i18n.ts ***!
+  \*********************/
+
 const target_element = document.querySelectorAll("*[data-i18n]");
 target_element.forEach((target) => {
     const message_name = target.dataset.i18n;
@@ -8,4 +14,6 @@ target_element.forEach((target) => {
     if (message)
         target.textContent = message;
 });
-//# sourceMappingURL=i18n.js.map
+
+/******/ })()
+;
