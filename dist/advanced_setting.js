@@ -12,7 +12,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "load_setting": () => (/* binding */ load_setting)
 /* harmony export */ });
-;
 const default_setting = {
     break_threshold: 5,
     hide_media: true,
@@ -32,7 +31,6 @@ async function load_setting() {
     }
     return setting;
 }
-;
 
 
 /***/ })
@@ -118,7 +116,7 @@ function get_setting_name(element) {
             textarea.value = saved_value instanceof Array ? saved_value.join("\n") : "";
             textarea.addEventListener("change", () => {
                 setting[setting_name] = textarea.value.split("\n");
-                browser.storage.local.set({ setting: setting });
+                void browser.storage.local.set({ "setting": setting });
             });
         }
     });
@@ -126,7 +124,7 @@ function get_setting_name(element) {
     if (copy_button) {
         copy_button.addEventListener("click", () => {
             const setting_string = JSON.stringify(setting, null, 4);
-            navigator.clipboard.writeText(setting_string);
+            void navigator.clipboard.writeText(setting_string);
             copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copied");
             setTimeout(() => {
                 copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copy");

@@ -1,4 +1,6 @@
-declare const browser: any;
+import { browser_interface } from "./browser";
+
+declare const browser: browser_interface;
 
 export interface setting_object {
     [key: string]: number | boolean | Array<string>,
@@ -9,7 +11,7 @@ export interface setting_object {
     ng_word: Array<string>,
     exclude_url: Array<string>,
     language_filter: Array<string>
-};
+}
 
 const default_setting: setting_object = {
     break_threshold: 5,
@@ -21,8 +23,8 @@ const default_setting: setting_object = {
     language_filter: [""]
 };
 
-export async function load_setting() {
-    const saved_setting: any = await browser.storage.local.get("setting");
+export async function load_setting(): Promise<setting_object> {
+    const saved_setting: { setting: setting_object } = await browser.storage.local.get("setting");
     const setting = default_setting;
     if (saved_setting.setting) {
         Object.keys(default_setting).forEach((key) => {
@@ -30,4 +32,4 @@ export async function load_setting() {
         });
     }
     return setting;
-};
+}

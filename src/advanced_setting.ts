@@ -1,5 +1,7 @@
 import { load_setting } from "./load_setting";
+import { browser_interface } from "./browser";
 
+declare const browser: browser_interface;
 
 function get_setting_name(element: HTMLElement) {
     const setting_name = element.dataset.settingName;
@@ -18,7 +20,7 @@ load_setting().then((setting) => {
 
             textarea.addEventListener("change", () => {
                 setting[setting_name] = textarea.value.split("\n");
-                browser.storage.local.set({ setting: setting });
+                void browser.storage.local.set({ "setting": setting });
             });
         }
     });
@@ -27,7 +29,7 @@ load_setting().then((setting) => {
     if (copy_button) {
         copy_button.addEventListener("click", () => {
             const setting_string = JSON.stringify(setting, null, 4);
-            navigator.clipboard.writeText(setting_string);
+            void navigator.clipboard.writeText(setting_string);
 
             copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copied");
             setTimeout(() => {
