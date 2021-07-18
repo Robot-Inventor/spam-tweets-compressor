@@ -2,12 +2,12 @@ const path = require("path");
 
 module.exports = {
     mode: "development",
+    devtool: false,
     entry: {
+        advanced_setting: "./src/advanced_setting.ts",
+        browser_action: "./src/browser_action.ts",
+        i18n: "./src/i18n.ts",
         main: "./src/main.ts"
-    },
-    output: {
-        filename: "main.js",
-        path: path.join(__dirname, "./dist")
     },
     module: {
         rules: [

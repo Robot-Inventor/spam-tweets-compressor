@@ -1,6 +1,5 @@
-import { load_setting } from "./load_setting.js";
+import { load_setting } from "./load_setting";
 
-declare const browser: any;
 
 function get_setting_name(element: HTMLElement) {
     const setting_name = element.dataset.settingName;

@@ -53,16 +53,12 @@ npm install
 To build it, run the following two commands.
 
 ```
-npx tsc
 npm run build
 ```
-
-``npm run build`` will webpack ``main.ts``. This is because the scripts specified in ``content_scripts``, i.e. ``main.ts``, cannot import ESModules due to browser specification. Other scripts can import ESModule, so there is no need to use webpack.
 
 Also, if you want to WATCH the file changes, please execute the following two commands.
 
 ```
-npx tsc --watch
 npm run watch
 ```
 

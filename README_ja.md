@@ -53,16 +53,12 @@ npm install
 ビルドの際は、次の2つのコマンドを実行します。
 
 ```
-npx tsc
 npm run build
 ```
-
-``npm run build``は``main.ts``をwebpackします。これは、ブラウザーの仕様で``content_scripts``で指定したスクリプト、つまり``main.ts``の中ではESModuleのインポートができないためです。他のスクリプトではESModuleのインポートができるためwebpackの必要はありません。
 
 また、ファイルの変更をwatchしたい場合は、次の2つのコマンドを実行してください。
 
 ```
-npx tsc --watch
 npm run watch
 ```
 
