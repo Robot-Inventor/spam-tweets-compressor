@@ -1,7 +1,9 @@
 import { load_setting } from "./load_setting";
 import { browser_interface } from "./browser";
 
+
 declare const browser: browser_interface;
+
 
 function get_setting_name(element: HTMLElement) {
     const setting_name = element.dataset.settingName;

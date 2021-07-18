@@ -1,5 +1,6 @@
 import { setting_object } from "./load_setting";
 
+
 export type detect_language = {
     isReliable: boolean,
     languages: Array<{

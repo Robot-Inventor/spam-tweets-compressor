@@ -1,6 +1,8 @@
 import { browser_interface } from "./browser";
 
+
 declare const browser: browser_interface;
+
 
 export interface setting_object {
     [key: string]: number | boolean | Array<string>,

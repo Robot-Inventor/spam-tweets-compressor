@@ -1,7 +1,9 @@
 import { load_setting } from "./load_setting";
 import { browser_interface } from "./browser";
 
+
 declare const browser: browser_interface;
+
 
 class ValidationMessage {
     private message_element;

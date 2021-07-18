@@ -189,6 +189,62 @@ class TweetAnalyser {
         else
             return "";
     }
+    normal_compressor(content_element, hide_media) {
+        const raw_content = content_element.innerHTML;
+        this.tweet.dataset.rawHTML = raw_content;
+        this.tweet.dataset.rawContent = this.tweet.content;
+        const compressed_content = content_element.innerHTML.replaceAll("\n", "");
+        if (content_element)
+            content_element.innerHTML = compressed_content;
+        this.tweet.content = this.tweet.content.replaceAll("\n", "");
+        const media = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.media);
+        if (media && hide_media)
+            media.style.display = "none";
+        const decompress_button = document.createElement("button");
+        decompress_button.className = "decompress-button";
+        const decompress_button_normal = browser.i18n.getMessage("decompress_button_normal");
+        decompress_button.textContent = decompress_button_normal;
+        content_element.appendChild(decompress_button);
+        decompress_button.addEventListener("click", () => {
+            content_element.innerHTML = this.tweet.dataset.rawHTML || "";
+            this.tweet.content = this.tweet.dataset.rawContent || "";
+            if (media && hide_media)
+                media.style.display = "block";
+            decompress_button.remove();
+        });
+    }
+    strict_compressor() {
+        const decompress_button = document.createElement("button");
+        decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
+        decompress_button.classList.add("show-tweet-button");
+        const text_color = (() => {
+            const user_name_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_name);
+            if (user_name_element)
+                return getComputedStyle(user_name_element).getPropertyValue("color");
+            else
+                return "#1da1f2";
+        })();
+        decompress_button.style.color = text_color;
+        const user_name = this.tweet.user_name;
+        const user_id = this.tweet.user_id;
+        const button_text = browser.i18n.getMessage("decompress_button_strict", [user_name, user_id]);
+        decompress_button.textContent = button_text;
+        decompress_button.addEventListener("click", () => {
+            this.tweet.style.display = "block";
+            decompress_button.remove();
+        });
+        this.tweet.style.display = "none";
+        this.tweet.insertAdjacentElement("afterend", decompress_button);
+    }
+    compress(compressor_mode, hide_media) {
+        const content_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
+        if (!content_element)
+            return;
+        if (compressor_mode === "normal")
+            this.normal_compressor(content_element, hide_media);
+        else
+            this.strict_compressor();
+    }
 }
 
 
@@ -276,56 +332,7 @@ function get_unchecked_tweets() {
         tweet.user_id = analyser.get_user_id();
         tweet.language = analyser.get_language();
         tweet.compress = (compressor_mode, hide_media) => {
-            const content_element = tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.tweet_content);
-            if (!content_element)
-                return;
-            if (compressor_mode === "normal") {
-                const raw_content = content_element.innerHTML;
-                tweet.dataset.rawHTML = raw_content;
-                tweet.dataset.rawContent = tweet.content;
-                const compressed_content = content_element.innerHTML.replaceAll("\n", "");
-                if (content_element)
-                    content_element.innerHTML = compressed_content;
-                tweet.content = tweet.content.replaceAll("\n", "");
-                const media = tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.media);
-                if (media && hide_media)
-                    media.style.display = "none";
-                const decompress_button = document.createElement("button");
-                decompress_button.className = "decompress-button";
-                const decompress_button_normal = browser.i18n.getMessage("decompress_button_normal");
-                decompress_button.textContent = decompress_button_normal;
-                content_element.appendChild(decompress_button);
-                decompress_button.addEventListener("click", () => {
-                    content_element.innerHTML = tweet.dataset.rawHTML || "";
-                    tweet.content = tweet.dataset.rawContent || "";
-                    if (media && hide_media)
-                        media.style.display = "block";
-                    decompress_button.remove();
-                });
-            }
-            else {
-                const decompress_button = document.createElement("button");
-                decompress_button.setAttribute("class", tweet.getAttribute("class") || "");
-                decompress_button.classList.add("show-tweet-button");
-                const text_color = (() => {
-                    const user_name_element = tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.user_name);
-                    if (user_name_element)
-                        return getComputedStyle(user_name_element).getPropertyValue("color");
-                    else
-                        return "#1da1f2";
-                })();
-                decompress_button.style.color = text_color;
-                const user_name = tweet.user_name;
-                const user_id = tweet.user_id;
-                const button_text = browser.i18n.getMessage("decompress_button_strict", [user_name, user_id]);
-                decompress_button.textContent = button_text;
-                decompress_button.addEventListener("click", () => {
-                    tweet.style.display = "block";
-                    decompress_button.remove();
-                });
-                tweet.style.display = "none";
-                tweet.insertAdjacentElement("afterend", decompress_button);
-            }
+            analyser.compress(compressor_mode, hide_media);
         };
         result.push(tweet);
     }
