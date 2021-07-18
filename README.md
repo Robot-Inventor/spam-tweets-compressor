@@ -48,15 +48,23 @@ When developing, first install the necessary packages.
 npm install
 ```
 
+### Lint
+
+To lint, run the following command.
+
+```
+npm run lint
+```
+
 ### Build
 
-To build it, run the following two commands.
+To build it, run the following command.
 
 ```
 npm run build
 ```
 
-Also, if you want to WATCH the file changes, please execute the following two commands.
+Also, if you want to WATCH the file changes, please execute the following command.
 
 ```
 npm run watch

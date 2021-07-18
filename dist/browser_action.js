@@ -12,7 +12,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "load_setting": () => (/* binding */ load_setting)
 /* harmony export */ });
-;
 const default_setting = {
     break_threshold: 5,
     hide_media: true,
@@ -32,7 +31,6 @@ async function load_setting() {
     }
     return setting;
 }
-;
 
 
 /***/ })
@@ -134,7 +132,7 @@ function get_setting_name(element) {
         input_element.addEventListener("input", () => {
             let new_value_string = input_element.value;
             new_value_string = new_value_string.normalize("NFKC");
-            const is_only_number = !(new_value_string.match(/\D/));
+            const is_only_number = !/\D/.test(new_value_string);
             if (!is_only_number) {
                 validation_message.show();
                 return;
@@ -158,7 +156,7 @@ function get_setting_name(element) {
             }
             validation_message.hide();
             setting[setting_name] = new_value;
-            browser.storage.local.set({ setting: setting });
+            void browser.storage.local.set({ "setting": setting });
         });
     });
     const checkbox_input_element = document.querySelectorAll("input[type='checkbox']");
@@ -168,7 +166,7 @@ function get_setting_name(element) {
         input_element.checked = typeof saved_value === "boolean" ? saved_value : false;
         input_element.addEventListener("change", () => {
             setting[setting_name] = input_element.checked;
-            browser.storage.local.set({ setting: setting });
+            void browser.storage.local.set({ "setting": setting });
         });
     });
 }).catch(() => {

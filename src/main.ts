@@ -1,36 +1,38 @@
+import { browser_interface } from "./browser";
 import { detect_spam } from "./detect_spam";
 import { load_setting, setting_object } from "./load_setting";
 import { selector } from "./selector";
 import { TweetAnalyser } from "./tweet_analyser";
 import { TweetElement } from "./tweet_element";
 
+declare const browser: browser_interface;
 
 function get_unchecked_tweets() {
     const tweets: NodeListOf<TweetElement> = document.querySelectorAll(`${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`);
-    let result: Array<TweetElement> = [];
+    const result: Array<TweetElement> = [];
 
-    tweets.forEach(async (element: TweetElement) => {
-        element.classList.add(selector.checked_tweet_class_name);
+    function get_ready(tweet: TweetElement) {
+        tweet.classList.add(selector.checked_tweet_class_name);
 
-        const analyser = new TweetAnalyser(element);
+        const analyser: TweetAnalyser = new TweetAnalyser(tweet);
 
-        element.content = analyser.get_content();
-        element.user_name = analyser.get_user_name();
-        element.user_id = analyser.get_user_id();
-        element.language = analyser.get_language();
-        element.compress = (compressor_mode: "normal" | "strict", hide_media: boolean) => {
-            const content_element: HTMLElement | null = element.querySelector(selector.tweet_content);
+        tweet.content = analyser.get_content();
+        tweet.user_name = analyser.get_user_name();
+        tweet.user_id = analyser.get_user_id();
+        tweet.language = analyser.get_language();
+        tweet.compress = (compressor_mode: "normal" | "strict", hide_media: boolean) => {
+            const content_element: HTMLElement | null = tweet.querySelector(selector.tweet_content);
             if (!content_element) return;
 
             if (compressor_mode === "normal") {
                 const raw_content = content_element.innerHTML;
-                element.dataset.rawHTML = raw_content;
-                element.dataset.rawContent = element.content;
+                tweet.dataset.rawHTML = raw_content;
+                tweet.dataset.rawContent = tweet.content;
                 const compressed_content = content_element.innerHTML.replaceAll("\n", "");
                 if (content_element) content_element.innerHTML = compressed_content;
-                element.content = element.content.replaceAll("\n", "");
+                tweet.content = tweet.content.replaceAll("\n", "");
 
-                const media: HTMLElement | null = element.querySelector(selector.media);
+                const media: HTMLElement | null = tweet.querySelector(selector.media);
                 if (media && hide_media) media.style.display = "none";
 
                 const decompress_button = document.createElement("button");
@@ -39,8 +41,8 @@ function get_unchecked_tweets() {
                 decompress_button.textContent = decompress_button_normal;
                 content_element.appendChild(decompress_button);
                 decompress_button.addEventListener("click", () => {
-                    content_element.innerHTML = element.dataset.rawHTML || "";
-                    element.content = element.dataset.rawContent || "";
+                    content_element.innerHTML = tweet.dataset.rawHTML || "";
+                    tweet.content = tweet.dataset.rawContent || "";
 
                     if (media && hide_media) media.style.display = "block";
 
@@ -48,33 +50,35 @@ function get_unchecked_tweets() {
                 });
             } else {
                 const decompress_button = document.createElement("button");
-                decompress_button.setAttribute("class", element.getAttribute("class") || "");
+                decompress_button.setAttribute("class", tweet.getAttribute("class") || "");
                 decompress_button.classList.add("show-tweet-button");
 
                 const text_color = (() => {
-                    const user_name_element = element.querySelector(selector.user_name);
+                    const user_name_element = tweet.querySelector(selector.user_name);
                     if (user_name_element) return getComputedStyle(user_name_element).getPropertyValue("color");
                     else return "#1da1f2";
                 })();
 
                 decompress_button.style.color = text_color;
 
-                const user_name = element.user_name;
-                const user_id = element.user_id;
+                const user_name = tweet.user_name;
+                const user_id = tweet.user_id;
                 const button_text: string = browser.i18n.getMessage("decompress_button_strict", [user_name, user_id]);
                 decompress_button.textContent = button_text;
                 decompress_button.addEventListener("click", () => {
-                    element.style.display = "block";
+                    tweet.style.display = "block";
                     decompress_button.remove();
                 });
 
-                element.style.display = "none";
-                element.insertAdjacentElement("afterend", decompress_button);
+                tweet.style.display = "none";
+                tweet.insertAdjacentElement("afterend", decompress_button);
             }
         };
 
-        result.push(element);
-    });
+        result.push(tweet);
+    }
+
+    tweets.forEach(get_ready);
     return result;
 }
 
@@ -95,7 +99,7 @@ async function run_check(setting: setting_object) {
     }
 }
 
-(async () => {
+void (async () => {
     const setting = await load_setting();
     const body_observer_target = document.body;
     const body_observer = new MutationObserver(() => {
@@ -106,7 +110,7 @@ async function run_check(setting: setting_object) {
 
             const main_observer_target = timeline;
             const main_observer = new MutationObserver(() => {
-                run_check(setting);
+                void run_check(setting);
             });
             main_observer.observe(main_observer_target, {
                 childList: true,

@@ -9,12 +9,12 @@ function detect_ng_word(text: string, ng_words: Array<string>) {
 
         if (!word) continue;
 
-        const is_regex = Boolean(word.match(/^\/(.*)\/\D*$/));
+        const is_regex = /^\/(.*)\/\D*$/.test(word);
         const regex_core_string = word.replace(/^\//, "").replace(/\/(\D*)$/, "");
         const regex_flag = word.replace(/^\/.*?\/(\D*)$/, "$1");
         const regex = new RegExp(regex_core_string, regex_flag);
 
-        if (is_regex && text.match(regex)) return true;
+        if (is_regex && regex.test(text)) return true;
         if (text.includes(word)) return true;
     }
     return false;
@@ -28,13 +28,13 @@ function detect_filtered_language(target_language: string, language_filter: Arra
     return false;
 }
 
-export async function detect_spam(target: TweetElement, setting: setting_object) {
+export async function detect_spam(target: TweetElement, setting: setting_object): Promise<boolean> {
     const target_content = normalize(target.content);
     const breaks = target_content.match(/\n/g);
     const break_length = breaks ? breaks.length : 0;
     const has_too_many_breaks = break_length >= setting.break_threshold;
 
-    const repeated_character = target_content.match(new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`));
+    const repeated_character = new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`).test(target_content);
 
     const has_ng_word = detect_ng_word(target_content, setting.ng_word);
 

@@ -16,6 +16,14 @@
 			"problemMatcher": [],
 			"label": "npm: build",
 			"detail": "npx webpack"
+		},
+		{
+			"type": "npm",
+			"script": "lint",
+			"group": "test",
+			"problemMatcher": [],
+			"label": "npm: lint",
+			"detail": "npx eslint src/**/*.ts"
 		}
 	]
 }

@@ -1,4 +1,7 @@
 import { load_setting } from "./load_setting";
+import { browser_interface } from "./browser";
+
+declare const browser: browser_interface;
 
 class ValidationMessage {
     private message_element;
@@ -38,7 +41,7 @@ load_setting().then((setting) => {
         input_element.addEventListener("input", () => {
             let new_value_string = input_element.value;
             new_value_string = new_value_string.normalize("NFKC");
-            const is_only_number = !(new_value_string.match(/\D/));
+            const is_only_number = !/\D/.test(new_value_string);
             if (!is_only_number) {
                 validation_message.show();
                 return;
@@ -62,7 +65,7 @@ load_setting().then((setting) => {
 
             validation_message.hide();
             setting[setting_name] = new_value;
-            browser.storage.local.set({ setting: setting });
+            void browser.storage.local.set({ "setting": setting });
         });
     });
 
@@ -75,7 +78,7 @@ load_setting().then((setting) => {
 
         input_element.addEventListener("change", () => {
             setting[setting_name] = input_element.checked;
-            browser.storage.local.set({ setting: setting });
+            void browser.storage.local.set({ "setting": setting });
         });
     });
 }).catch(() => {
