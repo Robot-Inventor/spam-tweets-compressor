@@ -8,6 +8,7 @@ export interface setting_object {
     [key: string]: number | boolean | Array<string>,
     break_threshold: number,
     hide_media: boolean,
+    include_verified_account: boolean,
     strict_mode: boolean,
     character_repetition_threshold: number,
     ng_word: Array<string>,
@@ -18,6 +19,7 @@ export interface setting_object {
 const default_setting: setting_object = {
     break_threshold: 5,
     hide_media: true,
+    include_verified_account: false,
     strict_mode: false,
     character_repetition_threshold: 5,
     ng_word: [""],

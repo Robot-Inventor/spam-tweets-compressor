@@ -30,5 +30,6 @@ export const selector = {
     user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-1qd0xha.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0",
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked",
-    media: generate_media_selector()
+    media: generate_media_selector(),
+    verified_badge: "svg.r-jwli3a.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr"
 };

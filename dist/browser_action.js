@@ -15,6 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 const default_setting = {
     break_threshold: 5,
     hide_media: true,
+    include_verified_account: false,
     strict_mode: false,
     character_repetition_threshold: 5,
     ng_word: [""],

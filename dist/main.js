@@ -13,6 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "detect_spam": () => (/* binding */ detect_spam)
 /* harmony export */ });
 /* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
+/* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
+
 
 function detect_ng_word(text, ng_words) {
     for (let x = 0; x < ng_words.length; x++) {
@@ -38,6 +40,9 @@ function detect_filtered_language(target_language, language_filter) {
     }
     return false;
 }
+function detect_verified_badge(tweet) {
+    return Boolean(tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.verified_badge));
+}
 async function detect_spam(target, setting) {
     const target_content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);
     const breaks = target_content.match(/\n/g);
@@ -47,10 +52,10 @@ async function detect_spam(target, setting) {
     const has_ng_word = detect_ng_word(target_content, setting.ng_word);
     const content_language = await target.language;
     const is_filtered_language = detect_filtered_language(content_language || "", setting.language_filter);
-    if (has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language)
-        return true;
-    else
-        return false;
+    const has_verified_badge = detect_verified_badge(target);
+    const verified_badge_judgement = has_verified_badge && !setting.include_verified_account;
+    const normal_judgement = has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language;
+    return normal_judgement && !verified_badge_judgement;
 }
 
 
@@ -69,6 +74,7 @@ __webpack_require__.r(__webpack_exports__);
 const default_setting = {
     break_threshold: 5,
     hide_media: true,
+    include_verified_account: false,
     strict_mode: false,
     character_repetition_threshold: 5,
     ng_word: [""],
@@ -140,7 +146,8 @@ const selector = {
     user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-1qd0xha.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0",
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked",
-    media: generate_media_selector()
+    media: generate_media_selector(),
+    verified_badge: "svg.r-jwli3a.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr"
 };
 
 
