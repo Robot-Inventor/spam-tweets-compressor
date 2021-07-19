@@ -20,6 +20,9 @@
     "browser_action_hide_media": {
         "message": "スパムツイートのメディアを非表示にする"
     },
+    "browser_action_include_verified_account": {
+        "message": "認証済みアカウントを監査対象に含める"
+    },
     "browser_action_strict_mode": {
         "message": "厳格モード（スパムツイートを圧縮するかわりに非表示にする）"
     },

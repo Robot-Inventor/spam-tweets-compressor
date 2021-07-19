@@ -47,7 +47,8 @@ export async function detect_spam(target: TweetElement, setting: setting_object)
     const is_filtered_language = detect_filtered_language(content_language || "", setting.language_filter);
 
     const has_verified_badge = detect_verified_badge(target);
+    const verified_badge_judgement = has_verified_badge && !setting.include_verified_account;
 
     const normal_judgement = has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language;
-    return normal_judgement && !has_verified_badge;
+    return normal_judgement && !verified_badge_judgement;
 }

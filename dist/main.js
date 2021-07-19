@@ -53,8 +53,9 @@ async function detect_spam(target, setting) {
     const content_language = await target.language;
     const is_filtered_language = detect_filtered_language(content_language || "", setting.language_filter);
     const has_verified_badge = detect_verified_badge(target);
+    const verified_badge_judgement = has_verified_badge && !setting.include_verified_account;
     const normal_judgement = has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language;
-    return normal_judgement && !has_verified_badge;
+    return normal_judgement && !verified_badge_judgement;
 }
 
 
@@ -73,6 +74,7 @@ __webpack_require__.r(__webpack_exports__);
 const default_setting = {
     break_threshold: 5,
     hide_media: true,
+    include_verified_account: false,
     strict_mode: false,
     character_repetition_threshold: 5,
     ng_word: [""],
