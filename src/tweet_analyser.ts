@@ -39,13 +39,34 @@ export class TweetAnalyser {
         else return "";
     }
 
-    private normal_compressor(content_element: HTMLElement, hide_media: boolean) {
+    private trim_leading_whitespace(text: string | HTMLElement) {
+        // eslint-disable-next-line no-irregular-whitespace
+        const whitespace_regex = new RegExp(/^[ 　ㅤ]+/gm);
+        if (typeof text === "string") return text.replace(whitespace_regex, "");
+        else {
+            if (text.childElementCount === 0) text.textContent = (text.textContent || "").replace(whitespace_regex, "");
+            else {
+                text.querySelectorAll("*").forEach((element) => {
+                    if (element.childElementCount === 0) {
+                        element.textContent = (element.textContent || "").replace(whitespace_regex, "");
+                    }
+                });
+            }
+            return (text.textContent || "").replace(whitespace_regex, "");
+        }
+    }
+
+    private normal_compressor(content_element: HTMLElement, hide_media: boolean, trim_space: boolean) {
         const raw_content = content_element.innerHTML;
         this.tweet.dataset.rawHTML = raw_content;
         this.tweet.dataset.rawContent = this.tweet.content;
+
+        if (trim_space) this.trim_leading_whitespace(content_element);
         const compressed_content = content_element.innerHTML.replaceAll("\n", "");
         if (content_element) content_element.innerHTML = compressed_content;
-        this.tweet.content = this.tweet.content.replaceAll("\n", "");
+
+        if (trim_space) this.tweet.content = this.trim_leading_whitespace(this.tweet.content.replaceAll("\n", ""));
+        else this.tweet.content = this.tweet.content.replaceAll("\n", "");
 
         const media: HTMLElement | null = this.tweet.querySelector(selector.media);
         if (media && hide_media) media.style.display = "none";
@@ -91,11 +112,11 @@ export class TweetAnalyser {
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
 
-    compress(compressor_mode: "normal" | "strict", hide_media: boolean): void {
+    compress(compressor_mode: "normal" | "strict", hide_media: boolean, trim_leading_whitespace: boolean): void {
         const content_element: HTMLElement | null = this.tweet.querySelector(selector.tweet_content);
         if (!content_element) return;
 
-        if (compressor_mode === "normal") this.normal_compressor(content_element, hide_media);
+        if (compressor_mode === "normal") this.normal_compressor(content_element, hide_media, trim_leading_whitespace);
         else this.strict_compressor();
     }
 }

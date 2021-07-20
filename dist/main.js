@@ -74,6 +74,7 @@ __webpack_require__.r(__webpack_exports__);
 const default_setting = {
     break_threshold: 5,
     hide_media: true,
+    trim_leading_whitespace: true,
     include_verified_account: false,
     strict_mode: false,
     character_repetition_threshold: 5,
@@ -196,14 +197,37 @@ class TweetAnalyser {
         else
             return "";
     }
-    normal_compressor(content_element, hide_media) {
+    trim_leading_whitespace(text) {
+        // eslint-disable-next-line no-irregular-whitespace
+        const whitespace_regex = new RegExp(/^[ 　ㅤ]+/gm);
+        if (typeof text === "string")
+            return text.replace(whitespace_regex, "");
+        else {
+            if (text.childElementCount === 0)
+                text.textContent = (text.textContent || "").replace(whitespace_regex, "");
+            else {
+                text.querySelectorAll("*").forEach((element) => {
+                    if (element.childElementCount === 0) {
+                        element.textContent = (element.textContent || "").replace(whitespace_regex, "");
+                    }
+                });
+            }
+            return (text.textContent || "").replace(whitespace_regex, "");
+        }
+    }
+    normal_compressor(content_element, hide_media, trim_space) {
         const raw_content = content_element.innerHTML;
         this.tweet.dataset.rawHTML = raw_content;
         this.tweet.dataset.rawContent = this.tweet.content;
+        if (trim_space)
+            this.trim_leading_whitespace(content_element);
         const compressed_content = content_element.innerHTML.replaceAll("\n", "");
         if (content_element)
             content_element.innerHTML = compressed_content;
-        this.tweet.content = this.tweet.content.replaceAll("\n", "");
+        if (trim_space)
+            this.tweet.content = this.trim_leading_whitespace(this.tweet.content.replaceAll("\n", ""));
+        else
+            this.tweet.content = this.tweet.content.replaceAll("\n", "");
         const media = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.media);
         if (media && hide_media)
             media.style.display = "none";
@@ -243,12 +267,12 @@ class TweetAnalyser {
         this.tweet.style.display = "none";
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
-    compress(compressor_mode, hide_media) {
+    compress(compressor_mode, hide_media, trim_leading_whitespace) {
         const content_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
         if (!content_element)
             return;
         if (compressor_mode === "normal")
-            this.normal_compressor(content_element, hide_media);
+            this.normal_compressor(content_element, hide_media, trim_leading_whitespace);
         else
             this.strict_compressor();
     }
@@ -338,8 +362,8 @@ function get_unchecked_tweets() {
         tweet.user_name = analyser.get_user_name();
         tweet.user_id = analyser.get_user_id();
         tweet.language = analyser.get_language();
-        tweet.compress = (compressor_mode, hide_media) => {
-            analyser.compress(compressor_mode, hide_media);
+        tweet.compress = (compressor_mode, hide_media, trim_leading_whitespace) => {
+            analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
         };
         result.push(tweet);
     }
@@ -353,11 +377,12 @@ async function run_check(setting) {
     const check_target = get_unchecked_tweets();
     const compressor_mode = setting.strict_mode ? "strict" : "normal";
     const hide_media = setting.hide_media;
+    const trim_leading_whitespace = setting.trim_leading_whitespace;
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
         const is_spam = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting);
         if (is_spam)
-            target.compress(compressor_mode, hide_media);
+            target.compress(compressor_mode, hide_media, trim_leading_whitespace);
     }
 }
 void (async () => {
