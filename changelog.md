@@ -14,6 +14,7 @@
 - Added the ability to compress tweets in a specific language
 - Added Strict Mode
 - Added the ability to export the setting
+- Added the ability to trim leading whitespace
 - UI language now can be set Japanese or English
 - Now works in places other than home (lists, search results, etc.)
 - Created the logo

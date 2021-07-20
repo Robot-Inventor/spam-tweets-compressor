@@ -8,6 +8,7 @@ export interface setting_object {
     [key: string]: number | boolean | Array<string>,
     break_threshold: number,
     hide_media: boolean,
+    trim_leading_whitespace: boolean,
     include_verified_account: boolean,
     strict_mode: boolean,
     character_repetition_threshold: number,
@@ -19,6 +20,7 @@ export interface setting_object {
 const default_setting: setting_object = {
     break_threshold: 5,
     hide_media: true,
+    trim_leading_whitespace: true,
     include_verified_account: false,
     strict_mode: false,
     character_repetition_threshold: 5,

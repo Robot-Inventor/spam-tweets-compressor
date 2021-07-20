@@ -20,6 +20,9 @@
     "browser_action_hide_media": {
         "message": "スパムツイートのメディアを非表示にする"
     },
+    "browser_action_trim_leading_whitespace": {
+        "message": "行頭の空白を削除する"
+    },
     "browser_action_include_verified_account": {
         "message": "認証済みアカウントを監査対象に含める"
     },
