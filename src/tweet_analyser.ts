@@ -119,4 +119,15 @@ export class TweetAnalyser {
         if (compressor_mode === "normal") this.normal_compressor(content_element, hide_media, trim_leading_whitespace);
         else this.strict_compressor();
     }
+
+    get_hashtag(): Array<string> {
+        function is_hashtag(element: Element) {
+            return element.textContent && element.textContent[0] !== "@" && element.childElementCount === 0;
+        }
+
+        function remove_hash(element: Element): string {
+            return (element.textContent || "").slice(1);
+        }
+        return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_hashtag).map(remove_hash);
+    }
 }

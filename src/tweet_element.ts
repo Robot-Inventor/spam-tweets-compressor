@@ -4,4 +4,5 @@ export interface TweetElement extends HTMLElement {
     user_name: string;
     user_id: string;
     language: Promise<string>;
+    hashtag: Array<string>;
 }

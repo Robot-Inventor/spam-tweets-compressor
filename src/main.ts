@@ -21,6 +21,7 @@ function get_unchecked_tweets() {
         tweet.compress = (compressor_mode: "normal" | "strict", hide_media: boolean, trim_leading_whitespace: boolean) => {
             analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
         };
+        tweet.hashtag = analyser.get_hashtag();
 
         result.push(tweet);
     }

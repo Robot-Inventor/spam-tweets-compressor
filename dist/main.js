@@ -148,7 +148,8 @@ const selector = {
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked",
     media: generate_media_selector(),
-    verified_badge: "svg.r-jwli3a.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr"
+    verified_badge: "svg.r-jwli3a.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr",
+    hashtag_link_mention: ".css-4rbku5.css-18t94o4.css-901oao.css-16my406.r-1n1174f.r-1loqt21.r-poiln3.r-bcqeeo.r-qvutc0"
 };
 
 
@@ -276,6 +277,15 @@ class TweetAnalyser {
         else
             this.strict_compressor();
     }
+    get_hashtag() {
+        function is_hashtag(element) {
+            return element.textContent && element.textContent[0] !== "@" && element.childElementCount === 0;
+        }
+        function remove_hash(element) {
+            return (element.textContent || "").slice(1);
+        }
+        return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_hashtag).map(remove_hash);
+    }
 }
 
 
@@ -365,6 +375,7 @@ function get_unchecked_tweets() {
         tweet.compress = (compressor_mode, hide_media, trim_leading_whitespace) => {
             analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
         };
+        tweet.hashtag = analyser.get_hashtag();
         result.push(tweet);
     }
     tweets.forEach(get_ready);
