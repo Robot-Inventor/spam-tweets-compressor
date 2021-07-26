@@ -122,7 +122,7 @@ export class TweetAnalyser {
 
     get_hashtag(): Array<string> {
         function is_hashtag(element: Element) {
-            return element.textContent && element.textContent[0] !== "@" && element.childElementCount === 0;
+            return element.textContent && ["#", "＃"].includes(element.textContent[0]);
         }
 
         function remove_hash(element: Element): string {

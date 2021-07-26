@@ -279,7 +279,7 @@ class TweetAnalyser {
     }
     get_hashtag() {
         function is_hashtag(element) {
-            return element.textContent && element.textContent[0] !== "@" && element.childElementCount === 0;
+            return element.textContent && ["#", "＃"].includes(element.textContent[0]);
         }
         function remove_hash(element) {
             return (element.textContent || "").slice(1);
