@@ -66,8 +66,7 @@ function is_query_element(argument: any): argument is query_element {
 }
 
 export function parse(query: query_type, tweet: TweetElement): boolean {
-    /* TODO: 正規表現機能、完全一致検索を実装する。
-    完全一致検索については、完全一致か部分一致かを指定するプロパティーをquery_elementに追加する*/
+    // TODO: 正規表現機能を実装する。
     let result = query[0] === "and";
 
     query[1].forEach((query_object) => {
