@@ -10,10 +10,12 @@ declare const browser: browser_interface;
 export class TweetAnalyser {
     private readonly tweet: TweetElement;
     private readonly content_element: HTMLElement | null;
+    readonly hash_symbol: Array<string>;
 
     constructor(tweet: TweetElement) {
         this.tweet = tweet;
         this.content_element = tweet.querySelector(selector.tweet_content);
+        this.hash_symbol = ["#", "＃"];
     }
 
     get_content(): string {
@@ -121,15 +123,18 @@ export class TweetAnalyser {
         else this.strict_compressor();
     }
 
-    get_hashtag(): Array<string> {
-        function is_hashtag(element: Element) {
-            return element.textContent && ["#", "＃"].includes(element.textContent[0]);
-        }
+    remove_hash_symbol = (text: string): string => {
+        return text.replace(new RegExp(`^[${this.hash_symbol.join()}]`), "");
+    }
 
-        function remove_hash(element: Element): string {
-            return (element.textContent || "").slice(1);
-        }
-        return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_hashtag).map(remove_hash);
+    get_hashtag(): Array<string> {
+        const is_hashtag = (element: Element) => {
+            return element.textContent && this.hash_symbol.includes(element.textContent[0]);
+        };
+        const normalize = (element: Element) => {
+            return this.remove_hash_symbol(element.textContent || "");
+        };
+        return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
     }
 
     get_link(): Array<string> {

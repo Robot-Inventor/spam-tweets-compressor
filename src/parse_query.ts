@@ -1,5 +1,6 @@
 import { TweetElement } from "tweet_element";
 import { normalize_link } from "./normalize";
+import { TweetAnalyser } from "./tweet_analyser";
 
 interface query_element {
     mode: "include" | "exclude",
@@ -76,7 +77,7 @@ export function parse(query: query_type, tweet: TweetElement): boolean {
             let includes_text = false;
 
             if (query_object.type === "text") includes_text = tweet.content.includes(query_object.string);
-            else if (query_object.type === "hashtag") includes_text = tweet.hashtag.includes(query_object.string);
+            else if (query_object.type === "hashtag") includes_text = tweet.hashtag.includes(new TweetAnalyser(tweet).remove_hash_symbol(query_object.string));
             else if (query_object.type === "id") includes_text = tweet.user_id.includes(query_object.string);
             else if (query_object.type === "name") includes_text = tweet.user_name.includes(query_object.string);
             else if (query_object.type === "link") includes_text = tweet.link.includes(normalize_link(query_object.string));

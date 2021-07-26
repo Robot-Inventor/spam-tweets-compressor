@@ -175,8 +175,12 @@ __webpack_require__.r(__webpack_exports__);
 
 class TweetAnalyser {
     constructor(tweet) {
+        this.remove_hash_symbol = (text) => {
+            return text.replace(new RegExp(`^[${this.hash_symbol.join()}]`), "");
+        };
         this.tweet = tweet;
         this.content_element = tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
+        this.hash_symbol = ["#", "＃"];
     }
     get_content() {
         if (!this.content_element)
@@ -284,13 +288,13 @@ class TweetAnalyser {
             this.strict_compressor();
     }
     get_hashtag() {
-        function is_hashtag(element) {
-            return element.textContent && ["#", "＃"].includes(element.textContent[0]);
-        }
-        function remove_hash(element) {
-            return (element.textContent || "").slice(1);
-        }
-        return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_hashtag).map(remove_hash);
+        const is_hashtag = (element) => {
+            return element.textContent && this.hash_symbol.includes(element.textContent[0]);
+        };
+        const normalize = (element) => {
+            return this.remove_hash_symbol(element.textContent || "");
+        };
+        return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
     }
     get_link() {
         function is_link(element) {
