@@ -14,6 +14,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
 /* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
+/* harmony import */ var _parse_regexp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parse_regexp */ "./src/parse_regexp.ts");
+
 
 
 function detect_ng_word(text, ng_words) {
@@ -21,11 +23,7 @@ function detect_ng_word(text, ng_words) {
         const word = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(ng_words[x]);
         if (!word)
             continue;
-        const is_regex = /^\/(.*)\/\D*$/.test(word);
-        const regex_core_string = word.replace(/^\//, "").replace(/\/(\D*)$/, "");
-        const regex_flag = word.replace(/^\/.*?\/(\D*)$/, "$1");
-        const regex = new RegExp(regex_core_string, regex_flag);
-        if (is_regex && regex.test(text))
+        if ((0,_parse_regexp__WEBPACK_IMPORTED_MODULE_2__.is_regexp)(word) && (0,_parse_regexp__WEBPACK_IMPORTED_MODULE_2__.parse_regexp)(word).test(text))
             return true;
         if (text.includes(word))
             return true;
@@ -115,6 +113,34 @@ function normalize(text) {
 }
 function normalize_link(text) {
     return text.replace(/^(https|http):\/\//i, "").replace(/\/(|index.html)$/, "");
+}
+
+
+/***/ }),
+
+/***/ "./src/parse_regexp.ts":
+/*!*****************************!*\
+  !*** ./src/parse_regexp.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "is_regexp": () => (/* binding */ is_regexp),
+/* harmony export */   "parse_regexp": () => (/* binding */ parse_regexp)
+/* harmony export */ });
+const detect_regexp_pattern = /^\/(.*)\/([dgimsuy]*)$/;
+function is_regexp(pattern) {
+    const detect_regexp_pattern = /^\/(.*)\/([dgimsuy]*)$/;
+    return detect_regexp_pattern.test(pattern);
+}
+function parse_regexp(pattern) {
+    if (!is_regexp(pattern))
+        return new RegExp(pattern);
+    const regex_core_string = pattern.replace(detect_regexp_pattern, "$1");
+    const regex_flag = pattern.replace(detect_regexp_pattern, "$2");
+    const regex = new RegExp(regex_core_string, regex_flag);
+    return regex;
 }
 
 
