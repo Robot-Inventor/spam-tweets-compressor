@@ -32,7 +32,7 @@ export class TweetAnalyser {
 
     get_user_id(): string {
         const user_id_element = this.tweet.querySelector(selector.user_id);
-        if (user_id_element) return user_id_element.textContent || "";
+        if (user_id_element) return (user_id_element.textContent || "").replace(/^@/, "");
         else return "";
     }
 

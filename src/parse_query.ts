@@ -98,7 +98,7 @@ export function parse(query: query_type, tweet: TweetElement): boolean {
 
             if (query_object.type === "text") includes_text = judge(tweet.content, query_object.string);
             else if (query_object.type === "hashtag") includes_text = judge(tweet.hashtag, new TweetAnalyser(tweet).remove_hash_symbol(query_object.string));
-            else if (query_object.type === "id") includes_text = judge(tweet.user_id, query_object.string);
+            else if (query_object.type === "id") includes_text = judge(tweet.user_id, query_object.string.replace(/^[@＠]/, ""));
             else if (query_object.type === "name") includes_text = judge(tweet.user_name, query_object.string);
             else if (query_object.type === "link") includes_text = judge(tweet.link, normalize_link(query_object.string));
 

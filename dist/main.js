@@ -223,7 +223,7 @@ class TweetAnalyser {
     get_user_id() {
         const user_id_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_id);
         if (user_id_element)
-            return user_id_element.textContent || "";
+            return (user_id_element.textContent || "").replace(/^@/, "");
         else
             return "";
     }
