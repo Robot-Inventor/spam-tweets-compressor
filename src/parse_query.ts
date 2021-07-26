@@ -11,45 +11,51 @@ interface query_element {
 
 type query_type = ["and" | "or", Array<query_element | query_type>];
 
+interface query_object {
+    rule: query_type
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const query_example: query_type = [
-    "and", [
-        {
-            mode: "include",
-            type: "text",
-            string: "spam spam"
-        },
-        {
-            mode: "exclude",
-            type: "name",
-            string: "i am spam"
-        },
-        {
-            mode: "include",
-            type: "id",
-            string: "/spam.*+/i"
-        },
-        {
-            mode: "exclude",
-            type: "hashtag",
-            string: "spam"
-        },
-        [
-            "or", [
-                {
-                    mode: "exclude",
-                    type: "link",
-                    string: "twitter.com/home"
-                },
-                {
-                    mode: "include",
-                    type: "text",
-                    string: "i'm spam",
-                }
+const query_example: query_object = {
+    rule: [
+        "and", [
+            {
+                mode: "include",
+                type: "text",
+                string: "spam spam"
+            },
+            {
+                mode: "exclude",
+                type: "name",
+                string: "i am spam"
+            },
+            {
+                mode: "include",
+                type: "id",
+                string: "/spam.*+/i"
+            },
+            {
+                mode: "exclude",
+                type: "hashtag",
+                string: "spam"
+            },
+            [
+                "or", [
+                    {
+                        mode: "exclude",
+                        type: "link",
+                        string: "twitter.com/home"
+                    },
+                    {
+                        mode: "include",
+                        type: "text",
+                        string: "i'm spam",
+                    }
+                ]
             ]
         ]
     ]
-];
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function is_query_element(argument: any): argument is query_element {
@@ -67,13 +73,15 @@ function is_query_element(argument: any): argument is query_element {
 }
 
 function judge(target: string | Array<string>, pattern: string) {
+    const is_regex = is_regexp(pattern);
+
     if (typeof target === "string") {
-        if (is_regexp(pattern)) return parse_regexp(pattern).test(target);
+        if (is_regex) return parse_regexp(pattern).test(target);
         else return pattern.includes(target);
     } else {
         let result = false;
         target.forEach((t) => {
-            if (judge(t, pattern)) result = true;
+            if ((is_regex && parse_regexp(pattern).test(t)) || t === pattern) result = true;
         });
         return result;
     }
