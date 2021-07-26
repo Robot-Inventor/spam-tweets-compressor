@@ -1,8 +1,9 @@
 import { TweetElement } from "tweet_element";
+import { normalize_link } from "./normalize";
 
 interface query_element {
     mode: "include" | "exclude",
-    type: "text" | "hashtag" | "name" | "id",
+    type: "text" | "hashtag" | "name" | "id" | "link",
     string: string
 }
 
@@ -35,8 +36,8 @@ const query_example: query_type = [
             "or", [
                 {
                     mode: "exclude",
-                    type: "hashtag",
-                    string: "notSpam"
+                    type: "link",
+                    string: "twitter.com/home"
                 },
                 {
                     mode: "include",
@@ -64,8 +65,7 @@ function is_query_element(argument: any): argument is query_element {
 }
 
 export function parse(query: query_type, tweet: TweetElement): boolean {
-    /* TODO: リンクの判定機能と正規表現機能、完全一致検索を実装する。
-    リンクの判定機能では、https://やhttp://、リンクの末尾の/やindex.htmlを削除してから判定する。
+    /* TODO: 正規表現機能、完全一致検索を実装する。
     完全一致検索については、完全一致か部分一致かを指定するプロパティーをquery_elementに追加する*/
     let result = query[0] === "and";
 
@@ -79,6 +79,7 @@ export function parse(query: query_type, tweet: TweetElement): boolean {
             else if (query_object.type === "hashtag") includes_text = tweet.hashtag.includes(query_object.string);
             else if (query_object.type === "id") includes_text = tweet.user_id.includes(query_object.string);
             else if (query_object.type === "name") includes_text = tweet.user_name.includes(query_object.string);
+            else if (query_object.type === "link") includes_text = tweet.link.includes(normalize_link(query_object.string));
 
             judgement = query_object.mode === "include" ? includes_text : !includes_text;
         } else {

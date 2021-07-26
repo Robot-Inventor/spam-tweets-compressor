@@ -4,3 +4,7 @@ export function normalize(text: string): string {
     });
     return text;
 }
+
+export function normalize_link(text: string): string {
+    return text.replace(/^(https|http):\/\//i, "").replace(/\/(|index.html)$/, "");
+}

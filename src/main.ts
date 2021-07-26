@@ -22,6 +22,7 @@ function get_unchecked_tweets() {
             analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
         };
         tweet.hashtag = analyser.get_hashtag();
+        tweet.link = analyser.get_link();
 
         result.push(tweet);
     }

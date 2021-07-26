@@ -1,6 +1,7 @@
 import { browser_interface, detect_language } from "./browser";
 import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";
+import { normalize_link } from "./normalize";
 
 
 declare const browser: browser_interface;
@@ -129,5 +130,15 @@ export class TweetAnalyser {
             return (element.textContent || "").slice(1);
         }
         return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_hashtag).map(remove_hash);
+    }
+
+    get_link(): Array<string> {
+        function is_link(element: Element) {
+            return element.childElementCount === 1;
+        }
+        function normalize(element: Element) {
+            return normalize_link(element.textContent || "");
+        }
+        return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_link).map(normalize);
     }
 }

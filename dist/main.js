@@ -104,13 +104,17 @@ async function load_setting() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "normalize": () => (/* binding */ normalize)
+/* harmony export */   "normalize": () => (/* binding */ normalize),
+/* harmony export */   "normalize_link": () => (/* binding */ normalize_link)
 /* harmony export */ });
 function normalize(text) {
     text = text.normalize("NFKC").toLowerCase().replace(/[ぁ-ん]/g, (s) => {
         return String.fromCharCode(s.charCodeAt(0) + 0x60);
     });
     return text;
+}
+function normalize_link(text) {
+    return text.replace(/^(https|http):\/\//i, "").replace(/\/(|index.html)$/, "");
 }
 
 
@@ -166,6 +170,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "TweetAnalyser": () => (/* binding */ TweetAnalyser)
 /* harmony export */ });
 /* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
+/* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
+
 
 class TweetAnalyser {
     constructor(tweet) {
@@ -286,6 +292,15 @@ class TweetAnalyser {
         }
         return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_hashtag).map(remove_hash);
     }
+    get_link() {
+        function is_link(element) {
+            return element.childElementCount === 1;
+        }
+        function normalize(element) {
+            return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_link)(element.textContent || "");
+        }
+        return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_link).map(normalize);
+    }
 }
 
 
@@ -376,6 +391,7 @@ function get_unchecked_tweets() {
             analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
         };
         tweet.hashtag = analyser.get_hashtag();
+        tweet.link = analyser.get_link();
         result.push(tweet);
     }
     tweets.forEach(get_ready);
