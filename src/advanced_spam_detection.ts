@@ -1,7 +1,6 @@
 import { TweetElement } from "tweet_element";
-import { normalize_link } from "./normalize";
+import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { is_regexp, parse_regexp } from "./parse_regexp";
-import { TweetAnalyser } from "./tweet_analyser";
 
 interface query_element {
     mode: "include" | "exclude",
@@ -97,10 +96,13 @@ export function advanced_spam_detection(query: query_type, tweet: TweetElement):
             let includes_text = false;
 
             if (query_object.type === "text") includes_text = judge(tweet.content, query_object.string);
-            else if (query_object.type === "hashtag") includes_text = judge(tweet.hashtag, new TweetAnalyser(tweet).remove_hash_symbol(query_object.string));
-            else if (query_object.type === "id") includes_text = judge(tweet.user_id, query_object.string.replace(/^[@＠]/, ""));
+            else if (query_object.type === "hashtag") includes_text = judge(tweet.hashtag, normalize_hashtag(query_object.string));
+            else if (query_object.type === "id") includes_text = judge(tweet.user_id, normalize_user_id(query_object.string));
             else if (query_object.type === "name") includes_text = judge(tweet.user_name, query_object.string);
-            else if (query_object.type === "link") includes_text = judge(tweet.link, normalize_link(query_object.string));
+            else if (query_object.type === "link") includes_text = judge(tweet.link, (() => {
+                if (is_regexp(query_object.string)) return query_object.string;
+                else return normalize_link(query_object.string);
+            })());
 
             judgement = query_object.mode === "include" ? includes_text : !includes_text;
         } else {

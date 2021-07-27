@@ -102,9 +102,13 @@ async function load_setting() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "hash_symbol": () => (/* binding */ hash_symbol),
 /* harmony export */   "normalize": () => (/* binding */ normalize),
-/* harmony export */   "normalize_link": () => (/* binding */ normalize_link)
+/* harmony export */   "normalize_link": () => (/* binding */ normalize_link),
+/* harmony export */   "normalize_hashtag": () => (/* binding */ normalize_hashtag),
+/* harmony export */   "normalize_user_id": () => (/* binding */ normalize_user_id)
 /* harmony export */ });
+const hash_symbol = ["#", "＃"];
 function normalize(text) {
     text = text.normalize("NFKC").toLowerCase().replace(/[ぁ-ん]/g, (s) => {
         return String.fromCharCode(s.charCodeAt(0) + 0x60);
@@ -113,6 +117,12 @@ function normalize(text) {
 }
 function normalize_link(text) {
     return text.replace(/^(https|http):\/\//i, "").replace(/\/(|index.html)$/, "");
+}
+function normalize_hashtag(text) {
+    return text.replace(new RegExp(`^[${hash_symbol.join()}]`), "");
+}
+function normalize_user_id(text) {
+    return text.replace(/^[@＠]/, "");
 }
 
 
@@ -202,12 +212,8 @@ __webpack_require__.r(__webpack_exports__);
 
 class TweetAnalyser {
     constructor(tweet) {
-        this.remove_hash_symbol = (text) => {
-            return text.replace(new RegExp(`^[${this.hash_symbol.join()}]`), "");
-        };
         this.tweet = tweet;
         this.content_element = tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
-        this.hash_symbol = ["#", "＃"];
     }
     get_content() {
         if (!this.content_element)
@@ -224,7 +230,7 @@ class TweetAnalyser {
     get_user_id() {
         const user_id_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_id);
         if (user_id_element)
-            return (user_id_element.textContent || "").replace(/^@/, "");
+            return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_user_id)(user_id_element.textContent || "");
         else
             return "";
     }
@@ -316,10 +322,10 @@ class TweetAnalyser {
     }
     get_hashtag() {
         const is_hashtag = (element) => {
-            return element.textContent && this.hash_symbol.includes(element.textContent[0]);
+            return element.textContent && _normalize__WEBPACK_IMPORTED_MODULE_1__.hash_symbol.includes(element.textContent[0]);
         };
         const normalize = (element) => {
-            return this.remove_hash_symbol(element.textContent || "");
+            return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_hashtag)(element.textContent || "");
         };
         return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
     }
@@ -328,7 +334,7 @@ class TweetAnalyser {
             return Boolean(element.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.link_scheme_outer));
         }
         function normalize(element) {
-            return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_link)(element.textContent || "");
+            return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_link)((element.textContent || "").replace(/…$/, ""));
         }
         return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_link).map(normalize);
     }

@@ -1,7 +1,7 @@
 import { browser_interface, detect_language } from "./browser";
 import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";
-import { normalize_link } from "./normalize";
+import { hash_symbol, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 
 
 declare const browser: browser_interface;
@@ -10,12 +10,10 @@ declare const browser: browser_interface;
 export class TweetAnalyser {
     private readonly tweet: TweetElement;
     private readonly content_element: HTMLElement | null;
-    readonly hash_symbol: Array<string>;
 
     constructor(tweet: TweetElement) {
         this.tweet = tweet;
         this.content_element = tweet.querySelector(selector.tweet_content);
-        this.hash_symbol = ["#", "＃"];
     }
 
     get_content(): string {
@@ -32,7 +30,7 @@ export class TweetAnalyser {
 
     get_user_id(): string {
         const user_id_element = this.tweet.querySelector(selector.user_id);
-        if (user_id_element) return (user_id_element.textContent || "").replace(/^@/, "");
+        if (user_id_element) return normalize_user_id(user_id_element.textContent || "");
         else return "";
     }
 
@@ -123,16 +121,12 @@ export class TweetAnalyser {
         else this.strict_compressor();
     }
 
-    remove_hash_symbol = (text: string): string => {
-        return text.replace(new RegExp(`^[${this.hash_symbol.join()}]`), "");
-    }
-
     get_hashtag(): Array<string> {
         const is_hashtag = (element: Element) => {
-            return element.textContent && this.hash_symbol.includes(element.textContent[0]);
+            return element.textContent && hash_symbol.includes(element.textContent[0]);
         };
         const normalize = (element: Element) => {
-            return this.remove_hash_symbol(element.textContent || "");
+            return normalize_hashtag(element.textContent || "");
         };
         return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
     }
@@ -142,7 +136,7 @@ export class TweetAnalyser {
             return Boolean(element.querySelector(selector.link_scheme_outer));
         }
         function normalize(element: Element) {
-            return normalize_link(element.textContent || "");
+            return normalize_link((element.textContent || "").replace(/…$/, ""));
         }
         return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_link).map(normalize);
     }
