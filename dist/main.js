@@ -14,6 +14,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
 /* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
+/* harmony import */ var _parse_regexp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parse_regexp */ "./src/parse_regexp.ts");
+
 
 
 function detect_ng_word(text, ng_words) {
@@ -21,11 +23,7 @@ function detect_ng_word(text, ng_words) {
         const word = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(ng_words[x]);
         if (!word)
             continue;
-        const is_regex = /^\/(.*)\/\D*$/.test(word);
-        const regex_core_string = word.replace(/^\//, "").replace(/\/(\D*)$/, "");
-        const regex_flag = word.replace(/^\/.*?\/(\D*)$/, "$1");
-        const regex = new RegExp(regex_core_string, regex_flag);
-        if (is_regex && regex.test(text))
+        if ((0,_parse_regexp__WEBPACK_IMPORTED_MODULE_2__.is_regexp)(word) && (0,_parse_regexp__WEBPACK_IMPORTED_MODULE_2__.parse_regexp)(word).test(text))
             return true;
         if (text.includes(word))
             return true;
@@ -104,13 +102,55 @@ async function load_setting() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "normalize": () => (/* binding */ normalize)
+/* harmony export */   "hash_symbol": () => (/* binding */ hash_symbol),
+/* harmony export */   "normalize": () => (/* binding */ normalize),
+/* harmony export */   "normalize_link": () => (/* binding */ normalize_link),
+/* harmony export */   "normalize_hashtag": () => (/* binding */ normalize_hashtag),
+/* harmony export */   "normalize_user_id": () => (/* binding */ normalize_user_id)
 /* harmony export */ });
+const hash_symbol = ["#", "＃"];
 function normalize(text) {
     text = text.normalize("NFKC").toLowerCase().replace(/[ぁ-ん]/g, (s) => {
         return String.fromCharCode(s.charCodeAt(0) + 0x60);
     });
     return text;
+}
+function normalize_link(text) {
+    return text.replace(/^(https|http):\/\//i, "").replace(/\/(|index.html)$/, "");
+}
+function normalize_hashtag(text) {
+    return text.replace(new RegExp(`^[${hash_symbol.join()}]`), "");
+}
+function normalize_user_id(text) {
+    return text.replace(/^[@＠]/, "");
+}
+
+
+/***/ }),
+
+/***/ "./src/parse_regexp.ts":
+/*!*****************************!*\
+  !*** ./src/parse_regexp.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "is_regexp": () => (/* binding */ is_regexp),
+/* harmony export */   "parse_regexp": () => (/* binding */ parse_regexp)
+/* harmony export */ });
+const detect_regexp_pattern = /^\/(.*)\/([dgimsuy]*)$/;
+function is_regexp(pattern) {
+    const detect_regexp_pattern = /^\/(.*)\/([dgimsuy]*)$/;
+    return detect_regexp_pattern.test(pattern);
+}
+function parse_regexp(pattern) {
+    if (!is_regexp(pattern))
+        return new RegExp(pattern);
+    const regex_core_string = pattern.replace(detect_regexp_pattern, "$1");
+    const regex_flag = pattern.replace(detect_regexp_pattern, "$2");
+    const regex = new RegExp(regex_core_string, regex_flag);
+    return regex;
 }
 
 
@@ -148,7 +188,9 @@ const selector = {
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked",
     media: generate_media_selector(),
-    verified_badge: "svg.r-jwli3a.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr"
+    verified_badge: "svg.r-jwli3a.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr",
+    hashtag_link_mention: ".css-4rbku5.css-18t94o4.css-901oao.css-16my406.r-1loqt21.r-poiln3.r-bcqeeo.r-qvutc0",
+    link_scheme_outer: ".css-901oao.css-16my406.r-1tl8opc.r-hiw28u.r-qvk6io.r-bcqeeo.r-qvutc0"
 };
 
 
@@ -165,6 +207,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "TweetAnalyser": () => (/* binding */ TweetAnalyser)
 /* harmony export */ });
 /* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
+/* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
+
 
 class TweetAnalyser {
     constructor(tweet) {
@@ -186,7 +230,7 @@ class TweetAnalyser {
     get_user_id() {
         const user_id_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_id);
         if (user_id_element)
-            return user_id_element.textContent || "";
+            return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_user_id)(user_id_element.textContent || "");
         else
             return "";
     }
@@ -275,6 +319,24 @@ class TweetAnalyser {
             this.normal_compressor(content_element, hide_media, trim_leading_whitespace);
         else
             this.strict_compressor();
+    }
+    get_hashtag() {
+        const is_hashtag = (element) => {
+            return element.textContent && _normalize__WEBPACK_IMPORTED_MODULE_1__.hash_symbol.includes(element.textContent[0]);
+        };
+        const normalize = (element) => {
+            return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_hashtag)(element.textContent || "");
+        };
+        return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
+    }
+    get_link() {
+        function is_link(element) {
+            return Boolean(element.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.link_scheme_outer));
+        }
+        function normalize(element) {
+            return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_link)((element.textContent || "").replace(/…$/, ""));
+        }
+        return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_link).map(normalize);
     }
 }
 
@@ -365,6 +427,8 @@ function get_unchecked_tweets() {
         tweet.compress = (compressor_mode, hide_media, trim_leading_whitespace) => {
             analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
         };
+        tweet.hashtag = analyser.get_hashtag();
+        tweet.link = analyser.get_link();
         result.push(tweet);
     }
     tweets.forEach(get_ready);

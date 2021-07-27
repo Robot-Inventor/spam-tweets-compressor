@@ -2,6 +2,7 @@ import { setting_object } from "./load_setting";
 import { normalize } from "./normalize";
 import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";
+import { is_regexp, parse_regexp } from "./parse_regexp";
 
 
 function detect_ng_word(text: string, ng_words: Array<string>) {
@@ -10,12 +11,7 @@ function detect_ng_word(text: string, ng_words: Array<string>) {
 
         if (!word) continue;
 
-        const is_regex = /^\/(.*)\/\D*$/.test(word);
-        const regex_core_string = word.replace(/^\//, "").replace(/\/(\D*)$/, "");
-        const regex_flag = word.replace(/^\/.*?\/(\D*)$/, "$1");
-        const regex = new RegExp(regex_core_string, regex_flag);
-
-        if (is_regex && regex.test(text)) return true;
+        if (is_regexp(word) && parse_regexp(word).test(text)) return true;
         if (text.includes(word)) return true;
     }
     return false;

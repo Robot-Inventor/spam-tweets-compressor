@@ -39,6 +39,14 @@
         特定の言語のツイートを圧縮します。対象とする言語の言語コード（ISO 639-1）を入力してください。また、複数指定する場合は改行で区切ってください。
     </p>
     <textarea id="language_filter" cols="30" rows="10" data-setting-name="language_filter"></textarea>
+    <h2 id="advanced_spam_detection_title" data-i18n="advanced_setting_advanced_spam_detection_title">高度なスパム判定</h2>
+    <p data-i18n="advanced_setting_advanced_spam_detection_1">
+        JSON形式でスパム判定の条件を入力できます。
+    </p>
+    <p>
+        <a href="https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/docs/ja/advanced_spam_detection.md" target="_blank" data-i18n="advanced_setting_advanced_spam_detection_2">書き方の詳細</a>
+    </p>
+    <textarea id="advanced_spam_detection" cols="30" rows="10" data-setting-name="advanced_spam_detection"></textarea>
     <script src="webextension_polyfill/browser-polyfill.min.js"></script>
     <script src="i18n.js"></script>
     <script src="advanced_setting.js" type="module"></script>

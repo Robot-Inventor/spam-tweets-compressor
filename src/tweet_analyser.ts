@@ -1,6 +1,7 @@
 import { browser_interface, detect_language } from "./browser";
 import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";
+import { hash_symbol, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 
 
 declare const browser: browser_interface;
@@ -29,7 +30,7 @@ export class TweetAnalyser {
 
     get_user_id(): string {
         const user_id_element = this.tweet.querySelector(selector.user_id);
-        if (user_id_element) return user_id_element.textContent || "";
+        if (user_id_element) return normalize_user_id(user_id_element.textContent || "");
         else return "";
     }
 
@@ -118,5 +119,25 @@ export class TweetAnalyser {
 
         if (compressor_mode === "normal") this.normal_compressor(content_element, hide_media, trim_leading_whitespace);
         else this.strict_compressor();
+    }
+
+    get_hashtag(): Array<string> {
+        const is_hashtag = (element: Element) => {
+            return element.textContent && hash_symbol.includes(element.textContent[0]);
+        };
+        const normalize = (element: Element) => {
+            return normalize_hashtag(element.textContent || "");
+        };
+        return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
+    }
+
+    get_link(): Array<string> {
+        function is_link(element: Element) {
+            return Boolean(element.querySelector(selector.link_scheme_outer));
+        }
+        function normalize(element: Element) {
+            return normalize_link((element.textContent || "").replace(/…$/, ""));
+        }
+        return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_link).map(normalize);
     }
 }
