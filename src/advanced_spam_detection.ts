@@ -9,7 +9,7 @@ interface query_element {
     string: string
 }
 
-type query_type = ["and" | "or", Array<query_element | query_type>];
+export type query_type = ["and" | "or", Array<query_element | query_type>];
 
 interface query_object {
     rule: query_type
@@ -77,7 +77,7 @@ function judge(target: string | Array<string>, pattern: string) {
 
     if (typeof target === "string") {
         if (is_regex) return parse_regexp(pattern).test(target);
-        else return pattern.includes(target);
+        else return target.includes(pattern);
     } else {
         let result = false;
         target.forEach((t) => {
