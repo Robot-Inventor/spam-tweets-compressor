@@ -139,7 +139,7 @@ export class TweetAnalyser {
 
     get_link(): Array<string> {
         function is_link(element: Element) {
-            return element.childElementCount === 1;
+            return Boolean(element.querySelector(selector.link_scheme_outer));
         }
         function normalize(element: Element) {
             return normalize_link(element.textContent || "");
