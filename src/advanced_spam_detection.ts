@@ -87,7 +87,7 @@ function judge(target: string | Array<string>, pattern: string) {
     }
 }
 
-export function parse(query: query_type, tweet: TweetElement): boolean {
+export function advanced_spam_detection(query: query_type, tweet: TweetElement): boolean {
     let result = query[0] === "and";
 
     query[1].forEach((query_object) => {
@@ -104,7 +104,7 @@ export function parse(query: query_type, tweet: TweetElement): boolean {
 
             judgement = query_object.mode === "include" ? includes_text : !includes_text;
         } else {
-            judgement = parse(query_object, tweet);
+            judgement = advanced_spam_detection(query_object, tweet);
         }
 
         if (query[0] === "and" && !judgement) result = false;
