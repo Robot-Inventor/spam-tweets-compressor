@@ -56,6 +56,7 @@ async function run_check(setting: setting_object, advanced_filter: query_type) {
 }
 
 async function get_json(url: string) {
+    // deepcode ignore Ssrf: <This is because the function is to read only the trusted files listed in dist/advanced_filter.json.>
     const response = await fetch(url);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json = await response.json();
