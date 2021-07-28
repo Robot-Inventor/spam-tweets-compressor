@@ -588,7 +588,7 @@ void (async () => {
     const setting = await (0,_load_setting__WEBPACK_IMPORTED_MODULE_1__.load_setting)();
     const filter_list = [];
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const filter_url_data = await get_json(browser.runtime.getURL("dist/advanced_filter.json"));
+    const filter_url_data = await get_json("https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json");
     for (let i = 0; i < setting.advanced_filter.length; i++) {
         const key = setting.advanced_filter[i];
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

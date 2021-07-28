@@ -111,7 +111,7 @@ function get_setting_name(element) {
         throw "設定の名称が指定されていないinput要素が見つかりました";
 }
 async function load_filter_list(setting) {
-    const response = await fetch("advanced_filter.json");
+    const response = await fetch("https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json");
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json_data = await response.json();
     const filter_list_outer = document.getElementById("filter_list_outer");

@@ -19,8 +19,5 @@ export interface browser_interface {
             set: (keys: { [key: string]: setting_object }) => Promise<void>,
             get: (keys: string) => Promise<{ setting: setting_object }>
         }
-    },
-    runtime: {
-        getURL: (path: string) => string
     }
 }

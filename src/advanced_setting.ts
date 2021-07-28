@@ -14,7 +14,7 @@ function get_setting_name(element: HTMLElement) {
 }
 
 async function load_filter_list(setting: setting_object): Promise<void> {
-    const response = await fetch("advanced_filter.json");
+    const response = await fetch("https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json");
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json_data: advanced_filter_type = await response.json();
     const filter_list_outer = document.getElementById("filter_list_outer");
