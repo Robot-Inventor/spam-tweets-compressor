@@ -104,11 +104,8 @@
     "advanced_setting_advanced_spam_detection_title": {
         "message": "高度なスパム判定"
     },
-    "advanced_setting_advanced_spam_detection_1": {
-        "message": "JSON形式でスパム判定の条件を入力できます。"
-    },
-    "advanced_setting_advanced_spam_detection_2": {
-        "message": "書き方の詳細"
+    "advanced_setting_advanced_spam_detection": {
+        "message": "特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。"
     },
     "decompress_button_normal": {
         "message": "展開"
