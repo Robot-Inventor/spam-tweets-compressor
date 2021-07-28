@@ -5,7 +5,7 @@ declare const browser: browser_interface;
 
 
 export interface setting_object {
-    [key: string]: number | boolean | Array<string>,
+    [key: string]: number | boolean | Array<string> | { [key: string]: { url: string } },
     break_threshold: number,
     hide_media: boolean,
     trim_leading_whitespace: boolean,
@@ -14,7 +14,8 @@ export interface setting_object {
     character_repetition_threshold: number,
     ng_word: Array<string>,
     exclude_url: Array<string>,
-    language_filter: Array<string>
+    language_filter: Array<string>,
+    advanced_filter: Array<string>
 }
 
 const default_setting: setting_object = {
@@ -26,7 +27,8 @@ const default_setting: setting_object = {
     character_repetition_threshold: 5,
     ng_word: [""],
     exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"],
-    language_filter: [""]
+    language_filter: [""],
+    advanced_filter: [""]
 };
 
 export async function load_setting(): Promise<setting_object> {

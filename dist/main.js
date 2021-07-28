@@ -2,6 +2,129 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/advanced_spam_detection.ts":
+/*!****************************************!*\
+  !*** ./src/advanced_spam_detection.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "advanced_spam_detection": () => (/* binding */ advanced_spam_detection)
+/* harmony export */ });
+/* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
+/* harmony import */ var _parse_regexp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parse_regexp */ "./src/parse_regexp.ts");
+
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const query_example = {
+    rule: [
+        "and", [
+            {
+                mode: "include",
+                type: "text",
+                string: "spam spam"
+            },
+            {
+                mode: "exclude",
+                type: "name",
+                string: "i am spam"
+            },
+            {
+                mode: "include",
+                type: "id",
+                string: "/spam.*+/i"
+            },
+            {
+                mode: "exclude",
+                type: "hashtag",
+                string: "spam"
+            },
+            [
+                "or", [
+                    {
+                        mode: "exclude",
+                        type: "link",
+                        string: "twitter.com/home"
+                    },
+                    {
+                        mode: "include",
+                        type: "text",
+                        string: "i'm spam",
+                    }
+                ]
+            ]
+        ]
+    ]
+};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function is_query_element(argument) {
+    return argument !== null &&
+        typeof argument === "object" &&
+        "mode" in argument &&
+        "type" in argument &&
+        "string" in argument &&
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        typeof argument.mode === "string" &&
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        typeof argument.type === "string" &&
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        typeof argument.string === "string";
+}
+function judge(target, pattern) {
+    const is_regex = (0,_parse_regexp__WEBPACK_IMPORTED_MODULE_1__.is_regexp)(pattern);
+    if (typeof target === "string") {
+        if (is_regex)
+            return (0,_parse_regexp__WEBPACK_IMPORTED_MODULE_1__.parse_regexp)(pattern).test(target);
+        else
+            return target.includes(pattern);
+    }
+    else {
+        let result = false;
+        target.forEach((t) => {
+            if ((is_regex && (0,_parse_regexp__WEBPACK_IMPORTED_MODULE_1__.parse_regexp)(pattern).test(t)) || t === pattern)
+                result = true;
+        });
+        return result;
+    }
+}
+function advanced_spam_detection(query, tweet) {
+    let result = query[0] === "and";
+    query[1].forEach((query_object) => {
+        let judgement = false;
+        if (is_query_element(query_object)) {
+            let includes_text = false;
+            if (query_object.type === "text")
+                includes_text = judge(tweet.content, query_object.string);
+            else if (query_object.type === "hashtag")
+                includes_text = judge(tweet.hashtag, (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_hashtag)(query_object.string));
+            else if (query_object.type === "id")
+                includes_text = judge(tweet.user_id, (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_user_id)(query_object.string));
+            else if (query_object.type === "name")
+                includes_text = judge(tweet.user_name, query_object.string);
+            else if (query_object.type === "link")
+                includes_text = judge(tweet.link, (() => {
+                    if ((0,_parse_regexp__WEBPACK_IMPORTED_MODULE_1__.is_regexp)(query_object.string))
+                        return query_object.string;
+                    else
+                        return (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_link)(query_object.string);
+                })());
+            judgement = query_object.mode === "include" ? includes_text : !includes_text;
+        }
+        else {
+            judgement = advanced_spam_detection(query_object, tweet);
+        }
+        if (query[0] === "and" && !judgement)
+            result = false;
+        else if (query[0] === "or" && judgement)
+            result = true;
+    });
+    return result;
+}
+
+
+/***/ }),
+
 /***/ "./src/detect_spam.ts":
 /*!****************************!*\
   !*** ./src/detect_spam.ts ***!
@@ -15,6 +138,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
 /* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
 /* harmony import */ var _parse_regexp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parse_regexp */ "./src/parse_regexp.ts");
+/* harmony import */ var _advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./advanced_spam_detection */ "./src/advanced_spam_detection.ts");
+
 
 
 
@@ -41,7 +166,7 @@ function detect_filtered_language(target_language, language_filter) {
 function detect_verified_badge(tweet) {
     return Boolean(tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.verified_badge));
 }
-async function detect_spam(target, setting) {
+async function detect_spam(target, setting, advanced_filter) {
     const target_content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);
     const breaks = target_content.match(/\n/g);
     const break_length = breaks ? breaks.length : 0;
@@ -50,9 +175,10 @@ async function detect_spam(target, setting) {
     const has_ng_word = detect_ng_word(target_content, setting.ng_word);
     const content_language = await target.language;
     const is_filtered_language = detect_filtered_language(content_language || "", setting.language_filter);
+    const advanced_detection = (0,_advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__.advanced_spam_detection)(advanced_filter, target);
     const has_verified_badge = detect_verified_badge(target);
     const verified_badge_judgement = has_verified_badge && !setting.include_verified_account;
-    const normal_judgement = has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language;
+    const normal_judgement = has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language || advanced_detection;
     return normal_judgement && !verified_badge_judgement;
 }
 
@@ -78,7 +204,8 @@ const default_setting = {
     character_repetition_threshold: 5,
     ng_word: [""],
     exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"],
-    language_filter: [""]
+    language_filter: [""],
+    advanced_filter: [""]
 };
 async function load_setting() {
     const saved_setting = await browser.storage.local.get("setting");
@@ -434,7 +561,7 @@ function get_unchecked_tweets() {
     tweets.forEach(get_ready);
     return result;
 }
-async function run_check(setting) {
+async function run_check(setting, advanced_filter) {
     const exclude_url = setting.exclude_url;
     if (exclude_url.includes(location.href))
         return;
@@ -444,13 +571,31 @@ async function run_check(setting) {
     const trim_leading_whitespace = setting.trim_leading_whitespace;
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
-        const is_spam = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting);
+        const is_spam = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
         if (is_spam)
             target.compress(compressor_mode, hide_media, trim_leading_whitespace);
     }
 }
+async function get_json(url) {
+    // deepcode ignore Ssrf: <This is because the function is to read only the trusted files listed in dist/advanced_filter.json.>
+    const response = await fetch(url);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const json = await response.json();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return json;
+}
 void (async () => {
     const setting = await (0,_load_setting__WEBPACK_IMPORTED_MODULE_1__.load_setting)();
+    const filter_list = [];
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const filter_url_data = await get_json(browser.runtime.getURL("dist/advanced_filter.json"));
+    for (let i = 0; i < setting.advanced_filter.length; i++) {
+        const key = setting.advanced_filter[i];
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const json_data = await get_json(filter_url_data[key].url);
+        filter_list.push(json_data.rule);
+    }
+    const joined_advanced_filter = ["or", [...filter_list]];
     const body_observer_target = document.body;
     const body_observer = new MutationObserver(() => {
         const timeline = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.timeline);
@@ -458,7 +603,7 @@ void (async () => {
             body_observer.disconnect();
             const main_observer_target = timeline;
             const main_observer = new MutationObserver(() => {
-                void run_check(setting);
+                void run_check(setting, joined_advanced_filter);
             });
             main_observer.observe(main_observer_target, {
                 childList: true,

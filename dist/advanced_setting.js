@@ -21,7 +21,8 @@ const default_setting = {
     character_repetition_threshold: 5,
     ng_word: [""],
     exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"],
-    language_filter: [""]
+    language_filter: [""],
+    advanced_filter: [""]
 };
 async function load_setting() {
     const saved_setting = await browser.storage.local.get("setting");
@@ -109,7 +110,43 @@ function get_setting_name(element) {
     else
         throw "設定の名称が指定されていないinput要素が見つかりました";
 }
+async function load_filter_list(setting) {
+    const response = await fetch("advanced_filter.json");
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const json_data = await response.json();
+    const filter_list_outer = document.getElementById("filter_list_outer");
+    if (filter_list_outer) {
+        Object.keys(json_data).forEach((key) => {
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            // eslint-disable-next-line no-irregular-whitespace
+            const checkbox_id = key.replace(/[ 　]/g, "_");
+            checkbox.id = checkbox_id;
+            checkbox.dataset.filterName = key;
+            if (setting.advanced_filter.includes(key))
+                checkbox.checked = true;
+            checkbox.addEventListener("change", () => {
+                const all_checkbox = filter_list_outer.querySelectorAll("input[type='checkbox'");
+                setting.advanced_filter = [...all_checkbox].filter((element) => {
+                    return element.checked && element.dataset.filterName !== undefined;
+                }).map((element) => {
+                    return (element.dataset.filterName || "");
+                });
+                void browser.storage.local.set({ "setting": setting });
+            });
+            const label = document.createElement("label");
+            label.textContent = key;
+            label.setAttribute("for", checkbox_id);
+            filter_list_outer.appendChild(checkbox);
+            filter_list_outer.appendChild(label);
+        });
+    }
+    else {
+        console.log("filter_list_outerが見つかりませんでした");
+    }
+}
 (0,_load_setting__WEBPACK_IMPORTED_MODULE_0__.load_setting)().then((setting) => {
+    void load_filter_list(setting);
     const textarea_element_list = document.querySelectorAll("textarea");
     textarea_element_list.forEach((textarea) => {
         const setting_name = get_setting_name(textarea);

@@ -10,7 +10,7 @@ interface query_element {
 
 export type query_type = ["and" | "or", Array<query_element | query_type>];
 
-interface query_object {
+export interface query_object {
     rule: query_type
 }
 

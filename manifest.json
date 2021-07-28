@@ -35,11 +35,15 @@
     },
     "default_locale": "en",
     "permissions": [
-        "storage"
+        "storage",
+        "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/*/*"
     ],
     "applications": {
         "gecko": {
             "id": "{feb13580-3a7d-4151-923b-2b39c1104fe4}"
         }
-    }
+    },
+    "web_accessible_resources": [
+        "dist/advanced_filter.json"
+    ]
 }

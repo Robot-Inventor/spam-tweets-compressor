@@ -3,6 +3,7 @@ import { normalize } from "./normalize";
 import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";
 import { is_regexp, parse_regexp } from "./parse_regexp";
+import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
 
 
 function detect_ng_word(text: string, ng_words: Array<string>) {
@@ -29,7 +30,7 @@ function detect_verified_badge(tweet: TweetElement) {
     return Boolean(tweet.querySelector(selector.verified_badge));
 }
 
-export async function detect_spam(target: TweetElement, setting: setting_object): Promise<boolean> {
+export async function detect_spam(target: TweetElement, setting: setting_object, advanced_filter: query_type): Promise<boolean> {
     const target_content = normalize(target.content);
     const breaks = target_content.match(/\n/g);
     const break_length = breaks ? breaks.length : 0;
@@ -42,9 +43,11 @@ export async function detect_spam(target: TweetElement, setting: setting_object)
     const content_language = await target.language;
     const is_filtered_language = detect_filtered_language(content_language || "", setting.language_filter);
 
+    const advanced_detection = advanced_spam_detection(advanced_filter, target);
+
     const has_verified_badge = detect_verified_badge(target);
     const verified_badge_judgement = has_verified_badge && !setting.include_verified_account;
 
-    const normal_judgement = has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language;
+    const normal_judgement = has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language || advanced_detection;
     return normal_judgement && !verified_badge_judgement;
 }
