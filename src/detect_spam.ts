@@ -25,6 +25,7 @@ function detect_ng_word(text: string, ng_words: Array<string>) {
 function detect_filtered_language(target_language: string, language_filter: Array<string>) {
     for (let i = 0; i < language_filter.length; i++) {
         const filter = language_filter[i];
+        if (!filter) continue;
         if (target_language === filter) return true;
     }
     return false;
@@ -49,7 +50,7 @@ export async function detect_spam(target: TweetElement, setting: setting_object,
         if (has_ng_word) return browser.i18n.getMessage("compress_reason_ng_word");
 
         const content_language = await target.language;
-        const is_filtered_language = detect_filtered_language(content_language || "", setting.language_filter);
+        const is_filtered_language = detect_filtered_language(content_language, setting.language_filter);
         if (is_filtered_language) return browser.i18n.getMessage("compress_reason_filtered_language");
 
         const advanced_detection = advanced_spam_detection(advanced_filter, target);
