@@ -2,6 +2,9 @@
     "manifest_description": {
         "message": "Compress spam Tweets"
     },
+    "language": {
+        "message": "en"
+    },
     "browser_action_break_threshold": {
         "message": "Line Break Threshold (0-70): "
     },
@@ -22,6 +25,9 @@
     },
     "browser_action_hide_media": {
         "message": "Hide Media of Spam Tweets"
+    },
+    "browser_action_show_reason": {
+        "message": "Show Reason for Judgment"
     },
     "browser_action_trim_leading_whitespace": {
         "message": "Trim Leading Whitespace"
@@ -110,7 +116,7 @@
     "decompress_button_normal": {
         "message": "decompress"
     },
-    "decompress_button_strict": {
+    "decompress_button_strict_without_reason": {
         "message": "Show a tweet by $USER_NAME$ ($USER_ID$)",
         "placeholders": {
             "user_name": {
@@ -122,5 +128,37 @@
                 "example": "@Twitter"
             }
         }
+    },
+    "decompress_button_strict_with_reason": {
+        "message": "Show a tweet by $USER_NAME$ ($USER_ID$) (reason for judgement：$REASON$)",
+        "placeholders": {
+            "user_name": {
+                "content": "$1",
+                "example": "Twitter"
+            },
+            "user_id": {
+                "content": "$2",
+                "example": "@Twitter"
+            },
+            "reason": {
+                "content": "$3",
+                "example": "too many line breaks"
+            }
+        }
+    },
+    "compress_reason_too_many_breaks": {
+        "message": "too many line breaks"
+    },
+    "compress_reason_repeated_character": {
+        "message": "repeating the same letter"
+    },
+    "compress_reason_ng_word": {
+        "message": "NG word"
+    },
+    "compress_reason_filtered_language": {
+        "message": "filtered language"
+    },
+    "compress_reason_advanced_detection_default": {
+        "message": "Advanced Spam Detection"
     }
 }

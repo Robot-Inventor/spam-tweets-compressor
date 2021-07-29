@@ -1,6 +1,10 @@
 import { TweetElement } from "tweet_element";
+import { browser_interface } from "./browser";
 import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { is_regexp, parse_regexp } from "./parse_regexp";
+
+
+declare const browser: browser_interface;
 
 interface query_element {
     mode: "include" | "exclude",
@@ -8,7 +12,12 @@ interface query_element {
     string: string
 }
 
-export type query_type = ["and" | "or", Array<query_element | query_type>];
+interface reason_type {
+    default: string,
+    [key: string]: string
+}
+
+export type query_type = ["and" | "or", Array<query_element | query_type>, reason_type?];
 
 export interface query_object {
     rule: query_type
@@ -86,11 +95,16 @@ function judge(target: string | Array<string>, pattern: string) {
     }
 }
 
-export function advanced_spam_detection(query: query_type, tweet: TweetElement): boolean {
+export function advanced_spam_detection(query: query_type, tweet: TweetElement): [false] | [true, string] {
+    const default_reason = browser.i18n.getMessage("compress_reason_advanced_detection_default");
     let result = query[0] === "and";
+    let final_reason = default_reason;
+    const language = browser.i18n.getMessage("language");
+    if (query.length === 3 && query[2]) final_reason = language in query[2] ? query[2][language] : query[2].default;
 
     query[1].forEach((query_object) => {
         let judgement = false;
+        let reason: string | undefined = "";
 
         if (is_query_element(query_object)) {
             let includes_text = false;
@@ -106,12 +120,14 @@ export function advanced_spam_detection(query: query_type, tweet: TweetElement):
 
             judgement = query_object.mode === "include" ? includes_text : !includes_text;
         } else {
-            judgement = advanced_spam_detection(query_object, tweet);
+            [judgement, reason] = advanced_spam_detection(query_object, tweet);
+            if (reason && reason !== default_reason) final_reason = reason;
         }
 
+        if (reason && final_reason === default_reason && reason !== default_reason) final_reason = reason;
         if (query[0] === "and" && !judgement) result = false;
         else if (query[0] === "or" && judgement) result = true;
     });
 
-    return result;
+    return result ? [true, final_reason] : [false];
 }

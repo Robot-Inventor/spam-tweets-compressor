@@ -2,6 +2,9 @@
     "manifest_description": {
         "message": "スパムツイートを圧縮します"
     },
+    "language": {
+        "message": "ja"
+    },
     "browser_action_break_threshold": {
         "message": "改行数の しきい値（0～70）："
     },
@@ -22,6 +25,9 @@
     },
     "browser_action_hide_media": {
         "message": "スパムツイートのメディアを非表示にする"
+    },
+    "browser_action_show_reason": {
+        "message": "判定理由を表示する"
     },
     "browser_action_trim_leading_whitespace": {
         "message": "行頭の空白を削除する"
@@ -110,7 +116,7 @@
     "decompress_button_normal": {
         "message": "展開"
     },
-    "decompress_button_strict": {
+    "decompress_button_strict_without_reason": {
         "message": "$USER_NAME$（$USER_ID$）のツイートを表示",
         "placeholders": {
             "user_name": {
@@ -122,5 +128,37 @@
                 "example": "@Twitter"
             }
         }
+    },
+    "decompress_button_strict_with_reason": {
+        "message": "$USER_NAME$（$USER_ID$）のツイートを表示（判定理由：$REASON$）",
+        "placeholders": {
+            "user_name": {
+                "content": "$1",
+                "example": "Twitter"
+            },
+            "user_id": {
+                "content": "$2",
+                "example": "@Twitter"
+            },
+            "reason": {
+                "content": "$3",
+                "example": "多くの改行"
+            }
+        }
+    },
+    "compress_reason_too_many_breaks": {
+        "message": "多くの改行"
+    },
+    "compress_reason_repeated_character": {
+        "message": "同じ文字の繰り返し"
+    },
+    "compress_reason_ng_word": {
+        "message": "NGワード"
+    },
+    "compress_reason_filtered_language": {
+        "message": "フィルターされた言語"
+    },
+    "compress_reason_advanced_detection_default": {
+        "message": "高度なスパム判定"
     }
 }
