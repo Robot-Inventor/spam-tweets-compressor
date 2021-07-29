@@ -26,6 +26,9 @@
     "browser_action_hide_media": {
         "message": "Hide Media of Spam Tweets"
     },
+    "browser_action_show_reason": {
+        "message": "Show Reason for Judgment"
+    },
     "browser_action_trim_leading_whitespace": {
         "message": "Trim Leading Whitespace"
     },

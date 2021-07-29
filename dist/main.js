@@ -125,7 +125,7 @@ function advanced_spam_detection(query, tweet) {
         if (query[0] === "and") {
             if (!judgement[0])
                 result = [false];
-            else if (should_override_reason)
+            else if (judgement[0] && should_override_reason)
                 result = [true, reason];
         }
         else if (query[0] === "or") {
@@ -199,6 +199,8 @@ async function detect_spam(target, setting, advanced_filter) {
         if (is_filtered_language)
             return browser.i18n.getMessage("compress_reason_filtered_language");
         const advanced_detection = (0,_advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__.advanced_spam_detection)(advanced_filter, target);
+        console.log(target.content);
+        console.log(advanced_detection);
         if (advanced_detection[0])
             return advanced_detection[1];
         return false;
@@ -585,7 +587,10 @@ function get_unchecked_tweets() {
         tweet.user_id = analyser.get_user_id();
         tweet.language = analyser.get_language();
         tweet.compress = (compressor_mode, hide_media, trim_leading_whitespace, reason) => {
-            analyser.compress(compressor_mode, hide_media, trim_leading_whitespace, reason);
+            if (reason)
+                analyser.compress(compressor_mode, hide_media, trim_leading_whitespace, reason);
+            else
+                analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
         };
         tweet.hashtag = analyser.get_hashtag();
         tweet.link = analyser.get_link();
@@ -605,8 +610,12 @@ async function run_check(setting, advanced_filter) {
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
         const judgement = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
-        if (judgement[0])
-            target.compress(compressor_mode, hide_media, trim_leading_whitespace, judgement[1]);
+        if (judgement[0]) {
+            if (setting.show_reason)
+                target.compress(compressor_mode, hide_media, trim_leading_whitespace, judgement[1]);
+            else
+                target.compress(compressor_mode, hide_media, trim_leading_whitespace);
+        }
     }
 }
 async function get_json(url) {

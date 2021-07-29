@@ -87,7 +87,7 @@ export class TweetAnalyser {
         });
     }
 
-    private strict_compressor(reason: string) {
+    private strict_compressor(reason?: string) {
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         decompress_button.classList.add("show-tweet-button");
@@ -118,7 +118,7 @@ export class TweetAnalyser {
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
 
-    compress(compressor_mode: "normal" | "strict", hide_media: boolean, trim_leading_whitespace: boolean, reason: string): void {
+    compress(compressor_mode: "normal" | "strict", hide_media: boolean, trim_leading_whitespace: boolean, reason?: string): void {
         const content_element: HTMLElement | null = this.tweet.querySelector(selector.tweet_content);
         if (!content_element) return;
 

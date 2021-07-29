@@ -128,7 +128,7 @@ export function advanced_spam_detection(query: query_type, tweet: TweetElement):
         const should_override_reason = result.length === 1 || result[1] === default_reason || reason !== default_reason;
         if (query[0] === "and") {
             if (!judgement[0]) result = [false];
-            else if (should_override_reason) result = [true, reason];
+            else if (judgement[0] && should_override_reason) result = [true, reason];
         }
         else if (query[0] === "or") {
             if (judgement[0] && should_override_reason) result = [true, reason];
