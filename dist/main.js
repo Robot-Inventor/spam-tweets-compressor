@@ -90,13 +90,14 @@ function judge(target, pattern) {
 }
 function advanced_spam_detection(query, tweet) {
     const default_reason = browser.i18n.getMessage("compress_reason_advanced_detection_default");
-    let result = query[0] === "and" ? [true, default_reason] : [false];
-    let reason = default_reason;
+    let result = query[0] === "and";
+    let final_reason = default_reason;
     const language = browser.i18n.getMessage("language");
     if (query.length === 3 && query[2])
-        reason = language in query[2] ? query[2][language] : query[2].default;
+        final_reason = language in query[2] ? query[2][language] : query[2].default;
     query[1].forEach((query_object) => {
-        let judgement = [false];
+        let judgement = false;
+        let reason = "";
         if (is_query_element(query_object)) {
             let includes_text = false;
             if (query_object.type === "text")
@@ -114,26 +115,21 @@ function advanced_spam_detection(query, tweet) {
                     else
                         return (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_link)(query_object.string);
                 })());
-            judgement = [query_object.mode === "include" ? includes_text : !includes_text];
+            judgement = query_object.mode === "include" ? includes_text : !includes_text;
         }
         else {
-            judgement = advanced_spam_detection(query_object, tweet);
-            if (judgement.length === 2 && judgement[1] && judgement[1] !== default_reason)
-                reason = judgement[1];
+            [judgement, reason] = advanced_spam_detection(query_object, tweet);
+            if (reason && reason !== default_reason)
+                final_reason = reason;
         }
-        const should_override_reason = result.length === 1 || result[1] === default_reason || reason !== default_reason;
-        if (query[0] === "and") {
-            if (!judgement[0])
-                result = [false];
-            else if (judgement[0] && should_override_reason)
-                result = [true, reason];
-        }
-        else if (query[0] === "or") {
-            if (judgement[0] && should_override_reason)
-                result = [true, reason];
-        }
+        if (reason && final_reason === default_reason && reason !== default_reason)
+            final_reason = reason;
+        if (query[0] === "and" && !judgement)
+            result = false;
+        else if (query[0] === "or" && judgement)
+            result = true;
     });
-    return result;
+    return result ? [true, final_reason] : [false];
 }
 
 
@@ -199,8 +195,6 @@ async function detect_spam(target, setting, advanced_filter) {
         if (is_filtered_language)
             return browser.i18n.getMessage("compress_reason_filtered_language");
         const advanced_detection = (0,_advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__.advanced_spam_detection)(advanced_filter, target);
-        console.log(target.content);
-        console.log(advanced_detection);
         if (advanced_detection[0])
             return advanced_detection[1];
         return false;
