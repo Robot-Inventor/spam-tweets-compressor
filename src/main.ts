@@ -20,8 +20,8 @@ function get_unchecked_tweets() {
         tweet.user_name = analyser.get_user_name();
         tweet.user_id = analyser.get_user_id();
         tweet.language = analyser.get_language();
-        tweet.compress = (compressor_mode: "normal" | "strict", hide_media: boolean, trim_leading_whitespace: boolean) => {
-            analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
+        tweet.compress = (compressor_mode: "normal" | "strict", hide_media: boolean, trim_leading_whitespace: boolean, reason: string) => {
+            analyser.compress(compressor_mode, hide_media, trim_leading_whitespace, reason);
         };
         tweet.hashtag = analyser.get_hashtag();
         tweet.link = analyser.get_link();
@@ -46,8 +46,8 @@ async function run_check(setting: setting_object, advanced_filter: query_type) {
 
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
-        const is_spam = await detect_spam(target, setting, advanced_filter);
-        if (is_spam) target.compress(compressor_mode, hide_media, trim_leading_whitespace);
+        const judgement = await detect_spam(target, setting, advanced_filter);
+        if (judgement[0]) target.compress(compressor_mode, hide_media, trim_leading_whitespace, judgement[1]);
     }
 }
 

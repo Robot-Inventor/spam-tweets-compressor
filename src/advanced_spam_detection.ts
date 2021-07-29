@@ -1,6 +1,10 @@
 import { TweetElement } from "tweet_element";
+import { browser_interface } from "./browser";
 import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { is_regexp, parse_regexp } from "./parse_regexp";
+
+
+declare const browser: browser_interface;
 
 interface query_element {
     mode: "include" | "exclude",
@@ -8,7 +12,12 @@ interface query_element {
     string: string
 }
 
-export type query_type = ["and" | "or", Array<query_element | query_type>];
+interface reason_type {
+    default: string,
+    [key: string]: string
+}
+
+export type query_type = ["and" | "or", Array<query_element | query_type>, reason_type?];
 
 export interface query_object {
     rule: query_type
@@ -86,11 +95,15 @@ function judge(target: string | Array<string>, pattern: string) {
     }
 }
 
-export function advanced_spam_detection(query: query_type, tweet: TweetElement): boolean {
-    let result = query[0] === "and";
+export function advanced_spam_detection(query: query_type, tweet: TweetElement): [false] | [true, string] {
+    const default_reason = browser.i18n.getMessage("compress_reason_advanced_detection_default");
+    let result: [false] | [true, string] = query[0] === "and" ? [true, default_reason] : [false];
+    let reason = default_reason;
+    const language = browser.i18n.getMessage("language");
+    if (query.length === 3 && query[2]) reason = language in query[2] ? query[2][language] : query[2].default;
 
     query[1].forEach((query_object) => {
-        let judgement = false;
+        let judgement: [boolean, string?] = [false];
 
         if (is_query_element(query_object)) {
             let includes_text = false;
@@ -104,13 +117,22 @@ export function advanced_spam_detection(query: query_type, tweet: TweetElement):
                 else return normalize_link(query_object.string);
             })());
 
-            judgement = query_object.mode === "include" ? includes_text : !includes_text;
+            judgement = [query_object.mode === "include" ? includes_text : !includes_text];
         } else {
+
             judgement = advanced_spam_detection(query_object, tweet);
+
+            if (judgement.length === 2 && judgement[1] && judgement[1] !== default_reason) reason = judgement[1];
         }
 
-        if (query[0] === "and" && !judgement) result = false;
-        else if (query[0] === "or" && judgement) result = true;
+        const should_override_reason = result.length === 1 || result[1] === default_reason || reason !== default_reason;
+        if (query[0] === "and") {
+            if (!judgement[0]) result = [false];
+            else if (should_override_reason) result = [true, reason];
+        }
+        else if (query[0] === "or") {
+            if (judgement[0] && should_override_reason) result = [true, reason];
+        }
     });
 
     return result;

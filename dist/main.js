@@ -89,9 +89,14 @@ function judge(target, pattern) {
     }
 }
 function advanced_spam_detection(query, tweet) {
-    let result = query[0] === "and";
+    const default_reason = browser.i18n.getMessage("compress_reason_advanced_detection_default");
+    let result = query[0] === "and" ? [true, default_reason] : [false];
+    let reason = default_reason;
+    const language = browser.i18n.getMessage("language");
+    if (query.length === 3 && query[2])
+        reason = language in query[2] ? query[2][language] : query[2].default;
     query[1].forEach((query_object) => {
-        let judgement = false;
+        let judgement = [false];
         if (is_query_element(query_object)) {
             let includes_text = false;
             if (query_object.type === "text")
@@ -109,15 +114,24 @@ function advanced_spam_detection(query, tweet) {
                     else
                         return (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_link)(query_object.string);
                 })());
-            judgement = query_object.mode === "include" ? includes_text : !includes_text;
+            judgement = [query_object.mode === "include" ? includes_text : !includes_text];
         }
         else {
             judgement = advanced_spam_detection(query_object, tweet);
+            if (judgement.length === 2 && judgement[1] && judgement[1] !== default_reason)
+                reason = judgement[1];
         }
-        if (query[0] === "and" && !judgement)
-            result = false;
-        else if (query[0] === "or" && judgement)
-            result = true;
+        const should_override_reason = result.length === 1 || result[1] === default_reason || reason !== default_reason;
+        if (query[0] === "and") {
+            if (!judgement[0])
+                result = [false];
+            else if (should_override_reason)
+                result = [true, reason];
+        }
+        else if (query[0] === "or") {
+            if (judgement[0] && should_override_reason)
+                result = [true, reason];
+        }
     });
     return result;
 }
@@ -167,19 +181,31 @@ function detect_verified_badge(tweet) {
     return Boolean(tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.verified_badge));
 }
 async function detect_spam(target, setting, advanced_filter) {
-    const target_content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);
-    const breaks = target_content.match(/\n/g);
-    const break_length = breaks ? breaks.length : 0;
-    const has_too_many_breaks = break_length >= setting.break_threshold;
-    const repeated_character = new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`).test(target_content);
-    const has_ng_word = detect_ng_word(target_content, setting.ng_word);
-    const content_language = await target.language;
-    const is_filtered_language = detect_filtered_language(content_language || "", setting.language_filter);
-    const advanced_detection = (0,_advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__.advanced_spam_detection)(advanced_filter, target);
+    const normal_judgement = await (async () => {
+        const target_content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);
+        const breaks = target_content.match(/\n/g);
+        const break_length = breaks ? breaks.length : 0;
+        const has_too_many_breaks = break_length >= setting.break_threshold;
+        if (has_too_many_breaks)
+            return browser.i18n.getMessage("compress_reason_too_many_breaks");
+        const repeated_character = new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`).test(target_content);
+        if (repeated_character)
+            return browser.i18n.getMessage("compress_reason_repeated_character");
+        const has_ng_word = detect_ng_word(target_content, setting.ng_word);
+        if (has_ng_word)
+            return browser.i18n.getMessage("compress_reason_ng_word");
+        const content_language = await target.language;
+        const is_filtered_language = detect_filtered_language(content_language || "", setting.language_filter);
+        if (is_filtered_language)
+            return browser.i18n.getMessage("compress_reason_filtered_language");
+        const advanced_detection = (0,_advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__.advanced_spam_detection)(advanced_filter, target);
+        if (advanced_detection[0])
+            return advanced_detection[1];
+        return false;
+    })();
     const has_verified_badge = detect_verified_badge(target);
     const verified_badge_judgement = has_verified_badge && !setting.include_verified_account;
-    const normal_judgement = has_too_many_breaks || repeated_character || has_ng_word || is_filtered_language || advanced_detection;
-    return normal_judgement && !verified_badge_judgement;
+    return normal_judgement !== false && !verified_badge_judgement ? [true, normal_judgement] : [false];
 }
 
 
@@ -201,6 +227,7 @@ const default_setting = {
     trim_leading_whitespace: true,
     include_verified_account: false,
     strict_mode: false,
+    show_reason: false,
     character_repetition_threshold: 5,
     ng_word: [""],
     exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"],
@@ -415,7 +442,7 @@ class TweetAnalyser {
             decompress_button.remove();
         });
     }
-    strict_compressor() {
+    strict_compressor(reason) {
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         decompress_button.classList.add("show-tweet-button");
@@ -429,8 +456,14 @@ class TweetAnalyser {
         decompress_button.style.color = text_color;
         const user_name = this.tweet.user_name;
         const user_id = this.tweet.user_id;
-        const button_text = browser.i18n.getMessage("decompress_button_strict", [user_name, user_id]);
-        decompress_button.textContent = button_text;
+        if (reason) {
+            const button_text = browser.i18n.getMessage("decompress_button_strict_with_reason", [user_name, user_id, reason]);
+            decompress_button.textContent = button_text;
+        }
+        else {
+            const button_text = browser.i18n.getMessage("decompress_button_strict_without_reason", [user_name, user_id]);
+            decompress_button.textContent = button_text;
+        }
         decompress_button.addEventListener("click", () => {
             this.tweet.style.display = "block";
             decompress_button.remove();
@@ -438,14 +471,14 @@ class TweetAnalyser {
         this.tweet.style.display = "none";
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
-    compress(compressor_mode, hide_media, trim_leading_whitespace) {
+    compress(compressor_mode, hide_media, trim_leading_whitespace, reason) {
         const content_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
         if (!content_element)
             return;
         if (compressor_mode === "normal")
             this.normal_compressor(content_element, hide_media, trim_leading_whitespace);
         else
-            this.strict_compressor();
+            this.strict_compressor(reason);
     }
     get_hashtag() {
         const is_hashtag = (element) => {
@@ -551,8 +584,8 @@ function get_unchecked_tweets() {
         tweet.user_name = analyser.get_user_name();
         tweet.user_id = analyser.get_user_id();
         tweet.language = analyser.get_language();
-        tweet.compress = (compressor_mode, hide_media, trim_leading_whitespace) => {
-            analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
+        tweet.compress = (compressor_mode, hide_media, trim_leading_whitespace, reason) => {
+            analyser.compress(compressor_mode, hide_media, trim_leading_whitespace, reason);
         };
         tweet.hashtag = analyser.get_hashtag();
         tweet.link = analyser.get_link();
@@ -571,9 +604,9 @@ async function run_check(setting, advanced_filter) {
     const trim_leading_whitespace = setting.trim_leading_whitespace;
     for (let i = 0; i < check_target.length; i++) {
         const target = check_target[i];
-        const is_spam = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
-        if (is_spam)
-            target.compress(compressor_mode, hide_media, trim_leading_whitespace);
+        const judgement = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
+        if (judgement[0])
+            target.compress(compressor_mode, hide_media, trim_leading_whitespace, judgement[1]);
     }
 }
 async function get_json(url) {

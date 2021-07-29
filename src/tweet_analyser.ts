@@ -87,7 +87,7 @@ export class TweetAnalyser {
         });
     }
 
-    private strict_compressor() {
+    private strict_compressor(reason: string) {
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         decompress_button.classList.add("show-tweet-button");
@@ -102,8 +102,13 @@ export class TweetAnalyser {
 
         const user_name = this.tweet.user_name;
         const user_id = this.tweet.user_id;
-        const button_text: string = browser.i18n.getMessage("decompress_button_strict", [user_name, user_id]);
-        decompress_button.textContent = button_text;
+        if (reason) {
+            const button_text: string = browser.i18n.getMessage("decompress_button_strict_with_reason", [user_name, user_id, reason]);
+            decompress_button.textContent = button_text;
+        } else {
+            const button_text: string = browser.i18n.getMessage("decompress_button_strict_without_reason", [user_name, user_id]);
+            decompress_button.textContent = button_text;
+        }
         decompress_button.addEventListener("click", () => {
             this.tweet.style.display = "block";
             decompress_button.remove();
@@ -113,12 +118,12 @@ export class TweetAnalyser {
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
 
-    compress(compressor_mode: "normal" | "strict", hide_media: boolean, trim_leading_whitespace: boolean): void {
+    compress(compressor_mode: "normal" | "strict", hide_media: boolean, trim_leading_whitespace: boolean, reason: string): void {
         const content_element: HTMLElement | null = this.tweet.querySelector(selector.tweet_content);
         if (!content_element) return;
 
         if (compressor_mode === "normal") this.normal_compressor(content_element, hide_media, trim_leading_whitespace);
-        else this.strict_compressor();
+        else this.strict_compressor(reason);
     }
 
     get_hashtag(): Array<string> {

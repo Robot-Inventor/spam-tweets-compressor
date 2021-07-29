@@ -18,6 +18,7 @@ const default_setting = {
     trim_leading_whitespace: true,
     include_verified_account: false,
     strict_mode: false,
+    show_reason: false,
     character_repetition_threshold: 5,
     ng_word: [""],
     exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"],
