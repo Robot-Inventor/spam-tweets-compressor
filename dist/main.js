@@ -97,7 +97,7 @@ function advanced_spam_detection(query, tweet) {
         final_reason = language in query[2] ? query[2][language] : query[2].default;
     query[1].forEach((query_object) => {
         let judgement = false;
-        let reason = "";
+        let reason = default_reason;
         if (is_query_element(query_object)) {
             let includes_text = false;
             if (query_object.type === "text")
@@ -119,10 +119,8 @@ function advanced_spam_detection(query, tweet) {
         }
         else {
             [judgement, reason] = advanced_spam_detection(query_object, tweet);
-            if (reason && reason !== default_reason)
-                final_reason = reason;
         }
-        if (reason && final_reason === default_reason && reason !== default_reason)
+        if (reason && reason !== default_reason)
             final_reason = reason;
         if (query[0] === "and" && !judgement)
             result = false;
