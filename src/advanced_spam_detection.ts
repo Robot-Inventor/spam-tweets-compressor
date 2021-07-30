@@ -104,7 +104,7 @@ export function advanced_spam_detection(query: query_type, tweet: TweetElement):
 
     query[1].forEach((query_object) => {
         let judgement = false;
-        let reason: string | undefined = "";
+        let reason: string | undefined = default_reason;
 
         if (is_query_element(query_object)) {
             let includes_text = false;
@@ -121,10 +121,10 @@ export function advanced_spam_detection(query: query_type, tweet: TweetElement):
             judgement = query_object.mode === "include" ? includes_text : !includes_text;
         } else {
             [judgement, reason] = advanced_spam_detection(query_object, tweet);
-            if (reason && reason !== default_reason) final_reason = reason;
         }
 
-        if (reason && final_reason === default_reason && reason !== default_reason) final_reason = reason;
+        if (reason && reason !== default_reason) final_reason = reason;
+
         if (query[0] === "and" && !judgement) result = false;
         else if (query[0] === "or" && judgement) result = true;
     });
