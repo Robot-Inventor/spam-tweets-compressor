@@ -70,4 +70,4 @@ npm run build
 npm run watch
 ```
 
-拡張機能のzipファイルを作成するには``npx web-ext build``を実行してください。
+拡張機能のzipファイルを作成するには``npm run pack``を実行してください。
