@@ -70,4 +70,4 @@ Also, if you want to WATCH the file changes, please execute the following comman
 npm run watch
 ```
 
-To create a zip file of the extension, run ``npx web-ext build``.
+To create a zip file of the extension, run ``npm run pack``.
