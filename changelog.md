@@ -2,27 +2,34 @@
 
 ## Released
 
-### [v2.0.4.0] - 2021-04-23
+### [v2.0.4.0] - 2021-08-01
 
 #### Added
 
-- Added the ability to change the threshold value for spam detection
-- Added the ability to show or hide images of spam tweets
-- Added the ability to compress tweets that repeat the same characters more than a certain number of times
-- Added the ability to compress tweets that contain NG words
-- Added the ability to exclude specific URLs
-- Added the ability to compress tweets in a specific language
-- Added Strict Mode
-- Added the ability to export the setting
-- Added the ability to trim leading whitespace
-- UI language now can be set Japanese or English
-- Now works in places other than home (lists, search results, etc.)
-- Created the logo
-- Rewrote with TypeScript
+- ロゴを作成
+- しきい値の調整機能を追加
+- 日本語と英語に対応
+- 厳格モードを追加
+- 同じ文字を繰り返しているツイートを圧縮する機能を追加
+- NGワード機能を追加
+- 特定のページで無効化する機能を追加
+- 言語フィルターを追加
+- Google Chromeに対応
+- 設定のエクスポート機能を追加
+- 公式アカウントを圧縮しないオプションを追加
+- 行頭のスペースを削除するオプションを追加
+- 高度なスパム判定機能を追加
+- スパムの判定理由を表示するオプションを追加
 
 #### Changed
 
-- inline-block decompress button
+- TypeScriptに移行
+- 解凍ボタンを``inline-block``に変更
+
+#### Fixed
+
+- Twitterの配色設定によって動作しないことがあるバグを修正
+- バイナリーファイルのファイルサイズを1.34MBから342KBに削減
 
 ### [v1.0.3.2] - 2021-04-19
 
