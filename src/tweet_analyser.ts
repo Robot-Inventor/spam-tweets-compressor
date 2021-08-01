@@ -103,10 +103,10 @@ export class TweetAnalyser {
         const user_name = this.tweet.user_name;
         const user_id = this.tweet.user_id;
         if (reason) {
-            const button_text: string = browser.i18n.getMessage("decompress_button_strict_with_reason", [user_name, user_id, reason]);
+            const button_text: string = browser.i18n.getMessage("decompress_button_strict_with_reason", [user_name, `@${user_id}`, reason]);
             decompress_button.textContent = button_text;
         } else {
-            const button_text: string = browser.i18n.getMessage("decompress_button_strict_without_reason", [user_name, user_id]);
+            const button_text: string = browser.i18n.getMessage("decompress_button_strict_without_reason", [user_name, `@${user_id}`]);
             decompress_button.textContent = button_text;
         }
         decompress_button.addEventListener("click", () => {
