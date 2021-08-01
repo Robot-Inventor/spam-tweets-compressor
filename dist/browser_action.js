@@ -13,13 +13,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "load_setting": () => (/* binding */ load_setting)
 /* harmony export */ });
 const default_setting = {
-    break_threshold: 5,
-    hide_media: true,
+    break_threshold: 15,
+    hide_media: false,
     trim_leading_whitespace: true,
     include_verified_account: false,
-    strict_mode: false,
-    show_reason: false,
-    character_repetition_threshold: 5,
+    strict_mode: true,
+    show_reason: true,
+    character_repetition_threshold: 10,
     ng_word: [""],
     exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"],
     language_filter: [""],
