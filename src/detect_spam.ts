@@ -1,5 +1,5 @@
 import { setting_object } from "./load_setting";
-import { normalize } from "./normalize";
+import { normalize, normalize_language_code } from "./normalize";
 import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";
 import { is_regexp, parse_regexp } from "./parse_regexp";
@@ -23,10 +23,11 @@ function detect_ng_word(text: string, ng_words: Array<string>) {
 }
 
 function detect_filtered_language(target_language: string, language_filter: Array<string>) {
-    for (let i = 0; i < language_filter.length; i++) {
-        const filter = language_filter[i];
-        if (!filter) continue;
-        if (target_language === filter) return true;
+    target_language = normalize_language_code(target_language);
+    for (const filter of language_filter) {
+        const normalized_filter = normalize_language_code(filter);
+        if (!normalized_filter) continue;
+        if (target_language === normalized_filter) return true;
     }
     return false;
 }

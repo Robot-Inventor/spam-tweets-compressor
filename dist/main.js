@@ -164,11 +164,12 @@ function detect_ng_word(text, ng_words) {
     return false;
 }
 function detect_filtered_language(target_language, language_filter) {
-    for (let i = 0; i < language_filter.length; i++) {
-        const filter = language_filter[i];
-        if (!filter)
+    target_language = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_language_code)(target_language);
+    for (const filter of language_filter) {
+        const normalized_filter = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_language_code)(filter);
+        if (!normalized_filter)
             continue;
-        if (target_language === filter)
+        if (target_language === normalized_filter)
             return true;
     }
     return false;
@@ -256,7 +257,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "normalize": () => (/* binding */ normalize),
 /* harmony export */   "normalize_link": () => (/* binding */ normalize_link),
 /* harmony export */   "normalize_hashtag": () => (/* binding */ normalize_hashtag),
-/* harmony export */   "normalize_user_id": () => (/* binding */ normalize_user_id)
+/* harmony export */   "normalize_user_id": () => (/* binding */ normalize_user_id),
+/* harmony export */   "normalize_language_code": () => (/* binding */ normalize_language_code)
 /* harmony export */ });
 const hash_symbol = ["#", "＃"];
 function normalize(text) {
@@ -273,6 +275,9 @@ function normalize_hashtag(text) {
 }
 function normalize_user_id(text) {
     return text.replace(/^[@＠]/, "");
+}
+function normalize_language_code(text) {
+    return normalize(text).replace(/-.*$/, "");
 }
 
 
