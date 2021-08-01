@@ -37,6 +37,7 @@ export class TweetAnalyser {
     async get_language(): Promise<string> {
         const detect: detect_language = await browser.i18n.detectLanguage(this.get_content());
         if (detect.isReliable) return detect.languages[0].language.replace(/-.*$/, "");
+        else if (this.content_element && this.content_element.lang) return this.content_element.lang;
         else return "";
     }
 
