@@ -20,13 +20,13 @@ export interface setting_object {
 }
 
 const default_setting: setting_object = {
-    break_threshold: 5,
-    hide_media: true,
+    break_threshold: 15,
+    hide_media: false,
     trim_leading_whitespace: true,
     include_verified_account: false,
-    strict_mode: false,
-    show_reason: false,
-    character_repetition_threshold: 5,
+    strict_mode: true,
+    show_reason: true,
+    character_repetition_threshold: 10,
     ng_word: [""],
     exclude_url: ["https://twitter.com/home", "https://twitter.com/notifications"],
     language_filter: [""],
