@@ -385,7 +385,16 @@ class TweetAnalyser {
             return "";
     }
     async get_language() {
-        const detect = await browser.i18n.detectLanguage(this.get_content());
+        const target_node = this.content_element;
+        let target_text = this.get_content();
+        if (target_node) {
+            const clone_node = target_node.cloneNode(true);
+            const temporary_element = document.createElement("div");
+            temporary_element.appendChild(clone_node);
+            temporary_element.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention).forEach((element) => element.remove());
+            target_text = temporary_element.textContent || "";
+        }
+        const detect = await browser.i18n.detectLanguage(target_text);
         if (detect.isReliable)
             return detect.languages[0].language.replace(/-.*$/, "");
         else if (this.content_element && this.content_element.lang)
