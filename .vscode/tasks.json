@@ -7,7 +7,7 @@
 			"group": "build",
 			"problemMatcher": [],
 			"label": "npm: watch",
-			"detail": "npx webpack -w"
+			"detail": "npm run watch"
 		},
 		{
 			"type": "npm",
@@ -15,7 +15,7 @@
 			"group": "build",
 			"problemMatcher": [],
 			"label": "npm: build",
-			"detail": "npx webpack"
+			"detail": "npm run build"
 		},
 		{
 			"type": "npm",
@@ -23,7 +23,15 @@
 			"group": "test",
 			"problemMatcher": [],
 			"label": "npm: lint",
-			"detail": "npx eslint src/**/*.ts"
+			"detail": "npm run lint"
+		},
+		{
+			"type": "npm",
+			"script": "pack",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: pack",
+			"detail": "npm run pack"
 		}
 	]
 }
