@@ -117,7 +117,7 @@ async function load_filter_list(setting) {
     const json_data = await response.json();
     const filter_list_outer = document.getElementById("filter_list_outer");
     if (filter_list_outer) {
-        Object.keys(json_data).forEach((key) => {
+        Object.keys(json_data).sort().forEach((key) => {
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             // eslint-disable-next-line no-irregular-whitespace
@@ -138,8 +138,11 @@ async function load_filter_list(setting) {
             const label = document.createElement("label");
             label.textContent = key;
             label.setAttribute("for", checkbox_id);
-            filter_list_outer.appendChild(checkbox);
-            filter_list_outer.appendChild(label);
+            const outer = document.createElement("div");
+            outer.className = "filter_list_item";
+            outer.appendChild(checkbox);
+            outer.appendChild(label);
+            filter_list_outer.appendChild(outer);
         });
     }
     else {
