@@ -64,20 +64,29 @@ async function get_json(url: string) {
     return json;
 }
 
-void (async () => {
-    const setting = await load_setting();
-
+async function load_advanced_filter(filter_name_list: Array<string>) {
     const filter_list: Array<query_type> = [];
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const filter_url_data: advanced_filter_type = await get_json("https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json");
-    for (let i = 0; i < setting.advanced_filter.length; i++) {
-        const key = setting.advanced_filter[i];
+    for (const filter_name of filter_name_list) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const json_data: query_object = await get_json(filter_url_data[key].url);
-        filter_list.push(json_data.rule);
+        const filter_data: query_object = await get_json(filter_url_data[filter_name].url);
+        filter_list.push(filter_data.rule);
     }
     const joined_advanced_filter: query_type = ["or", [...filter_list]];
+    return joined_advanced_filter;
+}
+
+void (async () => {
+    const setting = await load_setting();
+
+    let joined_advanced_filter: query_type = await load_advanced_filter(setting.advanced_filter);
+    setInterval(() => {
+        void (async () => {
+            joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
+        })();
+    }, 86400);
 
     const body_observer_target = document.body;
     const body_observer = new MutationObserver(() => {
