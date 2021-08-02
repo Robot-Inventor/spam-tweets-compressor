@@ -89,15 +89,9 @@ function judge(target, pattern) {
     }
 }
 function advanced_spam_detection(query, tweet) {
-    const default_reason = browser.i18n.getMessage("compress_reason_advanced_detection_default");
     let result = query[0] === "and";
-    let final_reason = default_reason;
-    const language = browser.i18n.getMessage("language");
-    if (query.length === 3 && query[2])
-        final_reason = language in query[2] ? query[2][language] : query[2].default;
     query[1].forEach((query_object) => {
         let judgement = false;
-        let reason = default_reason;
         if (is_query_element(query_object)) {
             let includes_text = false;
             if (query_object.type === "text")
@@ -118,16 +112,14 @@ function advanced_spam_detection(query, tweet) {
             judgement = query_object.mode === "include" ? includes_text : !includes_text;
         }
         else {
-            [judgement, reason] = advanced_spam_detection(query_object, tweet);
+            judgement = advanced_spam_detection(query_object, tweet);
         }
-        if (reason && reason !== default_reason)
-            final_reason = reason;
         if (query[0] === "and" && !judgement)
             result = false;
         else if (query[0] === "or" && judgement)
             result = true;
     });
-    return result ? [true, final_reason] : [false];
+    return result;
 }
 
 
@@ -196,8 +188,8 @@ async function detect_spam(target, setting, advanced_filter) {
         if (is_filtered_language)
             return browser.i18n.getMessage("compress_reason_filtered_language");
         const advanced_detection = (0,_advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__.advanced_spam_detection)(advanced_filter, target);
-        if (advanced_detection[0])
-            return advanced_detection[1];
+        if (advanced_detection)
+            return browser.i18n.getMessage("compress_reason_advanced_detection_default");
         return false;
     })();
     const has_verified_badge = detect_verified_badge(target);
