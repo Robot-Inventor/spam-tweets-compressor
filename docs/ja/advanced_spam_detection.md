@@ -13,12 +13,7 @@ interface query_element {
     string: string
 }
 
-interface reason_type {
-    default: string,
-    [key: string]: string
-}
-
-type query_type = ["and" | "or", Array<query_element | query_type>, reason_type?];
+type query_type = ["and" | "or", Array<query_element | query_type>];
 
 interface query_object {
     rule: query_type
@@ -66,11 +61,7 @@ interface query_object {
                     }
                 ]
             ]
-        ],
-        {
-            "default": "may be spam",
-            "ja": "スパムの可能性あり"
-        }
+        ]
     ]
 }
 ```
@@ -78,7 +69,7 @@ interface query_object {
 ``rule``プロパティーには、次のような形式の配列を指定します。
 
 ```
-[operation_mode, query, reason]
+[operation_mode, query]
 ```
 
 ## operation_mode
@@ -130,7 +121,3 @@ interface query_object {
 #### string
 
 検索する文字列です。通常の文字列または正規表現パターンを表した文字列を使用できます。正規表現を使用する場合、JavaScriptの正規表現リテラルと同じ形式の文字列を指定してください。
-
-## reason
-
-判定理由を示す省略可能なオブジェクトです。オブジェクトのキーを言語コードに設定し、拡張機能の言語設定がその言語のときに表示したい判定理由を値に設定します。必ず``default``プロパティーをもつ必要があります。``default``プロパティーの値は、現在の拡張機能の言語設定に当てはまる言語で判定理由が提供されていない場合に使用されます。また、任意の言語コードのプロパティー（例：``ja``など）を設定できます。

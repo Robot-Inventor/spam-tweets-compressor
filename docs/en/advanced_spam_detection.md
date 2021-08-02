@@ -11,12 +11,7 @@ interface query_element {
     string: string
 }
 
-interface reason_type {
-    default: string,
-    [key: string]: string
-}
-
-type query_type = ["and" | "or", Array<query_element | query_type>, reason_type?];
+type query_type = ["and" | "or", Array<query_element | query_type>];
 
 interface query_object {
     rule: query_type
@@ -64,11 +59,7 @@ Here is an example of a configuration JSON file.
                     }
                 ]
             ]
-        ],
-        {
-            "default": "may be spam",
-            "ja": "スパムの可能性あり"
-        }
+        ]
     ]
 }
 ```
@@ -76,7 +67,7 @@ Here is an example of a configuration JSON file.
 The ``rule`` property is an array of the following form.
 
 ```
-[operation_mode, query, reason]
+[operation_mode, query]
 ```
 
 ## operation_mode
@@ -128,7 +119,3 @@ Set the search target to the links contained in the tweet. The ``https://`` and 
 #### string
 
 The string to search. It can be a normal string or a string representing a regular expression pattern. When using regular expressions, specify a string in the same format as the JavaScript regular expression literal.
-
-## reason
-
-This is an optional object that indicates the reason for the decision. The key of the object is set to the language code, and the value is the reason for the decision to be displayed when the language setting of the extension is that language. It must have a ``default`` property. The value of the ``default`` property will be used if no reason is provided for the specified language. You can also set the property for any language code (e.g. ``ja``).
