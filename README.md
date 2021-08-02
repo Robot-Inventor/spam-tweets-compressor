@@ -1,46 +1,67 @@
 # Spam Tweets Compressor
 
-[日本語](README_ja.md)
+[English](README.md)
 
 [![Known Vulnerabilities](https://snyk.io/test/github/Robot-Inventor/spam-tweets-compressor/badge.svg)](https://snyk.io/test/github/Robot-Inventor/spam-tweets-compressor/) [![CodeQL](https://github.com/Robot-Inventor/spam-tweets-compressor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Robot-Inventor/spam-tweets-compressor/actions/workflows/codeql-analysis.yml) [![NodeJS with Webpack](https://github.com/Robot-Inventor/spam-tweets-compressor/actions/workflows/webpack.yml/badge.svg)](https://github.com/Robot-Inventor/spam-tweets-compressor/actions/workflows/webpack.yml) [![eslint](https://github.com/Robot-Inventor/spam-tweets-compressor/actions/workflows/eslint.yml/badge.svg)](https://github.com/Robot-Inventor/spam-tweets-compressor/actions/workflows/eslint.yml)
 
 ![logo](image/logo.svg)
 
-This is a browser extension which compresses spam Tweets.
+This extension protects you from tweets that you feel are harassing or threatening by "your standards".
 
-## What Does It Work ?
+## Summary
 
-This browser extension compresses spam tweets. Of course, you can also decompress the compressed tweets.
+What kind of tweets you find harassing or threatening varies from person to person, and it can be difficult to make an objective judgment. This extension will hide tweets that you find "harassing or threatening" according to "your standards". This is an unofficial browser extension to protect your mind when viewing replies or ego-surfing.
 
-Before:
+### ✔ Can
 
-![Screenshot](image/for_readme/long_tweet_uncompressed.png)
+- It can protect your mind by hiding tweets that may be harassing or threatening
+- It allows you to set what kind of tweets are considered harassment or threats
 
-After:
+### ✖ Can't
 
-![Screenshot](image/for_readme/long_tweet_compressed.png)
+- There is no automatic reporting of tweets deemed potentially harassing or threatening, or the ability to mute or block the poster
+- Hide only on your browser. Can't be hidden on other people's browsers
+- Works only on [twitter.com](https://twitter.com). It can't work on other Twitter clients or mobile apps
 
-## How to Install?
+### ⚠ Caution
 
-### Google Chrome
+- This is an unofficial extension, Twitter is not involved in any way
+- Hides "possibly" harassing or threatening tweets. False positives and false negatives can also occur
 
-#### 1. Download
+## Supported Browsers
 
-First, download the source code from this repository any way you like (using git or downloading in zip format).
+- Google Chrome
+- Mozilla Firefox
+- Chromium-based browsers (e.g. Microsoft Edge)
 
-#### 2. Install
+Note: The only browsers that have been tested are Google Chrome and Mozilla Firefox; Chromium-based browsers are likely to work correctly because they are internally identical to Google Chrome.
 
-Type ``chrome://extensions/`` in the address bar, and enable developer mode.
+## Installation
 
-![Screenshot](image/for_readme/chrome_extensions.png)
+You can install the extension from each browser's extension store.
 
-Click [Load Unpacked] and select the folder you downloaded the extension to.
+- [Chrome Web Store (Google Chrome)](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
+- [AMO (Mozilla Firefox)](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
 
-![Screenshot](image/for_readme/chrome_extensions2.png)
+## Judgment Method
 
-### Firefox
+This extension determines whether to hide a tweet based on the following factors.
 
-Just install from [AMO](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/).
+- Number of line breaks
+- Repetition of the same character
+- NG words
+- Languages you have set to hide
+- Advanced Spam Detection
+
+## About Personal Information
+
+This extension analyzes tweets on the user's computer, so it does not send any information about the user to the outside world. However, it will communicate with the server to receive the latest filter data for " Advanced Spam Detection".
+
+This extension will only use the permissions for the following purposes
+
+- Use access to [twitter.com](https://twitter.com) to determine if the displayed tweets are spam and to hide tweets that are considered spam
+- Use storage permission to save settings
+- Use access to [cdn.statically.io](https://cdn.statically.io) to get the latest filter data
 
 ## Development
 
@@ -60,16 +81,22 @@ npm run lint
 
 ### Build
 
-To build it, run the following command.
+To build, run the following command.
 
 ```
 npm run build
 ```
 
-Also, if you want to WATCH the file changes, please execute the following command.
+Also, if you want to watch the changes in the file, run the following command.
 
 ```
 npm run watch
 ```
 
-To create a zip file of the extension, run ``npm run pack``.
+### Package
+
+To package the extension, run the following command.
+
+```
+npm run pack
+```
