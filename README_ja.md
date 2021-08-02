@@ -6,43 +6,64 @@
 
 ![logo](image/logo.svg)
 
-スパムツイートを圧縮するブラウザー拡張機能です。
+「あなたの基準」で嫌がらせや脅迫と感じるツイートからあなたを守ります。
 
-## 何をしてくれるの？
+## 概要
 
-この拡張機能は、スパムツイートを圧縮します。もちろん、圧縮したツイートの解凍もできます。
+どのようなツイートを嫌がらせや脅迫と感じるかは人によって違い、客観的な判断が難しい場合もあります。この拡張機能は「あなたの基準」で「嫌がらせや脅迫」と感じるツイートを非表示にします。リプライの閲覧やエゴサ時にあなたの精神を守るための非公式のブラウザー拡張機能です。
 
-圧縮前：
+### ✔ できること
 
-![Screenshot](image/for_readme/long_tweet_uncompressed.png)
+- 嫌がらせや脅迫の可能性があるツイートを非表示にしてあなたの精神を守ります
+- どのようなツイートを嫌がらせや脅迫とみなすかを設定できます
 
-圧縮後：
+### ✖ できないこと
 
-![Screenshot](image/for_readme/long_tweet_compressed.png)
+- 嫌がらせや脅迫の可能性があるとみなされたツイートを自動で通報したり、投稿者をミュート・ブロックしたりする機能はありません
+- あなたのブラウザー上でのみ非表示にします。他の人のブラウザー上では非表示にできません
+- [twitter.com](https://twitter.com)でのみ動作するブラウザー拡張機能です。他のTwitterクライアントやモバイルアプリでは動作しません
+
+### ⚠ 注意
+
+- この拡張機能は非公式の拡張機能です。Twitter社は一切関与していません
+- 嫌がらせや脅迫の「可能性がある」ツイートを非表示にします。偽陽性や偽陰性も発生します
+
+## 対応ブラウザー
+
+- Google Chrome
+- Mozilla Firefox
+- Chromiumベースのブラウザー（Microsoft Edgeなど）
+
+※動作確認を行っているのはGoogle ChromeとMozilla Firefoxのみです。Chromiumベースのブラウザーは内部的にはGoogle Chromeと同じため正常に動作する可能性が高いと考えられます。
 
 ## インストール方法
 
-### Google Chrome
+各ブラウザーの拡張機能のストアからインストールできます。
 
-#### 1. ダウンロード
+- [Chrome ウェブストア（Google Chrome）](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
+- [AMO（Mozilla Firefox）](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
 
-まず、このリポジトリから何らかの方法でソースコードをダウンロードします（gitを使うか、zip形式でダウンロードします）。
+## 判定方法
 
-#### 2. インストール
+この拡張機能は次のような要素からツイートを非表示にするか判断します。
 
-アドレスバーに``chrome://extensions/``と入力し、 [デベロッパーモード] を有効にします。
+- 改行の数
+- 同じ文字の繰り返し
+- NGワード
+- 非表示に設定した言語
+- 高度なスパム判定
 
-![Screenshot](image/for_readme/chrome_extensions.png)
+## 個人情報について
 
-[パッケージ化されていない拡張機能を読み込む] をクリックし、拡張機能をダウンロードしたフォルダーを選択します。
+この拡張機能はツイートの解析をユーザーのコンピューター上で行うため、ユーザーの情報を外部に送信することはありません。ただし、「高度なスパム判定」の最新のフィルターデータを取得するためにサーバーと通信してデータを受信します。
 
-![Screenshot](image/for_readme/chrome_extensions2.png)
+この拡張機能は、権限を次の目的にのみ使用します。
 
-### Firefox
+- 表示されているツイートがスパムか判定し、スパムと見なされたツイートに対し非表示にするなどの処理を行うため、[twitter.com](https://twitter.com)へのアクセス権限を使用します
+- 設定を保存するためにstorage権限を使用します
+- 最新のフィルターデータを取得するために[cdn.statically.io](https://cdn.statically.io)へのアクセス権限を使用します
 
-[AMO](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)からインストールするだけです。
-
-## 開発
+## 開発者向け
 
 開発する際は、まず必要なパッケージをインストールします。
 
@@ -72,4 +93,10 @@ npm run build
 npm run watch
 ```
 
-拡張機能のzipファイルを作成するには``npm run pack``を実行してください。
+### パッケージ化
+
+拡張機能をパッケージ化するには次のコマンドを実行してください。
+
+```
+npm run pack
+```
