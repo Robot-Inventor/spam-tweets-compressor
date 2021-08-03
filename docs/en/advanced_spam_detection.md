@@ -116,6 +116,6 @@ Set the search target to the user ID of the tweet. The ``@`` at the beginning of
 
 Set the search target to the links contained in the tweet. The ``https://`` and ``http://`` at the beginning and ``/`` and ``/index.html`` at the end of the link will be ignored. It will determine if any of the links in the tweet match the ``string`` exactly.
 
-#### string
+### string
 
 The string to search. It can be a normal string or a string representing a regular expression pattern. When using regular expressions, specify a string in the same format as the JavaScript regular expression literal.
