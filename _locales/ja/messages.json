@@ -2,9 +2,6 @@
     "manifest_description": {
         "message": "スパムツイートを圧縮します"
     },
-    "language": {
-        "message": "ja"
-    },
     "browser_action_break_threshold": {
         "message": "改行数の しきい値（0～70）："
     },
