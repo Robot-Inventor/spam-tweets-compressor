@@ -149,8 +149,16 @@ async function load_filter_list(setting) {
         console.log("filter_list_outerが見つかりませんでした");
     }
 }
+function set_href_attribute() {
+    const target = document.getElementById("language_code_link");
+    if (target)
+        target.setAttribute("href", browser.i18n.getMessage("advanced_setting_language_code_link"));
+    else
+        console.error("language_code_linkが見つかりませんでした");
+}
 (0,_load_setting__WEBPACK_IMPORTED_MODULE_0__.load_setting)().then((setting) => {
     void load_filter_list(setting);
+    set_href_attribute();
     const textarea_element_list = document.querySelectorAll("textarea");
     textarea_element_list.forEach((textarea) => {
         const setting_name = get_setting_name(textarea);
