@@ -2,9 +2,6 @@
     "manifest_description": {
         "message": "Compress spam Tweets"
     },
-    "language": {
-        "message": "en"
-    },
     "browser_action_break_threshold": {
         "message": "Line Break Threshold (0-70): "
     },
