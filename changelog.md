@@ -2,6 +2,35 @@
 
 ## Released
 
+### [v2.0.5.1] - 2021-08-04
+
+#### Added
+
+- READMEにバッジを追加 [#70](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/70)
+- 24時間ごとにフィルターを再読み込みする機能を追加 [#59](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/59)
+- 詳細設定ページにファビコンを設定 [#55](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/55)
+- i18n APIによる言語判定にフォールバックを実装して言語判定の精度を向上 [#44](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/44)
+- 言語フィルターの言語コードの正規化を実装 [#83](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/83)
+- 言語フィルターの設定に言語コードの資料へのリンクを追加 [#92](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/92)
+
+#### changed
+
+- バイナリーファイルのファイルサイズを342KBから39KBに削減
+- デフォルトの設定を最適化 [#75](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/75)
+- 高度なスパム判定のUIを改善 [#79](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/79)
+- ツイートの言語判定時にハッシュタグやリンク、メンションを除外するように変更 [#80](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/80)
+- READMEを改善 [#89](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/89)
+
+#### Deleted
+
+- 高度なスパム判定での非表示理由のサポートを削除 [#85](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/85)
+- 「特定のページで無効化」のデフォルトから通知ページを削除 [#94](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/94)
+
+#### Fixed
+
+- 厳格モード時の解凍ボタンにIDの先頭の@が表示されないバグを修正 [#60](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/60)
+- ChromeでCSSが正しく適用されないバグを修正 [#56](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/56)
+
 ### [v2.0.4.0] - 2021-08-01
 
 #### Added
@@ -29,7 +58,7 @@
 #### Fixed
 
 - Twitterの配色設定によって動作しないことがあるバグを修正
-- バイナリーファイルのファイルサイズを1.34MBから39KBに削減
+- バイナリーファイルのファイルサイズを1.34MBから342KBに削減
 
 ### [v1.0.3.2] - 2021-04-19
 
