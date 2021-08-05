@@ -2,6 +2,7 @@
     --background_color: white;
     --high_emphasize_text_color: rgba(51, 51, 51, 0.87);
     --medium_emphasize_text_color: rgba(51, 51, 51, 0.6);
+    --primary_color: #1A91DA;
 }
 
 @media(prefers-color-scheme: dark) {
@@ -20,7 +21,7 @@
 
 html,
 body {
-    width: 40rem;
+    width: 30rem;
 }
 
 body {
@@ -28,8 +29,44 @@ body {
     box-sizing: border-box;
 }
 
+#logo {
+    width: 1.5rem;
+    vertical-align: middle;
+}
+
 h1 {
     font-size: 1.5rem;
+    margin-top: 0;
+}
+
+#tab_switcher {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.tab_switcher_item {
+    text-align: center;
+    flex-grow: 1;
+    cursor: pointer;
+    border-bottom: 0.1rem solid transparent;
+    padding-bottom: 0.5rem;
+    transition: 0.3s, font-weight 0s, color 0s;
+    font-weight: normal;
+}
+
+.tab_switcher_item:hover {
+    color: var(--primary_color);
+}
+
+.tab_switcher_item[data-selected] {
+    border-bottom-color: var(--primary_color);
+    color: var(--primary_color);
+    font-weight: bold;
+}
+
+.setting_item_group {
+    display: none;
 }
 
 .setting_item_outer {
@@ -64,6 +101,7 @@ hr {
     height: 0.1rem;
     border: none;
     background: var(--medium_emphasize_text_color);
+    margin-top: 2rem;
 }
 
 .setting_item_outer + hr {

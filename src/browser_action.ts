@@ -1,5 +1,6 @@
 import { load_setting } from "./load_setting";
 import { browser_interface } from "./browser";
+import "./browser_action_view";
 
 
 declare const browser: browser_interface;

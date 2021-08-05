@@ -2,6 +2,46 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/browser_action_view.ts":
+/*!************************************!*\
+  !*** ./src/browser_action_view.ts ***!
+  \************************************/
+/***/ (() => {
+
+
+const selector_of_selected_item = ".tab_switcher_item[data-selected]";
+const default_selected_item = document.querySelector(selector_of_selected_item);
+if (default_selected_item) {
+    const target_selector = default_selected_item.dataset.target;
+    if (target_selector) {
+        const target = document.querySelector(target_selector);
+        if (target)
+            target.style.display = "block";
+    }
+}
+const tab_switcher_item = document.querySelectorAll(".tab_switcher_item");
+tab_switcher_item.forEach((item) => {
+    item.addEventListener("click", () => {
+        const selected_item = document.querySelector(selector_of_selected_item);
+        if (selected_item)
+            delete selected_item.dataset.selected;
+        item.dataset.selected = "";
+        const item_group = document.querySelectorAll(".setting_item_group");
+        item_group.forEach((element) => {
+            element.style.display = "none";
+        });
+        const target_selector = item.dataset.target;
+        if (target_selector) {
+            const target = document.querySelector(target_selector);
+            if (target)
+                target.style.display = "block";
+        }
+    });
+});
+
+
+/***/ }),
+
 /***/ "./src/load_setting.ts":
 /*!*****************************!*\
   !*** ./src/load_setting.ts ***!
@@ -66,6 +106,18 @@ async function load_setting() {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -103,6 +155,9 @@ var __webpack_exports__ = {};
   \*******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _load_setting__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./load_setting */ "./src/load_setting.ts");
+/* harmony import */ var _browser_action_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./browser_action_view */ "./src/browser_action_view.ts");
+/* harmony import */ var _browser_action_view__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_browser_action_view__WEBPACK_IMPORTED_MODULE_1__);
+
 
 class ValidationMessage {
     constructor(element, message) {

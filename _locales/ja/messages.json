@@ -2,6 +2,15 @@
     "manifest_description": {
         "message": "「あなたの基準」で嫌がらせや脅迫と感じるツイートからあなたを守ります。"
     },
+    "browser_action_tab_switcher_general": {
+        "message": "一般"
+    },
+    "browser_action_tab_switcher_option": {
+        "message": "オプション"
+    },
+    "browser_action_tab_switcher_advanced": {
+        "message": "詳細"
+    },
     "browser_action_break_threshold": {
         "message": "改行数の しきい値（0～70）："
     },
