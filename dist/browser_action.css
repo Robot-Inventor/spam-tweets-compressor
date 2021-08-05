@@ -20,7 +20,7 @@
 
 html,
 body {
-    width: 40rem;
+    width: 30rem;
 }
 
 body {
@@ -28,8 +28,14 @@ body {
     box-sizing: border-box;
 }
 
+#logo {
+    width: 1.5rem;
+    vertical-align: middle;
+}
+
 h1 {
     font-size: 1.5rem;
+    margin-top: 0;
 }
 
 #tab_switcher {
