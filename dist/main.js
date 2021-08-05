@@ -219,6 +219,7 @@ const default_setting = {
     show_reason: true,
     character_repetition_threshold: 10,
     ng_word: [""],
+    allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
     language_filter: [""],
     advanced_filter: [""]
@@ -574,6 +575,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _load_setting__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./load_setting */ "./src/load_setting.ts");
 /* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
 /* harmony import */ var _tweet_analyser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tweet_analyser */ "./src/tweet_analyser.ts");
+/* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
+
 
 
 
@@ -609,8 +612,9 @@ async function run_check(setting, advanced_filter) {
     const compressor_mode = setting.strict_mode ? "strict" : "normal";
     const hide_media = setting.hide_media;
     const trim_leading_whitespace = setting.trim_leading_whitespace;
-    for (let i = 0; i < check_target.length; i++) {
-        const target = check_target[i];
+    for (const target of check_target) {
+        if (setting.allow_list.map((v) => { return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_user_id)(v); }).includes(target.user_id))
+            continue;
         const judgement = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason)
