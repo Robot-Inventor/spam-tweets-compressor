@@ -9,6 +9,12 @@
 </head>
 <body>
     <h1>Spam Tweets Compressor</h1>
+    <div id="tab_switcher">
+        <div class="tab_switcher_item" data-selected>一般</div>
+        <div class="tab_switcher_item">オプション</div>
+        <div class="tab_switcher_item">詳細</div>
+        <div id="tab_switcher_bar"></div>
+    </div>
     <div class="setting_item_outer">
         <label for="break_threshold" data-i18n="browser_action_break_threshold">改行数の しきい値 (0～70):</label><input type="number" id="break_threshold" step="1" min="0" max="70" data-setting-name="break_threshold" data-validation-message="0～70の整数を入力してください">
     </div>

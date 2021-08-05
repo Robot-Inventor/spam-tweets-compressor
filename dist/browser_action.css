@@ -32,6 +32,23 @@ h1 {
     font-size: 1.5rem;
 }
 
+#tab_switcher {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab_switcher_item {
+    text-align: center;
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+.tab_switcher_item[data-selected] {
+    border-bottom: 0.1rem solid #1A91DA;
+    padding-bottom: 0.5rem;
+    color: #1A91DA;
+}
+
 .setting_item_outer {
     margin-top: 2em;
 }
