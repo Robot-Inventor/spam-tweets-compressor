@@ -2,6 +2,15 @@
     "manifest_description": {
         "message": "This extension protects you from tweets that you feel are harassing or threatening by \"your standards\"."
     },
+    "browser_action_tab_switcher_general": {
+        "message": "General"
+    },
+    "browser_action_tab_switcher_option": {
+        "message": "Options"
+    },
+    "browser_action_tab_switcher_advanced": {
+        "message": "Advanced"
+    },
     "browser_action_break_threshold": {
         "message": "Line Break Threshold (0-70): "
     },
