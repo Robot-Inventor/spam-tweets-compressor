@@ -20,6 +20,9 @@
     "browser_action_ng_word": {
         "message": "NGワードの設定："
     },
+    "browser_action_allow_list": {
+        "message": "許可リスト："
+    },
     "browser_action_exclude_url": {
         "message": "特定のページでは圧縮しない："
     },
@@ -82,6 +85,12 @@
     },
     "advanced_setting_ng_word_description2": {
         "message": "また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。"
+    },
+    "advanced_setting_allow_list_title": {
+        "message": "許可リスト"
+    },
+    "advanced_setting_allow_list_description": {
+        "message": "ここにユーザーIDを入力されたユーザーは、スパム判定の対象から除外されます。複数個指定する場合は改行で区切ってください。"
     },
     "advanced_setting_exclude_url_title": {
         "message": "特定のページで無効化"

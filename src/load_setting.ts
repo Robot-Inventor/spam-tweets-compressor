@@ -14,6 +14,7 @@ export interface setting_object {
     show_reason: boolean,
     character_repetition_threshold: number,
     ng_word: Array<string>,
+    allow_list: Array<string>,
     exclude_url: Array<string>,
     language_filter: Array<string>,
     advanced_filter: Array<string>
@@ -28,6 +29,7 @@ const default_setting: setting_object = {
     show_reason: true,
     character_repetition_threshold: 10,
     ng_word: [""],
+    allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
     language_filter: [""],
     advanced_filter: [""]

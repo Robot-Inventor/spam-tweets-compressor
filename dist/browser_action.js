@@ -61,6 +61,7 @@ const default_setting = {
     show_reason: true,
     character_repetition_threshold: 10,
     ng_word: [""],
+    allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
     language_filter: [""],
     advanced_filter: [""]

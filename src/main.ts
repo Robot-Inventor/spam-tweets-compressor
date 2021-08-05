@@ -5,6 +5,7 @@ import { selector } from "./selector";
 import { TweetAnalyser } from "./tweet_analyser";
 import { TweetElement } from "./tweet_element";
 import { advanced_filter_type } from "./advanced_filter_type";
+import { normalize_user_id } from "./normalize";
 
 
 function get_unchecked_tweets() {
@@ -45,8 +46,9 @@ async function run_check(setting: setting_object, advanced_filter: query_type) {
     const hide_media = setting.hide_media;
     const trim_leading_whitespace = setting.trim_leading_whitespace;
 
-    for (let i = 0; i < check_target.length; i++) {
-        const target = check_target[i];
+    for (const target of check_target) {
+        if (setting.allow_list.map((v) => { return normalize_user_id(v); }).includes(target.user_id)) continue;
+
         const judgement = await detect_spam(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason) target.compress(compressor_mode, hide_media, trim_leading_whitespace, judgement[1]);

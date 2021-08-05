@@ -20,6 +20,9 @@
     "browser_action_ng_word": {
         "message": "NG Word Setting: "
     },
+    "browser_action_allow_list": {
+        "message": "Allow List: "
+    },
     "browser_action_exclude_url": {
         "message": "Exclude URL: "
     },
@@ -82,6 +85,12 @@
     },
     "advanced_setting_ng_word_description2": {
         "message": "Also, when using regular expressions, enclose the beginning and end of the NG word with /, and write the regular expression flag after the ending /."
+    },
+    "advanced_setting_allow_list_title": {
+        "message": "Allow List"
+    },
+    "advanced_setting_allow_list_description": {
+        "message": "Users whose user IDs are input here will be excluded from the spam detection. If you want to specify multiple user IDs, separate them with a new line."
     },
     "advanced_setting_exclude_url_title": {
         "message": "Exclude URLs"
