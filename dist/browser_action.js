@@ -16,6 +16,16 @@ tab_switcher_item.forEach((item) => {
         if (selected_item)
             delete selected_item.dataset.selected;
         item.dataset.selected = "";
+        const item_group = document.querySelectorAll(".setting_item_group");
+        item_group.forEach((element) => {
+            element.style.display = "none";
+        });
+        const target_selector = item.dataset.target;
+        if (target_selector) {
+            const target = document.querySelector(target_selector);
+            if (target)
+                target.style.display = "block";
+        }
     });
 });
 

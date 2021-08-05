@@ -10,43 +10,49 @@
 <body>
     <h1>Spam Tweets Compressor</h1>
     <div id="tab_switcher">
-        <div class="tab_switcher_item" data-selected>一般</div>
-        <div class="tab_switcher_item">オプション</div>
-        <div class="tab_switcher_item">詳細</div>
+        <div class="tab_switcher_item" data-selected data-target="#setting_item_general">一般</div>
+        <div class="tab_switcher_item" data-target="#setting_item_option">オプション</div>
+        <div class="tab_switcher_item" data-target="#setting_item_advanced">詳細</div>
         <div id="tab_switcher_bar"></div>
     </div>
-    <div class="setting_item_outer">
-        <label for="break_threshold" data-i18n="browser_action_break_threshold">改行数の しきい値 (0～70):</label><input type="number" id="break_threshold" step="1" min="0" max="70" data-setting-name="break_threshold" data-validation-message="0～70の整数を入力してください">
+    <div class="setting_item_group" id="setting_item_general">
+        <div class="setting_item_outer">
+            <label for="break_threshold" data-i18n="browser_action_break_threshold">改行数の しきい値 (0～70):</label><input type="number" id="break_threshold" step="1" min="0" max="70" data-setting-name="break_threshold" data-validation-message="0～70の整数を入力してください">
+        </div>
+        <div class="setting_item_outer">
+            <label for="character_repetition_threshold" data-i18n="browser_action_character_repetition_threshold">同じ文字の繰り返しの しきい値（0～140）</label><input type="number" id="character_repetition_threshold" step="1" min="0" max="140" data-setting-name="character_repetition_threshold" data-validation-message="0～140の整数を入力してください">
+        </div>
     </div>
-    <div class="setting_item_outer">
-        <label for="character_repetition_threshold" data-i18n="browser_action_character_repetition_threshold">同じ文字の繰り返しの しきい値（0～140）</label><input type="number" id="character_repetition_threshold" step="1" min="0" max="140" data-setting-name="character_repetition_threshold" data-validation-message="0～140の整数を入力してください">
+    <div class="setting_item_group" id="setting_item_option">
+        <div class="setting_item_outer">
+            <input type="checkbox" id="hide_media" data-setting-name="hide_media"><label for="hide_media" data-i18n="browser_action_hide_media">スパムツイートのメディアを非表示にする</label>
+        </div>
+        <div class="setting_item_outer">
+            <input type="checkbox" id="show_reason" data-setting-name="show_reason"><label for="show_reason" data-i18n="browser_action_show_reason">判定理由を表示する</label>
+        </div>
+        <div class="setting_item_outer">
+            <input type="checkbox" id="trim_leading_whitespace" data-setting-name="trim_leading_whitespace"><label for="trim_leading_whitespace" data-i18n="browser_action_trim_leading_whitespace">行頭の空白を削除する</label>
+        </div>
+        <div class="setting_item_outer">
+            <input type="checkbox" id="include_verified_account" data-setting-name="include_verified_account"><label for="include_verified_account" data-i18n="browser_action_include_verified_account">認証済みアカウントを監査対象に含める</label>
+        </div>
+        <div class="setting_item_outer">
+            <input type="checkbox" id="strict_mode" data-setting-name="strict_mode"><label for="strict_mode" data-i18n="browser_action_strict_mode">厳格モード（スパムツイートを圧縮するかわりに非表示にする）</label>
+        </div>
     </div>
-    <div class="setting_item_outer">
-        <span id="ng_word" data-i18n="browser_action_ng_word">NGワードを設定</span>　<a href="advanced_setting.html#ng_word_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
-    </div>
-    <div class="setting_item_outer">
-        <span id="exclude_url" data-i18n="browser_action_exclude_url">特定のページでは圧縮しない</span>　<a href="advanced_setting.html#exclude_url_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
-    </div>
-    <div class="setting_item_outer">
-        <span id="language_filter" data-i18n="browser_action_language_filter">言語フィルター</span>　<a href="advanced_setting.html#language_filter_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
-    </div>
-    <div class="setting_item_outer">
-        <span id="advanced_spam_detection" data-i18n="browser_action_advanced_spam_detection">高度なスパム判定</span>　<a href="advanced_setting.html#advanced_spam_detection_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
-    </div>
-    <div class="setting_item_outer">
-        <input type="checkbox" id="hide_media" data-setting-name="hide_media"><label for="hide_media" data-i18n="browser_action_hide_media">スパムツイートのメディアを非表示にする</label>
-    </div>
-    <div class="setting_item_outer">
-        <input type="checkbox" id="show_reason" data-setting-name="show_reason"><label for="show_reason" data-i18n="browser_action_show_reason">判定理由を表示する</label>
-    </div>
-    <div class="setting_item_outer">
-        <input type="checkbox" id="trim_leading_whitespace" data-setting-name="trim_leading_whitespace"><label for="trim_leading_whitespace" data-i18n="browser_action_trim_leading_whitespace">行頭の空白を削除する</label>
-    </div>
-    <div class="setting_item_outer">
-        <input type="checkbox" id="include_verified_account" data-setting-name="include_verified_account"><label for="include_verified_account" data-i18n="browser_action_include_verified_account">認証済みアカウントを監査対象に含める</label>
-    </div>
-    <div class="setting_item_outer">
-        <input type="checkbox" id="strict_mode" data-setting-name="strict_mode"><label for="strict_mode" data-i18n="browser_action_strict_mode">厳格モード（スパムツイートを圧縮するかわりに非表示にする）</label>
+    <div class="setting_item_group" id="setting_item_advanced">
+        <div class="setting_item_outer">
+            <span id="ng_word" data-i18n="browser_action_ng_word">NGワードを設定</span>　<a href="advanced_setting.html#ng_word_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
+        </div>
+        <div class="setting_item_outer">
+            <span id="exclude_url" data-i18n="browser_action_exclude_url">特定のページでは圧縮しない</span>　<a href="advanced_setting.html#exclude_url_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
+        </div>
+        <div class="setting_item_outer">
+            <span id="language_filter" data-i18n="browser_action_language_filter">言語フィルター</span>　<a href="advanced_setting.html#language_filter_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
+        </div>
+        <div class="setting_item_outer">
+            <span id="advanced_spam_detection" data-i18n="browser_action_advanced_spam_detection">高度なスパム判定</span>　<a href="advanced_setting.html#advanced_spam_detection_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
+        </div>
     </div>
     <hr>
     <div class="setting_item_outer medium_emphasize_text" data-i18n="browser_action_reload_to_apply">※設定を適用するにはページを再読み込みしてください</div>

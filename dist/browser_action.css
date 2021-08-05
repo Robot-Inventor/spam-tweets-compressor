@@ -50,6 +50,10 @@ h1 {
     color: #1A91DA;
 }
 
+.setting_item_group {
+    display: none;
+}
+
 .setting_item_outer {
     margin-top: 2em;
 }
