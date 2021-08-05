@@ -2,6 +2,7 @@
     --background_color: white;
     --high_emphasize_text_color: rgba(51, 51, 51, 0.87);
     --medium_emphasize_text_color: rgba(51, 51, 51, 0.6);
+    --primary_color: #1A91DA;
 }
 
 @media(prefers-color-scheme: dark) {
@@ -54,9 +55,13 @@ h1 {
     font-weight: normal;
 }
 
+.tab_switcher_item:hover {
+    color: var(--primary_color);
+}
+
 .tab_switcher_item[data-selected] {
-    border-bottom-color: #1A91DA;
-    color: #1A91DA;
+    border-bottom-color: var(--primary_color);
+    color: var(--primary_color);
     font-weight: bold;
 }
 
