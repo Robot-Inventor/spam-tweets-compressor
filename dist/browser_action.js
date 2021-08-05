@@ -2,6 +2,26 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/browser_action_view.ts":
+/*!************************************!*\
+  !*** ./src/browser_action_view.ts ***!
+  \************************************/
+/***/ (() => {
+
+
+const tab_switcher_item = document.querySelectorAll(".tab_switcher_item");
+tab_switcher_item.forEach((item) => {
+    item.addEventListener("click", () => {
+        const selected_item = document.querySelector(".tab_switcher_item[data-selected]");
+        if (selected_item)
+            delete selected_item.dataset.selected;
+        item.dataset.selected = "";
+    });
+});
+
+
+/***/ }),
+
 /***/ "./src/load_setting.ts":
 /*!*****************************!*\
   !*** ./src/load_setting.ts ***!
@@ -66,6 +86,18 @@ async function load_setting() {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -103,6 +135,9 @@ var __webpack_exports__ = {};
   \*******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _load_setting__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./load_setting */ "./src/load_setting.ts");
+/* harmony import */ var _browser_action_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./browser_action_view */ "./src/browser_action_view.ts");
+/* harmony import */ var _browser_action_view__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_browser_action_view__WEBPACK_IMPORTED_MODULE_1__);
+
 
 class ValidationMessage {
     constructor(element, message) {

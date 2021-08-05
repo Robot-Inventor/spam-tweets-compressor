@@ -41,11 +41,12 @@ h1 {
     text-align: center;
     flex-grow: 1;
     cursor: pointer;
+    padding-bottom: 0.5rem;
+    transition: 0.3s;
 }
 
 .tab_switcher_item[data-selected] {
     border-bottom: 0.1rem solid #1A91DA;
-    padding-bottom: 0.5rem;
     color: #1A91DA;
 }
 
