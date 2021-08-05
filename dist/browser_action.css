@@ -35,6 +35,7 @@ h1 {
 #tab_switcher {
     display: flex;
     justify-content: space-between;
+    margin-top: 1rem;
 }
 
 .tab_switcher_item {
@@ -43,12 +44,14 @@ h1 {
     cursor: pointer;
     border-bottom: 0.1rem solid transparent;
     padding-bottom: 0.5rem;
-    transition: 0.3s;
+    transition: 0.3s, font-weight 0s, color 0s;
+    font-weight: normal;
 }
 
 .tab_switcher_item[data-selected] {
     border-bottom-color: #1A91DA;
     color: #1A91DA;
+    font-weight: bold;
 }
 
 .setting_item_group {
@@ -87,6 +90,7 @@ hr {
     height: 0.1rem;
     border: none;
     background: var(--medium_emphasize_text_color);
+    margin-top: 2rem;
 }
 
 .setting_item_outer + hr {
