@@ -9,33 +9,29 @@
 /***/ (() => {
 
 
-const selector_of_selected_item = ".tab_switcher_item[data-selected]";
-const default_selected_item = document.querySelector(selector_of_selected_item);
-if (default_selected_item) {
-    const target_selector = default_selected_item.dataset.target;
-    if (target_selector) {
-        const target = document.querySelector(target_selector);
-        if (target)
-            target.style.display = "block";
-    }
+const selected_item_selector = ".tab_switcher_item[data-selected]";
+function show_item(selector) {
+    if (!selector)
+        return;
+    const item_group = document.querySelectorAll(".setting_item_group");
+    item_group.forEach((element) => {
+        element.style.display = "none";
+    });
+    const target = document.querySelector(selector);
+    if (target)
+        target.style.display = "block";
 }
+const default_selected_item = document.querySelector(selected_item_selector);
+if (default_selected_item)
+    show_item(default_selected_item.dataset.target);
 const tab_switcher_item = document.querySelectorAll(".tab_switcher_item");
 tab_switcher_item.forEach((item) => {
     item.addEventListener("click", () => {
-        const selected_item = document.querySelector(selector_of_selected_item);
+        const selected_item = document.querySelector(selected_item_selector);
         if (selected_item)
             delete selected_item.dataset.selected;
         item.dataset.selected = "";
-        const item_group = document.querySelectorAll(".setting_item_group");
-        item_group.forEach((element) => {
-            element.style.display = "none";
-        });
-        const target_selector = item.dataset.target;
-        if (target_selector) {
-            const target = document.querySelector(target_selector);
-            if (target)
-                target.style.display = "block";
-        }
+        show_item(item.dataset.target);
     });
 });
 
