@@ -51,7 +51,6 @@ __webpack_require__.r(__webpack_exports__);
 const default_setting = {
     break_threshold: 15,
     hide_media: false,
-    trim_leading_whitespace: true,
     include_verified_account: false,
     strict_mode: true,
     show_reason: true,
