@@ -49,18 +49,22 @@ h1 {
     text-align: center;
     flex-grow: 1;
     cursor: pointer;
-    border-bottom: 0.1rem solid transparent;
+    border-bottom: 0.2rem solid transparent;
     padding-bottom: 0.5rem;
-    transition: 0.3s, font-weight 0s, color 0s;
+    transition: 0.3s, font-weight 0s, color 0s, border-bottom-width 0s;
     font-weight: normal;
+    color: var(--medium_emphasize_text_color);
 }
 
 .tab_switcher_item:hover {
-    color: var(--primary_color);
+    color: var(--high_emphasize_text_color);
+    border-bottom-color: var(--medium_emphasize_text_color);
+    border-bottom-width: 0.1rem;
 }
 
 .tab_switcher_item[data-selected] {
     border-bottom-color: var(--primary_color);
+    border-bottom-width: 0.2rem;
     color: var(--primary_color);
     font-weight: bold;
 }
