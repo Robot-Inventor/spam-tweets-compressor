@@ -21,9 +21,9 @@ function get_unchecked_tweets() {
         tweet.user_name = analyser.get_user_name();
         tweet.user_id = analyser.get_user_id();
         tweet.language = analyser.get_language();
-        tweet.compress = (compressor_mode: "normal" | "strict", hide_media: boolean, trim_leading_whitespace: boolean, reason?: string) => {
-            if (reason) analyser.compress(compressor_mode, hide_media, trim_leading_whitespace, reason);
-            else analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
+        tweet.compress = (compressor_mode: "normal" | "strict", hide_media: boolean, reason?: string) => {
+            if (reason) analyser.compress(compressor_mode, hide_media, reason);
+            else analyser.compress(compressor_mode, hide_media);
         };
         tweet.hashtag = analyser.get_hashtag();
         tweet.link = analyser.get_link();
@@ -44,15 +44,14 @@ async function run_check(setting: setting_object, advanced_filter: query_type) {
 
     const compressor_mode = setting.strict_mode ? "strict" : "normal";
     const hide_media = setting.hide_media;
-    const trim_leading_whitespace = setting.trim_leading_whitespace;
 
     for (const target of check_target) {
         if (setting.allow_list.map((v) => { return normalize_user_id(v); }).includes(target.user_id)) continue;
 
         const judgement = await detect_spam(target, setting, advanced_filter);
         if (judgement[0]) {
-            if (setting.show_reason) target.compress(compressor_mode, hide_media, trim_leading_whitespace, judgement[1]);
-            else target.compress(compressor_mode, hide_media, trim_leading_whitespace);
+            if (setting.show_reason) target.compress(compressor_mode, hide_media, judgement[1]);
+            else target.compress(compressor_mode, hide_media);
         }
     }
 }

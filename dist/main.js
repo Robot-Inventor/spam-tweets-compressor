@@ -213,7 +213,6 @@ __webpack_require__.r(__webpack_exports__);
 const default_setting = {
     break_threshold: 15,
     hide_media: false,
-    trim_leading_whitespace: true,
     include_verified_account: false,
     strict_mode: true,
     show_reason: true,
@@ -400,35 +399,13 @@ class TweetAnalyser {
         else
             return "";
     }
-    trim_leading_whitespace(text) {
-        // eslint-disable-next-line no-irregular-whitespace
-        const whitespace_regex = new RegExp(/^[ 　ㅤ]+/gm);
-        if (typeof text === "string")
-            return text.replace(whitespace_regex, "");
-        else {
-            if (text.childElementCount === 0)
-                text.textContent = (text.textContent || "").replace(whitespace_regex, "");
-            else {
-                text.querySelectorAll("*").forEach((element) => {
-                    if (element.childElementCount === 0) {
-                        element.textContent = (element.textContent || "").replace(whitespace_regex, "");
-                    }
-                });
-            }
-            return (text.textContent || "").replace(whitespace_regex, "");
-        }
-    }
-    normal_compressor(content_element, hide_media, trim_space) {
+    normal_compressor(content_element, hide_media) {
         const raw_content = content_element.innerHTML;
         this.tweet.dataset.rawHTML = raw_content;
         this.tweet.dataset.rawContent = this.tweet.content;
-        if (trim_space)
-            this.trim_leading_whitespace(content_element);
         const compressed_content = content_element.innerHTML.replaceAll("\n", "");
         if (content_element)
             content_element.innerHTML = compressed_content;
-        if (trim_space)
-            this.tweet.content = this.trim_leading_whitespace(this.tweet.content.replaceAll("\n", ""));
         else
             this.tweet.content = this.tweet.content.replaceAll("\n", "");
         const media = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.media);
@@ -476,12 +453,12 @@ class TweetAnalyser {
         this.tweet.style.display = "none";
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
-    compress(compressor_mode, hide_media, trim_leading_whitespace, reason) {
+    compress(compressor_mode, hide_media, reason) {
         const content_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
         if (!content_element)
             return;
         if (compressor_mode === "normal")
-            this.normal_compressor(content_element, hide_media, trim_leading_whitespace);
+            this.normal_compressor(content_element, hide_media);
         else
             this.strict_compressor(reason);
     }
@@ -591,11 +568,11 @@ function get_unchecked_tweets() {
         tweet.user_name = analyser.get_user_name();
         tweet.user_id = analyser.get_user_id();
         tweet.language = analyser.get_language();
-        tweet.compress = (compressor_mode, hide_media, trim_leading_whitespace, reason) => {
+        tweet.compress = (compressor_mode, hide_media, reason) => {
             if (reason)
-                analyser.compress(compressor_mode, hide_media, trim_leading_whitespace, reason);
+                analyser.compress(compressor_mode, hide_media, reason);
             else
-                analyser.compress(compressor_mode, hide_media, trim_leading_whitespace);
+                analyser.compress(compressor_mode, hide_media);
         };
         tweet.hashtag = analyser.get_hashtag();
         tweet.link = analyser.get_link();
@@ -611,16 +588,15 @@ async function run_check(setting, advanced_filter) {
     const check_target = get_unchecked_tweets();
     const compressor_mode = setting.strict_mode ? "strict" : "normal";
     const hide_media = setting.hide_media;
-    const trim_leading_whitespace = setting.trim_leading_whitespace;
     for (const target of check_target) {
         if (setting.allow_list.map((v) => { return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_user_id)(v); }).includes(target.user_id))
             continue;
         const judgement = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason)
-                target.compress(compressor_mode, hide_media, trim_leading_whitespace, judgement[1]);
+                target.compress(compressor_mode, hide_media, judgement[1]);
             else
-                target.compress(compressor_mode, hide_media, trim_leading_whitespace);
+                target.compress(compressor_mode, hide_media);
         }
     }
 }

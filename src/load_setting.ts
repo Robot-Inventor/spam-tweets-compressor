@@ -8,7 +8,6 @@ export interface setting_object {
     [key: string]: number | boolean | Array<string> | { [key: string]: { url: string } },
     break_threshold: number,
     hide_media: boolean,
-    trim_leading_whitespace: boolean,
     include_verified_account: boolean,
     strict_mode: boolean,
     show_reason: boolean,
@@ -23,7 +22,6 @@ export interface setting_object {
 const default_setting: setting_object = {
     break_threshold: 15,
     hide_media: false,
-    trim_leading_whitespace: true,
     include_verified_account: false,
     strict_mode: true,
     show_reason: true,
