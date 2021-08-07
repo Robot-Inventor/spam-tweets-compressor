@@ -2,7 +2,7 @@
     --background_color: white;
     --high_emphasize_text_color: rgba(51, 51, 51, 0.87);
     --medium_emphasize_text_color: rgba(51, 51, 51, 0.6);
-    --primary_color: #1A91DA;
+    --main_color: #1A91DA;
 }
 
 @media(prefers-color-scheme: dark) {
@@ -10,7 +10,6 @@
         --background_color: #121212;
         --high_emphasize_text_color: rgba(255, 255, 255, 0.87);
         --medium_emphasize_text_color: rgba(255, 255, 255, 0.60);
-        --primary_color: #1A91DA;
     }
 }
 
@@ -49,17 +48,17 @@ textarea {
 }
 
 button {
-    border: 0.1em solid var(--primary_color);
+    border: 0.1em solid var(--main_color);
     cursor: pointer;
     padding: 0.5em 1em;
     margin-right: 1em;
     border-radius: 0.25em;
     background: none;
-    color: var(--primary_color);
+    color: var(--main_color);
 }
 
 button:hover {
-    background: var(--primary_color);
+    background: var(--main_color);
     color: white;
 }
 

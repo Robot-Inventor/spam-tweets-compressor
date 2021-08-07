@@ -1,6 +1,7 @@
 import { load_setting } from "./load_setting";
 import { browser_interface } from "./browser";
 import "./browser_action_view";
+import { load_color_setting } from "./color";
 
 
 declare const browser: browser_interface;
@@ -34,6 +35,7 @@ function get_setting_name(element: HTMLElement) {
 }
 
 load_setting().then((setting) => {
+    void load_color_setting();
     const number_input_element_list: NodeListOf<HTMLInputElement> = document.querySelectorAll("input[type='number']");
     number_input_element_list.forEach((input_element) => {
         const setting_name = get_setting_name(input_element);

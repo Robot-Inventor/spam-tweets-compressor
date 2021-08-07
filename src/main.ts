@@ -6,6 +6,7 @@ import { TweetAnalyser } from "./tweet_analyser";
 import { TweetElement } from "./tweet_element";
 import { advanced_filter_type } from "./advanced_filter_type";
 import { normalize_user_id } from "./normalize";
+import { load_color_setting, update_color_setting } from "./color";
 
 
 function get_unchecked_tweets() {
@@ -95,6 +96,11 @@ void (async () => {
 
         if (timeline) {
             body_observer.disconnect();
+
+            void (async () => {
+                await update_color_setting();
+                await load_color_setting();
+            })();
 
             const main_observer_target = timeline;
             const main_observer = new MutationObserver(() => {

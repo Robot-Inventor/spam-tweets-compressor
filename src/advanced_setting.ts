@@ -1,6 +1,7 @@
 import { load_setting, setting_object } from "./load_setting";
 import { browser_interface } from "./browser";
 import { advanced_filter_type } from "./advanced_filter_type";
+import { load_color_setting } from "./color";
 
 
 declare const browser: browser_interface;
@@ -63,6 +64,7 @@ function set_href_attribute() {
 }
 
 load_setting().then((setting) => {
+    void load_color_setting();
     void load_filter_list(setting);
     set_href_attribute();
 
