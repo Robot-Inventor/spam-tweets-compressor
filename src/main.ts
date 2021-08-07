@@ -72,6 +72,8 @@ async function load_advanced_filter(filter_name_list: Array<string>) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const filter_url_data: advanced_filter_type = await get_json("https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json");
     for (const filter_name of filter_name_list) {
+        if (!(filter_name in filter_url_data)) continue;
+
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const filter_data: query_object = await get_json(filter_url_data[filter_name].url);
         filter_list.push(filter_data.rule);
