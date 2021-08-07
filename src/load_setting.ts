@@ -5,7 +5,7 @@ declare const browser: browser_interface;
 
 
 export interface setting_object {
-    [key: string]: number | boolean | Array<string> | { [key: string]: { url: string } },
+    [key: string]: number | string | boolean | Array<string> | { [key: string]: { url: string } },
     break_threshold: number,
     hide_media: boolean,
     include_verified_account: boolean,
@@ -16,7 +16,10 @@ export interface setting_object {
     allow_list: Array<string>,
     exclude_url: Array<string>,
     language_filter: Array<string>,
-    advanced_filter: Array<string>
+    advanced_filter: Array<string>,
+    main_color: string,
+    background_color: string,
+    font_color: string
 }
 
 const default_setting: setting_object = {
@@ -30,7 +33,10 @@ const default_setting: setting_object = {
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
     language_filter: [""],
-    advanced_filter: [""]
+    advanced_filter: [""],
+    main_color: "rgb(29, 161, 242)",
+    background_color: "rgb(0, 0, 0)",
+    font_color: "rgb(255, 255, 255)"
 };
 
 export async function load_setting(): Promise<setting_object> {
