@@ -22,7 +22,7 @@
   "homepage": "https://github.com/Robot-Inventor/spam-tweets-compressor#readme",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.28.4",
-    "@typescript-eslint/parser": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.4",
     "eslint": "^7.31.0",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.5",
