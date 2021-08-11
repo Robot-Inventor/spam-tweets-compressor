@@ -9,7 +9,7 @@
         "message": "Options"
     },
     "browser_action_tab_switcher_advanced": {
-        "message": "Advanced"
+        "message": "Advanced Setting"
     },
     "browser_action_break_threshold": {
         "message": "Line Break Threshold (0-70): "
