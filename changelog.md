@@ -4,32 +4,32 @@
 
 ### [v2.0.6.2] - 2021-08-13
 
-## Added
+#### Added
 
-- ユーザーの許可リスト機能を追加 #51
-- 配色をTwitterの配色設定に合わせる機能を追加 #122
-- URLの正規化を強化しwww.を削除する #143
-- ハッシュタグの正規化を強化 #146
+- ユーザーの許可リスト機能を追加 [#51](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- 配色をTwitterの配色設定に合わせる機能を追加 [#122](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- URLの正規化を強化しwww.を削除する [#143](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- ハッシュタグの正規化を強化 [#146](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
 
-## Changed
+#### Changed
 
-- manifest.json内のdescriptionをREADMEに基づいて更新 #102
-- browser actionの設定項目を整理する #109
-- 設定のエクスポートを非表示にする #116
-- browser actionの設定項目の分類を見直し #125
-- 2021年8月12日のTwitterのUI変更に対応 #138
-- 設定の厳格モードボタンのラベルを「非表示モードを開始する」に変更する #103
+- manifest.json内のdescriptionをREADMEに基づいて更新 [#102](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- browser actionの設定項目を整理する [#109](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- 設定のエクスポートを非表示にする [#116](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- browser actionの設定項目の分類を見直し [#125](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- 2021年8月12日のTwitterのUI変更に対応 [#138](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- 設定の厳格モードボタンのラベルを「非表示モードを開始する」に変更する [#103](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
 
-## Fixed
+#### Fixed
 
-- スレッドが正しく処理されないバグの修正 #19
-- 存在しない名前のフィルターが指定されたときに処理をスキップする #126
-- npmモジュールのセキュリティー問題を修正 #131
-- リツイートのユーザー名取得バグの修正 #132
+- スレッドが正しく処理されないバグの修正 [#19](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- 存在しない名前のフィルターが指定されたときに処理をスキップする [#126](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- npmモジュールのセキュリティー問題を修正 [#131](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
+- リツイートのユーザー名取得バグの修正 [#132](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
 
-## Deleted
+#### Deleted
 
-- 行頭の空白を削除する機能を削除 #120
+- 行頭の空白を削除する機能を削除 [#120](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/#1)
 
 ### [v2.0.5.1] - 2021-08-04
 
