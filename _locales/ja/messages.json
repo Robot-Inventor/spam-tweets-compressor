@@ -45,7 +45,7 @@
         "message": "認証済みアカウントを監査対象に含める"
     },
     "browser_action_strict_mode": {
-        "message": "厳格モード（スパムツイートを圧縮するかわりに非表示にする）"
+        "message": "非表示モード"
     },
     "browser_action_open_setting": {
         "message": "設定を開く"
