@@ -314,7 +314,7 @@ function normalize(text) {
     return text;
 }
 function normalize_link(text) {
-    return text.replace(/^(https|http):\/\//i, "").replace(/\/(|index.html)$/, "");
+    return text.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/(index.html)?$/, "");
 }
 function normalize_hashtag(text) {
     return text.replace(new RegExp(`^[${hash_symbol.join()}]`), "");
