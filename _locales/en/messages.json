@@ -45,7 +45,7 @@
         "message": "Include Verified Accounts in the Audit"
     },
     "browser_action_strict_mode": {
-        "message": "Strict Mode (Hide spam tweets instead of compressing)"
+        "message": "Hide Mode"
     },
     "browser_action_open_setting": {
         "message": "Open Setting"
