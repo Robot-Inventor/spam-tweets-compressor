@@ -10,8 +10,8 @@ export async function update_color_setting(): Promise<void> {
     const setting = await load_setting();
 
     const tweet_button_inner = document.querySelector(selector.tweet_button_inner);
-    if (tweet_button_inner && tweet_button_inner.parentElement) {
-        const main_color = getComputedStyle(tweet_button_inner.parentElement).backgroundColor;
+    if (tweet_button_inner) {
+        const main_color = getComputedStyle(tweet_button_inner).backgroundColor;
         if (main_color) setting.main_color = main_color;
     }
 
