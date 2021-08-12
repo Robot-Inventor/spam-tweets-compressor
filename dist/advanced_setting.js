@@ -20,8 +20,8 @@ __webpack_require__.r(__webpack_exports__);
 async function update_color_setting() {
     const setting = await (0,_load_setting__WEBPACK_IMPORTED_MODULE_0__.load_setting)();
     const tweet_button_inner = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.tweet_button_inner);
-    if (tweet_button_inner && tweet_button_inner.parentElement) {
-        const main_color = getComputedStyle(tweet_button_inner.parentElement).backgroundColor;
+    if (tweet_button_inner) {
+        const main_color = getComputedStyle(tweet_button_inner).backgroundColor;
         if (main_color)
             setting.main_color = main_color;
     }
@@ -121,14 +121,14 @@ const selector = {
     tweet_outer: "div.css-1dbjc4n.r-1adg3ll.r-1ny4l3l",
     tweet_content: ".css-901oao.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
     user_name: ".css-901oao.css-bfa6kz.r-1awozwy.r-6koalj.r-1tl8opc.r-a023e6.r-b88u0q.r-rjixqe.r-bcqeeo.r-1udh08x.r-3s2u2q.r-qvutc0",
-    user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-1qd0xha.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0",
+    user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-37j5jr.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0",
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked",
     media: generate_media_selector(),
     verified_badge: "svg.r-jwli3a.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr",
     hashtag_link_mention: ".css-4rbku5.css-18t94o4.css-901oao.css-16my406.r-1loqt21.r-poiln3.r-bcqeeo.r-qvutc0",
     link_scheme_outer: ".css-901oao.css-16my406.r-1tl8opc.r-hiw28u.r-qvk6io.r-bcqeeo.r-qvutc0",
-    tweet_button_inner: ".css-901oao.r-1awozwy.r-jwli3a.r-6koalj.r-18u37iz.r-16y2uox.r-1tl8opc.r-a023e6.r-b88u0q.r-1777fci.r-rjixqe.r-bcqeeo.r-q4m81j.r-qvutc0",
+    tweet_button_inner: ".css-4rbku5.css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1waj6vr.r-1loqt21.r-19yznuf.r-64el8z.r-1ny4l3l.r-1dye5f7.r-o7ynqc.r-6416eg.r-lrvibr",
     account_name: ".css-901oao.css-bfa6kz.r-1awozwy.r-6koalj.r-1tl8opc.r-b88u0q.r-bcqeeo.r-1udh08x.r-3s2u2q.r-qvutc0"
 };
 
