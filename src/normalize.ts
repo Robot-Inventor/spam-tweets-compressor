@@ -12,7 +12,7 @@ export function normalize_link(text: string): string {
 }
 
 export function normalize_hashtag(text: string): string {
-    return text.replace(new RegExp(`^[${hash_symbol.join()}]`), "");
+    return normalize(text.replace(new RegExp(`^[${hash_symbol.join()}]`), ""));
 }
 
 export function normalize_user_id(text: string): string {

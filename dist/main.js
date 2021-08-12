@@ -317,7 +317,7 @@ function normalize_link(text) {
     return text.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/(index.html)?$/, "");
 }
 function normalize_hashtag(text) {
-    return text.replace(new RegExp(`^[${hash_symbol.join()}]`), "");
+    return normalize(text.replace(new RegExp(`^[${hash_symbol.join()}]`), ""));
 }
 function normalize_user_id(text) {
     return text.replace(/^[@＠]/, "");
