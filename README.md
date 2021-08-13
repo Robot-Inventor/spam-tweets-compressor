@@ -21,7 +21,7 @@ What kind of tweets you find harassing or threatening varies from person to pers
 
 - There is no automatic reporting of tweets deemed potentially harassing or threatening, or the ability to mute or block the poster
 - Hide only on your browser. Can't be hidden on other people's browsers
-- Works only on [twitter.com](https://twitter.com). It can't work on other Twitter clients or mobile apps
+- Works only on [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com). It can't work on other Twitter clients or mobile apps
 
 ### ⚠ Caution
 

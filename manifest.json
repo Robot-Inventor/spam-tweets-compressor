@@ -12,7 +12,8 @@
     "content_scripts": [
         {
             "matches": [
-                "https://twitter.com/*"
+                "https://twitter.com/*",
+                "https://mobile.twitter.com/*"
             ],
             "js": [
                 "dist/webextension_polyfill/browser-polyfill.min.js",
