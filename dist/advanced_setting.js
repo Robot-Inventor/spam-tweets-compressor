@@ -28,7 +28,7 @@ async function update_color_setting() {
     const background_color = getComputedStyle(document.body).backgroundColor;
     if (background_color)
         setting.background_color = background_color;
-    const account_name = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.account_name);
+    const account_name = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.normal_text);
     if (account_name)
         setting.font_color = getComputedStyle(account_name).color;
     void browser.storage.local.set({ "setting": setting });
@@ -128,8 +128,8 @@ const selector = {
     verified_badge: "svg.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-f9ja8p.r-og9te1.r-bnwqim.r-1plcrui.r-lrvibr",
     hashtag_link_mention: ".css-4rbku5.css-18t94o4.css-901oao.css-16my406.r-1loqt21.r-poiln3.r-bcqeeo.r-qvutc0",
     link_scheme_outer: ".css-901oao.css-16my406.r-1tl8opc.r-hiw28u.r-qvk6io.r-bcqeeo.r-qvutc0",
-    tweet_button_inner: ".css-4rbku5.css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1waj6vr.r-1loqt21.r-19yznuf.r-64el8z.r-1ny4l3l.r-1dye5f7.r-o7ynqc.r-6416eg.r-lrvibr",
-    account_name: ".css-901oao.css-bfa6kz.r-1awozwy.r-6koalj.r-1tl8opc.r-b88u0q.r-bcqeeo.r-1udh08x.r-3s2u2q.r-qvutc0"
+    tweet_button_inner: ".css-4rbku5.css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1waj6vr.r-1loqt21.r-19yznuf.r-64el8z.r-1ny4l3l.r-o7ynqc.r-6416eg.r-lrvibr",
+    normal_text: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0"
 };
 
 

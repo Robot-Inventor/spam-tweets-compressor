@@ -18,7 +18,7 @@ export async function update_color_setting(): Promise<void> {
     const background_color = getComputedStyle(document.body).backgroundColor;
     if (background_color) setting.background_color = background_color;
 
-    const account_name = document.querySelector(selector.account_name);
+    const account_name = document.querySelector(selector.normal_text);
     if (account_name) setting.font_color = getComputedStyle(account_name).color;
 
     void browser.storage.local.set({ "setting": setting });
