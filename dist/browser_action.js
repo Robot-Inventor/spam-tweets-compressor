@@ -161,7 +161,7 @@ const selector = {
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked",
     media: generate_media_selector(),
-    verified_badge: "svg.r-jwli3a.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr",
+    verified_badge: "svg.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-f9ja8p.r-og9te1.r-bnwqim.r-1plcrui.r-lrvibr",
     hashtag_link_mention: ".css-4rbku5.css-18t94o4.css-901oao.css-16my406.r-1loqt21.r-poiln3.r-bcqeeo.r-qvutc0",
     link_scheme_outer: ".css-901oao.css-16my406.r-1tl8opc.r-hiw28u.r-qvk6io.r-bcqeeo.r-qvutc0",
     tweet_button_inner: ".css-4rbku5.css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1waj6vr.r-1loqt21.r-19yznuf.r-64el8z.r-1ny4l3l.r-1dye5f7.r-o7ynqc.r-6416eg.r-lrvibr",
