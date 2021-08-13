@@ -27,7 +27,7 @@ export const selector = {
     tweet_outer: "div.css-1dbjc4n.r-1adg3ll.r-1ny4l3l",
     tweet_content: ".css-901oao.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
     user_name: ".css-901oao.css-bfa6kz.r-1awozwy.r-6koalj.r-1tl8opc.r-a023e6.r-b88u0q.r-rjixqe.r-bcqeeo.r-1udh08x.r-3s2u2q.r-qvutc0",
-    user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-37j5jr.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0",
+    user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-16dba41.r-bcqeeo.r-qvutc0",
     timeline: "main",
     checked_tweet_class_name: "spam-tweets-compressor-checked",
     media: generate_media_selector(),
