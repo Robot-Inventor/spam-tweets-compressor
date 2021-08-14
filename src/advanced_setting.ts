@@ -75,7 +75,10 @@ new Setting().load().then((setting) => {
             const saved_value = setting[setting_name];
             textarea.value = saved_value instanceof Array ? saved_value.join("\n") : "";
 
-            textarea.addEventListener("input", () => {
+            textarea.addEventListener("change", () => {
+                setting[setting_name] = textarea.value.split("\n");
+            });
+            window.addEventListener("beforeunload", () => {
                 setting[setting_name] = textarea.value.split("\n");
             });
         }
