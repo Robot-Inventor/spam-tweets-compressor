@@ -2,6 +2,23 @@
 
 ## Released
 
+### [v2.0.7.3] - 2021-08-14
+
+#### Added
+
+- mobile.twitter.comのホスト権限を追加 [#139](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/139)
+- browser actionにバージョン番号を表示する機能を追加 [#161](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/161)
+
+#### Changed
+
+- beforeunloadイベントでもテキストボックスの内容を保存するように変更 [#167](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/167)
+
+#### Fixed
+
+- TwitterのUI変更で認証済みアカウントか正しく判別できなくなったバグを修正 [#154](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/154)
+- ウィンドウが縦長のときに配色の取得に失敗するバグを修正 [#156](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/156)
+- 「動きを減らす」が有効になっていると動作しないバグを修正 [#160](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/160)
+
 ### [v2.0.6.2] - 2021-08-13
 
 #### Added
