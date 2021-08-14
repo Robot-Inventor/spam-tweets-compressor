@@ -6,34 +6,69 @@
 /*!************************************!*\
   !*** ./src/browser_action_view.ts ***!
   \************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ValidationMessage": () => (/* binding */ ValidationMessage)
+/* harmony export */ });
 const selected_item_selector = ".tab_switcher_item[data-selected]";
-function show_item(selector) {
-    if (!selector)
-        return;
-    const item_group = document.querySelectorAll(".setting_item_group");
-    item_group.forEach((element) => {
-        element.style.display = "none";
-    });
-    const target = document.querySelector(selector);
-    if (target)
-        target.style.display = "block";
+class ValidationMessage {
+    constructor(element, message) {
+        const message_element = document.createElement("span");
+        message_element.textContent = message;
+        message_element.style.display = "none";
+        message_element.className = "validation_message";
+        element.insertAdjacentElement("afterend", message_element);
+        this.message_element = message_element;
+    }
+    show() {
+        this.message_element.style.display = "inline-block";
+    }
+    hide() {
+        this.message_element.style.display = "none";
+    }
 }
-const default_selected_item = document.querySelector(selected_item_selector);
-if (default_selected_item)
-    show_item(default_selected_item.dataset.target);
-const tab_switcher_item = document.querySelectorAll(".tab_switcher_item");
-tab_switcher_item.forEach((item) => {
-    item.addEventListener("click", () => {
-        const selected_item = document.querySelector(selected_item_selector);
-        if (selected_item)
-            delete selected_item.dataset.selected;
-        item.dataset.selected = "";
-        show_item(item.dataset.target);
+function init_tab_switcher() {
+    function show_item(selector) {
+        if (!selector)
+            return;
+        const item_group = document.querySelectorAll(".setting_item_group");
+        item_group.forEach((element) => {
+            element.style.display = "none";
+        });
+        const target = document.querySelector(selector);
+        if (target)
+            target.style.display = "block";
+    }
+    const default_selected_item = document.querySelector(selected_item_selector);
+    if (default_selected_item)
+        show_item(default_selected_item.dataset.target);
+    const tab_switcher_item = document.querySelectorAll(".tab_switcher_item");
+    tab_switcher_item.forEach((item) => {
+        item.addEventListener("click", () => {
+            const selected_item = document.querySelector(selected_item_selector);
+            if (selected_item)
+                delete selected_item.dataset.selected;
+            item.dataset.selected = "";
+            show_item(item.dataset.target);
+        });
     });
-});
+}
+function show_version() {
+    const manifest = browser.runtime.getManifest();
+    if ("version" in manifest) {
+        const version = manifest.version;
+        const target_element = document.getElementById("extension_version");
+        if (target_element)
+            target_element.textContent = `${version}`;
+    }
+    else {
+        console.error("manifest.jsonの取得に失敗しました。");
+    }
+}
+init_tab_switcher();
+show_version();
 
 
 /***/ }),
@@ -217,18 +252,6 @@ class Setting {
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -266,28 +289,11 @@ var __webpack_exports__ = {};
   \*******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _browser_action_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./browser_action_view */ "./src/browser_action_view.ts");
-/* harmony import */ var _browser_action_view__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_browser_action_view__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./color */ "./src/color.ts");
 /* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./setting */ "./src/setting.ts");
 
 
 
-class ValidationMessage {
-    constructor(element, message) {
-        const message_element = document.createElement("span");
-        message_element.textContent = message;
-        message_element.style.display = "none";
-        message_element.className = "validation_message";
-        element.insertAdjacentElement("afterend", message_element);
-        this.message_element = message_element;
-    }
-    show() {
-        this.message_element.style.display = "inline-block";
-    }
-    hide() {
-        this.message_element.style.display = "none";
-    }
-}
 function get_setting_name(element) {
     const setting_name = element.dataset.settingName;
     if (setting_name)
@@ -301,7 +307,7 @@ new _setting__WEBPACK_IMPORTED_MODULE_2__.Setting().load().then((setting) => {
     number_input_element_list.forEach((input_element) => {
         const setting_name = get_setting_name(input_element);
         input_element.value = String(setting[setting_name]);
-        const validation_message = new ValidationMessage(input_element, input_element.dataset.validationMessage || "不正な値です");
+        const validation_message = new _browser_action_view__WEBPACK_IMPORTED_MODULE_0__.ValidationMessage(input_element, input_element.dataset.validationMessage || "不正な値です");
         input_element.addEventListener("input", () => {
             let new_value_string = input_element.value;
             new_value_string = new_value_string.normalize("NFKC");
