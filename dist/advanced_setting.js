@@ -9,6 +9,13 @@
 /***/ (() => {
 
 
+function adjust_scroll_position() {
+    const header = document.querySelector("header");
+    if (header)
+        scrollBy(0, parseInt(getComputedStyle(header).height.replace(/px$/, "")) * -2);
+    else
+        console.error("header was not found.");
+}
 class Menu {
     constructor() {
         this.overlay = document.getElementById("overlay");
@@ -49,10 +56,7 @@ class Menu {
                 menu_item.textContent = element.textContent;
                 menu_item.addEventListener("click", () => {
                     location.hash = element.id;
-                    if (this.header)
-                        scrollBy(0, parseInt(getComputedStyle(this.header).height.replace(/px$/, "")) * -2);
-                    else
-                        console.error("header was not found.");
+                    adjust_scroll_position();
                 });
                 this.item_outer.insertAdjacentElement("afterbegin", menu_item);
             }
@@ -86,6 +90,8 @@ class Menu {
     }
 }
 new Menu();
+if (location.hash)
+    adjust_scroll_position();
 
 
 /***/ }),
