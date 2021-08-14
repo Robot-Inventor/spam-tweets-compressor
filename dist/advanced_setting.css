@@ -16,6 +16,8 @@
 * {
     color: var(--high_emphasize_text_color);
     font-family: sans-serif;
+    padding: 0;
+    margin: 0;
 }
 
 @font-face {
@@ -31,7 +33,7 @@
 }
 
 .material-icons {
-    font-family: "Material Icons";
+    font-family: "Material Icons", sans-serif;
     font-weight: normal;
     font-style: normal;
     font-size: 24px;
@@ -51,16 +53,21 @@
 
 html,
 body {
-    width: 40rem;
     background: var(--background_color);
 }
 
+html {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    padding: 0 1.5rem;
+}
+
 body {
-    padding: 0 2rem;
     box-sizing: border-box;
     max-width: 40rem;
-    margin-left: calc((100vw - min(100vw, 40rem)) / 2);
     margin-top: 5rem;
+    margin-bottom: 3rem;
 }
 
 header {
@@ -94,7 +101,18 @@ header::before {
 }
 
 h1 {
+    font-size: 1.7rem;
+}
+
+h2 {
+    margin-top: 3rem;
+    margin-bottom: 0;
     font-size: 1.5rem;
+}
+
+h3 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
 }
 
 #overlay {
@@ -126,6 +144,7 @@ h1 {
     height: 0.05rem;
     border: solid 0.075rem var(--medium_emphasize_text_color);
     box-sizing: border-box;
+    margin: auto;
 }
 
 #menu[data-open] {
@@ -181,6 +200,22 @@ h1 {
     color: var(--medium_emphasize_text_color);
 }
 
+p {
+    margin-top: 1rem;
+}
+
+h2 + p {
+    margin-top: 0.25rem;
+}
+
+ul {
+    padding-left: 2rem;
+}
+
+input + label {
+    margin-left: 0.5rem;
+}
+
 textarea {
     border: 0.1rem solid var(--high_emphasize_text_color);
     width: 100%;
@@ -188,6 +223,9 @@ textarea {
     max-width: 100%;
     min-width: 100%;
     background: none;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
 }
 
 button {
