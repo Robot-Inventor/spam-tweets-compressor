@@ -1,4 +1,4 @@
-import { setting_object } from "./load_setting";
+import { setting_object } from "./setting";
 
 
 export type detect_language = {
@@ -18,6 +18,9 @@ export interface browser_interface {
         local: {
             set: (keys: { [key: string]: setting_object }) => Promise<void>,
             get: (keys: string) => Promise<{ setting: setting_object }>
+        },
+        onChanged: {
+            addListener: (callback: (changes: { [key: string]: { oldValue: setting_object, newValue: setting_object } }, areaName: "sync" | "local" | "managed") => void) => void
         }
     }
 }

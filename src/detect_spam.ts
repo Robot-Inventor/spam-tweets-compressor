@@ -1,4 +1,4 @@
-import { setting_object } from "./load_setting";
+import { setting_object } from "./setting";
 import { normalize, normalize_language_code } from "./normalize";
 import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";

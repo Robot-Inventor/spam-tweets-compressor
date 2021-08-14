@@ -1,6 +1,6 @@
 import { query_object, query_type } from "./advanced_spam_detection";
 import { detect_spam } from "./detect_spam";
-import { load_setting, setting_object } from "./load_setting";
+import { Setting, setting_object } from "./setting";
 import { selector } from "./selector";
 import { TweetAnalyser } from "./tweet_analyser";
 import { TweetElement } from "./tweet_element";
@@ -83,7 +83,7 @@ async function load_advanced_filter(filter_name_list: Array<string>) {
 }
 
 void (async () => {
-    const setting = await load_setting();
+    const setting = await new Setting().load();
 
     let joined_advanced_filter: query_type = await load_advanced_filter(setting.advanced_filter);
     setInterval(() => {

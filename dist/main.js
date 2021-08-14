@@ -136,13 +136,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "update_color_setting": () => (/* binding */ update_color_setting),
 /* harmony export */   "load_color_setting": () => (/* binding */ load_color_setting)
 /* harmony export */ });
-/* harmony import */ var _load_setting__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./load_setting */ "./src/load_setting.ts");
-/* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
+/* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
+/* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setting */ "./src/setting.ts");
 
 
 async function update_color_setting() {
-    const setting = await (0,_load_setting__WEBPACK_IMPORTED_MODULE_0__.load_setting)();
-    const tweet_button_inner = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.tweet_button_inner);
+    const setting = await new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting().load();
+    const tweet_button_inner = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_button_inner);
     if (tweet_button_inner) {
         const main_color = getComputedStyle(tweet_button_inner).backgroundColor;
         if (main_color)
@@ -151,16 +151,15 @@ async function update_color_setting() {
     const background_color = getComputedStyle(document.body).backgroundColor;
     if (background_color)
         setting.background_color = background_color;
-    const account_name = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.normal_text);
+    const account_name = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.normal_text);
     if (account_name)
         setting.font_color = getComputedStyle(account_name).color;
-    void browser.storage.local.set({ "setting": setting });
 }
 function change_opacity(rgb, opacity) {
     return rgb.replace(/^rgb\(/, "rgba(").replace(/\)$/, `, ${opacity})`);
 }
 async function load_color_setting() {
-    const setting = await (0,_load_setting__WEBPACK_IMPORTED_MODULE_0__.load_setting)();
+    const setting = await new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting().load();
     const style_element = document.createElement("style");
     style_element.textContent = `
 :root {
@@ -246,46 +245,6 @@ async function detect_spam(target, setting, advanced_filter) {
     const has_verified_badge = detect_verified_badge(target);
     const verified_badge_judgement = has_verified_badge && !setting.include_verified_account;
     return normal_judgement !== false && !verified_badge_judgement ? [true, normal_judgement] : [false];
-}
-
-
-/***/ }),
-
-/***/ "./src/load_setting.ts":
-/*!*****************************!*\
-  !*** ./src/load_setting.ts ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "load_setting": () => (/* binding */ load_setting)
-/* harmony export */ });
-const default_setting = {
-    break_threshold: 15,
-    hide_media: false,
-    include_verified_account: false,
-    strict_mode: true,
-    show_reason: true,
-    character_repetition_threshold: 10,
-    ng_word: [""],
-    allow_list: [""],
-    exclude_url: ["https://twitter.com/home"],
-    language_filter: [""],
-    advanced_filter: [""],
-    main_color: "rgb(29, 161, 242)",
-    background_color: "rgb(0, 0, 0)",
-    font_color: "rgb(255, 255, 255)"
-};
-async function load_setting() {
-    const saved_setting = await browser.storage.local.get("setting");
-    const setting = default_setting;
-    if (saved_setting.setting) {
-        Object.keys(default_setting).forEach((key) => {
-            setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
-        });
-    }
-    return setting;
 }
 
 
@@ -395,6 +354,66 @@ const selector = {
     tweet_button_inner: ".css-4rbku5.css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1waj6vr.r-1loqt21.r-19yznuf.r-64el8z.r-1ny4l3l.r-o7ynqc.r-6416eg.r-lrvibr",
     normal_text: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0"
 };
+
+
+/***/ }),
+
+/***/ "./src/setting.ts":
+/*!************************!*\
+  !*** ./src/setting.ts ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Setting": () => (/* binding */ Setting)
+/* harmony export */ });
+const default_setting = {
+    break_threshold: 15,
+    hide_media: false,
+    include_verified_account: false,
+    strict_mode: true,
+    show_reason: true,
+    character_repetition_threshold: 10,
+    ng_word: [""],
+    allow_list: [""],
+    exclude_url: ["https://twitter.com/home"],
+    language_filter: [""],
+    advanced_filter: [""],
+    main_color: "rgb(29, 161, 242)",
+    background_color: "rgb(0, 0, 0)",
+    font_color: "rgb(255, 255, 255)"
+};
+class Setting {
+    constructor() {
+        this.setting = default_setting;
+    }
+    async load() {
+        const saved_setting = await browser.storage.local.get("setting");
+        const setting = default_setting;
+        if (saved_setting.setting) {
+            Object.keys(default_setting).forEach((key) => {
+                setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
+            });
+        }
+        browser.storage.onChanged.addListener((changes) => {
+            this.setting = changes.setting.newValue;
+        });
+        return new Proxy(setting, {
+            get: (target, key) => {
+                return this.setting[key];
+            },
+            set: (target, key, value) => {
+                this.setting[key] = value;
+                this.save();
+                return true;
+            }
+        });
+    }
+    save() {
+        void browser.storage.local.set({ "setting": this.setting });
+    }
+}
 
 
 /***/ }),
@@ -605,7 +624,7 @@ var __webpack_exports__ = {};
   \*********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _detect_spam__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./detect_spam */ "./src/detect_spam.ts");
-/* harmony import */ var _load_setting__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./load_setting */ "./src/load_setting.ts");
+/* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setting */ "./src/setting.ts");
 /* harmony import */ var _selector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./selector */ "./src/selector.ts");
 /* harmony import */ var _tweet_analyser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tweet_analyser */ "./src/tweet_analyser.ts");
 /* harmony import */ var _normalize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./normalize */ "./src/normalize.ts");
@@ -681,7 +700,7 @@ async function load_advanced_filter(filter_name_list) {
     return joined_advanced_filter;
 }
 void (async () => {
-    const setting = await (0,_load_setting__WEBPACK_IMPORTED_MODULE_1__.load_setting)();
+    const setting = await new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting().load();
     let joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
     setInterval(() => {
         void (async () => {
