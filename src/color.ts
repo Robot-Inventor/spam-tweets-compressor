@@ -1,13 +1,9 @@
-import { browser_interface } from "./browser";
-import { load_setting } from "./load_setting";
 import { selector } from "./selector";
-
-
-declare const browser: browser_interface;
+import { Setting } from "./setting";
 
 
 export async function update_color_setting(): Promise<void> {
-    const setting = await load_setting();
+    const setting = await new Setting().load();
 
     const tweet_button_inner = document.querySelector(selector.tweet_button_inner);
     if (tweet_button_inner) {
@@ -20,8 +16,6 @@ export async function update_color_setting(): Promise<void> {
 
     const account_name = document.querySelector(selector.normal_text);
     if (account_name) setting.font_color = getComputedStyle(account_name).color;
-
-    void browser.storage.local.set({ "setting": setting });
 }
 
 function change_opacity(rgb: string, opacity: number) {
@@ -29,7 +23,7 @@ function change_opacity(rgb: string, opacity: number) {
 }
 
 export async function load_color_setting(): Promise<void> {
-    const setting = await load_setting();
+    const setting = await new Setting().load();
 
     const style_element = document.createElement("style");
     style_element.textContent = `

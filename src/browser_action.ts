@@ -1,10 +1,6 @@
-import { load_setting } from "./load_setting";
-import { browser_interface } from "./browser";
 import "./browser_action_view";
 import { load_color_setting } from "./color";
-
-
-declare const browser: browser_interface;
+import { Setting } from "./setting";
 
 
 class ValidationMessage {
@@ -34,7 +30,7 @@ function get_setting_name(element: HTMLElement) {
     else throw "設定の名称が指定されていないinput要素が見つかりました";
 }
 
-load_setting().then((setting) => {
+new Setting().load().then((setting) => {
     void load_color_setting();
     const number_input_element_list: NodeListOf<HTMLInputElement> = document.querySelectorAll("input[type='number']");
     number_input_element_list.forEach((input_element) => {
@@ -70,7 +66,6 @@ load_setting().then((setting) => {
 
             validation_message.hide();
             setting[setting_name] = new_value;
-            void browser.storage.local.set({ "setting": setting });
         });
     });
 
@@ -83,7 +78,6 @@ load_setting().then((setting) => {
 
         input_element.addEventListener("change", () => {
             setting[setting_name] = input_element.checked;
-            void browser.storage.local.set({ "setting": setting });
         });
     });
 }).catch(() => {

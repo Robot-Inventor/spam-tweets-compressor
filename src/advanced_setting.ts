@@ -1,7 +1,7 @@
-import { load_setting, setting_object } from "./load_setting";
 import { browser_interface } from "./browser";
 import { advanced_filter_type } from "./advanced_filter_type";
 import { load_color_setting } from "./color";
+import { Setting, setting_object } from "./setting";
 
 
 declare const browser: browser_interface;
@@ -38,7 +38,6 @@ async function load_filter_list(setting: setting_object): Promise<void> {
                 }).map((element) => {
                     return (element.dataset.filterName || "");
                 });
-                void browser.storage.local.set({ "setting": setting });
             });
 
             const label = document.createElement("label");
@@ -63,7 +62,7 @@ function set_href_attribute() {
     else console.error("language_code_linkが見つかりませんでした");
 }
 
-load_setting().then((setting) => {
+new Setting().load().then((setting) => {
     void load_color_setting();
     void load_filter_list(setting);
     set_href_attribute();
@@ -78,7 +77,6 @@ load_setting().then((setting) => {
 
             textarea.addEventListener("input", () => {
                 setting[setting_name] = textarea.value.split("\n");
-                void browser.storage.local.set({ "setting": setting });
             });
         }
     });
