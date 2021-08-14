@@ -22,5 +22,8 @@ export interface browser_interface {
         onChanged: {
             addListener: (callback: (changes: { [key: string]: { oldValue: setting_object, newValue: setting_object } }, areaName: "sync" | "local" | "managed") => void) => void
         }
+    },
+    runtime: {
+        getManifest: () => { [key: string]: string }
     }
 }

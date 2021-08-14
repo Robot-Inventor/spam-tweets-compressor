@@ -1,28 +1,7 @@
-import "./browser_action_view";
+import { ValidationMessage } from "./browser_action_view";
 import { load_color_setting } from "./color";
 import { Setting } from "./setting";
 
-
-class ValidationMessage {
-    private message_element;
-    constructor(element: HTMLElement, message: string) {
-        const message_element = document.createElement("span");
-        message_element.textContent = message;
-        message_element.style.display = "none";
-        message_element.className = "validation_message";
-        element.insertAdjacentElement("afterend", message_element);
-
-        this.message_element = message_element;
-    }
-
-    show() {
-        this.message_element.style.display = "inline-block";
-    }
-
-    hide() {
-        this.message_element.style.display = "none";
-    }
-}
 
 function get_setting_name(element: HTMLElement) {
     const setting_name = element.dataset.settingName;
