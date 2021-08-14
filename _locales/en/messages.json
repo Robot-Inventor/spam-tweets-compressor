@@ -59,6 +59,9 @@
     "advanced_setting_h1": {
         "message": "Advanced Setting of Spam Tweets Compressor"
     },
+    "advanced_setting_license": {
+        "message": "License"
+    },
     "advanced_setting_export_title": {
         "message": "Export Setting"
     },

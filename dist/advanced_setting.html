@@ -5,19 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="advanced_setting.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="shortcut icon" href="../image/icon.svg" type="image/x-icon">
     <title data-i18n="advanced_setting_title_tag">詳細設定 - Spam Tweets Compressor</title>
 </head>
 <body>
+    <header><span class="material-icons" id="menu_open_button">menu</span>Spam Tweets Compressor</header>
     <h1 data-i18n="advanced_setting_h1">Spam Tweets Compressorの詳細設定</h1>
-    <!-- The settings export function is hidden because the settings import function has not been implemented. -->
-    <div style="display: none;">
-        <h2 data-i18n="advanced_setting_export_title">設定のエクスポート</h2>
-        <p data-i18n="advanced_setting_export_description">
-            Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
-        </p>
-        <button data-i18n="advanced_setting_export_copy" id="copy_button">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button">保存</button>
+    <div id="overlay"></div>
+    <div id="menu">
+        <span class="material-icons" id="menu_close_button">arrow_back</span>
+        <div id="menu_item_outer">
+            <hr>
+            <a href="https://github.com/Robot-Inventor/spam-tweets-compressor" target="_blank" rel="noopener noreferrer">
+                <div class="menu_item">GitHub</div>
+            </a>
+            <a href="https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/LICENSE.txt" target="_blank" rel="noopener noreferrer">
+                <div class="menu_item" data-i18n="advanced_setting_license">ライセンス</div>
+            </a>
+        </div>
     </div>
+    <!-- The settings export function is hidden because the settings import function has not been implemented. -->
+    <h2 data-i18n="advanced_setting_export_title" style="display: none;">設定のエクスポート</h2>
+    <p data-i18n="advanced_setting_export_description" style="display: none;">
+        Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
+    </p>
+    <button data-i18n="advanced_setting_export_copy" id="copy_button" style="display: none;">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button" style="display: none;">保存</button>
     <h2 id="ng_word_title" data-i18n="advanced_setting_ng_word_title">NGワード</h2>
     <p data-i18n="advanced_setting_ng_word_description1">
         NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。

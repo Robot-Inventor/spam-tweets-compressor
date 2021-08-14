@@ -59,6 +59,9 @@
     "advanced_setting_h1": {
         "message": "Spam Tweets Compressorの詳細設定"
     },
+    "advanced_setting_license": {
+        "message": "ライセンス"
+    },
     "advanced_setting_export_title": {
         "message": "設定のエクスポート"
     },
