@@ -32,7 +32,7 @@
         url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
 }
 
-.material-icons {
+.material_icon {
     font-family: "Material Icons", sans-serif;
     font-weight: normal;
     font-style: normal;
