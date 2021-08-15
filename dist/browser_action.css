@@ -87,23 +87,8 @@ h1 {
     color: var(--medium_emphasize_text_color);
 }
 
-input[type="number"] {
-    border: none;
-    border-bottom: 0.1rem solid var(--high_emphasize_text_color);
-    outline: none;
-    width: 5rem;
-}
-
 input[type="checkbox"] {
     margin-left: 0;
-}
-
-.validation_message {
-    color: red;
-    border: 0.1em solid red;
-    padding: 0.25em 0.5em;
-    border-radius: 0.25em;
-    margin-left: 1em;
 }
 
 hr {

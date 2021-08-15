@@ -9,12 +9,10 @@ type setting_value_type = number | string | boolean | Array<string> | { [key: st
 
 export interface setting_object {
     [key: string]: setting_value_type,
-    break_threshold: number,
     hide_media: boolean,
     include_verified_account: boolean,
     strict_mode: boolean,
     show_reason: boolean,
-    character_repetition_threshold: number,
     ng_word: Array<string>,
     allow_list: Array<string>,
     exclude_url: Array<string>,
@@ -26,12 +24,10 @@ export interface setting_object {
 }
 
 const default_setting: setting_object = {
-    break_threshold: 15,
     hide_media: false,
     include_verified_account: false,
     strict_mode: true,
     show_reason: true,
-    character_repetition_threshold: 10,
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],

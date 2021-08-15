@@ -5,27 +5,6 @@ const selected_item_selector = ".tab_switcher_item[data-selected]";
 declare const browser: browser_interface;
 
 
-export class ValidationMessage {
-    private message_element;
-    constructor(element: HTMLElement, message: string) {
-        const message_element = document.createElement("span");
-        message_element.textContent = message;
-        message_element.style.display = "none";
-        message_element.className = "validation_message";
-        element.insertAdjacentElement("afterend", message_element);
-
-        this.message_element = message_element;
-    }
-
-    show(): void {
-        this.message_element.style.display = "inline-block";
-    }
-
-    hide(): void {
-        this.message_element.style.display = "none";
-    }
-}
-
 function init_tab_switcher() {
     function show_item(selector: string | undefined) {
         if (!selector) return;

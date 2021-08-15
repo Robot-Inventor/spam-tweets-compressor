@@ -11,12 +11,6 @@
     "browser_action_tab_switcher_advanced": {
         "message": "Advanced Setting"
     },
-    "browser_action_break_threshold": {
-        "message": "Line Break Threshold (0-70): "
-    },
-    "browser_action_character_repetition_threshold": {
-        "message": "Same Character Repetition Threshold (0-140): "
-    },
     "browser_action_ng_word": {
         "message": "NG Word Setting: "
     },

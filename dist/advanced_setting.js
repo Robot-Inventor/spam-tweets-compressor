@@ -199,12 +199,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Setting": () => (/* binding */ Setting)
 /* harmony export */ });
 const default_setting = {
-    break_threshold: 15,
     hide_media: false,
     include_verified_account: false,
     strict_mode: true,
     show_reason: true,
-    character_repetition_threshold: 10,
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],

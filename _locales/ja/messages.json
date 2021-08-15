@@ -11,12 +11,6 @@
     "browser_action_tab_switcher_advanced": {
         "message": "詳細設定"
     },
-    "browser_action_break_threshold": {
-        "message": "改行数の しきい値（0～70）："
-    },
-    "browser_action_character_repetition_threshold": {
-        "message": "同じ文字の繰り返しの しきい値（0～140）："
-    },
     "browser_action_ng_word": {
         "message": "NGワードの設定："
     },
