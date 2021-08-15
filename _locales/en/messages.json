@@ -23,9 +23,6 @@
     "browser_action_advanced_spam_detection": {
         "message": "Advanced Spam Detection: "
     },
-    "browser_action_hide_media": {
-        "message": "Hide Media of Spam Tweets"
-    },
     "browser_action_show_reason": {
         "message": "Show Reason for Judgment"
     },
@@ -116,9 +113,6 @@
     "advanced_setting_advanced_spam_detection": {
         "message": "You can enable or disable advanced filters that are specific to a particular purpose."
     },
-    "decompress_button_normal": {
-        "message": "decompress"
-    },
     "decompress_button_strict_without_reason": {
         "message": "Show a tweet by $USER_NAME$ ($USER_ID$)",
         "placeholders": {
@@ -148,12 +142,6 @@
                 "example": "too many line breaks"
             }
         }
-    },
-    "compress_reason_too_many_breaks": {
-        "message": "too many line breaks"
-    },
-    "compress_reason_repeated_character": {
-        "message": "repeating the same letter"
     },
     "compress_reason_ng_word": {
         "message": "NG word"

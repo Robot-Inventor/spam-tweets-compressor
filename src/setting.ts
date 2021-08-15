@@ -9,7 +9,6 @@ type setting_value_type = number | string | boolean | Array<string> | { [key: st
 
 export interface setting_object {
     [key: string]: setting_value_type,
-    hide_media: boolean,
     include_verified_account: boolean,
     strict_mode: boolean,
     show_reason: boolean,
@@ -23,7 +22,6 @@ export interface setting_object {
 }
 
 const default_setting: setting_object = {
-    hide_media: false,
     include_verified_account: false,
     strict_mode: true,
     show_reason: true,

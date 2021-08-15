@@ -23,9 +23,6 @@
     "browser_action_advanced_spam_detection": {
         "message": "高度なスパム判定："
     },
-    "browser_action_hide_media": {
-        "message": "スパムツイートのメディアを非表示にする"
-    },
     "browser_action_show_reason": {
         "message": "判定理由を表示する"
     },
@@ -116,9 +113,6 @@
     "advanced_setting_advanced_spam_detection": {
         "message": "特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。"
     },
-    "decompress_button_normal": {
-        "message": "展開"
-    },
     "decompress_button_strict_without_reason": {
         "message": "$USER_NAME$（$USER_ID$）のツイートを表示",
         "placeholders": {
@@ -148,12 +142,6 @@
                 "example": "多くの改行"
             }
         }
-    },
-    "compress_reason_too_many_breaks": {
-        "message": "多くの改行"
-    },
-    "compress_reason_repeated_character": {
-        "message": "同じ文字の繰り返し"
     },
     "compress_reason_ng_word": {
         "message": "NGワード"

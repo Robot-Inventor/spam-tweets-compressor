@@ -158,7 +158,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Setting": () => (/* binding */ Setting)
 /* harmony export */ });
 const default_setting = {
-    hide_media: false,
     include_verified_account: false,
     strict_mode: true,
     show_reason: true,
