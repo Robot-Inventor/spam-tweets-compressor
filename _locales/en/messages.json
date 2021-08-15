@@ -32,9 +32,6 @@
     "browser_action_include_verified_account": {
         "message": "Include Verified Accounts in the Audit"
     },
-    "browser_action_strict_mode": {
-        "message": "Hide Mode"
-    },
     "browser_action_open_setting": {
         "message": "Open Setting"
     },

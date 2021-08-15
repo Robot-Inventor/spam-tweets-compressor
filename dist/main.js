@@ -343,7 +343,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const default_setting = {
     include_verified_account: false,
-    strict_mode: true,
     show_reason: true,
     ng_word: [""],
     allow_list: [""],
