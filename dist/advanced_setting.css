@@ -148,6 +148,12 @@ h3 {
     margin: auto;
 }
 
+#menu a .material_icon {
+    font-size: 1em;
+    vertical-align: middle;
+    margin-left: 0.25em;
+}
+
 #menu[data-open] {
     transform: none;
     box-shadow: 0.1rem 0.1rem 1rem black;
