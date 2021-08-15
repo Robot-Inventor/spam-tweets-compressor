@@ -205,38 +205,15 @@ function detect_ng_word(text, ng_words) {
     }
     return false;
 }
-function detect_filtered_language(target_language, language_filter) {
-    target_language = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_language_code)(target_language);
-    for (const filter of language_filter) {
-        const normalized_filter = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_language_code)(filter);
-        if (!normalized_filter)
-            continue;
-        if (target_language === normalized_filter)
-            return true;
-    }
-    return false;
-}
 function detect_verified_badge(tweet) {
     return Boolean(tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.verified_badge));
 }
-async function detect_spam(target, setting, advanced_filter) {
-    const normal_judgement = await (async () => {
+function detect_spam(target, setting, advanced_filter) {
+    const normal_judgement = (() => {
         const target_content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);
-        const breaks = target_content.match(/\n/g);
-        const break_length = breaks ? breaks.length : 0;
-        const has_too_many_breaks = break_length >= setting.break_threshold;
-        if (has_too_many_breaks)
-            return browser.i18n.getMessage("compress_reason_too_many_breaks");
-        const repeated_character = new RegExp(`(.)\\1{${setting.character_repetition_threshold},}`).test(target_content);
-        if (repeated_character)
-            return browser.i18n.getMessage("compress_reason_repeated_character");
         const has_ng_word = detect_ng_word(target_content, setting.ng_word);
         if (has_ng_word)
             return browser.i18n.getMessage("compress_reason_ng_word");
-        const content_language = await target.language;
-        const is_filtered_language = detect_filtered_language(content_language, setting.language_filter);
-        if (is_filtered_language)
-            return browser.i18n.getMessage("compress_reason_filtered_language");
         const advanced_detection = (0,_advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__.advanced_spam_detection)(advanced_filter, target);
         if (advanced_detection)
             return browser.i18n.getMessage("compress_reason_advanced_detection_default");
@@ -262,8 +239,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "normalize": () => (/* binding */ normalize),
 /* harmony export */   "normalize_link": () => (/* binding */ normalize_link),
 /* harmony export */   "normalize_hashtag": () => (/* binding */ normalize_hashtag),
-/* harmony export */   "normalize_user_id": () => (/* binding */ normalize_user_id),
-/* harmony export */   "normalize_language_code": () => (/* binding */ normalize_language_code)
+/* harmony export */   "normalize_user_id": () => (/* binding */ normalize_user_id)
 /* harmony export */ });
 const hash_symbol = ["#", "＃"];
 function normalize(text) {
@@ -280,9 +256,6 @@ function normalize_hashtag(text) {
 }
 function normalize_user_id(text) {
     return text.replace(/^[@＠]/, "");
-}
-function normalize_language_code(text) {
-    return normalize(text).replace(/-.*$/, "");
 }
 
 
@@ -369,16 +342,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Setting": () => (/* binding */ Setting)
 /* harmony export */ });
 const default_setting = {
-    break_threshold: 15,
-    hide_media: false,
     include_verified_account: false,
-    strict_mode: true,
     show_reason: true,
-    character_repetition_threshold: 10,
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
-    language_filter: [""],
     advanced_filter: [""],
     main_color: "rgb(29, 161, 242)",
     background_color: "rgb(0, 0, 0)",
@@ -474,32 +442,10 @@ class TweetAnalyser {
         else
             return "";
     }
-    normal_compressor(content_element, hide_media) {
-        const raw_content = content_element.innerHTML;
-        this.tweet.dataset.rawHTML = raw_content;
-        this.tweet.dataset.rawContent = this.tweet.content;
-        const compressed_content = content_element.innerHTML.replaceAll("\n", "");
-        if (content_element)
-            content_element.innerHTML = compressed_content;
-        else
-            this.tweet.content = this.tweet.content.replaceAll("\n", "");
-        const media = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.media);
-        if (media && hide_media)
-            media.style.display = "none";
-        const decompress_button = document.createElement("button");
-        decompress_button.className = "decompress-button";
-        const decompress_button_normal = browser.i18n.getMessage("decompress_button_normal");
-        decompress_button.textContent = decompress_button_normal;
-        content_element.appendChild(decompress_button);
-        decompress_button.addEventListener("click", () => {
-            content_element.innerHTML = this.tweet.dataset.rawHTML || "";
-            this.tweet.content = this.tweet.dataset.rawContent || "";
-            if (media && hide_media)
-                media.style.display = "block";
-            decompress_button.remove();
-        });
-    }
-    strict_compressor(reason) {
+    compress(reason) {
+        const content_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
+        if (!content_element)
+            return;
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         decompress_button.classList.add("show-tweet-button");
@@ -527,15 +473,6 @@ class TweetAnalyser {
         });
         this.tweet.style.display = "none";
         this.tweet.insertAdjacentElement("afterend", decompress_button);
-    }
-    compress(compressor_mode, hide_media, reason) {
-        const content_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
-        if (!content_element)
-            return;
-        if (compressor_mode === "normal")
-            this.normal_compressor(content_element, hide_media);
-        else
-            this.strict_compressor(reason);
     }
     get_hashtag() {
         const is_hashtag = (element) => {
@@ -645,11 +582,8 @@ function get_unchecked_tweets() {
         tweet.user_name = analyser.get_user_name();
         tweet.user_id = analyser.get_user_id();
         tweet.language = analyser.get_language();
-        tweet.compress = (compressor_mode, hide_media, reason) => {
-            if (reason)
-                analyser.compress(compressor_mode, hide_media, reason);
-            else
-                analyser.compress(compressor_mode, hide_media);
+        tweet.compress = (reason) => {
+            analyser.compress(reason);
         };
         tweet.hashtag = analyser.get_hashtag();
         tweet.link = analyser.get_link();
@@ -658,22 +592,20 @@ function get_unchecked_tweets() {
     tweets.forEach(get_ready);
     return result;
 }
-async function run_check(setting, advanced_filter) {
+function run_check(setting, advanced_filter) {
     const exclude_url = setting.exclude_url;
     if (exclude_url.includes(location.href))
         return;
     const check_target = get_unchecked_tweets();
-    const compressor_mode = setting.strict_mode ? "strict" : "normal";
-    const hide_media = setting.hide_media;
     for (const target of check_target) {
         if (setting.allow_list.map((v) => { return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_user_id)(v); }).includes(target.user_id))
             continue;
-        const judgement = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
+        const judgement = (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason)
-                target.compress(compressor_mode, hide_media, judgement[1]);
+                target.compress(judgement[1]);
             else
-                target.compress(compressor_mode, hide_media);
+                target.compress();
         }
     }
 }

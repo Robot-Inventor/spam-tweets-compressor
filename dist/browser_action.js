@@ -9,26 +9,7 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ValidationMessage": () => (/* binding */ ValidationMessage)
-/* harmony export */ });
 const selected_item_selector = ".tab_switcher_item[data-selected]";
-class ValidationMessage {
-    constructor(element, message) {
-        const message_element = document.createElement("span");
-        message_element.textContent = message;
-        message_element.style.display = "none";
-        message_element.className = "validation_message";
-        element.insertAdjacentElement("afterend", message_element);
-        this.message_element = message_element;
-    }
-    show() {
-        this.message_element.style.display = "inline-block";
-    }
-    hide() {
-        this.message_element.style.display = "none";
-    }
-}
 function init_tab_switcher() {
     function show_item(selector) {
         if (!selector)
@@ -69,6 +50,7 @@ function show_version() {
 }
 init_tab_switcher();
 show_version();
+
 
 
 /***/ }),
@@ -176,16 +158,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Setting": () => (/* binding */ Setting)
 /* harmony export */ });
 const default_setting = {
-    break_threshold: 15,
-    hide_media: false,
     include_verified_account: false,
-    strict_mode: true,
     show_reason: true,
-    character_repetition_threshold: 10,
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
-    language_filter: [""],
     advanced_filter: [""],
     main_color: "rgb(29, 161, 242)",
     background_color: "rgb(0, 0, 0)",
@@ -303,40 +280,6 @@ function get_setting_name(element) {
 }
 new _setting__WEBPACK_IMPORTED_MODULE_2__.Setting().load().then((setting) => {
     void (0,_color__WEBPACK_IMPORTED_MODULE_1__.load_color_setting)();
-    const number_input_element_list = document.querySelectorAll("input[type='number']");
-    number_input_element_list.forEach((input_element) => {
-        const setting_name = get_setting_name(input_element);
-        input_element.value = String(setting[setting_name]);
-        const validation_message = new _browser_action_view__WEBPACK_IMPORTED_MODULE_0__.ValidationMessage(input_element, input_element.dataset.validationMessage || "不正な値です");
-        input_element.addEventListener("input", () => {
-            let new_value_string = input_element.value;
-            new_value_string = new_value_string.normalize("NFKC");
-            const is_only_number = !/\D/.test(new_value_string);
-            if (!is_only_number) {
-                validation_message.show();
-                return;
-            }
-            const new_value = parseInt(new_value_string);
-            const is_valid_range = (() => {
-                const min_number = input_element.min ? parseInt(input_element.min) : null;
-                const max_number = input_element.max ? parseInt(input_element.max) : null;
-                if (min_number !== null && max_number !== null)
-                    return new_value >= min_number && new_value <= max_number;
-                else if (min_number === null && max_number !== null)
-                    return new_value <= max_number;
-                else if (min_number !== null && max_number === null)
-                    return new_value >= min_number;
-                else
-                    return true;
-            })();
-            if (!is_valid_range) {
-                validation_message.show();
-                return;
-            }
-            validation_message.hide();
-            setting[setting_name] = new_value;
-        });
-    });
     const checkbox_input_element = document.querySelectorAll("input[type='checkbox']");
     checkbox_input_element.forEach((input_element) => {
         const setting_name = get_setting_name(input_element);
