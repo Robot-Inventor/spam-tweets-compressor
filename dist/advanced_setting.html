@@ -5,19 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="advanced_setting.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="shortcut icon" href="../image/icon.svg" type="image/x-icon">
     <title data-i18n="advanced_setting_title_tag">詳細設定 - Spam Tweets Compressor</title>
 </head>
 <body>
+    <header><span class="material_icon" id="menu_open_button">menu</span>Spam Tweets Compressor</header>
     <h1 data-i18n="advanced_setting_h1">Spam Tweets Compressorの詳細設定</h1>
-    <!-- The settings export function is hidden because the settings import function has not been implemented. -->
-    <div style="display: none;">
-        <h2 data-i18n="advanced_setting_export_title">設定のエクスポート</h2>
-        <p data-i18n="advanced_setting_export_description">
-            Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
-        </p>
-        <button data-i18n="advanced_setting_export_copy" id="copy_button">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button">保存</button>
+    <div id="overlay"></div>
+    <div id="menu">
+        <span class="material_icon" id="menu_close_button">arrow_back</span>
+        <div id="menu_item_outer">
+            <hr>
+            <a href="https://github.com/Robot-Inventor/spam-tweets-compressor" target="_blank" rel="noopener noreferrer">
+                <div class="menu_item">GitHub<span class="material_icon">open_in_new</span></div>
+            </a>
+            <a href="https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/LICENSE.txt" target="_blank" rel="noopener noreferrer">
+                <div class="menu_item"><span data-i18n="advanced_setting_license">ライセンス</span><span class="material_icon">open_in_new</span></div>
+            </a>
+        </div>
     </div>
+    <!-- The settings export function is hidden because the settings import function has not been implemented. -->
+    <h2 data-i18n="advanced_setting_export_title" style="display: none;">設定のエクスポート</h2>
+    <p data-i18n="advanced_setting_export_description" style="display: none;">
+        Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
+    </p>
+    <button data-i18n="advanced_setting_export_copy" id="copy_button" style="display: none;">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button" style="display: none;">保存</button>
     <h2 id="ng_word_title" data-i18n="advanced_setting_ng_word_title">NGワード</h2>
     <p data-i18n="advanced_setting_ng_word_description1">
         NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。
@@ -25,12 +38,12 @@
     <p data-i18n="advanced_setting_ng_word_description2">
         また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。
     </p>
-    <textarea id="ng_word" cols="30" rows="10" data-setting-name="ng_word"></textarea>
+    <textarea id="ng_word" cols="30" rows="5" data-setting-name="ng_word"></textarea>
     <h2 id="allow_list_title" data-i18n="advanced_setting_allow_list_title">許可リスト</h2>
     <p data-i18n="advanced_setting_allow_list_description">
         ここにユーザーIDを入力されたユーザーは、スパム判定の対象から除外されます。複数個指定する場合は改行で区切ってください。
     </p>
-    <textarea id="allow_list" cols="30" rows="10" data-setting-name="allow_list"></textarea>
+    <textarea id="allow_list" cols="30" rows="5" data-setting-name="allow_list"></textarea>
     <h2 id="exclude_url_title" data-i18n="advanced_setting_exclude_url_title">特定のページで無効化</h2>
     <p data-i18n="advanced_setting_exclude_url_description">
         指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。
@@ -42,7 +55,7 @@
         <li><span data-i18n="advanced_setting_exclude_url_examples_list">リスト</span>：https://twitter.com/i/lists/＜<span data-i18n="advanced_setting_exclude_url_examples_list_number">リストの番号</span>＞</li>
         <li><span data-i18n="advanced_setting_exclude_url_examples_bookmark">ブックマーク</span>：https://twitter.com/i/bookmarks</li>
     </ul>
-    <textarea id="exclude_url" cols="30" rows="10" data-setting-name="exclude_url"></textarea>
+    <textarea id="exclude_url" cols="30" rows="5" data-setting-name="exclude_url"></textarea>
     <h2 id="language_filter_title" data-i18n="advanced_setting_language_filter_title">言語フィルター</h2>
     <p data-i18n="advanced_setting_language_filter_description1">
         特定の言語のツイートを圧縮します。対象とする言語の言語コード（ISO 639-1）を入力してください。また、複数指定する場合は改行で区切ってください。
@@ -50,7 +63,7 @@
     <p>
         <span data-i18n="advanced_setting_language_filter_description2">参考：</span><a href="" id="language_code_link" target="_blank">ISO 639-1</a>
     </p>
-    <textarea id="language_filter" cols="30" rows="10" data-setting-name="language_filter"></textarea>
+    <textarea id="language_filter" cols="30" rows="5" data-setting-name="language_filter"></textarea>
     <h2 id="advanced_spam_detection_title" data-i18n="advanced_setting_advanced_spam_detection_title">高度なスパム判定</h2>
     <p data-i18n="advanced_setting_advanced_spam_detection">
         特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。
