@@ -36,7 +36,7 @@ function get_unchecked_tweets() {
     return result;
 }
 
-async function run_check(setting: setting_object, advanced_filter: query_type) {
+function run_check(setting: setting_object, advanced_filter: query_type) {
     const exclude_url = setting.exclude_url;
 
     if (exclude_url.includes(location.href)) return;
@@ -49,7 +49,7 @@ async function run_check(setting: setting_object, advanced_filter: query_type) {
     for (const target of check_target) {
         if (setting.allow_list.map((v) => { return normalize_user_id(v); }).includes(target.user_id)) continue;
 
-        const judgement = await detect_spam(target, setting, advanced_filter);
+        const judgement = detect_spam(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason) target.compress(compressor_mode, hide_media, judgement[1]);
             else target.compress(compressor_mode, hide_media);

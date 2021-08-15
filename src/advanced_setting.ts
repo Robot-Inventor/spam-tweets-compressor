@@ -57,16 +57,9 @@ async function load_filter_list(setting: setting_object): Promise<void> {
     }
 }
 
-function set_href_attribute() {
-    const target = document.getElementById("language_code_link");
-    if (target) target.setAttribute("href", browser.i18n.getMessage("advanced_setting_language_code_link"));
-    else console.error("language_code_linkが見つかりませんでした");
-}
-
 new Setting().load().then((setting) => {
     void load_color_setting();
     void load_filter_list(setting);
-    set_href_attribute();
 
     const textarea_element_list: NodeListOf<HTMLTextAreaElement> = document.querySelectorAll("textarea");
     textarea_element_list.forEach((textarea) => {

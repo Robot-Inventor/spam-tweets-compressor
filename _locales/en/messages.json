@@ -20,9 +20,6 @@
     "browser_action_exclude_url": {
         "message": "Exclude URL: "
     },
-    "browser_action_language_filter": {
-        "message": "Language Filter: "
-    },
     "browser_action_advanced_spam_detection": {
         "message": "Advanced Spam Detection: "
     },
@@ -113,18 +110,6 @@
     "advanced_setting_exclude_url_examples_bookmark": {
         "message": "Bookmarks"
     },
-    "advanced_setting_language_filter_title": {
-        "message": "Language Filter"
-    },
-    "advanced_setting_language_code_link": {
-        "message": "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
-    },
-    "advanced_setting_language_filter_description1": {
-        "message": "Compress tweets in a specific language. Enter the language code (ISO 639-1) of the target language. If you want to input more than one language, separate them with a new line."
-    },
-    "advanced_setting_language_filter_description2": {
-        "message": "Reference: "
-    },
     "advanced_setting_advanced_spam_detection_title": {
         "message": "Advanced Spam Detection"
     },
@@ -172,9 +157,6 @@
     },
     "compress_reason_ng_word": {
         "message": "NG word"
-    },
-    "compress_reason_filtered_language": {
-        "message": "filtered language"
     },
     "compress_reason_advanced_detection_default": {
         "message": "Advanced Spam Detection"

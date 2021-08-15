@@ -205,30 +205,15 @@ function detect_ng_word(text, ng_words) {
     }
     return false;
 }
-function detect_filtered_language(target_language, language_filter) {
-    target_language = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_language_code)(target_language);
-    for (const filter of language_filter) {
-        const normalized_filter = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_language_code)(filter);
-        if (!normalized_filter)
-            continue;
-        if (target_language === normalized_filter)
-            return true;
-    }
-    return false;
-}
 function detect_verified_badge(tweet) {
     return Boolean(tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_1__.selector.verified_badge));
 }
-async function detect_spam(target, setting, advanced_filter) {
-    const normal_judgement = await (async () => {
+function detect_spam(target, setting, advanced_filter) {
+    const normal_judgement = (() => {
         const target_content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);
         const has_ng_word = detect_ng_word(target_content, setting.ng_word);
         if (has_ng_word)
             return browser.i18n.getMessage("compress_reason_ng_word");
-        const content_language = await target.language;
-        const is_filtered_language = detect_filtered_language(content_language, setting.language_filter);
-        if (is_filtered_language)
-            return browser.i18n.getMessage("compress_reason_filtered_language");
         const advanced_detection = (0,_advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__.advanced_spam_detection)(advanced_filter, target);
         if (advanced_detection)
             return browser.i18n.getMessage("compress_reason_advanced_detection_default");
@@ -254,8 +239,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "normalize": () => (/* binding */ normalize),
 /* harmony export */   "normalize_link": () => (/* binding */ normalize_link),
 /* harmony export */   "normalize_hashtag": () => (/* binding */ normalize_hashtag),
-/* harmony export */   "normalize_user_id": () => (/* binding */ normalize_user_id),
-/* harmony export */   "normalize_language_code": () => (/* binding */ normalize_language_code)
+/* harmony export */   "normalize_user_id": () => (/* binding */ normalize_user_id)
 /* harmony export */ });
 const hash_symbol = ["#", "＃"];
 function normalize(text) {
@@ -272,9 +256,6 @@ function normalize_hashtag(text) {
 }
 function normalize_user_id(text) {
     return text.replace(/^[@＠]/, "");
-}
-function normalize_language_code(text) {
-    return normalize(text).replace(/-.*$/, "");
 }
 
 
@@ -368,7 +349,6 @@ const default_setting = {
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
-    language_filter: [""],
     advanced_filter: [""],
     main_color: "rgb(29, 161, 242)",
     background_color: "rgb(0, 0, 0)",
@@ -648,7 +628,7 @@ function get_unchecked_tweets() {
     tweets.forEach(get_ready);
     return result;
 }
-async function run_check(setting, advanced_filter) {
+function run_check(setting, advanced_filter) {
     const exclude_url = setting.exclude_url;
     if (exclude_url.includes(location.href))
         return;
@@ -658,7 +638,7 @@ async function run_check(setting, advanced_filter) {
     for (const target of check_target) {
         if (setting.allow_list.map((v) => { return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_user_id)(v); }).includes(target.user_id))
             continue;
-        const judgement = await (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
+        const judgement = (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason)
                 target.compress(compressor_mode, hide_media, judgement[1]);

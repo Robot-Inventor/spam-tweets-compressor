@@ -206,7 +206,6 @@ const default_setting = {
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
-    language_filter: [""],
     advanced_filter: [""],
     main_color: "rgb(29, 161, 242)",
     background_color: "rgb(0, 0, 0)",
@@ -372,17 +371,9 @@ async function load_filter_list(setting) {
         console.log("filter_list_outerが見つかりませんでした");
     }
 }
-function set_href_attribute() {
-    const target = document.getElementById("language_code_link");
-    if (target)
-        target.setAttribute("href", browser.i18n.getMessage("advanced_setting_language_code_link"));
-    else
-        console.error("language_code_linkが見つかりませんでした");
-}
 new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting().load().then((setting) => {
     void (0,_color__WEBPACK_IMPORTED_MODULE_0__.load_color_setting)();
     void load_filter_list(setting);
-    set_href_attribute();
     const textarea_element_list = document.querySelectorAll("textarea");
     textarea_element_list.forEach((textarea) => {
         const setting_name = get_setting_name(textarea);

@@ -165,7 +165,6 @@ const default_setting = {
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
-    language_filter: [""],
     advanced_filter: [""],
     main_color: "rgb(29, 161, 242)",
     background_color: "rgb(0, 0, 0)",
