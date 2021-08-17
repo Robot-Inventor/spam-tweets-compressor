@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./image/icon.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Spam Tweets Compressor</title>
+</head>
+<body>
+    <header>
+        <img src="image/icon.svg" alt="Spam Tweets Compressor" id="header_logo">
+        <h1 id="header_title">Spam Tweets Compressor</h1>
+    </header>
+    <section id="top_section">
+        <img src="image/icon.svg" alt="Spam Tweets Compressor" id="top_section_image">
+        <p>
+            「あなたの基準」で嫌がらせや脅迫と感じるツイートからあなたを守ります
+            <download-button></download-button>
+        </p>
+    </section>
+    <section class="normal_section">
+        <deformed-tweet class="normal_section_icon"></deformed-tweet>
+        <div class="normal_section_text">
+            <h2>あなたを守る拡張機能</h2>
+            <p>
+                嫌がらせや脅迫の可能性があるツイートを非表示にしてあなたを守ります
+            </p>
+        </div>
+    </section>
+    <section class="normal_section">
+        <div class="normal_section_text">
+            <h2>NGワード</h2>
+            <p>
+                NGワードを自由に設定できます。また、NGワードには正規表現を利用できます
+            </p>
+        </div>
+        <div class="normal_section_icon">
+            <span class="material_icon">block</span>
+        </div>
+    </section>
+    <section class="normal_section">
+        <div class="normal_section_icon">
+            <span class="material_icon">auto_fix_high</span>
+        </div>
+        <div class="normal_section_text">
+            <h2>高度なスパム判定</h2>
+            <p>
+                特定の目的に特化したスパム判定が実装されています。設定にチェックを入れるだけで使用できます
+            </p>
+        </div>
+    </section>
+    <section class="normal_section">
+        <div class="normal_section_text">
+            <h2>できないこと</h2>
+            <p>
+                ツイートを自動で通報したり、投稿者をミュート・ブロックしたりする機能はありません。また、他の人のブラウザー上では非表示にできません
+            </p>
+        </div>
+        <div class="normal_section_icon">
+            <span class="material_icon">close</span>
+        </div>
+    </section>
+    <section class="normal_section">
+        <div class="normal_section_icon">
+            <span class="material_icon">warning</span>
+        </div>
+        <div class="normal_section_text">
+            <h2>注意</h2>
+            <p>
+                この拡張機能は非公式の拡張機能です。Twitter社は一切関与していません。また、偽陽性や偽陰性も発生します
+            </p>
+        </div>
+    </section>
+    <footer>
+        <div id="footer_link_outer">
+            <a href="https://github.com/Robot-Inventor/spam-tweets-compressor">GitHub</a>
+            <a href="https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf">Download for Chrome</a>
+            <a href="https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/">Download for Firefox</a>
+        </div>
+        Copyright © 2021 Robot-Inventor
+    </footer>
+    <style>
+        :root {
+            --body_padding_top: 3rem;
+        }
+
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+            src: local('Material Icons'),
+                local('MaterialIcons-Regular'),
+                url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+                url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+                url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+        }
+
+        .material_icon {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;  /* Preferred icon size */
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+
+            /* Support for all WebKit browsers. */
+            -webkit-font-smoothing: antialiased;
+            /* Support for Safari and Chrome. */
+            text-rendering: optimizeLegibility;
+
+            /* Support for Firefox. */
+            -moz-osx-font-smoothing: grayscale;
+
+            /* Support for IE. */
+            font-feature-settings: 'liga';
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Noto Sans JP", sans-serif;
+            box-sizing: border-box;
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        html,
+        body {
+            width: 100vw;
+            background: white;
+            font-size: 18px;
+            overflow-x: hidden;
+        }
+
+        body {
+            padding-top: var(--body_padding_top);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            padding: 1rem;
+            background: #444444;
+            box-shadow: 0.1rem 0.1rem 1rem black;
+            z-index: 1;
+        }
+
+        #header_logo {
+            width: 2.5rem;
+        }
+
+        #header_title {
+            color: rgba(255, 255, 255, 0.87);
+            font-size: 1.5rem;
+            display: inline-block;
+            margin-left: 1rem;
+            vertical-align: top;
+        }
+
+        #top_section {
+            background: #333333;
+            padding: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            align-content: center;
+            min-height: calc(100vh - var(--body_padding_top));
+        }
+
+        #top_section_image {
+            width: min(50vw, 50vh);
+            margin: auto;
+        }
+
+        #top_section p {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.87);
+            flex-grow: 1;
+            min-width: 10rem;
+            max-width: 30rem;
+            margin: auto;
+            margin-top: 3rem;
+            font-size: 1.5rem;
+            line-height: 200%;
+        }
+
+        #top_section download-button {
+            margin-top: 1rem;
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        #summary_section {
+            background: white;
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        .normal_section {
+            padding: 3rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            min-height: 50vh;
+        }
+
+        .normal_section:nth-child(even) {
+            background: #eeeeee;
+        }
+
+        .normal_section_text {
+            margin: auto;
+            min-width: 10rem;
+            max-width: 50vw;
+        }
+
+        .normal_section_icon {
+            margin: auto;
+        }
+
+        deformed-tweet {
+            min-width: 50vmin;
+        }
+
+        .normal_section .material_icon {
+            font-size: 10rem;
+        }
+
+        footer {
+            background: #333333;
+            color: rgba(255, 255, 255, 0.87);
+            padding: 3rem;
+            padding-bottom: 6rem;
+            text-align: center;
+        }
+
+        #footer_link_outer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        #footer_link_outer a {
+            color: rgba(255, 255, 255, 0.87);
+            display: inline-block;
+            padding: 0.5rem 2rem;
+        }
+    </style>
+    <script src="./component/download_button.js" type="module"></script>
+    <script src="./component/deformed_tweet.js" type="module"></script>
+</body>
+</html>
