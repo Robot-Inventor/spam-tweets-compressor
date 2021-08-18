@@ -34,9 +34,11 @@ const default_setting: setting_object = {
 
 export class Setting {
     private setting: setting_object;
+    private callback?: () => void;
 
     constructor() {
         this.setting = default_setting;
+        this.callback = undefined;
     }
 
     async load(): Promise<setting_object> {
@@ -50,6 +52,7 @@ export class Setting {
 
         browser.storage.onChanged.addListener((changes) => {
             this.setting = changes.setting.newValue;
+            if (this.callback) this.callback();
         });
 
         return new Proxy(setting, {
@@ -66,5 +69,9 @@ export class Setting {
 
     private save(): void {
         void browser.storage.local.set({ "setting": this.setting });
+    }
+
+    onChange(callback?: () => void): void {
+        this.callback = callback;
     }
 }

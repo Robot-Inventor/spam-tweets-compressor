@@ -325,7 +325,8 @@ const selector = {
     hashtag_link_mention: ".css-4rbku5.css-18t94o4.css-901oao.css-16my406.r-1loqt21.r-poiln3.r-bcqeeo.r-qvutc0",
     link_scheme_outer: ".css-901oao.css-16my406.r-1tl8opc.r-hiw28u.r-qvk6io.r-bcqeeo.r-qvutc0",
     tweet_button_inner: ".css-4rbku5.css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1waj6vr.r-1loqt21.r-19yznuf.r-64el8z.r-1ny4l3l.r-o7ynqc.r-6416eg.r-lrvibr",
-    normal_text: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0"
+    normal_text: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0",
+    show_tweet_button: ".show-tweet-button"
 };
 
 
@@ -355,6 +356,7 @@ const default_setting = {
 class Setting {
     constructor() {
         this.setting = default_setting;
+        this.callback = undefined;
     }
     async load() {
         const saved_setting = await browser.storage.local.get("setting");
@@ -366,6 +368,8 @@ class Setting {
         }
         browser.storage.onChanged.addListener((changes) => {
             this.setting = changes.setting.newValue;
+            if (this.callback)
+                this.callback();
         });
         return new Proxy(setting, {
             get: (target, key) => {
@@ -380,6 +384,9 @@ class Setting {
     }
     save() {
         void browser.storage.local.set({ "setting": this.setting });
+    }
+    onChange(callback) {
+        this.callback = callback;
     }
 }
 
@@ -448,7 +455,7 @@ class TweetAnalyser {
             return;
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
-        decompress_button.classList.add("show-tweet-button");
+        decompress_button.classList.add(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.show_tweet_button.replace(/^\./, ""));
         const text_color = (() => {
             const user_name_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_name);
             if (user_name_element)
@@ -592,6 +599,15 @@ function get_unchecked_tweets() {
     tweets.forEach(get_ready);
     return result;
 }
+function reset_check_status() {
+    document.querySelectorAll("." + _selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name).forEach((element) => {
+        element.classList.remove(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name);
+    });
+}
+function decompress_all() {
+    const tweets = document.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.show_tweet_button);
+    tweets.forEach((element) => element.click());
+}
 function run_check(setting, advanced_filter) {
     const exclude_url = setting.exclude_url;
     if (exclude_url.includes(location.href))
@@ -632,7 +648,12 @@ async function load_advanced_filter(filter_name_list) {
     return joined_advanced_filter;
 }
 void (async () => {
-    const setting = await new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting().load();
+    const setting_class = new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting();
+    const setting = await setting_class.load();
+    setting_class.onChange(() => {
+        decompress_all();
+        reset_check_status();
+    });
     let joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
     setInterval(() => {
         void (async () => {
