@@ -107,8 +107,11 @@
     "advanced_setting_advanced_spam_detection_title": {
         "message": "高度なスパム判定"
     },
-    "advanced_setting_advanced_spam_detection": {
+    "advanced_setting_advanced_spam_detection_description1": {
         "message": "特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。"
+    },
+    "advanced_setting_advanced_spam_detection_description2": {
+        "message": "注意：高度なスパム判定では偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。"
     },
     "decompress_button_strict_without_reason": {
         "message": "$USER_NAME$（$USER_ID$）のツイートを表示",
