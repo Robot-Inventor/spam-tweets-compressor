@@ -17,11 +17,13 @@
     background: var(--background_color);
     color: var(--high_emphasize_text_color);
     font-family: sans-serif;
+    font-size: 1rem;
 }
 
 html,
 body {
     width: 30rem;
+    font-size: 13px;
 }
 
 body {
