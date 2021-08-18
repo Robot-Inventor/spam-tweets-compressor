@@ -107,8 +107,11 @@
     "advanced_setting_advanced_spam_detection_title": {
         "message": "Advanced Spam Detection"
     },
-    "advanced_setting_advanced_spam_detection": {
+    "advanced_setting_advanced_spam_detection_description1": {
         "message": "You can enable or disable advanced filters that are specific to a particular purpose."
+    },
+    "advanced_setting_advanced_spam_detection_description2": {
+        "message": "Note: Advanced Spam Detection will produce false positives and false negatives. Also, each filter is optimized for its own purpose, and false positives and false negatives will increase when used for other purposes."
     },
     "decompress_button_strict_without_reason": {
         "message": "Show a tweet by $USER_NAME$ ($USER_ID$)",
