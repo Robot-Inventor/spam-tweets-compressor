@@ -47,10 +47,7 @@ You can install the extension from each browser's extension store.
 
 This extension determines whether to hide a tweet based on the following factors.
 
-- Number of line breaks
-- Repetition of the same character
 - NG words
-- Languages you have set to hide
 - Advanced Spam Detection
 
 ## About Personal Information
