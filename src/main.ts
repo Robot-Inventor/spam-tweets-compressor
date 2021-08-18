@@ -35,6 +35,17 @@ function get_unchecked_tweets() {
     return result;
 }
 
+function reset_check_status() {
+    document.querySelectorAll("." + selector.checked_tweet_class_name).forEach((element) => {
+        element.classList.remove(selector.checked_tweet_class_name);
+    });
+}
+
+function decompress_all() {
+    const tweets: NodeListOf<TweetElement> = document.querySelectorAll(selector.show_tweet_button);
+    tweets.forEach((element) => element.click());
+}
+
 function run_check(setting: setting_object, advanced_filter: query_type) {
     const exclude_url = setting.exclude_url;
 
@@ -79,7 +90,12 @@ async function load_advanced_filter(filter_name_list: Array<string>) {
 }
 
 void (async () => {
-    const setting = await new Setting().load();
+    const setting_class = new Setting();
+    const setting = await setting_class.load();
+    setting_class.onChange(() => {
+        decompress_all();
+        reset_check_status();
+    });
 
     let joined_advanced_filter: query_type = await load_advanced_filter(setting.advanced_filter);
     setInterval(() => {

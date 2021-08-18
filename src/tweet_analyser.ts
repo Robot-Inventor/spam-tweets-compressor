@@ -56,7 +56,7 @@ export class TweetAnalyser {
 
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
-        decompress_button.classList.add("show-tweet-button");
+        decompress_button.classList.add(selector.show_tweet_button.replace(/^\./, ""));
 
         const text_color = (() => {
             const user_name_element = this.tweet.querySelector(selector.user_name);
