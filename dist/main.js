@@ -255,7 +255,7 @@ function normalize_hashtag(text) {
     return normalize(text.replace(new RegExp(`^[${hash_symbol.join()}]`), ""));
 }
 function normalize_user_id(text) {
-    return text.replace(/^[@＠]/, "");
+    return normalize(text.replace(/^[@＠]/, ""));
 }
 
 
@@ -272,18 +272,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "is_regexp": () => (/* binding */ is_regexp),
 /* harmony export */   "parse_regexp": () => (/* binding */ parse_regexp)
 /* harmony export */ });
-const detect_regexp_pattern = /^\/(.*)\/([dgimsuy]*)$/;
+const regexp_flag_list = ["d", "g", "i", "m", "s", "u", "y"];
+const regexp_pattern = new RegExp(`^/(.*)/([${regexp_flag_list.join("")}]*)$`);
 function is_regexp(pattern) {
-    const detect_regexp_pattern = /^\/(.*)\/([dgimsuy]*)$/;
-    return detect_regexp_pattern.test(pattern);
+    return regexp_pattern.test(pattern);
+}
+function parser_core(pattern) {
+    if (!is_regexp(pattern))
+        return { string: pattern, flag: null };
+    const core_string = pattern.replace(regexp_pattern, "$1");
+    const flag_set = new Set(pattern.replace(regexp_pattern, "$2").split(""));
+    const flag_list = Array.from(flag_set).filter(flag => regexp_flag_list.includes(flag));
+    return {
+        string: core_string,
+        flag: flag_list.length ? flag_list.join("") : null
+    };
 }
 function parse_regexp(pattern) {
-    if (!is_regexp(pattern))
-        return new RegExp(pattern);
-    const regex_core_string = pattern.replace(detect_regexp_pattern, "$1");
-    const regex_flag = pattern.replace(detect_regexp_pattern, "$2");
-    const regex = new RegExp(regex_core_string, regex_flag);
-    return regex;
+    const parse_result = parser_core(pattern);
+    if (parse_result.flag)
+        return new RegExp(parse_result.string, parse_result.flag);
+    else
+        return new RegExp(parse_result.string);
 }
 
 
