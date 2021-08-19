@@ -1,9 +1,4 @@
-import { browser_interface } from "./browser";
-
-
 const selected_item_selector = ".tab_switcher_item[data-selected]";
-declare const browser: browser_interface;
-
 
 function init_tab_switcher() {
     function show_item(selector: string | undefined) {

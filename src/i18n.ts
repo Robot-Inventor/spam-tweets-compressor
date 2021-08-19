@@ -1,9 +1,3 @@
-import { browser_interface } from "./browser";
-
-
-declare const browser: browser_interface;
-
-
 const target_element: NodeListOf<HTMLElement> = document.querySelectorAll("*[data-i18n]");
 target_element.forEach((target) => {
     const message_name = target.dataset.i18n;

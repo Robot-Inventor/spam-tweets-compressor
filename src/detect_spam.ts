@@ -4,10 +4,6 @@ import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";
 import { is_regexp, parse_regexp } from "./parse_regexp";
 import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
-import { browser_interface } from "./browser";
-
-
-declare const browser: browser_interface;
 
 
 function detect_ng_word(text: string, ng_words: Array<string>) {

@@ -1,12 +1,7 @@
-import { browser_interface } from "./browser";
 import { advanced_filter_type } from "./advanced_filter_type";
 import { load_color_setting } from "./color";
 import { Setting, setting_object } from "./setting";
 import "./advanced_setting_view";
-
-
-declare const browser: browser_interface;
-
 
 
 function get_setting_name(element: HTMLElement) {
