@@ -44,8 +44,11 @@
     "advanced_setting_h1": {
         "message": "Advanced Setting"
     },
+    "advanced_setting_open_source_license": {
+        "message": "Open Source License"
+    },
     "advanced_setting_license": {
-        "message": "License"
+        "message": "License of this Extension"
     },
     "advanced_setting_export_title": {
         "message": "Export Setting"
