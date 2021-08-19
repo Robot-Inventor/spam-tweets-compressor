@@ -16,5 +16,5 @@ export function normalize_hashtag(text: string): string {
 }
 
 export function normalize_user_id(text: string): string {
-    return text.replace(/^[@＠]/, "");
+    return normalize(text.replace(/^[@＠]/, ""));
 }
