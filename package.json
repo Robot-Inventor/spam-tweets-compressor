@@ -1,6 +1,6 @@
 {
   "name": "spam-tweets-compressor",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A browser extension which compresses spam Tweets.",
   "main": "main.js",
   "scripts": {

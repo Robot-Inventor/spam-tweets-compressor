@@ -2,6 +2,31 @@
 
 ## Released
 
+### [v2.0.8.4] - 2021-08-19
+
+#### Added
+
+- 宣伝ページを作成 [#186](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/186)
+- 高度なスパム判定のUIに目的外では誤作動すると明記 [#182](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/182)
+- 設定変更時に再読み込みを不要にする [#113](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/113)
+- テストの導入 [#185](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/185)
+- OSSライセンスに関するページを作成 [#198](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/198)
+
+#### Changed
+
+- 詳細設定ページのデザイン改善 [#117](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/117)
+- web-ext-typesの導入 [#197](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/197)
+- npm installをnpm install --save-devに変更 [#201](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/201)
+
+#### Deleted
+
+- 一部の機能を削除 [#177](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/177)
+
+#### Fixed
+
+- browser actionのフォントサイズを指定する [#176](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/176)
+- Chromeでbrowser actionのタイトルに改行が入ってしまうバグを修正 [#173](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/173)
+
 ### [v2.0.7.3] - 2021-08-14
 
 #### Added
