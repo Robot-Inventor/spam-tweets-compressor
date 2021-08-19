@@ -6,9 +6,9 @@
 /*!************************************!*\
   !*** ./src/browser_action_view.ts ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-__webpack_require__.r(__webpack_exports__);
+
 const selected_item_selector = ".tab_switcher_item[data-selected]";
 function init_tab_switcher() {
     function show_item(selector) {
@@ -50,7 +50,6 @@ function show_version() {
 }
 init_tab_switcher();
 show_version();
-
 
 
 /***/ }),
@@ -183,6 +182,7 @@ class Setting {
             });
         }
         browser.storage.onChanged.addListener((changes) => {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             this.setting = changes.setting.newValue;
             if (this.callback)
                 this.callback();
@@ -236,6 +236,18 @@ class Setting {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -273,6 +285,7 @@ var __webpack_exports__ = {};
   \*******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _browser_action_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./browser_action_view */ "./src/browser_action_view.ts");
+/* harmony import */ var _browser_action_view__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_browser_action_view__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./color */ "./src/color.ts");
 /* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./setting */ "./src/setting.ts");
 

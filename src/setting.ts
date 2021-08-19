@@ -1,9 +1,3 @@
-import { browser_interface } from "./browser";
-
-
-declare const browser: browser_interface;
-
-
 type setting_value_type = number | string | boolean | Array<string> | { [key: string]: { url: string } };
 
 
@@ -51,6 +45,7 @@ export class Setting {
         }
 
         browser.storage.onChanged.addListener((changes) => {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             this.setting = changes.setting.newValue;
             if (this.callback) this.callback();
         });

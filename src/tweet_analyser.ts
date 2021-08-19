@@ -1,10 +1,6 @@
-import { browser_interface, detect_language } from "./browser";
 import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";
 import { hash_symbol, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
-
-
-declare const browser: browser_interface;
 
 
 export class TweetAnalyser {
@@ -44,7 +40,7 @@ export class TweetAnalyser {
             temporary_element.querySelectorAll(selector.hashtag_link_mention).forEach((element) => element.remove());
             target_text = temporary_element.textContent || "";
         }
-        const detect: detect_language = await browser.i18n.detectLanguage(target_text);
+        const detect = await browser.i18n.detectLanguage(target_text);
         if (detect.isReliable) return detect.languages[0].language.replace(/-.*$/, "");
         else if (this.content_element && this.content_element.lang) return this.content_element.lang;
         else return "";
