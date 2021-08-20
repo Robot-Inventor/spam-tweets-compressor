@@ -661,16 +661,19 @@ async function load_advanced_filter(filter_name_list) {
 void (async () => {
     const setting_class = new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting();
     const setting = await setting_class.load();
-    setting_class.onChange(() => {
-        decompress_all();
-        reset_check_status();
-    });
     let joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
     setInterval(() => {
         void (async () => {
             joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
         })();
     }, 86400);
+    setting_class.onChange(() => {
+        void (async () => {
+            joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
+        })();
+        decompress_all();
+        reset_check_status();
+    });
     const body_observer_target = document.body;
     const body_observer = new MutationObserver(() => {
         const timeline = document.querySelector(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.timeline);
