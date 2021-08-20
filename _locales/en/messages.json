@@ -35,9 +35,6 @@
     "browser_action_open_setting": {
         "message": "Open Setting"
     },
-    "browser_action_reload_to_apply": {
-        "message": "Note: Please reload the page to apply the setting"
-    },
     "advanced_setting_title_tag": {
         "message": "Advanced Setting - Spam Tweets Compressor"
     },

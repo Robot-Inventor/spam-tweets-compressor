@@ -35,9 +35,6 @@
     "browser_action_open_setting": {
         "message": "設定を開く"
     },
-    "browser_action_reload_to_apply": {
-        "message": "※設定を適用するにはページを再読み込みしてください"
-    },
     "advanced_setting_title_tag": {
         "message": "詳細設定 - Spam Tweets Compressor"
     },

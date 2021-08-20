@@ -92,19 +92,3 @@ h1 {
 input[type="checkbox"] {
     margin-left: 0;
 }
-
-hr {
-    width: 100%;
-    height: 0.1rem;
-    border: none;
-    background: var(--medium_emphasize_text_color);
-    margin-top: 2rem;
-}
-
-.setting_item_outer + hr {
-    margin-top: 2em;
-}
-
-hr + .setting_item_outer {
-    margin-top: 1em;
-}
