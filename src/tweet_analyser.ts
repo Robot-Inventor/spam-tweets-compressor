@@ -12,8 +12,8 @@ export class TweetAnalyser {
         this.content_element = tweet.querySelector(selector.tweet_content);
     }
 
-    get_content(): string {
-        if (!this.content_element) return "";
+    get_content(): string | null {
+        if (!this.content_element) return null;
 
         return this.content_element.textContent || "";
     }
@@ -24,15 +24,15 @@ export class TweetAnalyser {
         else return "";
     }
 
-    get_user_id(): string {
+    get_user_id(): string | null {
         const user_id_element = this.tweet.querySelector(selector.user_id);
         if (user_id_element) return normalize_user_id(user_id_element.textContent || "");
-        else return "";
+        else return null;
     }
 
     async get_language(): Promise<string> {
         const target_node = this.content_element;
-        let target_text = this.get_content();
+        let target_text = this.get_content() || "";
         if (target_node) {
             const clone_node = target_node.cloneNode(true);
             const temporary_element = document.createElement("div");

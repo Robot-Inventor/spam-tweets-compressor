@@ -148,5 +148,8 @@
     },
     "compress_reason_advanced_detection_default": {
         "message": "Advanced Spam Detection"
+    },
+    "error_message_user_id_bug": {
+        "message": "Spam Tweets Compressor has failed to retrieve the user ID of a tweet. If possible, please report this as a bug to the extension store or the GitHub repository."
     }
 }

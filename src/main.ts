@@ -18,9 +18,15 @@ function get_unchecked_tweets() {
 
         const analyser: TweetAnalyser = new TweetAnalyser(tweet);
 
-        tweet.content = analyser.get_content();
+        if (analyser.get_content() !== null && analyser.get_user_id() === null && !document.cookie.includes("stc_show_user_id_error=true;")) {
+            alert(browser.i18n.getMessage("error_message_user_id_bug"));
+            document.cookie = "stc_show_user_id_error=true;max-age=86400";
+            return;
+        }
+
+        tweet.content = analyser.get_content() || "";
         tweet.user_name = analyser.get_user_name();
-        tweet.user_id = analyser.get_user_id();
+        tweet.user_id = analyser.get_user_id() || "";
         tweet.language = analyser.get_language();
         tweet.compress = (reason?: string) => {
             analyser.compress(reason);
