@@ -64,36 +64,36 @@ This extension will only use the permissions for the following purposes
 
 When developing, first install the necessary packages.
 
-```
+```powershell
 npm install
 ```
 
 ### Lint
 
-To lint, run the following command.
-
-```
+```powershell
 npm run lint
+```
+
+### Test
+
+```powershell
+npm run test
 ```
 
 ### Build
 
-To build, run the following command.
-
-```
+```powershell
 npm run build
 ```
 
-Also, if you want to watch the changes in the file, run the following command.
+or
 
-```
+```powershell
 npm run watch
 ```
 
 ### Package
 
-To package the extension, run the following command.
-
-```
+```powershell
 npm run pack
 ```
