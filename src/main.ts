@@ -92,10 +92,6 @@ async function load_advanced_filter(filter_name_list: Array<string>) {
 void (async () => {
     const setting_class = new Setting();
     const setting = await setting_class.load();
-    setting_class.onChange(() => {
-        decompress_all();
-        reset_check_status();
-    });
 
     let joined_advanced_filter: query_type = await load_advanced_filter(setting.advanced_filter);
     setInterval(() => {
@@ -103,6 +99,14 @@ void (async () => {
             joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
         })();
     }, 86400);
+
+    setting_class.onChange(() => {
+        void (async () => {
+            joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
+        })();
+        decompress_all();
+        reset_check_status();
+    });
 
     const body_observer_target = document.body;
     const body_observer = new MutationObserver(() => {
