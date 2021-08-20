@@ -64,36 +64,36 @@
 
 開発する際は、まず必要なパッケージをインストールします。
 
-```
+```powershell
 npm install
 ```
 
-### リント
+### Lint
 
-リントを実行するには、次のコマンドを実行します。
-
-```
+```powershell
 npm run lint
 ```
 
-### ビルド
+### Test
 
-ビルドの際は、次のコマンドを実行します。
-
+```powershell
+npm run test
 ```
+
+### Build
+
+```powershell
 npm run build
 ```
 
-また、ファイルの変更をwatchしたい場合は、次のコマンドを実行してください。
+または
 
-```
+```powershell
 npm run watch
 ```
 
-### パッケージ化
+### Package
 
-拡張機能をパッケージ化するには次のコマンドを実行してください。
-
-```
+```powershell
 npm run pack
 ```
