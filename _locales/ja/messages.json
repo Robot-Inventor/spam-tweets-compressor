@@ -148,5 +148,8 @@
     },
     "compress_reason_advanced_detection_default": {
         "message": "高度なスパム判定"
+    },
+    "error_message_user_id_bug": {
+        "message": "Spam Tweets CompressorはツイートのユーザーIDの取得に失敗しました。可能ならバグとして、拡張機能のストアまたはGitHubリポジトリーまで報告してください。"
     }
 }

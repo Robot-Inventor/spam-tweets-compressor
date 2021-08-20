@@ -425,7 +425,7 @@ class TweetAnalyser {
     }
     get_content() {
         if (!this.content_element)
-            return "";
+            return null;
         return this.content_element.textContent || "";
     }
     get_user_name() {
@@ -440,11 +440,11 @@ class TweetAnalyser {
         if (user_id_element)
             return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_user_id)(user_id_element.textContent || "");
         else
-            return "";
+            return null;
     }
     async get_language() {
         const target_node = this.content_element;
-        let target_text = this.get_content();
+        let target_text = this.get_content() || "";
         if (target_node) {
             const clone_node = target_node.cloneNode(true);
             const temporary_element = document.createElement("div");
@@ -596,9 +596,14 @@ function get_unchecked_tweets() {
     function get_ready(tweet) {
         tweet.classList.add(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name);
         const analyser = new _tweet_analyser__WEBPACK_IMPORTED_MODULE_3__.TweetAnalyser(tweet);
-        tweet.content = analyser.get_content();
+        if (analyser.get_content() !== null && analyser.get_user_id() === null && !document.cookie.includes("stc_show_user_id_error=true;")) {
+            alert(browser.i18n.getMessage("error_message_user_id_bug"));
+            document.cookie = "stc_show_user_id_error=true;max-age=86400";
+            return;
+        }
+        tweet.content = analyser.get_content() || "";
         tweet.user_name = analyser.get_user_name();
-        tweet.user_id = analyser.get_user_id();
+        tweet.user_id = analyser.get_user_id() || "";
         tweet.language = analyser.get_language();
         tweet.compress = (reason) => {
             analyser.compress(reason);
