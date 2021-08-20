@@ -56,7 +56,7 @@ This extension analyzes tweets on the user's computer, so it does not send any i
 
 This extension will only use the permissions for the following purposes
 
-- Use access to [twitter.com](https://twitter.com) to determine if the displayed tweets are spam and to hide tweets that are considered spam
+- Use access to [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com) to determine if the displayed tweets are spam and to hide tweets that are considered spam
 - Use storage permission to save settings
 - Use access to [cdn.statically.io](https://cdn.statically.io) to get the latest filter data
 
