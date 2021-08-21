@@ -96,21 +96,23 @@ function advanced_spam_detection(query, tweet) {
         let judgement = false;
         if (is_query_element(query_object)) {
             let includes_text = false;
-            if (query_object.type === "text")
-                includes_text = judge(tweet.content, query_object.string);
-            else if (query_object.type === "hashtag")
-                includes_text = judge(tweet.hashtag, (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_hashtag)(query_object.string));
-            else if (query_object.type === "id")
-                includes_text = judge(tweet.user_id, (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_user_id)(query_object.string));
-            else if (query_object.type === "name")
-                includes_text = judge(tweet.user_name, query_object.string);
-            else if (query_object.type === "link")
-                includes_text = judge(tweet.link, (() => {
-                    if ((0,_parse_regexp__WEBPACK_IMPORTED_MODULE_1__.is_regexp)(query_object.string))
-                        return query_object.string;
-                    else
-                        return (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_link)(query_object.string);
-                })());
+            switch (query_object.type) {
+                case "text":
+                    includes_text = judge(tweet.content, query_object.string);
+                    break;
+                case "hashtag":
+                    includes_text = judge(tweet.hashtag, (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_hashtag)(query_object.string));
+                    break;
+                case "id":
+                    includes_text = judge(tweet.user_id, (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_user_id)(query_object.string));
+                    break;
+                case "name":
+                    includes_text = judge(tweet.user_name, query_object.string);
+                    break;
+                case "link":
+                    includes_text = judge(tweet.link, (0,_parse_regexp__WEBPACK_IMPORTED_MODULE_1__.is_regexp)(query_object.string) ? query_object.string : (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize_link)(query_object.string));
+                    break;
+            }
             judgement = query_object.mode === "include" ? includes_text : !includes_text;
         }
         else {
