@@ -5,7 +5,7 @@ import { selector } from "./selector";
 import { TweetAnalyser } from "./tweet_analyser";
 import { TweetElement } from "./tweet_element";
 import { advanced_filter_type } from "./advanced_filter_type";
-import { normalize_user_id } from "./normalize";
+import { normalize_link, normalize_user_id } from "./normalize";
 import { load_color_setting, update_color_setting } from "./color";
 
 
@@ -18,7 +18,14 @@ function get_unchecked_tweets() {
 
         const analyser: TweetAnalyser = new TweetAnalyser(tweet);
 
-        if (analyser.get_content() !== null && analyser.get_user_id() === null && !document.cookie.includes("stc_show_user_id_error=true;")) {
+        const user_id_bug_exclude_list = [
+            "https://twitter.com/notifications",
+            "https://mobile.twitter.com/notifications"
+        ].map((url) => { return normalize_link(url); });
+
+        if (!user_id_bug_exclude_list.includes(normalize_link(location.href)) &&
+            analyser.get_content() !== null && analyser.get_user_id() === null &&
+            !document.cookie.includes("stc_show_user_id_error=true")) {
             alert(browser.i18n.getMessage("error_message_user_id_bug"));
             document.cookie = "stc_show_user_id_error=true;max-age=86400";
             return;
