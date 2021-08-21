@@ -1,5 +1,4 @@
 interface media_selector {
-    [key: string]: string;
     image: string;
     video: string;
     summary_card: string;
@@ -12,15 +11,9 @@ function generate_media_selector() {
         video: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1s2bzr4.r-1ny4l3l.r-1udh08x",
         summary_card: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-18u37iz.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg",
         summary_with_large_image: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg"
-    };
+    } as const;
 
-    let merged = "";
-    Object.keys(media_selector).forEach((key) => {
-        merged += "," + media_selector[key];
-    });
-    merged = merged.replace(/^,/, "");
-
-    return merged;
+    return Object.values(media_selector).join(",");
 }
 
 export const selector = {
@@ -39,4 +32,4 @@ export const selector = {
         ".css-4rbku5.css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1waj6vr.r-1loqt21.r-19yznuf.r-64el8z.r-1ny4l3l.r-o7ynqc.r-6416eg.r-lrvibr",
     normal_text: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0",
     show_tweet_button: ".show-tweet-button"
-};
+} as const;

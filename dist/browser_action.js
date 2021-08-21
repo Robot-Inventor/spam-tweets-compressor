@@ -121,12 +121,7 @@ function generate_media_selector() {
         summary_card: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-18u37iz.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg",
         summary_with_large_image: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg"
     };
-    let merged = "";
-    Object.keys(media_selector).forEach((key) => {
-        merged += "," + media_selector[key];
-    });
-    merged = merged.replace(/^,/, "");
-    return merged;
+    return Object.values(media_selector).join(",");
 }
 const selector = {
     tweet_outer: "div.css-1dbjc4n.r-1adg3ll.r-1ny4l3l",
