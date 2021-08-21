@@ -1,5 +1,16 @@
 :root {
+    --background_color: white;
+    --high_emphasize_text_color: rgba(51, 51, 51, 0.87);
+    --medium_emphasize_text_color: rgba(51, 51, 51, 0.6);
     --main_color: #1a91da;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background_color: #121212;
+        --high_emphasize_text_color: rgba(255, 255, 255, 0.87);
+        --medium_emphasize_text_color: rgba(255, 255, 255, 0.6);
+    }
 }
 
 .decompress-button {
@@ -37,4 +48,5 @@
     cursor: pointer;
     padding: 1em 0.5em !important;
     background: none;
+    color: var(--medium_emphasize_text_color);
 }

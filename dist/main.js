@@ -448,9 +448,9 @@ class TweetAnalyser {
         const target_node = this.content_element;
         let target_text = this.content || "";
         if (target_node) {
-            const clone_node = target_node.cloneNode(true);
+            const clone = target_node.cloneNode(true);
             const temporary_element = document.createElement("div");
-            temporary_element.appendChild(clone_node);
+            temporary_element.appendChild(clone);
             temporary_element.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention).forEach((element) => element.remove());
             target_text = temporary_element.textContent || "";
         }
@@ -463,20 +463,9 @@ class TweetAnalyser {
             return "";
     }
     compress(reason) {
-        const content_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
-        if (!content_element)
-            return;
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         decompress_button.classList.add(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.show_tweet_button.replace(/^\./, ""));
-        const text_color = (() => {
-            const user_name_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_name);
-            if (user_name_element)
-                return getComputedStyle(user_name_element).getPropertyValue("color");
-            else
-                return "#1da1f2";
-        })();
-        decompress_button.style.color = text_color;
         const user_name = this.tweet.user_name;
         const user_id = this.tweet.user_id;
         if (reason) {
