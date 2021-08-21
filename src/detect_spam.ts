@@ -5,7 +5,6 @@ import { TweetElement } from "./tweet_element";
 import { is_regexp, parse_regexp } from "./parse_regexp";
 import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
 
-
 function detect_ng_word(text: string, ng_words: Array<string>) {
     for (let x = 0; x < ng_words.length; x++) {
         const word = normalize(ng_words[x]);
@@ -22,7 +21,11 @@ function detect_verified_badge(tweet: TweetElement) {
     return Boolean(tweet.querySelector(selector.verified_badge));
 }
 
-export function detect_spam(target: TweetElement, setting: setting_object, advanced_filter: query_type): [false] | [true, string] {
+export function detect_spam(
+    target: TweetElement,
+    setting: setting_object,
+    advanced_filter: query_type
+): [false] | [true, string] {
     const normal_judgement = (() => {
         const target_content = normalize(target.content);
 

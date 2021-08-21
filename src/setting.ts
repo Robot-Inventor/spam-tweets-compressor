@@ -1,17 +1,16 @@
 type setting_value_type = number | string | boolean | Array<string> | { [key: string]: { url: string } };
 
-
 export interface setting_object {
-    [key: string]: setting_value_type,
-    include_verified_account: boolean,
-    show_reason: boolean,
-    ng_word: Array<string>,
-    allow_list: Array<string>,
-    exclude_url: Array<string>,
-    advanced_filter: Array<string>,
-    main_color: string,
-    background_color: string,
-    font_color: string
+    [key: string]: setting_value_type;
+    include_verified_account: boolean;
+    show_reason: boolean;
+    ng_word: Array<string>;
+    allow_list: Array<string>;
+    exclude_url: Array<string>;
+    advanced_filter: Array<string>;
+    main_color: string;
+    background_color: string;
+    font_color: string;
 }
 
 const default_setting: setting_object = {
@@ -40,7 +39,8 @@ export class Setting {
         const setting = default_setting;
         if (saved_setting.setting) {
             Object.keys(default_setting).forEach((key) => {
-                setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
+                setting[key] =
+                    saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
             });
         }
 
@@ -63,7 +63,7 @@ export class Setting {
     }
 
     private save(): void {
-        void browser.storage.local.set({ "setting": this.setting });
+        void browser.storage.local.set({ setting: this.setting });
     }
 
     onChange(callback?: () => void): void {

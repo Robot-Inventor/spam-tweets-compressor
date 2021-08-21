@@ -19,7 +19,8 @@ __webpack_require__.r(__webpack_exports__);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const query_example = {
     rule: [
-        "and", [
+        "and",
+        [
             {
                 mode: "include",
                 type: "text",
@@ -41,7 +42,8 @@ const query_example = {
                 string: "spam"
             },
             [
-                "or", [
+                "or",
+                [
                     {
                         mode: "exclude",
                         type: "link",
@@ -50,7 +52,7 @@ const query_example = {
                     {
                         mode: "include",
                         type: "text",
-                        string: "i'm spam",
+                        string: "i'm spam"
                     }
                 ]
             ]
@@ -59,7 +61,7 @@ const query_example = {
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function is_query_element(argument) {
-    return argument !== null &&
+    return (argument !== null &&
         typeof argument === "object" &&
         "mode" in argument &&
         "type" in argument &&
@@ -69,7 +71,7 @@ function is_query_element(argument) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         typeof argument.type === "string" &&
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        typeof argument.string === "string";
+        typeof argument.string === "string");
 }
 function judge(target, pattern) {
     const is_regex = (0,_parse_regexp__WEBPACK_IMPORTED_MODULE_1__.is_regexp)(pattern);
@@ -166,7 +168,7 @@ async function load_color_setting() {
     --main_color: ${setting.main_color};
     --background_color: ${setting.background_color};
     --high_emphasize_text_color: ${change_opacity(setting.font_color, 0.87)};
-    --medium_emphasize_text_color: ${change_opacity(setting.font_color, 0.60)};
+    --medium_emphasize_text_color: ${change_opacity(setting.font_color, 0.6)};
 }
     `;
     document.body.appendChild(style_element);
@@ -243,7 +245,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const hash_symbol = ["#", "＃"];
 function normalize(text) {
-    text = text.normalize("NFKC").toLowerCase().replace(/[ぁ-ん]/g, (s) => {
+    text = text
+        .normalize("NFKC")
+        .toLowerCase()
+        .replace(/[ぁ-ん]/g, (s) => {
         return String.fromCharCode(s.charCodeAt(0) + 0x60);
     });
     return text;
@@ -282,7 +287,7 @@ function parser_core(pattern) {
         return { string: pattern, flag: null };
     const core_string = pattern.replace(regexp_pattern, "$1");
     const flag_set = new Set(pattern.replace(regexp_pattern, "$2").split(""));
-    const flag_list = Array.from(flag_set).filter(flag => regexp_flag_list.includes(flag));
+    const flag_list = Array.from(flag_set).filter((flag) => regexp_flag_list.includes(flag));
     return {
         string: core_string,
         flag: flag_list.length ? flag_list.join("") : null
@@ -373,7 +378,8 @@ class Setting {
         const setting = default_setting;
         if (saved_setting.setting) {
             Object.keys(default_setting).forEach((key) => {
-                setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
+                setting[key] =
+                    saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
             });
         }
         browser.storage.onChanged.addListener((changes) => {
@@ -394,7 +400,7 @@ class Setting {
         });
     }
     save() {
-        void browser.storage.local.set({ "setting": this.setting });
+        void browser.storage.local.set({ setting: this.setting });
     }
     onChange(callback) {
         this.callback = callback;
@@ -478,11 +484,18 @@ class TweetAnalyser {
         const user_name = this.tweet.user_name;
         const user_id = this.tweet.user_id;
         if (reason) {
-            const button_text = browser.i18n.getMessage("decompress_button_strict_with_reason", [user_name, `@${user_id}`, reason]);
+            const button_text = browser.i18n.getMessage("decompress_button_strict_with_reason", [
+                user_name,
+                `@${user_id}`,
+                reason
+            ]);
             decompress_button.textContent = button_text;
         }
         else {
-            const button_text = browser.i18n.getMessage("decompress_button_strict_without_reason", [user_name, `@${user_id}`]);
+            const button_text = browser.i18n.getMessage("decompress_button_strict_without_reason", [
+                user_name,
+                `@${user_id}`
+            ]);
             decompress_button.textContent = button_text;
         }
         decompress_button.addEventListener("click", () => {
@@ -599,9 +612,12 @@ function get_unchecked_tweets() {
         const user_id_bug_exclude_list = [
             "https://twitter.com/notifications",
             "https://mobile.twitter.com/notifications"
-        ].map((url) => { return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(url); });
+        ].map((url) => {
+            return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(url);
+        });
         if (!user_id_bug_exclude_list.includes((0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(location.href)) &&
-            analyser.get_content() !== null && analyser.get_user_id() === null &&
+            analyser.get_content() !== null &&
+            analyser.get_user_id() === null &&
             !document.cookie.includes("stc_show_user_id_error=true")) {
             alert(browser.i18n.getMessage("error_message_user_id_bug"));
             document.cookie = "stc_show_user_id_error=true;max-age=86400";
@@ -636,7 +652,11 @@ function run_check(setting, advanced_filter) {
         return;
     const check_target = get_unchecked_tweets();
     for (const target of check_target) {
-        if (setting.allow_list.map((v) => { return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_user_id)(v); }).includes(target.user_id))
+        if (setting.allow_list
+            .map((v) => {
+            return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_user_id)(v);
+        })
+            .includes(target.user_id))
             continue;
         const judgement = (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
         if (judgement[0]) {

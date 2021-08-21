@@ -1,53 +1,61 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "npm",
-			"script": "watch",
-			"group": "build",
-			"problemMatcher": [],
-			"label": "npm: watch",
-			"detail": "npm run watch"
-		},
-		{
-			"type": "npm",
-			"script": "build",
-			"group": "build",
-			"problemMatcher": [],
-			"label": "npm: build",
-			"detail": "npm run build"
-		},
-		{
-			"type": "npm",
-			"script": "lint:js",
-			"group": "test",
-			"problemMatcher": [],
-			"label": "npm: lint js",
-			"detail": "npm run lint:js"
-		},
-		{
-			"type": "npm",
-			"script": "lint:css",
-			"group": "test",
-			"problemMatcher": [],
-			"label": "npm: lint css",
-			"detail": "npm run lint:css"
-		},
-		{
-			"type": "npm",
-			"script": "test",
-			"group": "test",
-			"problemMatcher": [],
-			"label": "npm: test",
-			"detail": "npm run test"
-		},
-		{
-			"type": "npm",
-			"script": "pack",
-			"group": "build",
-			"problemMatcher": [],
-			"label": "npm: pack",
-			"detail": "npm run pack"
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "watch",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: watch",
+            "detail": "npm run watch"
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: build",
+            "detail": "npm run build"
+        },
+        {
+            "type": "npm",
+            "script": "lint:js",
+            "group": "test",
+            "problemMatcher": [],
+            "label": "npm: lint js",
+            "detail": "npm run lint:js"
+        },
+        {
+            "type": "npm",
+            "script": "lint:css",
+            "group": "test",
+            "problemMatcher": [],
+            "label": "npm: lint css",
+            "detail": "npm run lint:css"
+        },
+        {
+            "type": "npm",
+            "script": "test",
+            "group": "test",
+            "problemMatcher": [],
+            "label": "npm: test",
+            "detail": "npm run test"
+        },
+        {
+            "type": "npm",
+            "script": "pack",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: pack",
+            "detail": "npm run pack"
+        },
+        {
+            "type": "npm",
+            "script": "format",
+            "group": "test",
+            "problemMatcher": [],
+            "label": "npm: prettier",
+            "detail": "npm run format"
+        }
+    ]
 }

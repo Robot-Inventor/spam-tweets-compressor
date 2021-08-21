@@ -11,17 +11,9 @@
     },
     "content_scripts": [
         {
-            "matches": [
-                "https://twitter.com/*",
-                "https://mobile.twitter.com/*"
-            ],
-            "js": [
-                "dist/webextension_polyfill/browser-polyfill.min.js",
-                "dist/main.js"
-            ],
-            "css": [
-                "dist/main.css"
-            ]
+            "matches": ["https://twitter.com/*", "https://mobile.twitter.com/*"],
+            "js": ["dist/webextension_polyfill/browser-polyfill.min.js", "dist/main.js"],
+            "css": ["dist/main.css"]
         }
     ],
     "browser_action": {
@@ -35,10 +27,7 @@
         "default_title": "Spam Tweets Compressor"
     },
     "default_locale": "en",
-    "permissions": [
-        "storage",
-        "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/*/*"
-    ],
+    "permissions": ["storage", "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/*/*"],
     "applications": {
         "gecko": {
             "id": "{feb13580-3a7d-4151-923b-2b39c1104fe4}"
