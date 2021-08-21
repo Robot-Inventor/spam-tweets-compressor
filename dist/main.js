@@ -198,8 +198,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function detect_ng_word(text, ng_words) {
-    for (let x = 0; x < ng_words.length; x++) {
-        const word = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(ng_words[x]);
+    for (const word of ng_words) {
         if (!word)
             continue;
         if ((0,_parse_regexp__WEBPACK_IMPORTED_MODULE_2__.is_regexp)(word) && (0,_parse_regexp__WEBPACK_IMPORTED_MODULE_2__.parse_regexp)(word).test(text))
@@ -214,8 +213,8 @@ function detect_verified_badge(tweet) {
 }
 function detect_spam(target, setting, advanced_filter) {
     const normal_judgement = (() => {
-        const target_content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);
-        const has_ng_word = detect_ng_word(target_content, setting.ng_word);
+        const content = (0,_normalize__WEBPACK_IMPORTED_MODULE_0__.normalize)(target.content);
+        const has_ng_word = detect_ng_word(content, setting.ng_word);
         if (has_ng_word)
             return browser.i18n.getMessage("compress_reason_ng_word");
         const advanced_detection = (0,_advanced_spam_detection__WEBPACK_IMPORTED_MODULE_3__.advanced_spam_detection)(advanced_filter, target);
