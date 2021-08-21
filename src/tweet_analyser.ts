@@ -11,31 +11,35 @@ export class TweetAnalyser {
         this.content_element = tweet.querySelector(selector.tweet_content);
     }
 
-    get_content(): string | null {
+    get content(): string | null {
         if (!this.content_element) return null;
 
         return this.content_element.textContent || "";
     }
 
-    get_user_name(): string {
+    get user_name(): string {
         const user_name_element = this.tweet.querySelector(selector.user_name);
         if (user_name_element) return user_name_element.textContent || "";
         else return "";
     }
 
-    get_user_id(): string | null {
+    get user_id(): string | null {
         const user_id_element = this.tweet.querySelector(selector.user_id);
         if (user_id_element) return normalize_user_id(user_id_element.textContent || "");
         else return null;
     }
 
-    async get_language(): Promise<string> {
+    get language(): Promise<string> {
+        return this.get_language();
+    }
+
+    private async get_language(): Promise<string> {
         const target_node = this.content_element;
-        let target_text = this.get_content() || "";
+        let target_text = this.content || "";
         if (target_node) {
-            const clone_node = target_node.cloneNode(true);
+            const clone = target_node.cloneNode(true);
             const temporary_element = document.createElement("div");
-            temporary_element.appendChild(clone_node);
+            temporary_element.appendChild(clone);
             temporary_element.querySelectorAll(selector.hashtag_link_mention).forEach((element) => element.remove());
             target_text = temporary_element.textContent || "";
         }
@@ -46,20 +50,9 @@ export class TweetAnalyser {
     }
 
     compress(reason?: string): void {
-        const content_element: HTMLElement | null = this.tweet.querySelector(selector.tweet_content);
-        if (!content_element) return;
-
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         decompress_button.classList.add(selector.show_tweet_button.replace(/^\./, ""));
-
-        const text_color = (() => {
-            const user_name_element = this.tweet.querySelector(selector.user_name);
-            if (user_name_element) return getComputedStyle(user_name_element).getPropertyValue("color");
-            else return "#1da1f2";
-        })();
-
-        decompress_button.style.color = text_color;
 
         const user_name = this.tweet.user_name;
         const user_id = this.tweet.user_id;
@@ -86,7 +79,7 @@ export class TweetAnalyser {
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
 
-    get_hashtag(): Array<string> {
+    get hashtag(): Array<string> {
         const is_hashtag = (element: Element) => {
             return element.textContent && hash_symbol.includes(element.textContent[0]);
         };
@@ -96,7 +89,7 @@ export class TweetAnalyser {
         return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
     }
 
-    get_link(): Array<string> {
+    get link(): Array<string> {
         function is_link(element: Element) {
             return Boolean(element.querySelector(selector.link_scheme_outer));
         }

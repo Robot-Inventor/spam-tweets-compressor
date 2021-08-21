@@ -23,32 +23,19 @@ class Menu {
         this.item_outer = document.getElementById("menu_item_outer");
         this.open_button = document.getElementById("menu_open_button");
         this.close_button = document.getElementById("menu_close_button");
-        this.header = document.querySelector("header");
         this.open_attribute = "data-open";
-        if (this.open_button) {
-            this.open_button.addEventListener("click", () => {
-                this.show();
-            });
-        }
-        else {
+        if (this.open_button)
+            this.open_button.addEventListener("click", () => this.show());
+        else
             console.error("#menu_open_button was not found.");
-        }
-        if (this.close_button) {
-            this.close_button.addEventListener("click", () => {
-                this.hide();
-            });
-        }
-        else {
+        if (this.close_button)
+            this.close_button.addEventListener("click", () => this.hide());
+        else
             console.error("#menu_close_button was not found.");
-        }
-        if (this.overlay) {
-            this.overlay.addEventListener("click", () => {
-                this.hide();
-            });
-        }
-        else {
+        if (this.overlay)
+            this.overlay.addEventListener("click", () => this.hide());
+        else
             console.error("#overlay was not found.");
-        }
         [...document.querySelectorAll("h2")].reverse().forEach((element) => {
             if (getComputedStyle(element).display !== "none" && element.textContent && this.item_outer) {
                 const menu_item = document.createElement("div");
@@ -63,29 +50,23 @@ class Menu {
         });
     }
     show() {
-        if (!this.menu) {
-            console.error("#menu was not found.");
-            return;
-        }
-        else {
+        if (this.menu) {
             this.menu.setAttribute(this.open_attribute, "");
             if (this.overlay)
                 this.overlay.style.display = "block";
-            else
-                console.error("#overlay was not found.");
+        }
+        else {
+            console.error("#menu was not found.");
         }
     }
     hide() {
-        if (!this.menu) {
-            console.error("#menu was not found.");
-            return;
-        }
-        else {
+        if (this.menu) {
             this.menu.removeAttribute(this.open_attribute);
             if (this.overlay)
                 this.overlay.style.display = "none";
-            else
-                console.error("#overlay was not found.");
+        }
+        else {
+            console.error("#menu was not found.");
         }
     }
 }
@@ -163,12 +144,7 @@ function generate_media_selector() {
         summary_card: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-18u37iz.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg",
         summary_with_large_image: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg"
     };
-    let merged = "";
-    Object.keys(media_selector).forEach((key) => {
-        merged += "," + media_selector[key];
-    });
-    merged = merged.replace(/^,/, "");
-    return merged;
+    return Object.values(media_selector).join(",");
 }
 const selector = {
     tweet_outer: "div.css-1dbjc4n.r-1adg3ll.r-1ny4l3l",
@@ -218,12 +194,9 @@ class Setting {
     async load() {
         const saved_setting = await browser.storage.local.get("setting");
         const setting = default_setting;
-        if (saved_setting.setting) {
-            Object.keys(default_setting).forEach((key) => {
-                setting[key] =
-                    saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
-            });
-        }
+        Object.keys(default_setting).forEach((key) => {
+            setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
+        });
         browser.storage.onChanged.addListener((changes) => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             this.setting = changes.setting.newValue;
@@ -359,14 +332,10 @@ async function load_filter_list(setting) {
             if (setting.advanced_filter.includes(key))
                 checkbox.checked = true;
             checkbox.addEventListener("change", () => {
-                const all_checkbox = filter_list_outer.querySelectorAll("input[type='checkbox'");
+                const all_checkbox = filter_list_outer.querySelectorAll("input[type='checkbox']");
                 setting.advanced_filter = [...all_checkbox]
-                    .filter((element) => {
-                    return element.checked && element.dataset.filterName !== undefined;
-                })
-                    .map((element) => {
-                    return element.dataset.filterName || "";
-                });
+                    .filter((element) => element.checked && element.dataset.filterName !== undefined)
+                    .map((element) => element.dataset.filterName || "");
             });
             const label = document.createElement("label");
             label.textContent = key;
@@ -387,8 +356,8 @@ new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting()
     .then((setting) => {
     void (0,_color__WEBPACK_IMPORTED_MODULE_0__.load_color_setting)();
     void load_filter_list(setting);
-    const textarea_element_list = document.querySelectorAll("textarea");
-    textarea_element_list.forEach((textarea) => {
+    const textarea_list = document.querySelectorAll("textarea");
+    textarea_list.forEach((textarea) => {
         const setting_name = get_setting_name(textarea);
         if (Object.keys(setting).includes(setting_name)) {
             const saved_value = setting[setting_name];

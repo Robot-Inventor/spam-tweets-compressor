@@ -1,4 +1,4 @@
-export const hash_symbol = ["#", "＃"];
+export const hash_symbol: ReadonlyArray<string> = ["#", "＃"];
 
 export function normalize(text: string): string {
     text = text

@@ -9,12 +9,30 @@
 /***/ (() => {
 
 
-const selected_item_selector = ".tab_switcher_item[data-selected]";
-function init_tab_switcher() {
-    function show_item(selector) {
+class TabSwitcher {
+    constructor() {
+        this.selector = {
+            item_group: ".setting_item_group",
+            selected_item: ".tab_switcher_item[data-selected]"
+        };
+        const default_item = document.querySelector(this.selector.selected_item);
+        if (default_item)
+            this.show_item(default_item.dataset.target);
+        const tab_switcher_item = document.querySelectorAll(".tab_switcher_item");
+        tab_switcher_item.forEach((item) => {
+            item.addEventListener("click", () => {
+                const selected_item = document.querySelector(this.selector.selected_item);
+                if (selected_item)
+                    delete selected_item.dataset.selected;
+                item.dataset.selected = "";
+                this.show_item(item.dataset.target);
+            });
+        });
+    }
+    show_item(selector) {
         if (!selector)
             return;
-        const item_group = document.querySelectorAll(".setting_item_group");
+        const item_group = document.querySelectorAll(this.selector.item_group);
         item_group.forEach((element) => {
             element.style.display = "none";
         });
@@ -22,33 +40,15 @@ function init_tab_switcher() {
         if (target)
             target.style.display = "block";
     }
-    const default_selected_item = document.querySelector(selected_item_selector);
-    if (default_selected_item)
-        show_item(default_selected_item.dataset.target);
-    const tab_switcher_item = document.querySelectorAll(".tab_switcher_item");
-    tab_switcher_item.forEach((item) => {
-        item.addEventListener("click", () => {
-            const selected_item = document.querySelector(selected_item_selector);
-            if (selected_item)
-                delete selected_item.dataset.selected;
-            item.dataset.selected = "";
-            show_item(item.dataset.target);
-        });
-    });
 }
 function show_version() {
     const manifest = browser.runtime.getManifest();
-    if ("version" in manifest) {
-        const version = manifest.version;
-        const target_element = document.getElementById("extension_version");
-        if (target_element)
-            target_element.textContent = `${version}`;
-    }
-    else {
-        console.error("manifest.jsonの取得に失敗しました。");
-    }
+    const version = manifest.version;
+    const target_element = document.getElementById("extension_version");
+    if (target_element)
+        target_element.textContent = `${version}`;
 }
-init_tab_switcher();
+new TabSwitcher();
 show_version();
 
 
@@ -121,12 +121,7 @@ function generate_media_selector() {
         summary_card: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-18u37iz.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg",
         summary_with_large_image: ".css-1dbjc4n.r-1867qdf.r-1phboty.r-rs99b7.r-1ny4l3l.r-1udh08x.r-o7ynqc.r-6416eg"
     };
-    let merged = "";
-    Object.keys(media_selector).forEach((key) => {
-        merged += "," + media_selector[key];
-    });
-    merged = merged.replace(/^,/, "");
-    return merged;
+    return Object.values(media_selector).join(",");
 }
 const selector = {
     tweet_outer: "div.css-1dbjc4n.r-1adg3ll.r-1ny4l3l",
@@ -176,12 +171,9 @@ class Setting {
     async load() {
         const saved_setting = await browser.storage.local.get("setting");
         const setting = default_setting;
-        if (saved_setting.setting) {
-            Object.keys(default_setting).forEach((key) => {
-                setting[key] =
-                    saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
-            });
-        }
+        Object.keys(default_setting).forEach((key) => {
+            setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
+        });
         browser.storage.onChanged.addListener((changes) => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             this.setting = changes.setting.newValue;

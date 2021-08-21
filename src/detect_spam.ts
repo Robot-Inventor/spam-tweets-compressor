@@ -6,9 +6,7 @@ import { is_regexp, parse_regexp } from "./parse_regexp";
 import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
 
 function detect_ng_word(text: string, ng_words: Array<string>) {
-    for (let x = 0; x < ng_words.length; x++) {
-        const word = normalize(ng_words[x]);
-
+    for (const word of ng_words) {
         if (!word) continue;
 
         if (is_regexp(word) && parse_regexp(word).test(text)) return true;
@@ -27,9 +25,9 @@ export function detect_spam(
     advanced_filter: query_type
 ): [false] | [true, string] {
     const normal_judgement = (() => {
-        const target_content = normalize(target.content);
+        const content = normalize(target.content);
 
-        const has_ng_word = detect_ng_word(target_content, setting.ng_word);
+        const has_ng_word = detect_ng_word(content, setting.ng_word);
         if (has_ng_word) return browser.i18n.getMessage("compress_reason_ng_word");
 
         const advanced_detection = advanced_spam_detection(advanced_filter, target);
