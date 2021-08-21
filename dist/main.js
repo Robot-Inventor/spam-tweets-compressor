@@ -608,23 +608,19 @@ __webpack_require__.r(__webpack_exports__);
 
 function get_unchecked_tweets() {
     const tweets = document.querySelectorAll(`${_selector__WEBPACK_IMPORTED_MODULE_2__.selector.tweet_outer}:not(.${_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name})`);
-    const result = [];
-    function get_ready(tweet) {
+    function init(tweet) {
         tweet.classList.add(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name);
         const analyser = new _tweet_analyser__WEBPACK_IMPORTED_MODULE_3__.TweetAnalyser(tweet);
         const user_id_bug_exclude_list = [
             "https://twitter.com/notifications",
             "https://mobile.twitter.com/notifications"
-        ].map((url) => {
-            return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(url);
-        });
+        ].map((url) => (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(url));
         if (!user_id_bug_exclude_list.includes((0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(location.href)) &&
             analyser.content !== null &&
             analyser.user_id === null &&
             !document.cookie.includes("stc_show_user_id_error=true")) {
             alert(browser.i18n.getMessage("error_message_user_id_bug"));
             document.cookie = "stc_show_user_id_error=true;max-age=86400";
-            return;
         }
         tweet.content = analyser.content || "";
         tweet.user_name = analyser.user_name;
@@ -635,15 +631,14 @@ function get_unchecked_tweets() {
         };
         tweet.hashtag = analyser.hashtag;
         tweet.link = analyser.link;
-        result.push(tweet);
+        return tweet;
     }
-    tweets.forEach(get_ready);
-    return result;
+    return [...tweets].map((t) => init(t));
 }
 function reset_check_status() {
-    document.querySelectorAll("." + _selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name).forEach((element) => {
-        element.classList.remove(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name);
-    });
+    document
+        .querySelectorAll("." + _selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name)
+        .forEach((element) => element.classList.remove(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.checked_tweet_class_name));
 }
 function decompress_all() {
     const tweets = document.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_2__.selector.show_tweet_button);
@@ -682,9 +677,7 @@ async function load_advanced_filter(filter_name_list) {
     const filter_list = [];
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const filter_url_data = await get_json("https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json");
-    for (const filter_name of filter_name_list) {
-        if (!(filter_name in filter_url_data))
-            continue;
+    for (const filter_name of filter_name_list.filter((name) => name in filter_url_data)) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const filter_data = await get_json(filter_url_data[filter_name].url);
         filter_list.push(filter_data.rule);
@@ -693,18 +686,17 @@ async function load_advanced_filter(filter_name_list) {
     return joined_advanced_filter;
 }
 void (async () => {
-    const setting_class = new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting();
-    const setting = await setting_class.load();
+    const setting_instance = new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting();
+    const setting = await setting_instance.load();
+    async function reload_filter() {
+        joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
+    }
     let joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
     setInterval(() => {
-        void (async () => {
-            joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
-        })();
+        void reload_filter();
     }, 86400);
-    setting_class.onChange(() => {
-        void (async () => {
-            joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
-        })();
+    setting_instance.onChange(() => {
+        void reload_filter();
         decompress_all();
         reset_check_status();
     });
@@ -718,9 +710,7 @@ void (async () => {
                 await (0,_color__WEBPACK_IMPORTED_MODULE_5__.load_color_setting)();
             })();
             const main_observer_target = timeline;
-            const main_observer = new MutationObserver(() => {
-                void run_check(setting, joined_advanced_filter);
-            });
+            const main_observer = new MutationObserver(() => void run_check(setting, joined_advanced_filter));
             main_observer.observe(main_observer_target, {
                 childList: true,
                 subtree: true

@@ -8,13 +8,12 @@ import { advanced_filter_type } from "./advanced_filter_type";
 import { normalize_link, normalize_user_id } from "./normalize";
 import { load_color_setting, update_color_setting } from "./color";
 
-function get_unchecked_tweets() {
+function get_unchecked_tweets(): Array<TweetElement> {
     const tweets: NodeListOf<TweetElement> = document.querySelectorAll(
         `${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`
     );
-    const result: Array<TweetElement> = [];
 
-    function get_ready(tweet: TweetElement) {
+    function init(tweet: TweetElement) {
         tweet.classList.add(selector.checked_tweet_class_name);
 
         const analyser: TweetAnalyser = new TweetAnalyser(tweet);
@@ -22,9 +21,7 @@ function get_unchecked_tweets() {
         const user_id_bug_exclude_list = [
             "https://twitter.com/notifications",
             "https://mobile.twitter.com/notifications"
-        ].map((url) => {
-            return normalize_link(url);
-        });
+        ].map((url) => normalize_link(url));
 
         if (
             !user_id_bug_exclude_list.includes(normalize_link(location.href)) &&
@@ -34,7 +31,6 @@ function get_unchecked_tweets() {
         ) {
             alert(browser.i18n.getMessage("error_message_user_id_bug"));
             document.cookie = "stc_show_user_id_error=true;max-age=86400";
-            return;
         }
 
         tweet.content = analyser.content || "";
@@ -47,17 +43,16 @@ function get_unchecked_tweets() {
         tweet.hashtag = analyser.hashtag;
         tweet.link = analyser.link;
 
-        result.push(tweet);
+        return tweet;
     }
 
-    tweets.forEach(get_ready);
-    return result;
+    return [...tweets].map((t) => init(t));
 }
 
 function reset_check_status() {
-    document.querySelectorAll("." + selector.checked_tweet_class_name).forEach((element) => {
-        element.classList.remove(selector.checked_tweet_class_name);
-    });
+    document
+        .querySelectorAll("." + selector.checked_tweet_class_name)
+        .forEach((element) => element.classList.remove(selector.checked_tweet_class_name));
 }
 
 function decompress_all() {
@@ -106,9 +101,7 @@ async function load_advanced_filter(filter_name_list: Array<string>) {
     const filter_url_data: advanced_filter_type = await get_json(
         "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json"
     );
-    for (const filter_name of filter_name_list) {
-        if (!(filter_name in filter_url_data)) continue;
-
+    for (const filter_name of filter_name_list.filter((name) => name in filter_url_data)) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const filter_data: query_object = await get_json(filter_url_data[filter_name].url);
         filter_list.push(filter_data.rule);
@@ -118,20 +111,20 @@ async function load_advanced_filter(filter_name_list: Array<string>) {
 }
 
 void (async () => {
-    const setting_class = new Setting();
-    const setting = await setting_class.load();
+    const setting_instance = new Setting();
+    const setting = await setting_instance.load();
+
+    async function reload_filter() {
+        joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
+    }
 
     let joined_advanced_filter: query_type = await load_advanced_filter(setting.advanced_filter);
     setInterval(() => {
-        void (async () => {
-            joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
-        })();
+        void reload_filter();
     }, 86400);
 
-    setting_class.onChange(() => {
-        void (async () => {
-            joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
-        })();
+    setting_instance.onChange(() => {
+        void reload_filter();
         decompress_all();
         reset_check_status();
     });
@@ -149,9 +142,7 @@ void (async () => {
             })();
 
             const main_observer_target = timeline;
-            const main_observer = new MutationObserver(() => {
-                void run_check(setting, joined_advanced_filter);
-            });
+            const main_observer = new MutationObserver(() => void run_check(setting, joined_advanced_filter));
             main_observer.observe(main_observer_target, {
                 childList: true,
                 subtree: true
