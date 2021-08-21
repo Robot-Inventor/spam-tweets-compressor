@@ -32,14 +32,10 @@ async function load_filter_list(setting: setting_object): Promise<void> {
 
                 checkbox.addEventListener("change", () => {
                     const all_checkbox: NodeListOf<HTMLInputElement> =
-                        filter_list_outer.querySelectorAll("input[type='checkbox'");
+                        filter_list_outer.querySelectorAll("input[type='checkbox']");
                     setting.advanced_filter = [...all_checkbox]
-                        .filter((element) => {
-                            return element.checked && element.dataset.filterName !== undefined;
-                        })
-                        .map((element) => {
-                            return element.dataset.filterName || "";
-                        });
+                        .filter((element) => element.checked && element.dataset.filterName !== undefined)
+                        .map((element) => element.dataset.filterName || "");
                 });
 
                 const label = document.createElement("label");
@@ -64,8 +60,8 @@ new Setting()
         void load_color_setting();
         void load_filter_list(setting);
 
-        const textarea_element_list: NodeListOf<HTMLTextAreaElement> = document.querySelectorAll("textarea");
-        textarea_element_list.forEach((textarea) => {
+        const textarea_list: NodeListOf<HTMLTextAreaElement> = document.querySelectorAll("textarea");
+        textarea_list.forEach((textarea) => {
             const setting_name = get_setting_name(textarea);
 
             if (Object.keys(setting).includes(setting_name)) {

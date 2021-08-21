@@ -335,14 +335,10 @@ async function load_filter_list(setting) {
             if (setting.advanced_filter.includes(key))
                 checkbox.checked = true;
             checkbox.addEventListener("change", () => {
-                const all_checkbox = filter_list_outer.querySelectorAll("input[type='checkbox'");
+                const all_checkbox = filter_list_outer.querySelectorAll("input[type='checkbox']");
                 setting.advanced_filter = [...all_checkbox]
-                    .filter((element) => {
-                    return element.checked && element.dataset.filterName !== undefined;
-                })
-                    .map((element) => {
-                    return element.dataset.filterName || "";
-                });
+                    .filter((element) => element.checked && element.dataset.filterName !== undefined)
+                    .map((element) => element.dataset.filterName || "");
             });
             const label = document.createElement("label");
             label.textContent = key;
@@ -363,8 +359,8 @@ new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting()
     .then((setting) => {
     void (0,_color__WEBPACK_IMPORTED_MODULE_0__.load_color_setting)();
     void load_filter_list(setting);
-    const textarea_element_list = document.querySelectorAll("textarea");
-    textarea_element_list.forEach((textarea) => {
+    const textarea_list = document.querySelectorAll("textarea");
+    textarea_list.forEach((textarea) => {
         const setting_name = get_setting_name(textarea);
         if (Object.keys(setting).includes(setting_name)) {
             const saved_value = setting[setting_name];
