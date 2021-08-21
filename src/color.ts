@@ -1,7 +1,6 @@
 import { selector } from "./selector";
 import { Setting } from "./setting";
 
-
 export async function update_color_setting(): Promise<void> {
     const setting = await new Setting().load();
 
@@ -31,7 +30,7 @@ export async function load_color_setting(): Promise<void> {
     --main_color: ${setting.main_color};
     --background_color: ${setting.background_color};
     --high_emphasize_text_color: ${change_opacity(setting.font_color, 0.87)};
-    --medium_emphasize_text_color: ${change_opacity(setting.font_color, 0.60)};
+    --medium_emphasize_text_color: ${change_opacity(setting.font_color, 0.6)};
 }
     `;
     document.body.appendChild(style_element);

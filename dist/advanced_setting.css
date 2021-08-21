@@ -2,14 +2,14 @@
     --background_color: white;
     --high_emphasize_text_color: rgba(51, 51, 51, 0.87);
     --medium_emphasize_text_color: rgba(51, 51, 51, 0.6);
-    --main_color: #1A91DA;
+    --main_color: #1a91da;
 }
 
-@media(prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
     :root {
         --background_color: #121212;
         --high_emphasize_text_color: rgba(255, 255, 255, 0.87);
-        --medium_emphasize_text_color: rgba(255, 255, 255, 0.60);
+        --medium_emphasize_text_color: rgba(255, 255, 255, 0.6);
     }
 }
 
@@ -26,11 +26,10 @@
     font-style: normal;
     font-weight: 400;
     src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
-    src: local("Material Icons"),
-        local("MaterialIcons-Regular"),
-        url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-        url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-        url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+    src: local("Material Icons"), local("MaterialIcons-Regular"),
+        url(https://example.com/MaterialIcons-Regular.woff2) format("woff2"),
+        url(https://example.com/MaterialIcons-Regular.woff) format("woff"),
+        url(https://example.com/MaterialIcons-Regular.ttf) format("truetype");
 }
 
 .material_icon {

@@ -14,7 +14,7 @@ test("is_regexp()のテスト", () => {
 test("parse_regexp()のテスト", () => {
     expect(parse_regexp("/abcdef/")).toStrictEqual(/abcdef/);
     expect(parse_regexp("/abcdef/i")).toStrictEqual(/abcdef/i);
-    expect(parse_regexp("/abcdef/igm")).toStrictEqual(/abcdef/igm);
+    expect(parse_regexp("/abcdef/igm")).toStrictEqual(/abcdef/gim);
     expect(parse_regexp("/abcdef/ign")).toStrictEqual(/\/abcdef\/ign/);
     expect(parse_regexp("abcdef")).toStrictEqual(/abcdef/);
     expect(parse_regexp("/abcdef")).toStrictEqual(/\/abcdef/);

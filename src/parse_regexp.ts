@@ -10,7 +10,7 @@ function parser_core(pattern: string) {
 
     const core_string = pattern.replace(regexp_pattern, "$1");
     const flag_set = new Set(pattern.replace(regexp_pattern, "$2").split(""));
-    const flag_list = Array.from(flag_set).filter(flag => regexp_flag_list.includes(flag));
+    const flag_list = Array.from(flag_set).filter((flag) => regexp_flag_list.includes(flag));
 
     return {
         string: core_string,

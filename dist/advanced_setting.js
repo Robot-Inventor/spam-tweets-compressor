@@ -137,7 +137,7 @@ async function load_color_setting() {
     --main_color: ${setting.main_color};
     --background_color: ${setting.background_color};
     --high_emphasize_text_color: ${change_opacity(setting.font_color, 0.87)};
-    --medium_emphasize_text_color: ${change_opacity(setting.font_color, 0.60)};
+    --medium_emphasize_text_color: ${change_opacity(setting.font_color, 0.6)};
 }
     `;
     document.body.appendChild(style_element);
@@ -220,7 +220,8 @@ class Setting {
         const setting = default_setting;
         if (saved_setting.setting) {
             Object.keys(default_setting).forEach((key) => {
-                setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
+                setting[key] =
+                    saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
             });
         }
         browser.storage.onChanged.addListener((changes) => {
@@ -241,7 +242,7 @@ class Setting {
         });
     }
     save() {
-        void browser.storage.local.set({ "setting": this.setting });
+        void browser.storage.local.set({ setting: this.setting });
     }
     onChange(callback) {
         this.callback = callback;
@@ -346,7 +347,9 @@ async function load_filter_list(setting) {
     const json_data = await response.json();
     const filter_list_outer = document.getElementById("filter_list_outer");
     if (filter_list_outer) {
-        Object.keys(json_data).sort().forEach((key) => {
+        Object.keys(json_data)
+            .sort()
+            .forEach((key) => {
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             // eslint-disable-next-line no-irregular-whitespace
@@ -357,10 +360,12 @@ async function load_filter_list(setting) {
                 checkbox.checked = true;
             checkbox.addEventListener("change", () => {
                 const all_checkbox = filter_list_outer.querySelectorAll("input[type='checkbox'");
-                setting.advanced_filter = [...all_checkbox].filter((element) => {
+                setting.advanced_filter = [...all_checkbox]
+                    .filter((element) => {
                     return element.checked && element.dataset.filterName !== undefined;
-                }).map((element) => {
-                    return (element.dataset.filterName || "");
+                })
+                    .map((element) => {
+                    return element.dataset.filterName || "";
                 });
             });
             const label = document.createElement("label");
@@ -377,7 +382,9 @@ async function load_filter_list(setting) {
         console.log("filter_list_outerが見つかりませんでした");
     }
 }
-new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting().load().then((setting) => {
+new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting()
+    .load()
+    .then((setting) => {
     void (0,_color__WEBPACK_IMPORTED_MODULE_0__.load_color_setting)();
     void load_filter_list(setting);
     const textarea_element_list = document.querySelectorAll("textarea");
@@ -422,7 +429,8 @@ new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting().load().then((setting) => {
             }, 5000);
         });
     }
-}).catch(() => {
+})
+    .catch(() => {
     console.error("設定を読み込めませんでした");
 });
 

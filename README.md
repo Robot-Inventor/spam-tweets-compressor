@@ -14,25 +14,25 @@ What kind of tweets you find harassing or threatening varies from person to pers
 
 ### ✔ Can
 
-- It can protect your mind by hiding tweets that may be harassing or threatening
-- It allows you to set what kind of tweets are considered harassment or threats
+-   It can protect your mind by hiding tweets that may be harassing or threatening
+-   It allows you to set what kind of tweets are considered harassment or threats
 
 ### ✖ Can't
 
-- There is no automatic reporting of tweets deemed potentially harassing or threatening, or the ability to mute or block the poster
-- Hide only on your browser. Can't be hidden on other people's browsers
-- Works only on [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com). It can't work on other Twitter clients or mobile apps
+-   There is no automatic reporting of tweets deemed potentially harassing or threatening, or the ability to mute or block the poster
+-   Hide only on your browser. Can't be hidden on other people's browsers
+-   Works only on [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com). It can't work on other Twitter clients or mobile apps
 
 ### ⚠ Caution
 
-- This is an unofficial extension, Twitter is not involved in any way
-- Hides "possibly" harassing or threatening tweets. False positives and false negatives can also occur
+-   This is an unofficial extension, Twitter is not involved in any way
+-   Hides "possibly" harassing or threatening tweets. False positives and false negatives can also occur
 
 ## Supported Browsers
 
-- Google Chrome
-- Mozilla Firefox
-- Chromium-based browsers (e.g. Microsoft Edge)
+-   Google Chrome
+-   Mozilla Firefox
+-   Chromium-based browsers (e.g. Microsoft Edge)
 
 Note: The only browsers that have been tested are Google Chrome and Mozilla Firefox; Chromium-based browsers are likely to work correctly because they are internally identical to Google Chrome.
 
@@ -40,15 +40,15 @@ Note: The only browsers that have been tested are Google Chrome and Mozilla Fire
 
 You can install the extension from each browser's extension store.
 
-- [Chrome Web Store (Google Chrome)](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
-- [AMO (Mozilla Firefox)](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
+-   [Chrome Web Store (Google Chrome)](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
+-   [AMO (Mozilla Firefox)](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
 
 ## Judgment Method
 
 This extension determines whether to hide a tweet based on the following factors.
 
-- NG words
-- Advanced Spam Detection
+-   NG words
+-   Advanced Spam Detection
 
 ## About Personal Information
 
@@ -56,9 +56,9 @@ This extension analyzes tweets on the user's computer, so it does not send any i
 
 This extension will only use the permissions for the following purposes
 
-- Use access to [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com) to determine if the displayed tweets are spam and to hide tweets that are considered spam
-- Use storage permission to save settings
-- Use access to [cdn.statically.io](https://cdn.statically.io) to get the latest filter data
+-   Use access to [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com) to determine if the displayed tweets are spam and to hide tweets that are considered spam
+-   Use storage permission to save settings
+-   Use access to [cdn.statically.io](https://cdn.statically.io) to get the latest filter data
 
 ## Development
 
@@ -73,6 +73,12 @@ npm install
 ```powershell
 npm run lint:js
 npm run lint:css
+```
+
+### Format
+
+```powershell
+npm run format
 ```
 
 ### Test

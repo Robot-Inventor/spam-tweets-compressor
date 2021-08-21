@@ -8,9 +8,10 @@ import { advanced_filter_type } from "./advanced_filter_type";
 import { normalize_link, normalize_user_id } from "./normalize";
 import { load_color_setting, update_color_setting } from "./color";
 
-
 function get_unchecked_tweets() {
-    const tweets: NodeListOf<TweetElement> = document.querySelectorAll(`${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`);
+    const tweets: NodeListOf<TweetElement> = document.querySelectorAll(
+        `${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`
+    );
     const result: Array<TweetElement> = [];
 
     function get_ready(tweet: TweetElement) {
@@ -21,11 +22,16 @@ function get_unchecked_tweets() {
         const user_id_bug_exclude_list = [
             "https://twitter.com/notifications",
             "https://mobile.twitter.com/notifications"
-        ].map((url) => { return normalize_link(url); });
+        ].map((url) => {
+            return normalize_link(url);
+        });
 
-        if (!user_id_bug_exclude_list.includes(normalize_link(location.href)) &&
-            analyser.get_content() !== null && analyser.get_user_id() === null &&
-            !document.cookie.includes("stc_show_user_id_error=true")) {
+        if (
+            !user_id_bug_exclude_list.includes(normalize_link(location.href)) &&
+            analyser.get_content() !== null &&
+            analyser.get_user_id() === null &&
+            !document.cookie.includes("stc_show_user_id_error=true")
+        ) {
             alert(browser.i18n.getMessage("error_message_user_id_bug"));
             document.cookie = "stc_show_user_id_error=true;max-age=86400";
             return;
@@ -67,7 +73,14 @@ function run_check(setting: setting_object, advanced_filter: query_type) {
     const check_target = get_unchecked_tweets();
 
     for (const target of check_target) {
-        if (setting.allow_list.map((v) => { return normalize_user_id(v); }).includes(target.user_id)) continue;
+        if (
+            setting.allow_list
+                .map((v) => {
+                    return normalize_user_id(v);
+                })
+                .includes(target.user_id)
+        )
+            continue;
 
         const judgement = detect_spam(target, setting, advanced_filter);
         if (judgement[0]) {
@@ -90,7 +103,9 @@ async function load_advanced_filter(filter_name_list: Array<string>) {
     const filter_list: Array<query_type> = [];
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const filter_url_data: advanced_filter_type = await get_json("https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json");
+    const filter_url_data: advanced_filter_type = await get_json(
+        "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json"
+    );
     for (const filter_name of filter_name_list) {
         if (!(filter_name in filter_url_data)) continue;
 

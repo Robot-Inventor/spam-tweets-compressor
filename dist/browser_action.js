@@ -95,7 +95,7 @@ async function load_color_setting() {
     --main_color: ${setting.main_color};
     --background_color: ${setting.background_color};
     --high_emphasize_text_color: ${change_opacity(setting.font_color, 0.87)};
-    --medium_emphasize_text_color: ${change_opacity(setting.font_color, 0.60)};
+    --medium_emphasize_text_color: ${change_opacity(setting.font_color, 0.6)};
 }
     `;
     document.body.appendChild(style_element);
@@ -178,7 +178,8 @@ class Setting {
         const setting = default_setting;
         if (saved_setting.setting) {
             Object.keys(default_setting).forEach((key) => {
-                setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
+                setting[key] =
+                    saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
             });
         }
         browser.storage.onChanged.addListener((changes) => {
@@ -199,7 +200,7 @@ class Setting {
         });
     }
     save() {
-        void browser.storage.local.set({ "setting": this.setting });
+        void browser.storage.local.set({ setting: this.setting });
     }
     onChange(callback) {
         this.callback = callback;
@@ -298,7 +299,9 @@ function get_setting_name(element) {
     else
         throw "設定の名称が指定されていないinput要素が見つかりました";
 }
-new _setting__WEBPACK_IMPORTED_MODULE_2__.Setting().load().then((setting) => {
+new _setting__WEBPACK_IMPORTED_MODULE_2__.Setting()
+    .load()
+    .then((setting) => {
     void (0,_color__WEBPACK_IMPORTED_MODULE_1__.load_color_setting)();
     const checkbox_input_element = document.querySelectorAll("input[type='checkbox']");
     checkbox_input_element.forEach((input_element) => {
@@ -309,7 +312,8 @@ new _setting__WEBPACK_IMPORTED_MODULE_2__.Setting().load().then((setting) => {
             setting[setting_name] = input_element.checked;
         });
     });
-}).catch(() => {
+})
+    .catch(() => {
     console.error("設定を読み込めませんでした");
 });
 
