@@ -28,8 +28,8 @@ function get_unchecked_tweets() {
 
         if (
             !user_id_bug_exclude_list.includes(normalize_link(location.href)) &&
-            analyser.get_content() !== null &&
-            analyser.get_user_id() === null &&
+            analyser.content !== null &&
+            analyser.user_id === null &&
             !document.cookie.includes("stc_show_user_id_error=true")
         ) {
             alert(browser.i18n.getMessage("error_message_user_id_bug"));
@@ -37,15 +37,15 @@ function get_unchecked_tweets() {
             return;
         }
 
-        tweet.content = analyser.get_content() || "";
-        tweet.user_name = analyser.get_user_name();
-        tweet.user_id = analyser.get_user_id() || "";
-        tweet.language = analyser.get_language();
+        tweet.content = analyser.content || "";
+        tweet.user_name = analyser.user_name;
+        tweet.user_id = analyser.user_id || "";
+        tweet.language = analyser.language;
         tweet.compress = (reason?: string) => {
             analyser.compress(reason);
         };
-        tweet.hashtag = analyser.get_hashtag();
-        tweet.link = analyser.get_link();
+        tweet.hashtag = analyser.hashtag;
+        tweet.link = analyser.link;
 
         result.push(tweet);
     }

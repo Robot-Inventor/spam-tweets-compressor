@@ -429,28 +429,31 @@ class TweetAnalyser {
         this.tweet = tweet;
         this.content_element = tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.tweet_content);
     }
-    get_content() {
+    get content() {
         if (!this.content_element)
             return null;
         return this.content_element.textContent || "";
     }
-    get_user_name() {
+    get user_name() {
         const user_name_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_name);
         if (user_name_element)
             return user_name_element.textContent || "";
         else
             return "";
     }
-    get_user_id() {
+    get user_id() {
         const user_id_element = this.tweet.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.user_id);
         if (user_id_element)
             return (0,_normalize__WEBPACK_IMPORTED_MODULE_1__.normalize_user_id)(user_id_element.textContent || "");
         else
             return null;
     }
+    get language() {
+        return this.get_language();
+    }
     async get_language() {
         const target_node = this.content_element;
-        let target_text = this.get_content() || "";
+        let target_text = this.content || "";
         if (target_node) {
             const clone_node = target_node.cloneNode(true);
             const temporary_element = document.createElement("div");
@@ -505,7 +508,7 @@ class TweetAnalyser {
         this.tweet.style.display = "none";
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
-    get_hashtag() {
+    get hashtag() {
         const is_hashtag = (element) => {
             return element.textContent && _normalize__WEBPACK_IMPORTED_MODULE_1__.hash_symbol.includes(element.textContent[0]);
         };
@@ -514,7 +517,7 @@ class TweetAnalyser {
         };
         return [...this.tweet.querySelectorAll(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
     }
-    get_link() {
+    get link() {
         function is_link(element) {
             return Boolean(element.querySelector(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.link_scheme_outer));
         }
@@ -616,22 +619,22 @@ function get_unchecked_tweets() {
             return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(url);
         });
         if (!user_id_bug_exclude_list.includes((0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(location.href)) &&
-            analyser.get_content() !== null &&
-            analyser.get_user_id() === null &&
+            analyser.content !== null &&
+            analyser.user_id === null &&
             !document.cookie.includes("stc_show_user_id_error=true")) {
             alert(browser.i18n.getMessage("error_message_user_id_bug"));
             document.cookie = "stc_show_user_id_error=true;max-age=86400";
             return;
         }
-        tweet.content = analyser.get_content() || "";
-        tweet.user_name = analyser.get_user_name();
-        tweet.user_id = analyser.get_user_id() || "";
-        tweet.language = analyser.get_language();
+        tweet.content = analyser.content || "";
+        tweet.user_name = analyser.user_name;
+        tweet.user_id = analyser.user_id || "";
+        tweet.language = analyser.language;
         tweet.compress = (reason) => {
             analyser.compress(reason);
         };
-        tweet.hashtag = analyser.get_hashtag();
-        tweet.link = analyser.get_link();
+        tweet.hashtag = analyser.hashtag;
+        tweet.link = analyser.link;
         result.push(tweet);
     }
     tweets.forEach(get_ready);
