@@ -1,4 +1,4 @@
-const regexp_flag_list = ["d", "g", "i", "m", "s", "u", "y"];
+const regexp_flag_list: ReadonlyArray<string> = ["d", "g", "i", "m", "s", "u", "y"];
 const regexp_pattern = new RegExp(`^/(.*)/([${regexp_flag_list.join("")}]*)$`);
 
 export function is_regexp(pattern: string): boolean {
