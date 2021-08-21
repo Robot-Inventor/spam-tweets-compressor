@@ -7,7 +7,8 @@
     "test": "npx jest",
     "build": "npx webpack",
     "watch": "npx webpack -w",
-    "lint": "npx eslint src/**/*.ts",
+    "lint:js": "npx eslint src/**/*.ts",
+    "lint:css": "stylelint **/*.{css,scss,sass}",
     "pack": "npx web-ext build --ignore-files \"./**/*.md\" \"./src/\" \"./docs/\" \"./gh-pages/\" \"./image/for_readme/\" package.json package-lock.json \"tsconfig*.json\" webpack.config.js \"./image/logo.*\""
   },
   "repository": {
@@ -26,12 +27,14 @@
     "@typescript-eslint/parser": "4.29.2",
     "eslint": "7.32.0",
     "jest": "27.0.6",
+    "stylelint": "^13.13.1",
+    "stylelint-config-recommended": "^5.0.0",
     "ts-jest": "27.0.5",
     "ts-loader": "9.2.5",
     "typescript": "4.3.5",
-    "webpack": "5.51.1",
-    "webpack-cli": "4.8.0",
     "web-ext": "6.3.0",
-    "web-ext-types": "3.2.1"
+    "web-ext-types": "3.2.1",
+    "webpack": "5.51.1",
+    "webpack-cli": "4.8.0"
   }
 }

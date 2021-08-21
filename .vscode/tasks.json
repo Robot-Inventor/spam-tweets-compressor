@@ -19,11 +19,19 @@
 		},
 		{
 			"type": "npm",
-			"script": "lint",
+			"script": "lint:js",
 			"group": "test",
 			"problemMatcher": [],
-			"label": "npm: lint",
-			"detail": "npm run lint"
+			"label": "npm: lint js",
+			"detail": "npm run lint:js"
+		},
+		{
+			"type": "npm",
+			"script": "lint:css",
+			"group": "test",
+			"problemMatcher": [],
+			"label": "npm: lint css",
+			"detail": "npm run lint:css"
 		},
 		{
 			"type": "npm",

@@ -71,7 +71,8 @@ npm install
 ### Lint
 
 ```powershell
-npm run lint
+npm run lint:js
+npm run lint:css
 ```
 
 ### Test
