@@ -7,21 +7,15 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="500"
    height="500"
    viewBox="0 0 132.29166 132.29167"
    version="1.1"
    id="svg8"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="icon.svg"
-   inkscape:export-filename="C:\Users\KEITA\Documents\chrome_extension\spam-tweets-compressor\image\icon16.png"
-   inkscape:export-xdpi="3.072"
-   inkscape:export-ydpi="3.072">
+   sodipodi:docname="icon.svg">
   <defs
      id="defs2">
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient1143">
       <stop
          style="stop-color:#bee9ff;stop-opacity:1"
@@ -33,7 +27,6 @@
          id="stop1141" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient1120">
       <stop
          style="stop-color:#b1b1b1;stop-opacity:1;"
@@ -45,7 +38,6 @@
          id="stop1118" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient1112">
       <stop
          style="stop-color:#a4a4a4;stop-opacity:1"
@@ -57,7 +49,6 @@
          id="stop1110" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient880">
       <stop
          style="stop-color:#a6a6a6;stop-opacity:1"
@@ -69,7 +60,6 @@
          id="stop878" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
        xlink:href="#linearGradient880"
        id="linearGradient882"
        x1="28.790279"
@@ -79,7 +69,6 @@
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.30709645,0,0,0.30709645,-9.546542,-10.096396)" />
     <linearGradient
-       inkscape:collect="always"
        xlink:href="#linearGradient1112"
        id="linearGradient1114"
        x1="37.818638"
@@ -89,7 +78,6 @@
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.1606795,0,0,1.1606795,-11.485282,-10.096396)" />
     <linearGradient
-       inkscape:collect="always"
        xlink:href="#linearGradient1120"
        id="linearGradient1122"
        x1="47.102879"
@@ -99,7 +87,6 @@
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.1606795,0,0,1.1606795,-10.628277,-10.628135)" />
     <linearGradient
-       inkscape:collect="always"
        xlink:href="#linearGradient1143"
        id="linearGradient1145"
        x1="37.757069"
@@ -116,32 +103,16 @@
        gradientTransform="matrix(1.0444142,0,0,1.0444142,0,-7.7138551)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient858"
-       xlink:href="#linearGradient1143"
-       inkscape:collect="always" />
+       xlink:href="#linearGradient1143" />
   </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.63848485"
-     inkscape:cx="252.61584"
-     inkscape:cy="224.26778"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1368"
-     inkscape:window-height="850"
-     inkscape:window-x="-6"
-     inkscape:window-y="-6"
-     inkscape:window-maximized="1"
      units="px"
-     inkscape:pagecheckerboard="true"
-     width="500px"
-     inkscape:lockguides="true" />
+     width="500px" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -155,8 +126,6 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="レイヤー 1"
-     inkscape:groupmode="layer"
      id="layer1">
     <rect
        style="fill:url(#linearGradient1122);fill-opacity:1;stroke:none;stroke-width:1.3718;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers"
@@ -167,13 +136,13 @@
        y="118.64252"
        ry="1.395964" />
     <g
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:75.5796px;line-height:1.25;font-family:'League Spartan';-inkscape-font-specification:'League Spartan, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:url(#linearGradient1145);fill-opacity:1;stroke:none;stroke-width:1.8895;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:75.5796px;line-height:1.25;font-family:'League Spartan';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:url(#linearGradient1145);fill-opacity:1;stroke:none;stroke-width:1.8895;stroke-opacity:1"
        id="text858"
        transform="matrix(1.3102207,0,0,1.028206,-10.628277,-10.628278)"
        aria-label="S">
       <path
          id="path855"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:75.5796px;font-family:'League Spartan';-inkscape-font-specification:'League Spartan, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:url(#linearGradient858);fill-opacity:1;stroke:none;stroke-width:1.8895;stroke-opacity:1"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:75.5796px;font-family:'League Spartan';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:url(#linearGradient858);fill-opacity:1;stroke:none;stroke-width:1.8895;stroke-opacity:1"
          d="m 60.032316,28.72802 q 4.156878,0 7.633539,0.906955 3.476662,0.906955 5.66847,2.040649 2.191808,1.058115 2.947604,1.738331 l -5.366151,8.993972 q -1.587172,-1.133694 -4.232458,-2.342967 -2.645286,-1.209274 -5.441731,-1.209274 -3.023184,0 -4.837094,1.058114 -1.738331,1.058115 -1.738331,3.098764 0,2.040649 2.040649,3.552241 2.116229,1.511592 6.953323,3.325502 13.679908,4.988254 13.679908,15.796136 0,4.837094 -2.645286,8.162597 -2.569707,3.325502 -6.802164,4.988253 -4.232458,1.587172 -9.296291,1.587172 -4.685935,0 -8.767233,-1.058115 -4.005719,-1.058114 -6.651004,-2.342967 -2.569707,-1.360433 -3.325503,-2.116229 l 5.59289,-9.37187 q 0.755796,0.604637 2.872025,1.738331 2.191808,1.133694 4.988254,2.040649 2.796445,0.906955 5.290571,0.906955 3.476662,0 5.290572,-1.360433 1.813911,-1.360433 1.813911,-3.62782 0,-2.418548 -2.342968,-4.156878 -2.267388,-1.738331 -7.633539,-3.77898 -5.74405,-2.342968 -9.145132,-5.74405 -3.325502,-3.476661 -3.325502,-9.22071 0,-4.005719 2.267388,-7.104483 2.342968,-3.098763 6.197527,-4.761514 3.854559,-1.738331 8.313756,-1.738331 z" />
     </g>
     <path
