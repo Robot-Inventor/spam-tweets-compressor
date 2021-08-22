@@ -49,7 +49,7 @@ export class TweetAnalyser {
         else return "";
     }
 
-    compress(reason?: string): void {
+    compress(reason?: string, decompress_on_hover?: boolean): void {
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         decompress_button.classList.add(selector.show_tweet_button.replace(/^\./, ""));
@@ -74,6 +74,13 @@ export class TweetAnalyser {
             this.tweet.style.display = "block";
             decompress_button.remove();
         });
+
+        if (decompress_on_hover) {
+            decompress_button.addEventListener("mouseover", () => {
+                this.tweet.style.display = "block";
+                decompress_button.remove();
+            });
+        }
 
         this.tweet.style.display = "none";
         this.tweet.insertAdjacentElement("afterend", decompress_button);

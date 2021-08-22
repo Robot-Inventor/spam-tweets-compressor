@@ -356,6 +356,7 @@ __webpack_require__.r(__webpack_exports__);
 const default_setting = {
     include_verified_account: false,
     show_reason: true,
+    decompress_on_hover: false,
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
@@ -462,7 +463,7 @@ class TweetAnalyser {
         else
             return "";
     }
-    compress(reason) {
+    compress(reason, decompress_on_hover) {
         const decompress_button = document.createElement("button");
         decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         decompress_button.classList.add(_selector__WEBPACK_IMPORTED_MODULE_0__.selector.show_tweet_button.replace(/^\./, ""));
@@ -487,6 +488,12 @@ class TweetAnalyser {
             this.tweet.style.display = "block";
             decompress_button.remove();
         });
+        if (decompress_on_hover) {
+            decompress_button.addEventListener("mouseover", () => {
+                this.tweet.style.display = "block";
+                decompress_button.remove();
+            });
+        }
         this.tweet.style.display = "none";
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
@@ -608,8 +615,8 @@ function get_unchecked_tweets() {
         tweet.user_name = analyser.user_name;
         tweet.user_id = analyser.user_id || "";
         tweet.language = analyser.language;
-        tweet.compress = (reason) => {
-            analyser.compress(reason);
+        tweet.compress = (reason, decompress_on_hover) => {
+            analyser.compress(reason, decompress_on_hover);
         };
         tweet.hashtag = analyser.hashtag;
         tweet.link = analyser.link;
@@ -641,9 +648,9 @@ function run_check(setting, advanced_filter) {
         const judgement = (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason)
-                target.compress(judgement[1]);
+                target.compress(judgement[1], setting.decompress_on_hover);
             else
-                target.compress();
+                target.compress(undefined, setting.decompress_on_hover);
         }
     }
 }

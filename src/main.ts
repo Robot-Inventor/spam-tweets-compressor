@@ -37,8 +37,8 @@ function get_unchecked_tweets(): Array<TweetElement> {
         tweet.user_name = analyser.user_name;
         tweet.user_id = analyser.user_id || "";
         tweet.language = analyser.language;
-        tweet.compress = (reason?: string) => {
-            analyser.compress(reason);
+        tweet.compress = (reason?: string, decompress_on_hover?: boolean) => {
+            analyser.compress(reason, decompress_on_hover);
         };
         tweet.hashtag = analyser.hashtag;
         tweet.link = analyser.link;
@@ -79,8 +79,8 @@ function run_check(setting: setting_object, advanced_filter: query_type) {
 
         const judgement = detect_spam(target, setting, advanced_filter);
         if (judgement[0]) {
-            if (setting.show_reason) target.compress(judgement[1]);
-            else target.compress();
+            if (setting.show_reason) target.compress(judgement[1], setting.decompress_on_hover);
+            else target.compress(undefined, setting.decompress_on_hover);
         }
     }
 }
