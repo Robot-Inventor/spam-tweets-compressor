@@ -29,6 +29,9 @@
     "browser_action_trim_leading_whitespace": {
         "message": "Trim Leading Whitespace"
     },
+    "browser_action_decompress_on_hover": {
+        "message": "Show Hidden Tweets on Mouseover"
+    },
     "browser_action_include_verified_account": {
         "message": "Include Verified Accounts in the Audit"
     },

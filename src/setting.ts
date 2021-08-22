@@ -4,6 +4,7 @@ export interface setting_object {
     [key: string]: setting_value_type;
     include_verified_account: boolean;
     show_reason: boolean;
+    decompress_on_hover: boolean;
     ng_word: Array<string>;
     allow_list: Array<string>;
     exclude_url: Array<string>;
@@ -16,6 +17,7 @@ export interface setting_object {
 const default_setting: setting_object = {
     include_verified_account: false,
     show_reason: true,
+    decompress_on_hover: false,
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],

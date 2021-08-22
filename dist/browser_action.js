@@ -155,6 +155,7 @@ __webpack_require__.r(__webpack_exports__);
 const default_setting = {
     include_verified_account: false,
     show_reason: true,
+    decompress_on_hover: false,
     ng_word: [""],
     allow_list: [""],
     exclude_url: ["https://twitter.com/home"],
