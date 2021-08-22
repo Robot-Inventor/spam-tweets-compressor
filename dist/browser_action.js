@@ -33,9 +33,7 @@ class TabSwitcher {
         if (!selector)
             return;
         const item_group = document.querySelectorAll(this.selector.item_group);
-        item_group.forEach((element) => {
-            element.style.display = "none";
-        });
+        item_group.forEach((element) => (element.style.display = "none"));
         const target = document.querySelector(selector);
         if (target)
             target.style.display = "block";
@@ -301,14 +299,10 @@ new _setting__WEBPACK_IMPORTED_MODULE_2__.Setting()
         const setting_name = get_setting_name(input_element);
         const saved_value = setting[setting_name];
         input_element.checked = typeof saved_value === "boolean" ? saved_value : false;
-        input_element.addEventListener("change", () => {
-            setting[setting_name] = input_element.checked;
-        });
+        input_element.addEventListener("change", () => (setting[setting_name] = input_element.checked));
     });
 })
-    .catch(() => {
-    console.error("設定を読み込めませんでした");
-});
+    .catch(() => console.error("設定を読み込めませんでした"));
 
 })();
 

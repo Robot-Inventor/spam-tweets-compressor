@@ -27,9 +27,7 @@ class TabSwitcher {
         if (!selector) return;
 
         const item_group: NodeListOf<HTMLElement> = document.querySelectorAll(this.selector.item_group);
-        item_group.forEach((element) => {
-            element.style.display = "none";
-        });
+        item_group.forEach((element) => (element.style.display = "none"));
 
         const target: HTMLElement | null = document.querySelector(selector);
         if (target) target.style.display = "block";

@@ -603,7 +603,7 @@ function get_unchecked_tweets() {
         const user_id_bug_exclude_list = [
             "https://twitter.com/notifications",
             "https://mobile.twitter.com/notifications"
-        ].map((url) => (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(url));
+        ].map(_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link);
         if (!user_id_bug_exclude_list.includes((0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_link)(location.href)) &&
             analyser.content !== null &&
             analyser.user_id === null &&
@@ -622,7 +622,7 @@ function get_unchecked_tweets() {
         tweet.link = analyser.link;
         return tweet;
     }
-    return [...tweets].map((t) => init(t));
+    return [...tweets].map(init);
 }
 function reset_check_status() {
     document
@@ -639,11 +639,7 @@ function run_check(setting, advanced_filter) {
         return;
     const check_target = get_unchecked_tweets();
     for (const target of check_target) {
-        if (setting.allow_list
-            .map((v) => {
-            return (0,_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_user_id)(v);
-        })
-            .includes(target.user_id))
+        if (setting.allow_list.map(_normalize__WEBPACK_IMPORTED_MODULE_4__.normalize_user_id).includes(target.user_id))
             continue;
         const judgement = (0,_detect_spam__WEBPACK_IMPORTED_MODULE_0__.detect_spam)(target, setting, advanced_filter);
         if (judgement[0]) {
@@ -681,9 +677,7 @@ void (async () => {
         joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
     }
     let joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
-    setInterval(() => {
-        void reload_filter();
-    }, 86400);
+    setInterval(() => void reload_filter(), 86400);
     setting_instance.onChange(() => {
         void reload_filter();
         decompress_all();
