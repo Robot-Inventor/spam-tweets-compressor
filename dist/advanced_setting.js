@@ -363,12 +363,8 @@ new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting()
         if (Object.keys(setting).includes(setting_name)) {
             const saved_value = setting[setting_name];
             textarea.value = saved_value instanceof Array ? saved_value.join("\n") : "";
-            textarea.addEventListener("change", () => {
-                setting[setting_name] = textarea.value.split("\n");
-            });
-            window.addEventListener("beforeunload", () => {
-                setting[setting_name] = textarea.value.split("\n");
-            });
+            textarea.addEventListener("change", () => (setting[setting_name] = textarea.value.split("\n")));
+            window.addEventListener("beforeunload", () => (setting[setting_name] = textarea.value.split("\n")));
         }
     });
     const copy_button = document.getElementById("copy_button");
@@ -377,9 +373,7 @@ new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting()
             const setting_string = JSON.stringify(setting, null, 4);
             void navigator.clipboard.writeText(setting_string);
             copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copied");
-            setTimeout(() => {
-                copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copy");
-            }, 5000);
+            setTimeout(() => (copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copy")), 5000);
         });
     }
     const save_button = document.getElementById("save_button");
@@ -394,15 +388,11 @@ new _setting__WEBPACK_IMPORTED_MODULE_1__.Setting()
             download_link.click();
             download_link.remove();
             save_button.textContent = browser.i18n.getMessage("advanced_setting_export_saved");
-            setTimeout(() => {
-                save_button.textContent = browser.i18n.getMessage("advanced_setting_export_save");
-            }, 5000);
+            setTimeout(() => (save_button.textContent = browser.i18n.getMessage("advanced_setting_export_save")), 5000);
         });
     }
 })
-    .catch(() => {
-    console.error("設定を読み込めませんでした");
-});
+    .catch(() => console.error("設定を読み込めませんでした"));
 
 })();
 

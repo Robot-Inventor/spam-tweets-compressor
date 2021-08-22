@@ -68,12 +68,8 @@ new Setting()
                 const saved_value = setting[setting_name];
                 textarea.value = saved_value instanceof Array ? saved_value.join("\n") : "";
 
-                textarea.addEventListener("change", () => {
-                    setting[setting_name] = textarea.value.split("\n");
-                });
-                window.addEventListener("beforeunload", () => {
-                    setting[setting_name] = textarea.value.split("\n");
-                });
+                textarea.addEventListener("change", () => (setting[setting_name] = textarea.value.split("\n")));
+                window.addEventListener("beforeunload", () => (setting[setting_name] = textarea.value.split("\n")));
             }
         });
 
@@ -84,9 +80,10 @@ new Setting()
                 void navigator.clipboard.writeText(setting_string);
 
                 copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copied");
-                setTimeout(() => {
-                    copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copy");
-                }, 5000);
+                setTimeout(
+                    () => (copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copy")),
+                    5000
+                );
             });
         }
 
@@ -104,12 +101,11 @@ new Setting()
                 download_link.remove();
 
                 save_button.textContent = browser.i18n.getMessage("advanced_setting_export_saved");
-                setTimeout(() => {
-                    save_button.textContent = browser.i18n.getMessage("advanced_setting_export_save");
-                }, 5000);
+                setTimeout(
+                    () => (save_button.textContent = browser.i18n.getMessage("advanced_setting_export_save")),
+                    5000
+                );
             });
         }
     })
-    .catch(() => {
-        console.error("設定を読み込めませんでした");
-    });
+    .catch(() => console.error("設定を読み込めませんでした"));

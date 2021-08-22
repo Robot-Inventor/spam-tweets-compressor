@@ -21,11 +21,7 @@ new Setting()
             const saved_value = setting[setting_name];
             input_element.checked = typeof saved_value === "boolean" ? saved_value : false;
 
-            input_element.addEventListener("change", () => {
-                setting[setting_name] = input_element.checked;
-            });
+            input_element.addEventListener("change", () => (setting[setting_name] = input_element.checked));
         });
     })
-    .catch(() => {
-        console.error("設定を読み込めませんでした");
-    });
+    .catch(() => console.error("設定を読み込めませんでした"));
