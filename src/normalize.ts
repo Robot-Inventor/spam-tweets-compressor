@@ -14,7 +14,7 @@ export function normalize_link(text: string): string {
     return text
         .replace(/^https?:\/\/(www\.)?/i, "")
         .replace(/\/(index.html)?$/, "")
-        .replace(/^.+?\//, (s) => s.toLowerCase());
+        .replace(/^.+?(\/|$)/, (s) => s.toLowerCase());
 }
 
 export function normalize_hashtag(text: string): string {

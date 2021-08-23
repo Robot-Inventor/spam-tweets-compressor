@@ -7,6 +7,7 @@ test("normalize_link()のテスト", () => {
     expect(normalize_link("http://www.youtube.com")).toBe("youtube.com");
     expect(normalize_link("https://mobile.twitter.com/")).toBe("mobile.twitter.com");
     expect(normalize_link("https://mobile.twitter.com/index.html")).toBe("mobile.twitter.com");
+    expect(normalize_link("https://MOBILE.Twitter.cOm/index.html")).toBe("mobile.twitter.com");
 });
 
 test("normalize_hashtag()のテスト", () => {
