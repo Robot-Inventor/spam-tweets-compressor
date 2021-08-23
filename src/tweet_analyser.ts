@@ -14,25 +14,28 @@ export class TweetAnalyser {
         this.emoji_detector = emoji_detector;
     }
 
+    private get_text_content(element: HTMLElement) {
+        const clone = element.cloneNode(true);
+        const temp = document.createElement("div");
+        temp.appendChild(clone);
+        temp.querySelectorAll("img").forEach((element) => {
+            const emoji = this.emoji_detector.get_from_url(element.src);
+            if (emoji) element.insertAdjacentText("afterend", emoji);
+            element.remove();
+        });
+        return temp.textContent;
+    }
+
     get content(): string | null {
         if (!this.content_element) return null;
 
-        return this.content_element.textContent || "";
+        return this.get_text_content(this.content_element) || "";
     }
 
     get user_name(): string {
-        const user_name_element = this.tweet.querySelector(selector.user_name);
-        if (user_name_element) {
-            const clone = user_name_element.cloneNode(true);
-            const temp = document.createElement("div");
-            temp.appendChild(clone);
-            temp.querySelectorAll("img").forEach((element) => {
-                const emoji = this.emoji_detector.get_from_url(element.src);
-                if (emoji) element.insertAdjacentText("afterend", emoji);
-                element.remove();
-            });
-            return temp.textContent || "";
-        } else return "";
+        const user_name_element: HTMLElement | null = this.tweet.querySelector(selector.user_name);
+        if (user_name_element) return this.get_text_content(user_name_element) || "";
+        else return "";
     }
 
     get user_id(): string | null {
