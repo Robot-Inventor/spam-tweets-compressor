@@ -1,5 +1,6 @@
 # Ignore artifacts:
 dist/**/*.js
+dist/twitter-emoji-url-list/twitter-emoji-url-list.json
 node_modules/
 package.json
 package-lock.json
