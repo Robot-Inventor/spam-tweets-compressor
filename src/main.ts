@@ -7,6 +7,7 @@ import { TweetElement } from "./tweet_element";
 import { advanced_filter_type } from "./advanced_filter_type";
 import { normalize_link, normalize_user_id } from "./normalize";
 import { load_color_setting, update_color_setting } from "./color";
+import { Emoji } from "./emoji";
 
 function get_unchecked_tweets(): Array<TweetElement> {
     const tweets: NodeListOf<TweetElement> = document.querySelectorAll(
@@ -16,7 +17,7 @@ function get_unchecked_tweets(): Array<TweetElement> {
     function init(tweet: TweetElement) {
         tweet.classList.add(selector.checked_tweet_class_name);
 
-        const analyser: TweetAnalyser = new TweetAnalyser(tweet);
+        const analyser: TweetAnalyser = new TweetAnalyser(tweet, emoji_detector);
 
         const user_id_bug_exclude_list = [
             "https://twitter.com/notifications",
@@ -103,7 +104,8 @@ async function load_advanced_filter(filter_name_list: Array<string>) {
     return joined_advanced_filter;
 }
 
-void (async () => {
+const emoji_detector = new Emoji();
+void emoji_detector.init().then(async () => {
     const setting_instance = new Setting();
     const setting = await setting_instance.load();
 
@@ -144,4 +146,4 @@ void (async () => {
         childList: true,
         subtree: true
     });
-})();
+});

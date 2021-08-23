@@ -1,14 +1,17 @@
 import { selector } from "./selector";
 import { TweetElement } from "./tweet_element";
 import { hash_symbol, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
+import { Emoji } from "./emoji";
 
 export class TweetAnalyser {
     private readonly tweet: TweetElement;
     private readonly content_element: HTMLElement | null;
+    private readonly emoji_detector: Emoji;
 
-    constructor(tweet: TweetElement) {
+    constructor(tweet: TweetElement, emoji_detector: Emoji) {
         this.tweet = tweet;
         this.content_element = tweet.querySelector(selector.tweet_content);
+        this.emoji_detector = emoji_detector;
     }
 
     get content(): string | null {
@@ -19,8 +22,17 @@ export class TweetAnalyser {
 
     get user_name(): string {
         const user_name_element = this.tweet.querySelector(selector.user_name);
-        if (user_name_element) return user_name_element.textContent || "";
-        else return "";
+        if (user_name_element) {
+            const clone = user_name_element.cloneNode(true);
+            const temp = document.createElement("div");
+            temp.appendChild(clone);
+            temp.querySelectorAll("img").forEach((element) => {
+                const emoji = this.emoji_detector.get_from_url(element.src);
+                if (emoji) element.insertAdjacentText("afterend", emoji);
+                element.remove();
+            });
+            return temp.textContent || "";
+        } else return "";
     }
 
     get user_id(): string | null {
