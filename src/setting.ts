@@ -3,6 +3,7 @@ type setting_value_type = number | string | boolean | Array<string> | { [key: st
 export interface setting_object {
     [key: string]: setting_value_type;
     include_verified_account: boolean;
+    include_user_name: boolean;
     show_reason: boolean;
     decompress_on_hover: boolean;
     ng_word: Array<string>;
@@ -16,6 +17,7 @@ export interface setting_object {
 
 const default_setting: setting_object = {
     include_verified_account: false,
+    include_user_name: false,
     show_reason: true,
     decompress_on_hover: false,
     ng_word: [""],
