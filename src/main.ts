@@ -19,19 +19,20 @@ function get_unchecked_tweets(): Array<TweetElement> {
 
         const analyser: TweetAnalyser = new TweetAnalyser(tweet, emoji_detector);
 
-        const user_id_bug_exclude_list = [
-            "https://twitter.com/notifications",
-            "https://mobile.twitter.com/notifications"
-        ].map(normalize_link);
+        const user_id_bug_exclude_list: ReadonlyArray<string> = ["/notifications"];
 
+        const user_id_bug_cookie = {
+            content: "stc_show_user_id_error=true",
+            max_age: "max-age=86400"
+        } as const;
         if (
-            !user_id_bug_exclude_list.includes(normalize_link(location.href)) &&
+            !user_id_bug_exclude_list.includes(location.pathname) &&
             analyser.content !== null &&
             analyser.user_id === null &&
-            !document.cookie.includes("stc_show_user_id_error=true")
+            !document.cookie.includes(user_id_bug_cookie.content)
         ) {
             alert(browser.i18n.getMessage("error_message_user_id_bug"));
-            document.cookie = "stc_show_user_id_error=true;max-age=86400";
+            document.cookie = `${user_id_bug_cookie.content};${user_id_bug_cookie.max_age}`;
         }
 
         tweet.content = analyser.content || "";
