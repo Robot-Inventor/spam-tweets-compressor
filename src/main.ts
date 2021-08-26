@@ -126,9 +126,11 @@ void emoji_detector
         setInterval(() => void reload_filter(), 86400);
 
         setting_instance.onChange(() => {
-            void reload_filter();
-            decompress_all();
-            reset_check_status();
+            void (async () => {
+                await reload_filter();
+                decompress_all();
+                reset_check_status();
+            })();
         });
 
         const body_observer_target = document.body;
