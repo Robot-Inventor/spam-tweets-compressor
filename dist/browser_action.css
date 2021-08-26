@@ -92,3 +92,8 @@ h1 {
 input[type="checkbox"] {
     margin-left: 0;
 }
+
+input[type="checkbox"],
+input[type="checkbox"] + label {
+    cursor: pointer;
+}
