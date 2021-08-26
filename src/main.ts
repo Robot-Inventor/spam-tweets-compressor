@@ -5,7 +5,7 @@ import { selector } from "./selector";
 import { TweetAnalyser } from "./tweet_analyser";
 import { TweetElement } from "./tweet_element";
 import { advanced_filter_type } from "./advanced_filter_type";
-import { normalize_link, normalize_user_id } from "./normalize";
+import { normalize_user_id } from "./normalize";
 import { load_color_setting, update_color_setting } from "./color";
 import { Emoji } from "./emoji";
 
@@ -89,18 +89,24 @@ async function get_json(url: string) {
     return json;
 }
 
-async function load_advanced_filter(filter_name_list: Array<string>) {
+async function load_advanced_filter(filter_id_list: Array<string>) {
     const filter_list: Array<query_type> = [];
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const filter_url_data: advanced_filter_type = await get_json(
         "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json"
     );
-    for (const filter_name of filter_name_list.filter((name) => name in filter_url_data)) {
+
+    const url_list = Object.keys(filter_url_data)
+        .filter((key) => filter_id_list.includes(filter_url_data[key].id))
+        .map((key) => filter_url_data[key].url);
+
+    for (const url of url_list) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const filter_data: query_object = await get_json(filter_url_data[filter_name].url);
+        const filter_data: query_object = await get_json(url);
         filter_list.push(filter_data.rule);
     }
+
     const joined_advanced_filter: query_type = ["or", [...filter_list]];
     return joined_advanced_filter;
 }

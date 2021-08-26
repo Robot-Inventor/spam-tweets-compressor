@@ -10,48 +10,50 @@ function get_setting_name(element: HTMLElement) {
 }
 
 async function load_filter_list(setting: setting_object): Promise<void> {
+    const filter_list_outer = document.getElementById("filter_list_outer");
+    if (!filter_list_outer) {
+        console.error("#filter_list_outer was not found.");
+        return;
+    }
+
     const response = await fetch(
         "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json"
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json_data: advanced_filter_type = await response.json();
-    const filter_list_outer = document.getElementById("filter_list_outer");
 
-    if (filter_list_outer) {
-        Object.keys(json_data)
-            .sort()
-            .forEach((key) => {
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                // eslint-disable-next-line no-irregular-whitespace
-                const checkbox_id = key.replace(/[ 　]/g, "_");
-                checkbox.id = checkbox_id;
-                checkbox.dataset.filterName = key;
+    Object.keys(json_data)
+        .sort()
+        .forEach((key) => {
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            // eslint-disable-next-line no-irregular-whitespace
+            const checkbox_id = key.replace(/[ 　]/g, "_");
+            checkbox.id = checkbox_id;
+            const filter_id = json_data[key].id;
+            checkbox.dataset.filterId = filter_id;
 
-                if (setting.advanced_filter.includes(key)) checkbox.checked = true;
+            if (setting.advanced_filter.includes(filter_id)) checkbox.checked = true;
 
-                checkbox.addEventListener("change", () => {
-                    const all_checkbox: NodeListOf<HTMLInputElement> =
-                        filter_list_outer.querySelectorAll("input[type='checkbox']");
-                    setting.advanced_filter = [...all_checkbox]
-                        .filter((element) => element.checked && element.dataset.filterName !== undefined)
-                        .map((element) => element.dataset.filterName || "");
-                });
-
-                const label = document.createElement("label");
-                label.textContent = key;
-                label.setAttribute("for", checkbox_id);
-
-                const outer = document.createElement("div");
-                outer.className = "filter_list_item";
-
-                outer.appendChild(checkbox);
-                outer.appendChild(label);
-                filter_list_outer.appendChild(outer);
+            checkbox.addEventListener("change", () => {
+                const all_checkbox: NodeListOf<HTMLInputElement> =
+                    filter_list_outer.querySelectorAll("input[type='checkbox']");
+                setting.advanced_filter = [...all_checkbox]
+                    .filter((element) => element.checked && element.dataset.filterId !== undefined)
+                    .map((element) => element.dataset.filterId || "");
             });
-    } else {
-        console.log("filter_list_outerが見つかりませんでした");
-    }
+
+            const label = document.createElement("label");
+            label.textContent = key;
+            label.setAttribute("for", checkbox_id);
+
+            const outer = document.createElement("div");
+            outer.className = "filter_list_item";
+
+            outer.appendChild(checkbox);
+            outer.appendChild(label);
+            filter_list_outer.appendChild(outer);
+        });
 }
 
 new Setting()
