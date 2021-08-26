@@ -1,1 +1,1 @@
-(()=>{"use strict";document.querySelectorAll("*[data-i18n]").forEach((t=>{const e=t.dataset.i18n;if(!e)return;const n=browser.i18n.getMessage(e);n&&(t.textContent=n)}))})();
+(()=>{"use strict";document.querySelectorAll("*[data-i18n]").forEach((e=>{const t=e.dataset.i18n;if(!t)return;const n=browser.i18n.getMessage(t);n&&(e.textContent=n)})),document.querySelectorAll("a[data-i18n-link]").forEach((e=>{const t=e.dataset.i18nLink;if(!t)return;const n=browser.i18n.getMessage(t);n&&(e.href=n)}))})();

@@ -50,6 +50,7 @@ This extension determines whether to hide a tweet based on the following factors
 - NG words
 - Advanced Spam Detection
 
+<!-- When you rename About Personal Information section, change privacy policy link in _locales/**/message.json. -->
 ## About Personal Information
 
 This extension analyzes tweets on the user's computer, so it does not send any information about the user to the outside world. However, it will communicate with the server to receive the latest filter data for " Advanced Spam Detection".

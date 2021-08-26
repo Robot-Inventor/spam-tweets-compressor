@@ -47,6 +47,12 @@
     "advanced_setting_h1": {
         "message": "Advanced Setting"
     },
+    "advanced_setting_privacy_policy_link": {
+        "message": "https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/README.md#about-personal-information"
+    },
+    "advanced_setting_privacy_policy": {
+        "message": "Privacy Policy"
+    },
     "advanced_setting_open_source_license": {
         "message": "Open Source License"
     },
