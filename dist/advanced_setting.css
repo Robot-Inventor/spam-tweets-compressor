@@ -222,6 +222,11 @@ input + label {
     margin-left: 0.5rem;
 }
 
+input[type="checkbox"],
+input[type="checkbox"] + label {
+    cursor: pointer;
+}
+
 textarea {
     border: 0.1rem solid var(--high_emphasize_text_color);
     width: 100%;
