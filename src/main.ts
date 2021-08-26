@@ -140,10 +140,9 @@ void emoji_detector
             if (timeline) {
                 body_observer.disconnect();
 
-                void (async () => {
-                    await update_color_setting();
-                    await load_color_setting();
-                })();
+                update_color_setting()
+                    .then(load_color_setting)
+                    .catch((e) => console.error(e));
 
                 const main_observer_target = timeline;
                 const main_observer = new MutationObserver(() => void run_check(setting, joined_advanced_filter));
