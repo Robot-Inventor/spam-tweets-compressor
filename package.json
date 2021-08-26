@@ -9,7 +9,7 @@
     "watch": "npx webpack -w",
     "lint:js": "npx eslint src/**/*.ts",
     "lint:css": "stylelint **/*.{css,scss,sass}",
-    "format": "npx prettier --write \"**/*.{js,ts,json,css}\"",
+    "format": "npx prettier --write \"**/*.{js,ts,css}\"",
     "pack": "npx web-ext build --ignore-files \"./**/*.md\" \"./src/\" \"./docs/\" \"./gh-pages/\" \"./image/for_readme/\" package.json package-lock.json \"tsconfig*.json\" webpack.config.js \"./image/logo.*\""
   },
   "repository": {
