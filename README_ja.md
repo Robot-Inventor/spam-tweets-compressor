@@ -14,41 +14,41 @@
 
 ### ✔ できること
 
--   嫌がらせや脅迫の可能性があるツイートを非表示にしてあなたの精神を守ります
--   どのようなツイートを嫌がらせや脅迫とみなすかを設定できます
+- 嫌がらせや脅迫の可能性があるツイートを非表示にしてあなたの精神を守ります
+- どのようなツイートを嫌がらせや脅迫とみなすかを設定できます
 
 ### ✖ できないこと
 
--   嫌がらせや脅迫の可能性があるとみなされたツイートを自動で通報したり、投稿者をミュート・ブロックしたりする機能はありません
--   あなたのブラウザー上でのみ非表示にします。他の人のブラウザー上では非表示にできません
--   [twitter.com](https://twitter.com)と[mobile.twitter.com](https://mobile.twitter.com)でのみ動作するブラウザー拡張機能です。他の Twitter クライアントやモバイルアプリでは動作しません
+- 嫌がらせや脅迫の可能性があるとみなされたツイートを自動で通報したり、投稿者をミュート・ブロックしたりする機能はありません
+- あなたのブラウザー上でのみ非表示にします。他の人のブラウザー上では非表示にできません
+- [twitter.com](https://twitter.com)と[mobile.twitter.com](https://mobile.twitter.com)でのみ動作するブラウザー拡張機能です。他のTwitterクライアントやモバイルアプリでは動作しません
 
 ### ⚠ 注意
 
--   この拡張機能は非公式の拡張機能です。Twitter 社は一切関与していません
--   嫌がらせや脅迫の「可能性がある」ツイートを非表示にします。偽陽性や偽陰性も発生します
+- この拡張機能は非公式の拡張機能です。Twitter社は一切関与していません
+- 嫌がらせや脅迫の「可能性がある」ツイートを非表示にします。偽陽性や偽陰性も発生します
 
 ## 対応ブラウザー
 
--   Google Chrome
--   Mozilla Firefox
--   Chromium ベースのブラウザー（Microsoft Edge など）
+- Google Chrome
+- Mozilla Firefox
+- Chromiumベースのブラウザー（Microsoft Edgeなど）
 
-※動作確認を行っているのは Google Chrome と Mozilla Firefox のみです。Chromium ベースのブラウザーは内部的には Google Chrome と同じため正常に動作する可能性が高いと考えられます。
+※動作確認を行っているのはGoogle ChromeとMozilla Firefoxのみです。Chromiumベースのブラウザーは内部的にはGoogle Chromeと同じため正常に動作する可能性が高いと考えられます。
 
 ## インストール方法
 
 各ブラウザーの拡張機能のストアからインストールできます。
 
--   [Chrome ウェブストア（Google Chrome）](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
--   [AMO（Mozilla Firefox）](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
+- [Chrome ウェブストア（Google Chrome）](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
+- [AMO（Mozilla Firefox）](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
 
 ## 判定方法
 
 この拡張機能は次のような要素からツイートを非表示にするか判断します。
 
--   NG ワード
--   高度なスパム判定
+- NGワード
+- 高度なスパム判定
 
 ## 個人情報について
 
@@ -56,9 +56,9 @@
 
 この拡張機能は、権限を次の目的にのみ使用します。
 
--   表示されているツイートがスパムか判定し、スパムとみなされたツイートに対し非表示にするなどの処理を行うため、[twitter.com](https://twitter.com)と[mobile.twitter.com](https://mobile.twitter.com)へのアクセス権限を使用します
--   設定を保存するために storage 権限を使用します
--   最新のフィルターデータを取得するために[cdn.statically.io](https://cdn.statically.io)へのアクセス権限を使用します
+- 表示されているツイートがスパムか判定し、スパムとみなされたツイートに対し非表示にするなどの処理を行うため、[twitter.com](https://twitter.com)と[mobile.twitter.com](https://mobile.twitter.com)へのアクセス権限を使用します
+- 設定を保存するためにstorage権限を使用します
+- 最新のフィルターデータを取得するために[cdn.statically.io](https://cdn.statically.io)へのアクセス権限を使用します
 
 ## 開発者向け
 
