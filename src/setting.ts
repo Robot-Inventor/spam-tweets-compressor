@@ -41,9 +41,12 @@ export class Setting {
     async load(): Promise<setting_object> {
         const saved_setting: { setting: setting_object } = await browser.storage.local.get("setting");
         const setting = default_setting;
-        Object.keys(default_setting).forEach((key) => {
-            setting[key] = saved_setting.setting[key] !== undefined ? saved_setting.setting[key] : default_setting[key];
-        });
+
+        if (saved_setting.setting) {
+            Object.keys(saved_setting.setting)
+                .filter((key) => key in default_setting)
+                .forEach((key) => (setting[key] = saved_setting.setting[key]));
+        }
 
         browser.storage.onChanged.addListener((changes) => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
