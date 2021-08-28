@@ -2,6 +2,7 @@ type setting_value_type = number | string | boolean | Array<string> | { [key: st
 
 export interface setting_object {
     [key: string]: setting_value_type;
+    hide_completely: boolean;
     include_verified_account: boolean;
     include_user_name: boolean;
     show_reason: boolean;
@@ -16,6 +17,7 @@ export interface setting_object {
 }
 
 const default_setting: setting_object = {
+    hide_completely: false,
     include_verified_account: false,
     include_user_name: false,
     show_reason: true,
