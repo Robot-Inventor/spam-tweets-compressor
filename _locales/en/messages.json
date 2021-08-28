@@ -23,6 +23,9 @@
     "browser_action_advanced_spam_detection": {
         "message": "Advanced Spam Detection: "
     },
+    "browser_action_hide_completely": {
+        "message": "Hide Completely (not recommended)"
+    },
     "browser_action_include_user_name": {
         "message": "Include User Names in the NG Word Detection"
     },

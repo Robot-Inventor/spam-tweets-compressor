@@ -101,6 +101,10 @@ export class TweetAnalyser {
         this.tweet.insertAdjacentElement("afterend", decompress_button);
     }
 
+    hide_completely(): void {
+        this.tweet.style.display = "none";
+    }
+
     get hashtag(): Array<string> {
         const is_hashtag = (element: Element) => {
             return element.textContent && hash_symbol.includes(element.textContent[0]);
