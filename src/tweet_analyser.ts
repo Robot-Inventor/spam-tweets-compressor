@@ -7,11 +7,13 @@ export class TweetAnalyser {
     private readonly tweet: TweetElement;
     private readonly content_element: HTMLElement | null;
     private readonly emoji_detector: Emoji;
+    private readonly decompress_button: HTMLElement;
 
     constructor(tweet: TweetElement, emoji_detector: Emoji) {
         this.tweet = tweet;
         this.content_element = tweet.querySelector(selector.tweet_content);
         this.emoji_detector = emoji_detector;
+        this.decompress_button = document.createElement("button");
     }
 
     private get_text_content(element: HTMLElement) {
@@ -65,9 +67,8 @@ export class TweetAnalyser {
     }
 
     compress(reason?: string, decompress_on_hover?: boolean): void {
-        const decompress_button = document.createElement("button");
-        decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
-        decompress_button.classList.add(selector.show_tweet_button.replace(/^\./, ""));
+        this.decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
+        this.decompress_button.classList.add(selector.show_tweet_button.replace(/^\./, ""));
 
         const user_name = this.tweet.user_name;
         const user_id = this.tweet.user_id;
@@ -77,32 +78,33 @@ export class TweetAnalyser {
                 `@${user_id}`,
                 reason
             ]);
-            decompress_button.textContent = button_text;
+            this.decompress_button.textContent = button_text;
         } else {
             const button_text: string = browser.i18n.getMessage("decompress_button_strict_without_reason", [
                 user_name,
                 `@${user_id}`
             ]);
-            decompress_button.textContent = button_text;
+            this.decompress_button.textContent = button_text;
         }
-        decompress_button.addEventListener("click", () => {
+        this.decompress_button.addEventListener("click", () => {
             this.tweet.style.display = "block";
-            decompress_button.remove();
+            this.decompress_button.remove();
         });
 
         if (decompress_on_hover) {
-            decompress_button.addEventListener("mouseover", () => {
+            this.decompress_button.addEventListener("mouseover", () => {
                 this.tweet.style.display = "block";
-                decompress_button.remove();
+                this.decompress_button.remove();
             });
         }
 
         this.tweet.style.display = "none";
-        this.tweet.insertAdjacentElement("afterend", decompress_button);
+        this.tweet.insertAdjacentElement("afterend", this.decompress_button);
     }
 
     hide_completely(): void {
         this.tweet.style.display = "none";
+        this.decompress_button.style.display = "none";
     }
 
     get hashtag(): Array<string> {
