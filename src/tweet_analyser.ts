@@ -3,6 +3,9 @@ import { TweetElement } from "./tweet_element";
 import { hash_symbol, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { Emoji } from "./emoji";
 
+/**
+ * Analyse tweet and provide compressing feature.
+ */
 export class TweetAnalyser {
     private readonly tweet: TweetElement;
     private readonly content_element: HTMLElement | null;
@@ -28,24 +31,36 @@ export class TweetAnalyser {
         return temp.textContent;
     }
 
+    /**
+     * Text content of the tweet that includes hashtags and links.
+     */
     get content(): string | null {
         if (!this.content_element) return null;
 
         return this.get_text_content(this.content_element) || "";
     }
 
+    /**
+     * Username of the user who posted the tweet.
+     */
     get user_name(): string {
         const user_name_element: HTMLElement | null = this.tweet.querySelector(selector.user_name);
         if (user_name_element) return this.get_text_content(user_name_element) || "";
         else return "";
     }
 
+    /**
+     * User ID of the user who posted the tweet.
+     */
     get user_id(): string | null {
         const user_id_element = this.tweet.querySelector(selector.user_id);
         if (user_id_element) return normalize_user_id(user_id_element.textContent || "");
         else return null;
     }
 
+    /**
+     * Main language of the tweet.
+     */
     get language(): Promise<string> {
         return this.get_language();
     }
@@ -66,6 +81,11 @@ export class TweetAnalyser {
         else return "";
     }
 
+    /**
+     * Compress the tweet.
+     * @param reason reason why the tweet was judged as spam.
+     * @param decompress_on_hover Whether or not to automatically decompress the tweet when the mouse is over the decompress button.
+     */
     compress(reason?: string, decompress_on_hover?: boolean): void {
         this.decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         this.decompress_button.classList.add(selector.show_tweet_button.replace(/^\./, ""));
@@ -102,11 +122,17 @@ export class TweetAnalyser {
         this.tweet.insertAdjacentElement("afterend", this.decompress_button);
     }
 
+    /**
+     * Hide completely the tweet.
+     */
     hide_completely(): void {
         this.tweet.style.display = "none";
         this.decompress_button.style.display = "none";
     }
 
+    /**
+     * Array of hashtags in the tweet.
+     */
     get hashtag(): Array<string> {
         const is_hashtag = (element: Element) => {
             return element.textContent && hash_symbol.includes(element.textContent[0]);
@@ -117,6 +143,9 @@ export class TweetAnalyser {
         return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
     }
 
+    /**
+     * Array of links in the tweet.
+     */
     get link(): Array<string> {
         function is_link(element: Element) {
             return Boolean(element.querySelector(selector.link_scheme_outer));

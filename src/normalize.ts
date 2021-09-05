@@ -1,5 +1,10 @@
 export const hash_symbol: ReadonlyArray<string> = ["#", "＃"];
 
+/**
+ * Normalize normal text.
+ * @param text target text
+ * @returns normalized text
+ */
 export function normalize(text: string): string {
     text = text
         .normalize("NFKC")
@@ -10,17 +15,32 @@ export function normalize(text: string): string {
     return text;
 }
 
-export function normalize_link(text: string): string {
-    return text
+/**
+ * Normalize URL.
+ * @param url target url
+ * @returns normalized url
+ */
+export function normalize_link(url: string): string {
+    return url
         .replace(/^https?:\/\/(www\.)?/i, "")
         .replace(/\/(index\.html)?$/, "")
         .replace(/^.+?(\/|$)/, (s) => s.toLowerCase());
 }
 
-export function normalize_hashtag(text: string): string {
-    return normalize(text.replace(new RegExp(`^[${hash_symbol.join()}]`), ""));
+/**
+ * Normalize hashtag.
+ * @param hashtag target hashtag
+ * @returns normalized hashtag
+ */
+export function normalize_hashtag(hashtag: string): string {
+    return normalize(hashtag.replace(new RegExp(`^[${hash_symbol.join()}]`), ""));
 }
 
-export function normalize_user_id(text: string): string {
-    return normalize(text.replace(/^[@＠]/, ""));
+/**
+ * Normalize user ID.
+ * @param user_id target user ID
+ * @returns normalized user ID
+ */
+export function normalize_user_id(user_id: string): string {
+    return normalize(user_id.replace(/^[@＠]/, ""));
 }

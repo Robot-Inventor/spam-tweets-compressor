@@ -3,12 +3,21 @@ import { load_color_setting } from "./color";
 import { Setting, setting_object } from "./setting";
 import "./advanced_setting_view";
 
+/**
+ * Get setting name information from input element.
+ * @param element target element
+ * @returns setting name of the target
+ */
 function get_setting_name(element: HTMLElement) {
     const setting_name = element.dataset.settingName;
     if (setting_name) return setting_name;
     else throw "設定の名称が指定されていないinput要素が見つかりました";
 }
 
+/**
+ * Download advanced filter list and generate setting UI.
+ * @param setting
+ */
 async function load_filter_list(setting: setting_object): Promise<void> {
     const filter_list_outer = document.getElementById("filter_list_outer");
     if (!filter_list_outer) {

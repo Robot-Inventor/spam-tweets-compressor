@@ -9,6 +9,10 @@ import { normalize_user_id } from "./normalize";
 import { load_color_setting, update_color_setting } from "./color";
 import { Emoji } from "./emoji";
 
+/**
+ * Return an array of unchecked tweets.
+ * @returns unchecked Tweets
+ */
 function get_unchecked_tweets(): Array<TweetElement> {
     const tweets: NodeListOf<TweetElement> = document.querySelectorAll(
         `${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`
@@ -52,17 +56,28 @@ function get_unchecked_tweets(): Array<TweetElement> {
     return [...tweets].map(init);
 }
 
+/**
+ * Mark all tweets as unchecked.
+ */
 function reset_check_status() {
     document
         .querySelectorAll("." + selector.checked_tweet_class_name)
         .forEach((element) => element.classList.remove(selector.checked_tweet_class_name));
 }
 
+/**
+ * Decompress all compressed tweets.
+ */
 function decompress_all() {
     const tweets: NodeListOf<TweetElement> = document.querySelectorAll(selector.show_tweet_button);
     tweets.forEach((element) => element.click());
 }
 
+/**
+ * Detect spam tweets and compress or hide them.
+ * @param setting setting
+ * @param advanced_filter advanced filter data of Advanced Spam Detection
+ */
 function run_check(setting: setting_object, advanced_filter: query_type) {
     const exclude_url = setting.exclude_url;
 
@@ -84,6 +99,11 @@ function run_check(setting: setting_object, advanced_filter: query_type) {
     }
 }
 
+/**
+ * Get JSON data as an object from specified URL.
+ * @param url target URL
+ * @returns Object
+ */
 async function get_json(url: string) {
     // deepcode ignore Ssrf: <This is because the function is to read only the trusted files listed in dist/advanced_filter.json.>
     const response = await fetch(url);
@@ -93,6 +113,11 @@ async function get_json(url: string) {
     return json;
 }
 
+/**
+ * Download and merge specified advanced filters.
+ * @param filter_id_list ID list of filters
+ * @returns advanced filter data.
+ */
 async function load_advanced_filter(filter_id_list: Array<string>) {
     const filter_list: Array<query_type> = [];
 

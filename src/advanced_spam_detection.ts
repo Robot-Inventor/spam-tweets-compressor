@@ -58,6 +58,11 @@ const query_example: query_object = {
     ]
 };
 
+/**
+ * Return if the type of target variable is query_element.
+ * @param argument target variable
+ * @returns weather or not the target variable is query_element
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function is_query_element(argument: any): argument is query_element {
     return (
@@ -90,6 +95,12 @@ function judge(target: string | Array<string>, pattern: string) {
     }
 }
 
+/**
+ * Detect spam with advanced filter.
+ * @param query advanced filter
+ * @param tweet target tweet
+ * @returns weather or not the target tweet is spam
+ */
 export function advanced_spam_detection(query: query_type, tweet: TweetElement): boolean {
     let result = query[0] === "and";
 
