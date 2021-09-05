@@ -1,3 +1,6 @@
+/**
+ * Initialize i18n texts that have ``data-i18n`` attribute.
+ */
 function init_i18n_text() {
     const target_element: NodeListOf<HTMLElement> = document.querySelectorAll("*[data-i18n]");
     target_element.forEach((target) => {
@@ -9,6 +12,9 @@ function init_i18n_text() {
     });
 }
 
+/**
+ * Initialize i18n links that have ``data-i18n-link`` attribute.
+ */
 function init_i18n_link() {
     const target_element: NodeListOf<HTMLAnchorElement> = document.querySelectorAll("a[data-i18n-link]");
     target_element.forEach((target) => {

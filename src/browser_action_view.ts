@@ -1,3 +1,6 @@
+/**
+ * Initialize tab switcher.
+ */
 class TabSwitcher {
     private readonly selector: { item_group: string; selected_item: string };
 
@@ -34,6 +37,9 @@ class TabSwitcher {
     }
 }
 
+/**
+ * Insert version value of the extension to the right of extension name.
+ */
 function show_version() {
     const manifest = browser.runtime.getManifest();
     const version = manifest.version;

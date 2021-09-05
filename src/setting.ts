@@ -31,6 +31,9 @@ const default_setting: setting_object = {
     font_color: "rgb(255, 255, 255)"
 };
 
+/**
+ * Class for setting-related processing.
+ */
 export class Setting {
     private setting: setting_object;
     private callback?: () => void;
@@ -40,6 +43,12 @@ export class Setting {
         this.callback = undefined;
     }
 
+    /**
+     * Load current setting. To use the class, call this function first.
+     *
+     * This function returns setting object. If a property of the object has been changed, setting will be saved overwrite.
+     * @returns setting data
+     */
     async load(): Promise<setting_object> {
         const saved_setting: { setting: setting_object } = await browser.storage.local.get("setting");
         const setting = default_setting;
@@ -68,10 +77,17 @@ export class Setting {
         });
     }
 
+    /**
+     * Save overwrite the setting.
+     */
     private save(): void {
         void browser.storage.local.set({ setting: this.setting });
     }
 
+    /**
+     * Set callback that is called when the setting has been updated.
+     * @param callback callback
+     */
     onChange(callback?: () => void): void {
         this.callback = callback;
     }

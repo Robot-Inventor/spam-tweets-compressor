@@ -5,6 +5,12 @@ import { TweetElement } from "./tweet_element";
 import { is_regexp, parse_regexp } from "./parse_regexp";
 import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
 
+/**
+ * Return weather or not the target text includes NG words.
+ * @param text target text
+ * @param ng_words NG wards
+ * @returns weather the target text includes NG words or not.
+ */
 function detect_ng_word(text: string, ng_words: Array<string>) {
     for (const word of ng_words) {
         if (!word) continue;
@@ -15,10 +21,22 @@ function detect_ng_word(text: string, ng_words: Array<string>) {
     return false;
 }
 
+/**
+ * If the account that posted the tweet has verified badge, return true.
+ * @param tweet target tweet
+ * @returns does the account have verified badge.
+ */
 function detect_verified_badge(tweet: TweetElement) {
     return Boolean(tweet.querySelector(selector.verified_badge));
 }
 
+/**
+ * Determine if a tweet is spam.
+ * @param target target tweet
+ * @param setting setting
+ * @param advanced_filter advanced filter data for Advanced Spam Detection
+ * @returns is the tweet spam
+ */
 export function detect_spam(
     target: TweetElement,
     setting: setting_object,

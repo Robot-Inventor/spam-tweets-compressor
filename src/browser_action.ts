@@ -2,6 +2,11 @@ import "./browser_action_view";
 import { load_color_setting } from "./color";
 import { Setting } from "./setting";
 
+/**
+ * Get setting name information from input element.
+ * @param element target element
+ * @returns setting name of the target
+ */
 function get_setting_name(element: HTMLElement) {
     const setting_name = element.dataset.settingName;
     if (setting_name) return setting_name;

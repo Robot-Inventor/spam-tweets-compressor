@@ -1,6 +1,10 @@
 import { selector } from "./selector";
 import { Setting } from "./setting";
 
+/**
+ * Get the color scheme of Twitter and sync the color scheme of the extension with it.
+ * @param retry if true, retry when failed to get the color setting of Twitter.
+ */
 export async function update_color_setting(retry = true): Promise<void> {
     const setting = await new Setting().load();
 
@@ -25,10 +29,23 @@ export async function update_color_setting(retry = true): Promise<void> {
     } else throw "Failed to get color setting.";
 }
 
+/**
+ * Change opacity of color of ``rgb(r, g, b)`` format.
+ * @param rgb ``rgb(r, g, b)``
+ * @param opacity opacity you want to set
+ * @returns ``rgba(r, g, b, ${opacity})``
+ */
 function change_opacity(rgb: string, opacity: number) {
     return rgb.replace(/^rgb\(/, "rgba(").replace(/\)$/, `, ${opacity})`);
 }
 
+/**
+ * Load color scheme and initialize CSS variables. The supported CSS variables are below:
+ * - ``--main_color``: main color like Twitter Blue
+ * - ``--background_color``: document background color
+ * - ``--high_emphasize_text_color``: color of normal text
+ * - ``--medium_emphasize_text_color``: color of text that medium importance
+ */
 export async function load_color_setting(): Promise<void> {
     const setting = await new Setting().load();
 

@@ -1,9 +1,15 @@
+/**
+ * Shift the scroll position by the height of the header.
+ */
 function adjust_scroll_position() {
     const header = document.querySelector("header");
     if (header) scrollBy(0, parseInt(getComputedStyle(header).height.replace(/px$/, "")) * -2);
     else console.error("header was not found.");
 }
 
+/**
+ * Initialize menu.
+ */
 class Menu {
     private readonly overlay: HTMLElement | null;
     private readonly menu: HTMLElement | null;
