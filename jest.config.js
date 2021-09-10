@@ -4,5 +4,5 @@ module.exports = {
     transform: {
         "^.+\\.(ts|tsx)$": "ts-jest"
     },
-    transformIgnorePatterns: ["\\.pnp\\.[^\\\/]+$"]
+    transformIgnorePatterns: ["\\.pnp\\.[^\\/]+$"]
 };
