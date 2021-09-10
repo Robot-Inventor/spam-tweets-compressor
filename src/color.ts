@@ -47,6 +47,9 @@ function change_opacity(rgb: string, opacity: number) {
  * - ``--medium_emphasize_text_color``: color of text that medium importance
  */
 export async function load_color_setting(): Promise<void> {
+    const high_emphasize_opacity = 1;
+    const medium_emphasize_opacity = 0.87;
+
     const setting = await new Setting().load();
 
     const style_element = document.createElement("style");
@@ -54,8 +57,8 @@ export async function load_color_setting(): Promise<void> {
 :root {
     --main_color: ${setting.main_color};
     --background_color: ${setting.background_color};
-    --high_emphasize_text_color: ${change_opacity(setting.font_color, 0.87)};
-    --medium_emphasize_text_color: ${change_opacity(setting.font_color, 0.6)};
+    --high_emphasize_text_color: ${change_opacity(setting.font_color, high_emphasize_opacity)};
+    --medium_emphasize_text_color: ${change_opacity(setting.font_color, medium_emphasize_opacity)};
 }
     `;
     document.body.appendChild(style_element);
