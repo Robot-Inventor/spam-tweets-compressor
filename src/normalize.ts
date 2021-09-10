@@ -26,7 +26,8 @@ export function normalize_link(url: string): string {
     return normalizeUrl(url, {
         stripHash: true,
         stripProtocol: true,
-        removeQueryParameters: true
+        removeQueryParameters: true,
+        removeDirectoryIndex: true
     });
 }
 
