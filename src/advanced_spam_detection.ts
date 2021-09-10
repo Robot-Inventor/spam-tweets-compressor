@@ -1,4 +1,4 @@
-import { TweetElement } from "tweet_element";
+import { TweetElement } from "./tweet_element";
 import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { is_regexp, parse_regexp } from "./parse_regexp";
 
