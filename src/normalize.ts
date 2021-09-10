@@ -1,3 +1,5 @@
+import normalizeUrl from "normalize-url";
+
 export const hash_symbol: ReadonlyArray<string> = ["#", "＃"];
 
 /**
@@ -21,10 +23,11 @@ export function normalize(text: string): string {
  * @returns normalized url
  */
 export function normalize_link(url: string): string {
-    return url
-        .replace(/^https?:\/\/(www\.)?/i, "")
-        .replace(/\/(index\.html)?$/, "")
-        .replace(/^.+?(\/|$)/, (s) => s.toLowerCase());
+    return normalizeUrl(url, {
+        stripHash: true,
+        stripProtocol: true,
+        removeQueryParameters: true
+    });
 }
 
 /**
