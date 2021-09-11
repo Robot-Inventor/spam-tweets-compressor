@@ -128,6 +128,9 @@
     "advanced_setting_advanced_spam_detection_description2": {
         "message": "注意：高度なスパム判定では偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。"
     },
+    "advanced_setting_advanced_spam_detection_description3": {
+        "message": "フィルターの仕組みの概要と各フィルターに関する説明"
+    },
     "decompress_button_strict_without_reason": {
         "message": "$USER_NAME$（$USER_ID$）のツイートを表示",
         "placeholders": {
