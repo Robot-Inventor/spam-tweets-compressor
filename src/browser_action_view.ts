@@ -40,12 +40,12 @@ class TabSwitcher {
 /**
  * Insert version value of the extension to the right of extension name.
  */
-function show_version() {
+const show_version = () => {
     const manifest = browser.runtime.getManifest();
-    const version = manifest.version;
+    const { version } = manifest;
     const target_element = document.getElementById("extension_version");
     if (target_element) target_element.textContent = `${version}`;
-}
+};
 
 new TabSwitcher();
 show_version();

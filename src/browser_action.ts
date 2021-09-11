@@ -1,17 +1,17 @@
 import "./browser_action_view";
-import { load_color_setting } from "./color";
 import { Setting } from "./setting";
+import { load_color_setting } from "./color";
 
 /**
  * Get setting name information from input element.
  * @param element target element
  * @returns setting name of the target
  */
-function get_setting_name(element: HTMLElement) {
+const get_setting_name = (element: HTMLElement) => {
     const setting_name = element.dataset.settingName;
     if (setting_name) return setting_name;
-    else throw "設定の名称が指定されていないinput要素が見つかりました";
-}
+    else throw new Error("設定の名称が指定されていないinput要素が見つかりました");
+};
 
 new Setting()
     .load()

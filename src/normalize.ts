@@ -7,44 +7,44 @@ export const hash_symbol: ReadonlyArray<string> = ["#", "＃"];
  * @param text target text
  * @returns normalized text
  */
-export function normalize(text: string): string {
-    text = text
+const normalize = (text: string): string => {
+    const result = text
         .normalize("NFKC")
         .toLowerCase()
-        .replace(/[ぁ-ん]/g, (s: string) => {
-            return String.fromCharCode(s.charCodeAt(0) + 0x60);
-        });
-    return text;
-}
+        // eslint-disable-next-line no-magic-numbers
+        .replace(/[ぁ-ん]/gu, (str: string) => String.fromCharCode(str.charCodeAt(0) + 0x60));
+    return result;
+};
 
 /**
  * Normalize URL.
  * @param url target url
  * @returns normalized url
  */
-export function normalize_link(url: string): string {
-    return normalizeUrl(url, {
-        stripHash: true,
-        stripProtocol: true,
+const normalize_link = (url: string): string =>
+    normalizeUrl(url, {
+        removeDirectoryIndex: true,
         removeQueryParameters: true,
-        removeDirectoryIndex: true
+        stripHash: true,
+        stripProtocol: true
     });
-}
 
 /**
  * Normalize hashtag.
  * @param hashtag target hashtag
  * @returns normalized hashtag
  */
-export function normalize_hashtag(hashtag: string): string {
-    return normalize(hashtag.replace(new RegExp(`^[${hash_symbol.join()}]`), ""));
-}
+const normalize_hashtag = (hashtag: string): string =>
+    normalize(hashtag.replace(new RegExp(`^[${hash_symbol.join()}]`, "u"), ""));
 
 /**
  * Normalize user ID.
  * @param user_id target user ID
  * @returns normalized user ID
  */
-export function normalize_user_id(user_id: string): string {
-    return normalize(user_id.replace(/^[@＠]/, ""));
-}
+const normalize_user_id = (user_id: string): string => normalize(user_id.replace(/^[@＠]/u, ""));
+
+export { normalize };
+export { normalize_link };
+export { normalize_hashtag };
+export { normalize_user_id };

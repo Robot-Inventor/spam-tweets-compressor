@@ -1,7 +1,7 @@
-import { selector } from "./selector";
-import { TweetElementInterface } from "./tweet_element";
 import { hash_symbol, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { Emoji } from "./emoji";
+import { TweetElementInterface } from "./tweet_element";
+import { selector } from "./selector";
 
 /**
  * Analyse tweet and provide compressing feature.
@@ -23,10 +23,10 @@ export class TweetAnalyser {
         const clone = element.cloneNode(true);
         const temp = document.createElement("div");
         temp.appendChild(clone);
-        temp.querySelectorAll("img").forEach((element) => {
-            const emoji = this.emoji_detector.get_from_url(element.src);
-            if (emoji) element.insertAdjacentText("afterend", emoji);
-            element.remove();
+        temp.querySelectorAll("img").forEach((img) => {
+            const emoji = this.emoji_detector.get_from_url(img.src);
+            if (emoji) img.insertAdjacentText("afterend", emoji);
+            img.remove();
         });
         return temp.textContent;
     }
@@ -76,7 +76,7 @@ export class TweetAnalyser {
             target_text = temporary_element.textContent || "";
         }
         const detect = await browser.i18n.detectLanguage(target_text);
-        if (detect.isReliable) return detect.languages[0].language.replace(/-.*$/, "");
+        if (detect.isReliable) return detect.languages[0].language.replace(/-.*$/u, "");
         else if (this.content_element && this.content_element.lang) return this.content_element.lang;
         else return "";
     }
@@ -88,10 +88,10 @@ export class TweetAnalyser {
      */
     compress(reason?: string, decompress_on_hover?: boolean): void {
         this.decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
-        this.decompress_button.classList.add(selector.show_tweet_button.replace(/^\./, ""));
+        this.decompress_button.classList.add(selector.show_tweet_button.replace(/^\./u, ""));
 
-        const user_name = this.tweet.user_name;
-        const user_id = this.tweet.user_id;
+        const { user_name } = this.tweet;
+        const { user_id } = this.tweet;
         if (reason) {
             const button_text: string = browser.i18n.getMessage("decompress_button_strict_with_reason", [
                 user_name,
@@ -134,12 +134,8 @@ export class TweetAnalyser {
      * Array of hashtags in the tweet.
      */
     get hashtag(): Array<string> {
-        const is_hashtag = (element: Element) => {
-            return element.textContent && hash_symbol.includes(element.textContent[0]);
-        };
-        const normalize = (element: Element) => {
-            return normalize_hashtag(element.textContent || "");
-        };
+        const is_hashtag = (element: Element) => element.textContent && hash_symbol.includes(element.textContent[0]);
+        const normalize = (element: Element) => normalize_hashtag(element.textContent || "");
         return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_hashtag).map(normalize);
     }
 
@@ -147,12 +143,8 @@ export class TweetAnalyser {
      * Array of links in the tweet.
      */
     get link(): Array<string> {
-        function is_link(element: Element) {
-            return Boolean(element.querySelector(selector.link_scheme_outer));
-        }
-        function normalize(element: Element) {
-            return normalize_link((element.textContent || "").replace(/…$/, ""));
-        }
+        const is_link = (element: Element) => Boolean(element.querySelector(selector.link_scheme_outer));
+        const normalize = (element: Element) => normalize_link((element.textContent || "").replace(/…$/u, ""));
         return [...this.tweet.querySelectorAll(selector.hashtag_link_mention)].filter(is_link).map(normalize);
     }
 }

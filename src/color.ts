@@ -1,11 +1,14 @@
-import { selector } from "./selector";
 import { Setting } from "./setting";
+import { selector } from "./selector";
 
 /**
  * Get the color scheme of Twitter and sync the color scheme of the extension with it.
  * @param retry if true, retry when failed to get the color setting of Twitter.
  */
-export async function update_color_setting(retry = true): Promise<void> {
+const update_color_setting = async (retry = true): Promise<void> => {
+    // eslint-disable-next-line init-declarations
+    let result: Promise<void> | undefined;
+
     const setting = await new Setting().load();
 
     const tweet_button_inner = document.querySelector(selector.tweet_button_inner);
@@ -19,15 +22,19 @@ export async function update_color_setting(retry = true): Promise<void> {
 
         setting.font_color = getComputedStyle(account_name).color;
     } else if (retry) {
-        return new Promise((resolve, reject) => {
+        result = new Promise((resolve, reject) => {
+            const retry_interval = 1000;
+
             setInterval(() => {
                 update_color_setting(false)
                     .then(() => resolve())
-                    .catch((e) => reject(e));
-            }, 1000);
+                    .catch((error) => reject(error));
+            }, retry_interval);
         });
-    } else throw "Failed to get color setting.";
-}
+    } else throw new Error("Failed to get color setting.");
+
+    return result;
+};
 
 /**
  * Change opacity of color of ``rgb(r, g, b)`` format.
@@ -35,9 +42,8 @@ export async function update_color_setting(retry = true): Promise<void> {
  * @param opacity opacity you want to set
  * @returns ``rgba(r, g, b, ${opacity})``
  */
-function change_opacity(rgb: string, opacity: number) {
-    return rgb.replace(/^rgb\(/, "rgba(").replace(/\)$/, `, ${opacity})`);
-}
+const change_opacity = (rgb: string, opacity: number) =>
+    rgb.replace(/^rgb\(/u, "rgba(").replace(/\)$/u, `, ${opacity})`);
 
 /**
  * Load color scheme and initialize CSS variables. The supported CSS variables are below:
@@ -46,7 +52,7 @@ function change_opacity(rgb: string, opacity: number) {
  * - ``--high_emphasize_text_color``: color of normal text
  * - ``--medium_emphasize_text_color``: color of text that medium importance
  */
-export async function load_color_setting(): Promise<void> {
+const load_color_setting = async (): Promise<void> => {
     const high_emphasize_opacity = 1;
     const medium_emphasize_opacity = 0.87;
 
@@ -62,4 +68,7 @@ export async function load_color_setting(): Promise<void> {
 }
     `;
     document.body.appendChild(style_element);
-}
+};
+
+export { update_color_setting };
+export { load_color_setting };
