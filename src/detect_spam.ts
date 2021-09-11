@@ -1,9 +1,9 @@
-import { setting_object } from "./setting";
+import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
+import { is_regexp, parse_regexp } from "./parse_regexp";
+import { TweetElementInterface } from "./tweet_element";
 import { normalize } from "./normalize";
 import { selector } from "./selector";
-import { TweetElementInterface } from "./tweet_element";
-import { is_regexp, parse_regexp } from "./parse_regexp";
-import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
+import { setting_object } from "./setting";
 
 /**
  * Return weather or not the target text includes NG words.
@@ -11,24 +11,23 @@ import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
  * @param ng_words NG wards
  * @returns weather the target text includes NG words or not.
  */
-function detect_ng_word(text: string, ng_words: Array<string>) {
+const detect_ng_word = (text: string, ng_words: Array<string>) => {
     for (const word of ng_words) {
+        // eslint-disable-next-line no-continue
         if (!word) continue;
 
         if (is_regexp(word) && parse_regexp(word).test(text)) return true;
         if (text.includes(word)) return true;
     }
     return false;
-}
+};
 
 /**
  * If the account that posted the tweet has verified badge, return true.
  * @param tweet target tweet
  * @returns does the account have verified badge.
  */
-function detect_verified_badge(tweet: TweetElementInterface) {
-    return Boolean(tweet.querySelector(selector.verified_badge));
-}
+const detect_verified_badge = (tweet: TweetElementInterface) => Boolean(tweet.querySelector(selector.verified_badge));
 
 /**
  * Determine if a tweet is spam.
@@ -37,11 +36,11 @@ function detect_verified_badge(tweet: TweetElementInterface) {
  * @param advanced_filter advanced filter data for Advanced Spam Detection
  * @returns is the tweet spam
  */
-export function detect_spam(
+const detect_spam = (
     target: TweetElementInterface,
     setting: setting_object,
     advanced_filter: query_type
-): [false] | [true, string] {
+): [false] | [true, string] => {
     const normal_judgement = (() => {
         const content = normalize(target.content);
 
@@ -60,4 +59,6 @@ export function detect_spam(
     const verified_badge_judgement = has_verified_badge && !setting.include_verified_account;
 
     return normal_judgement !== false && !verified_badge_judgement ? [true, normal_judgement] : [false];
-}
+};
+
+export { detect_spam };

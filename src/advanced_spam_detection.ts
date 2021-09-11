@@ -1,6 +1,6 @@
-import { TweetElementInterface } from "./tweet_element";
-import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { is_regexp, parse_regexp } from "./parse_regexp";
+import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
+import { TweetElementInterface } from "./tweet_element";
 
 interface query_element {
     mode: "include" | "exclude";
@@ -21,36 +21,36 @@ const query_example: query_object = {
         [
             {
                 mode: "include",
-                type: "text",
-                string: "spam spam"
+                string: "spam spam",
+                type: "text"
             },
             {
                 mode: "exclude",
-                type: "name",
-                string: "i am spam"
+                string: "i am spam",
+                type: "name"
             },
             {
                 mode: "include",
-                type: "id",
-                string: "/spam.*+/i"
+                string: "/spam.*+/i",
+                type: "id"
             },
             {
                 mode: "exclude",
-                type: "hashtag",
-                string: "spam"
+                string: "spam",
+                type: "hashtag"
             },
             [
                 "or",
                 [
                     {
                         mode: "exclude",
-                        type: "link",
-                        string: "twitter.com/home"
+                        string: "twitter.com/home",
+                        type: "link"
                     },
                     {
                         mode: "include",
-                        type: "text",
-                        string: "i'm spam"
+                        string: "i'm spam",
+                        type: "text"
                     }
                 ]
             ]
@@ -64,23 +64,20 @@ const query_example: query_object = {
  * @returns weather or not the target variable is query_element
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function is_query_element(argument: any): argument is query_element {
-    return (
-        argument !== null &&
-        typeof argument === "object" &&
-        "mode" in argument &&
-        "type" in argument &&
-        "string" in argument &&
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        typeof argument.mode === "string" &&
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        typeof argument.type === "string" &&
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        typeof argument.string === "string"
-    );
-}
+const is_query_element = (argument: any): argument is query_element =>
+    argument !== null &&
+    typeof argument === "object" &&
+    "mode" in argument &&
+    "type" in argument &&
+    "string" in argument &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    typeof argument.mode === "string" &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    typeof argument.type === "string" &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    typeof argument.string === "string";
 
-function judge(target: string | Array<string>, pattern: string) {
+const judge = (target: string | Array<string>, pattern: string) => {
     const is_regex = is_regexp(pattern);
 
     if (typeof target === "string") {
@@ -88,12 +85,12 @@ function judge(target: string | Array<string>, pattern: string) {
         else return target.includes(pattern);
     } else {
         let result = false;
-        target.forEach((t) => {
-            if ((is_regex && parse_regexp(pattern).test(t)) || t === pattern) result = true;
+        target.forEach((str) => {
+            if ((is_regex && parse_regexp(pattern).test(str)) || str === pattern) result = true;
         });
         return result;
     }
-}
+};
 
 /**
  * Detect spam with advanced filter.
@@ -101,43 +98,46 @@ function judge(target: string | Array<string>, pattern: string) {
  * @param tweet target tweet
  * @returns weather or not the target tweet is spam
  */
-export function advanced_spam_detection(query: query_type, tweet: TweetElementInterface): boolean {
+const advanced_spam_detection = (query: query_type, tweet: TweetElementInterface): boolean => {
     let result = query[0] === "and";
 
-    query[1].forEach((query_object) => {
+    query[1].forEach((query_obj) => {
         let judgement = false;
 
-        if (is_query_element(query_object)) {
+        if (is_query_element(query_obj)) {
             let includes_text = false;
 
-            switch (query_object.type) {
+            switch (query_obj.type) {
                 case "text":
-                    includes_text = judge(tweet.content, query_object.string);
+                    includes_text = judge(tweet.content, query_obj.string);
                     break;
 
                 case "hashtag":
-                    includes_text = judge(tweet.hashtag, normalize_hashtag(query_object.string));
+                    includes_text = judge(tweet.hashtag, normalize_hashtag(query_obj.string));
                     break;
 
                 case "id":
-                    includes_text = judge(tweet.user_id, normalize_user_id(query_object.string));
+                    includes_text = judge(tweet.user_id, normalize_user_id(query_obj.string));
                     break;
 
                 case "name":
-                    includes_text = judge(tweet.user_name, query_object.string);
+                    includes_text = judge(tweet.user_name, query_obj.string);
                     break;
 
                 case "link":
                     includes_text = judge(
                         tweet.link,
-                        is_regexp(query_object.string) ? query_object.string : normalize_link(query_object.string)
+                        is_regexp(query_obj.string) ? query_obj.string : normalize_link(query_obj.string)
                     );
                     break;
+
+                default:
+                    includes_text = false;
             }
 
-            judgement = query_object.mode === "include" ? includes_text : !includes_text;
+            judgement = query_obj.mode === "include" ? includes_text : !includes_text;
         } else {
-            judgement = advanced_spam_detection(query_object, tweet);
+            judgement = advanced_spam_detection(query_obj, tweet);
         }
 
         if (query[0] === "and" && !judgement) result = false;
@@ -145,4 +145,6 @@ export function advanced_spam_detection(query: query_type, tweet: TweetElementIn
     });
 
     return result;
-}
+};
+
+export { advanced_spam_detection };

@@ -2,10 +2,10 @@
  * Determine what kind of emoji it is from the image URL.
  */
 export class Emoji {
-    private emoji_list: { [key: string]: string } | undefined;
+    private emoji_list: { [key: string]: string } | null;
 
     constructor() {
-        this.emoji_list = undefined;
+        this.emoji_list = null;
     }
 
     /**
@@ -23,8 +23,9 @@ export class Emoji {
      * @returns emoji
      */
     get_from_url(url: string): string | null {
-        if (this.emoji_list && url in this.emoji_list) return this.emoji_list[url];
-        else if (this.emoji_list === undefined) throw "Emoji.init() must be called before Emoji.using get_from_url().";
+        if (!this.emoji_list) throw new Error("Emoji.init() must be called before Emoji.using get_from_url().");
+
+        if (url in this.emoji_list) return this.emoji_list[url];
         else return null;
     }
 }

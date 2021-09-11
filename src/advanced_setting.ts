@@ -1,24 +1,24 @@
+import "./advanced_setting_view";
+import { Setting, setting_object } from "./setting";
 import { advanced_filter_type } from "./advanced_filter_type";
 import { load_color_setting } from "./color";
-import { Setting, setting_object } from "./setting";
-import "./advanced_setting_view";
 
 /**
  * Get setting name information from input element.
  * @param element target element
  * @returns setting name of the target
  */
-function get_setting_name(element: HTMLElement) {
+const get_setting_name = (element: HTMLElement) => {
     const setting_name = element.dataset.settingName;
     if (setting_name) return setting_name;
-    else throw "設定の名称が指定されていないinput要素が見つかりました";
-}
+    else throw new Error("設定の名称が指定されていないinput要素が見つかりました");
+};
 
 /**
  * Download advanced filter list and generate setting UI.
  * @param setting
  */
-async function load_filter_list(setting: setting_object): Promise<void> {
+const load_filter_list = async (setting: setting_object): Promise<void> => {
     const filter_list_outer = document.getElementById("filter_list_outer");
     if (!filter_list_outer) {
         console.error("#filter_list_outer was not found.");
@@ -31,39 +31,83 @@ async function load_filter_list(setting: setting_object): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json_data: advanced_filter_type = await response.json();
 
-    Object.keys(json_data)
-        .sort()
-        .forEach((key) => {
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            // eslint-disable-next-line no-irregular-whitespace
-            const checkbox_id = key.replace(/[ 　]/g, "_");
-            checkbox.id = checkbox_id;
-            const filter_id = json_data[key].id;
-            checkbox.dataset.filterId = filter_id;
+    const add_filter_item = (key: string) => {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        // eslint-disable-next-line no-irregular-whitespace
+        const checkbox_id = key.replace(/[ 　]/gu, "_");
+        checkbox.id = checkbox_id;
+        const filter_id = json_data[key].id;
+        checkbox.dataset.filterId = filter_id;
 
-            if (setting.advanced_filter.includes(filter_id)) checkbox.checked = true;
+        if (setting.advanced_filter.includes(filter_id)) checkbox.checked = true;
 
-            checkbox.addEventListener("change", () => {
-                const all_checkbox: NodeListOf<HTMLInputElement> =
-                    filter_list_outer.querySelectorAll("input[type='checkbox']");
-                setting.advanced_filter = [...all_checkbox]
-                    .filter((element) => element.checked && element.dataset.filterId !== undefined)
-                    .map((element) => element.dataset.filterId || "");
-            });
-
-            const label = document.createElement("label");
-            label.textContent = key;
-            label.setAttribute("for", checkbox_id);
-
-            const outer = document.createElement("div");
-            outer.className = "filter_list_item";
-
-            outer.appendChild(checkbox);
-            outer.appendChild(label);
-            filter_list_outer.appendChild(outer);
+        checkbox.addEventListener("change", () => {
+            const all_checkbox: NodeListOf<HTMLInputElement> =
+                filter_list_outer.querySelectorAll("input[type='checkbox']");
+            setting.advanced_filter = [...all_checkbox]
+                // eslint-disable-next-line no-undefined
+                .filter((element) => element.checked && element.dataset.filterId !== undefined)
+                .map((element) => element.dataset.filterId || "");
         });
-}
+
+        const label = document.createElement("label");
+        label.textContent = key;
+        label.setAttribute("for", checkbox_id);
+
+        const outer = document.createElement("div");
+        outer.className = "filter_list_item";
+
+        outer.appendChild(checkbox);
+        outer.appendChild(label);
+        filter_list_outer.appendChild(outer);
+    };
+
+    Object.keys(json_data).sort().forEach(add_filter_item);
+};
+
+/**
+ * Copy specified text to clipboard.
+ * @param text text to copy
+ */
+const copy_text = (text: string) => {
+    void navigator.clipboard.writeText(text);
+};
+
+/**
+ * Download json file.
+ * @param json json string to download
+ * @param file_name file name to download
+ */
+const download_json = (json: string, file_name: string) => {
+    const download_link = document.createElement("a");
+    download_link.href = URL.createObjectURL(new Blob([json], { type: "text/json" }));
+    download_link.download = file_name;
+    download_link.style.display = "none";
+    document.body.appendChild(download_link);
+    download_link.click();
+    download_link.remove();
+};
+
+/**
+ * Convert setting object to JSON string.
+ * @param setting setting object
+ * @returns json string
+ */
+// eslint-disable-next-line no-magic-numbers
+const convert_setting_to_json = (setting: setting_object) => JSON.stringify(setting, null, 4);
+
+/**
+ * Change the text of the button, then change it back after 5 seconds.
+ * @param button target button
+ * @param text text after change
+ */
+const temporarily_change_button_text = (button: HTMLElement, text: string) => {
+    const button_text_change_time = 5000;
+    const default_text = button.textContent;
+    button.textContent = text;
+    setTimeout(() => (button.textContent = default_text), button_text_change_time);
+};
 
 new Setting()
     .load()
@@ -87,35 +131,18 @@ new Setting()
         const copy_button = document.getElementById("copy_button");
         if (copy_button) {
             copy_button.addEventListener("click", () => {
-                const setting_string = JSON.stringify(setting, null, 4);
-                void navigator.clipboard.writeText(setting_string);
-
-                copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copied");
-                setTimeout(
-                    () => (copy_button.textContent = browser.i18n.getMessage("advanced_setting_export_copy")),
-                    5000
-                );
+                // eslint-disable-next-line no-magic-numbers
+                copy_text(convert_setting_to_json(setting));
+                temporarily_change_button_text(copy_button, browser.i18n.getMessage("advanced_setting_export_copied"));
             });
         }
 
         const save_button = document.getElementById("save_button");
         if (save_button) {
             save_button.addEventListener("click", () => {
-                const setting_string = JSON.stringify(setting, null, 4);
-
-                const download_link = document.createElement("a");
-                download_link.href = URL.createObjectURL(new Blob([setting_string], { type: "text/json" }));
-                download_link.download = "stc_setting.json";
-                download_link.style.display = "none";
-                document.body.appendChild(download_link);
-                download_link.click();
-                download_link.remove();
-
-                save_button.textContent = browser.i18n.getMessage("advanced_setting_export_saved");
-                setTimeout(
-                    () => (save_button.textContent = browser.i18n.getMessage("advanced_setting_export_save")),
-                    5000
-                );
+                // eslint-disable-next-line no-magic-numbers
+                download_json(convert_setting_to_json(setting), "stc_setting.json");
+                temporarily_change_button_text(save_button, browser.i18n.getMessage("advanced_setting_export_saved"));
             });
         }
     })

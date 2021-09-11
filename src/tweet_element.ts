@@ -1,6 +1,6 @@
 import { Emoji } from "./emoji";
-import { selector } from "./selector";
 import { TweetAnalyser } from "./tweet_analyser";
+import { selector } from "./selector";
 
 export interface TweetElementInterface extends HTMLElement {
     content: string;
@@ -43,6 +43,7 @@ export class TweetElement {
             analyser.user_id === null &&
             !document.cookie.includes(user_id_bug_cookie.content)
         ) {
+            // eslint-disable-next-line no-alert
             alert(browser.i18n.getMessage("error_message_user_id_bug"));
             document.cookie = `${user_id_bug_cookie.content};${user_id_bug_cookie.max_age}`;
         }
