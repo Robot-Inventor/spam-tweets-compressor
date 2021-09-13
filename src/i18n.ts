@@ -26,5 +26,20 @@ const init_i18n_link = () => {
     });
 };
 
+/**
+ * Initialize label attribute of i18n elements that have ``data-i18n-link`` attribute.
+ */
+const init_i18n_label = () => {
+    const target_element: NodeListOf<HTMLAnchorElement> = document.querySelectorAll("*[data-i18n-label]");
+    target_element.forEach((target) => {
+        const label_name = target.dataset.i18nLabel;
+        if (!label_name) return;
+
+        const label: string = browser.i18n.getMessage(label_name);
+        if (label) target.setAttribute("label", label);
+    });
+};
+
 init_i18n_text();
 init_i18n_link();
+init_i18n_label();

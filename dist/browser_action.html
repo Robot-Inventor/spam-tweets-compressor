@@ -16,9 +16,9 @@
         <div id="tab_switcher_bar"></div>
     </div>
     <div class="setting_item_group" id="setting_item_general">
-        <div class="setting_item_outer">
-            <input type="checkbox" id="show_reason" data-setting-name="show_reason"><label for="show_reason" data-i18n="browser_action_show_reason">判定理由を表示する</label>
-        </div>
+        <mwc-formfield data-i18n-label="browser_action_show_reason">
+            <mwc-checkbox data-setting-name="show_reason"></mwc-checkbox>
+        </mwc-formfield>
         <div class="setting_item_outer">
             <span id="ng_word" data-i18n="browser_action_ng_word">NGワードを設定</span>　<a href="advanced_setting.html#ng_word_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
         </div>
@@ -27,18 +27,18 @@
         </div>
     </div>
     <div class="setting_item_group" id="setting_item_option">
-        <div class="setting_item_outer">
-            <input type="checkbox" id="hide_completely" data-setting-name="hide_completely"><label for="hide_completely" data-i18n="browser_action_hide_completely">完全に非表示にする（非推奨）</label>
-        </div>
-        <div class="setting_item_outer">
-            <input type="checkbox" id="include_user_name" data-setting-name="include_user_name"><label for="include_user_name" data-i18n="browser_action_include_user_name">ユーザー名をNGワードの判定対象に含める</label>
-        </div>
-        <div class="setting_item_outer">
-            <input type="checkbox" id="decompress_on_hover" data-setting-name="decompress_on_hover"><label for="decompress_on_hover" data-i18n="browser_action_decompress_on_hover">マウスオーバーで非表示ツイートを表示する</label>
-        </div>
-        <div class="setting_item_outer">
-            <input type="checkbox" id="include_verified_account" data-setting-name="include_verified_account"><label for="include_verified_account" data-i18n="browser_action_include_verified_account">認証済みアカウントを監査対象に含める</label>
-        </div>
+        <mwc-formfield data-i18n-label="browser_action_hide_completely">
+            <mwc-checkbox data-setting-name="hide_completely"></mwc-checkbox>
+        </mwc-formfield>
+        <mwc-formfield data-i18n-label="browser_action_include_user_name">
+            <mwc-checkbox data-setting-name="include_user_name"></mwc-checkbox>
+        </mwc-formfield>
+        <mwc-formfield data-i18n-label="browser_action_decompress_on_hover">
+            <mwc-checkbox data-setting-name="decompress_on_hover"></mwc-checkbox>
+        </mwc-formfield>
+        <mwc-formfield data-i18n-label="browser_action_include_verified_account">
+            <mwc-checkbox data-setting-name="include_verified_account"></mwc-checkbox>
+        </mwc-formfield>
     </div>
     <div class="setting_item_group" id="setting_item_advanced">
         <div class="setting_item_outer">
