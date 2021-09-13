@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/Robot-Inventor/spam-tweets-compressor#readme",
   "devDependencies": {
-    "@material/mwc-checkbox": "0.22.1",
-    "@material/mwc-formfield": "0.22.1",
+    "@material/mwc-checkbox": "0.23.0",
+    "@material/mwc-formfield": "0.23.0",
     "@types/jest": "27.0.1",
     "@typescript-eslint/eslint-plugin": "4.31.0",
     "@typescript-eslint/parser": "4.31.0",
