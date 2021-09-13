@@ -1,5 +1,9 @@
 import "./advanced_setting_view";
+import "@material/mwc-checkbox";
+import "@material/mwc-formfield";
 import { Setting, setting_object } from "./setting";
+// eslint-disable-next-line no-duplicate-imports
+import { Checkbox } from "@material/mwc-checkbox";
 import { advanced_filter_type } from "./advanced_filter_type";
 import { load_color_setting } from "./color";
 
@@ -32,35 +36,25 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
     const json_data: advanced_filter_type = await response.json();
 
     const add_filter_item = (key: string) => {
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
+        const checkbox = document.createElement("mwc-checkbox");
         // eslint-disable-next-line no-irregular-whitespace
-        const checkbox_id = key.replace(/[ 　]/gu, "_");
-        checkbox.id = checkbox_id;
         const filter_id = json_data[key].id;
         checkbox.dataset.filterId = filter_id;
+        const form_field = document.createElement("mwc-formfield");
+        form_field.label = key;
+        form_field.appendChild(checkbox);
 
         if (setting.advanced_filter.includes(filter_id)) checkbox.checked = true;
 
         checkbox.addEventListener("change", () => {
-            const all_checkbox: NodeListOf<HTMLInputElement> =
-                filter_list_outer.querySelectorAll("input[type='checkbox']");
+            const all_checkbox: NodeListOf<Checkbox> = filter_list_outer.querySelectorAll("mwc-checkbox");
             setting.advanced_filter = [...all_checkbox]
                 // eslint-disable-next-line no-undefined
                 .filter((element) => element.checked && element.dataset.filterId !== undefined)
                 .map((element) => element.dataset.filterId || "");
         });
 
-        const label = document.createElement("label");
-        label.textContent = key;
-        label.setAttribute("for", checkbox_id);
-
-        const outer = document.createElement("div");
-        outer.className = "filter_list_item";
-
-        outer.appendChild(checkbox);
-        outer.appendChild(label);
-        filter_list_outer.appendChild(outer);
+        filter_list_outer.appendChild(form_field);
     };
 
     Object.keys(json_data).sort().forEach(add_filter_item);

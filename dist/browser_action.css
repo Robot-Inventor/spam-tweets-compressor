@@ -3,6 +3,8 @@
     --high_emphasize_text_color: rgba(51, 51, 51, 0.87);
     --medium_emphasize_text_color: rgba(51, 51, 51, 0.6);
     --main_color: #1a91da;
+    --mdc-theme-secondary: var(--main_color);
+    --mdc-theme-text-primary-on-background: var(--high_emphasize_text_color);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -96,4 +98,8 @@ input[type="checkbox"] {
 input[type="checkbox"],
 input[type="checkbox"] + label {
     cursor: pointer;
+}
+
+mwc-checkbox {
+    --mdc-checkbox-unchecked-color: var(--high_emphasize_text_color);
 }
