@@ -48,6 +48,7 @@ const change_opacity = (rgb: string, opacity: number) =>
 /**
  * Load color scheme and initialize CSS variables. The supported CSS variables are below:
  * - ``--main_color``: main color like Twitter Blue
+ * - ``--main_color_light``: light main color like Twitter Blue (opacity: 0.6)
  * - ``--background_color``: document background color
  * - ``--high_emphasize_text_color``: color of normal text
  * - ``--medium_emphasize_text_color``: color of text that medium importance
@@ -55,6 +56,7 @@ const change_opacity = (rgb: string, opacity: number) =>
 const load_color_setting = async (): Promise<void> => {
     const high_emphasize_opacity = 1;
     const medium_emphasize_opacity = 0.87;
+    const main_color_light_opacity = 0.6;
 
     const setting = await new Setting().load();
 
@@ -62,6 +64,7 @@ const load_color_setting = async (): Promise<void> => {
     style_element.textContent = `
 :root {
     --main_color: ${setting.main_color};
+    --main_color_light: ${change_opacity(setting.main_color, main_color_light_opacity)};
     --background_color: ${setting.background_color};
     --high_emphasize_text_color: ${change_opacity(setting.font_color, high_emphasize_opacity)};
     --medium_emphasize_text_color: ${change_opacity(setting.font_color, medium_emphasize_opacity)};

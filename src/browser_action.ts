@@ -1,9 +1,9 @@
 import "./browser_action_view";
-import "@material/mwc-checkbox";
+import "@material/mwc-switch";
 import "@material/mwc-formfield";
-// eslint-disable-next-line no-duplicate-imports
-import { Checkbox } from "@material/mwc-checkbox";
 import { Setting } from "./setting";
+// eslint-disable-next-line no-duplicate-imports
+import { Switch } from "@material/mwc-switch";
 import { load_color_setting } from "./color";
 
 /**
@@ -11,7 +11,7 @@ import { load_color_setting } from "./color";
  * @param element target element
  * @returns setting name of the target
  */
-const get_setting_name = (element: HTMLElement | Checkbox) => {
+const get_setting_name = (element: HTMLElement | Switch) => {
     const setting_name = element.dataset.settingName;
     if (setting_name) return setting_name;
     else throw new Error("設定の名称が指定されていないinput要素が見つかりました");
@@ -22,14 +22,14 @@ new Setting()
     .then((setting) => {
         void load_color_setting();
 
-        const checkbox_list: NodeListOf<Checkbox> = document.querySelectorAll("mwc-checkbox");
-        checkbox_list.forEach((checkbox) => {
-            const setting_name = get_setting_name(checkbox);
+        const switch_list: NodeListOf<Switch> = document.querySelectorAll("mwc-switch");
+        switch_list.forEach((switch_element) => {
+            const setting_name = get_setting_name(switch_element);
 
             const saved_value = setting[setting_name];
-            checkbox.checked = typeof saved_value === "boolean" ? saved_value : false;
+            switch_element.selected = typeof saved_value === "boolean" ? saved_value : false;
 
-            checkbox.addEventListener("change", () => (setting[setting_name] = checkbox.checked));
+            switch_element.addEventListener("click", () => (setting[setting_name] = switch_element.selected));
         });
     })
     .catch(() => console.error("設定を読み込めませんでした"));
