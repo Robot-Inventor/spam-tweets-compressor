@@ -1,9 +1,12 @@
 import "./advanced_setting_view";
 import "@material/mwc-checkbox";
 import "@material/mwc-formfield";
+import "@material/mwc-textarea";
 import { Setting, setting_object } from "./setting";
 // eslint-disable-next-line no-duplicate-imports
 import { Checkbox } from "@material/mwc-checkbox";
+// eslint-disable-next-line no-duplicate-imports
+import { TextArea } from "@material/mwc-textarea";
 import { advanced_filter_type } from "./advanced_filter_type";
 import { load_color_setting } from "./color";
 
@@ -103,13 +106,32 @@ const temporarily_change_button_text = (button: HTMLElement, text: string) => {
     setTimeout(() => (button.textContent = default_text), button_text_change_time);
 };
 
+const setup_textarea_validation = () => {
+    const allow_list = document.getElementById("allow_list") as TextArea | null;
+    if (allow_list) {
+        allow_list.validityTransform = (newValue, nativeValidity) => {
+            if (nativeValidity.valid) {
+                const is_valid = !newValue
+                    .split("\n")
+                    .map((text) => text.trim())
+                    .filter((text) => text)
+                    .filter((text) => text[0] !== "@").length;
+                return {
+                    customError: !is_valid,
+                    valid: is_valid
+                };
+            } else return {};
+        };
+    } else console.error("Textarea of allow list was not found.");
+};
+
 new Setting()
     .load()
     .then((setting) => {
         void load_color_setting();
         void load_filter_list(setting);
 
-        const textarea_list: NodeListOf<HTMLTextAreaElement> = document.querySelectorAll("textarea");
+        const textarea_list: NodeListOf<TextArea> = document.querySelectorAll("mwc-textarea");
         textarea_list.forEach((textarea) => {
             const setting_name = get_setting_name(textarea);
 
@@ -117,10 +139,23 @@ new Setting()
                 const saved_value = setting[setting_name];
                 textarea.value = saved_value instanceof Array ? saved_value.join("\n") : "";
 
-                textarea.addEventListener("change", () => (setting[setting_name] = textarea.value.split("\n")));
-                window.addEventListener("beforeunload", () => (setting[setting_name] = textarea.value.split("\n")));
+                const process_string = (text: string) => {
+                    const result = text
+                        .split("\n")
+                        .map((txt) => txt.trim())
+                        .filter((txt) => txt);
+                    return result;
+                };
+
+                const save_textarea = () => {
+                    if (textarea.validity.valid) setting[setting_name] = process_string(textarea.value);
+                };
+
+                window.addEventListener("beforeunload", save_textarea);
             }
         });
+
+        setup_textarea_validation();
 
         const copy_button = document.getElementById("copy_button");
         if (copy_button) {

@@ -82,6 +82,7 @@ header {
     padding: 1.25rem 1.5rem;
     font-size: 1.5rem;
     box-shadow: 0.1rem 0.1rem 1rem black;
+    z-index: 1;
 }
 
 header::before {
@@ -229,18 +230,6 @@ input[type="checkbox"] + label {
     cursor: pointer;
 }
 
-textarea {
-    border: 0.1rem solid var(--high_emphasize_text_color);
-    width: 100%;
-    border-radius: 0.25rem;
-    max-width: 100%;
-    min-width: 100%;
-    background: none;
-    margin-top: 1rem;
-    padding: 0.5rem;
-    box-sizing: border-box;
-}
-
 button {
     border: 0.1em solid var(--main_color);
     cursor: pointer;
@@ -262,4 +251,14 @@ mwc-formfield {
 
 mwc-checkbox {
     --mdc-checkbox-unchecked-color: var(--high_emphasize_text_color);
+}
+
+mwc-textarea {
+    --mdc-theme-primary: var(--main_color);
+    --mdc-text-field-outlined-idle-border-color: var(--medium_emphasize_text_color);
+    --mdc-text-field-outlined-hover-border-color: var(--medium_emphasize_text_color);
+    --mdc-text-field-label-ink-color: var(--medium_emphasize_text_color);
+    --mdc-text-field-ink-color: var(--high_emphasize_text_color);
+    width: 100%;
+    margin-top: 1.5rem;
 }
