@@ -27,7 +27,7 @@ const init_i18n_link = () => {
 };
 
 /**
- * Initialize label attribute of i18n elements that have ``data-i18n-link`` attribute.
+ * Initialize label attribute of i18n elements that have ``data-i18n-label`` attribute.
  */
 const init_i18n_label = () => {
     const target_element: NodeListOf<HTMLAnchorElement> = document.querySelectorAll("*[data-i18n-label]");
@@ -40,6 +40,21 @@ const init_i18n_label = () => {
     });
 };
 
+/**
+ * Initialize validationMessage attribute of i18n elements that have ``data-i18n-validation-message`` attribute.
+ */
+const init_i18n_validation_message = () => {
+    const target_element: NodeListOf<HTMLElement> = document.querySelectorAll("*[data-i18n-validation-message]");
+    target_element.forEach((target) => {
+        const validation_message_name = target.dataset.i18nValidationMessage;
+        if (!validation_message_name) return;
+
+        const validation_message: string = browser.i18n.getMessage(validation_message_name);
+        if (validation_message) target.setAttribute("validationMessage", validation_message);
+    });
+};
+
 init_i18n_text();
 init_i18n_link();
 init_i18n_label();
+init_i18n_validation_message();

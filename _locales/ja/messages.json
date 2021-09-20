@@ -89,11 +89,20 @@
     "advanced_setting_ng_word_description2": {
         "message": "また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。"
     },
+    "advanced_setting_ng_word_textarea_label": {
+        "message": "NGワードを入力"
+    },
     "advanced_setting_allow_list_title": {
         "message": "許可リスト"
     },
     "advanced_setting_allow_list_description": {
         "message": "ここにユーザーIDを入力されたユーザーは、スパム判定の対象から除外されます。複数個指定する場合は改行で区切ってください。"
+    },
+    "advanced_setting_allow_list_textarea_label": {
+        "message": "ユーザーIDを入力"
+    },
+    "advanced_setting_allow_list_textarea_validation_message": {
+        "message": "各行は@から始まる必要があります。"
     },
     "advanced_setting_exclude_url_title": {
         "message": "特定のページで無効化"
@@ -118,6 +127,9 @@
     },
     "advanced_setting_exclude_url_examples_bookmark": {
         "message": "ブックマーク"
+    },
+    "advanced_setting_exclude_url_textarea_label": {
+        "message": "URLを入力"
     },
     "advanced_setting_advanced_spam_detection_title": {
         "message": "高度なスパム判定"

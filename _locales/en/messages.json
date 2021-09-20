@@ -89,11 +89,20 @@
     "advanced_setting_ng_word_description2": {
         "message": "Also, when using regular expressions, enclose the beginning and end of the NG word with /, and write the regular expression flag after the ending /."
     },
+    "advanced_setting_ng_word_textarea_label": {
+        "message": "Enter NG words"
+    },
     "advanced_setting_allow_list_title": {
         "message": "Allow List"
     },
     "advanced_setting_allow_list_description": {
         "message": "Users whose user IDs are input here will be excluded from the spam detection. If you want to specify multiple user IDs, separate them with a new line."
+    },
+    "advanced_setting_allow_list_textarea_label": {
+        "message": "Enter the user IDs"
+    },
+    "advanced_setting_allow_list_textarea_validation_message": {
+        "message": "Each line must start with @."
     },
     "advanced_setting_exclude_url_title": {
         "message": "Exclude URLs"
@@ -118,6 +127,9 @@
     },
     "advanced_setting_exclude_url_examples_bookmark": {
         "message": "Bookmarks"
+    },
+    "advanced_setting_exclude_url_textarea_label": {
+        "message": "Enter URLs"
     },
     "advanced_setting_advanced_spam_detection_title": {
         "message": "Advanced Spam Detection"
