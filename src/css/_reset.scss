@@ -6,8 +6,12 @@
 @import "sanitize-css/_typography";
 @import "sanitize-css/_ui-monospace";
 
-* {
+html,
+body {
     background: var(--background_color);
+}
+
+* {
     color: var(--high_emphasize_text_color);
     font-family: sans-serif;
     font-size: 1rem;
