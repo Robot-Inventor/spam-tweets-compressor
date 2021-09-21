@@ -1,0 +1,95 @@
+@import "_reset";
+@import "_css_variables";
+
+html,
+body {
+    width: 32rem;
+    font-size: 13px;
+}
+
+body {
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+#logo {
+    width: 1.5rem;
+    vertical-align: middle;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-top: 0;
+}
+
+#extension_version {
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-left: 1em;
+    color: var(--medium_emphasize_text_color);
+}
+
+#tab_switcher {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.tab_switcher_item {
+    text-align: center;
+    flex-grow: 1;
+    cursor: pointer;
+    border-bottom: 0.2rem solid transparent;
+    padding-bottom: 0.5rem;
+    transition: 0.3s, font-weight 0s, color 0s, border-bottom-width 0s;
+    font-weight: normal;
+    color: var(--medium_emphasize_text_color);
+
+    &:hover {
+        color: var(--high_emphasize_text_color);
+        border-bottom: {
+            color: var(--medium_emphasize_text_color);
+            width: 0.1rem;
+        }
+    }
+
+    &[data-selected] {
+        border-bottom: {
+            color: var(--main_color);
+            width: 0.2rem;
+        }
+        color: var(--main_color);
+        font-weight: bold;
+    }
+}
+
+.setting_item_group {
+    display: none;
+}
+
+.setting_item_outer,
+mwc-formfield {
+    margin-top: 2em;
+}
+
+mwc-switch {
+    $handle_suffix_list: "handle-color", "hover-handle-color", "pressed-handle-color", "focus-handle-color";
+    @each $suffix in $handle_suffix_list {
+        --mdc-switch-selected-#{$suffix}: var(--main_color);
+        --mdc-switch-unselected-#{$suffix}: rgb(128, 128, 128);
+    }
+
+    $track_suffix_list: "track-color", "hover-track-color", "pressed-track-color", "focus-track-color";
+    @each $suffix in $track_suffix_list {
+        --mdc-switch-selected-#{$suffix}: var(--main_color_light);
+        --mdc-switch-unselected-#{$suffix}: rgba(128, 128, 128, 0.5);
+    }
+
+    $layer_suffix_list: "focus-state-layer-color", "hover-state-layer-color", "pressed-state-layer-color";
+    @each $suffix in $layer_suffix_list {
+        --mdc-switch-selected-#{suffix}: var(--main_color);
+    }
+
+    --mdc-switch-selected-icon-color: transparent;
+    --mdc-switch-unselected-icon-color: transparent;
+}

@@ -8,6 +8,7 @@
     --mdc-theme-secondary: var(--main_color);
     --mdc-theme-text-primary-on-background: var(--high_emphasize_text_color);
 }
+
 @media (prefers-color-scheme: dark) {
     :root {
         --background_color: #121212;
@@ -15,11 +16,3 @@
         --medium_emphasize_text_color: rgba(255, 255, 255, 0.6);
     }
 }
-.show-tweet-button {
-    font-weight: bold;
-    width: 100%;
-    cursor: pointer;
-    padding: 1em 0.5em !important;
-    background: none;
-    color: var(--medium_emphasize_text_color);
-} /*# sourceMappingURL=main.css.map */
