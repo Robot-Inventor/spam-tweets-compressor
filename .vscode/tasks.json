@@ -56,6 +56,45 @@
             "problemMatcher": [],
             "label": "npm: prettier",
             "detail": "npm run format"
+        },
+        {
+            "type": "npm",
+            "script": "build:css",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: build:css",
+            "detail": "npx sass src/css:dist --style=compressed --update"
+        },
+        {
+            "type": "npm",
+            "script": "build:js",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: build:js",
+            "detail": "npx webpack"
+        },
+        {
+            "type": "npm",
+            "script": "watch:css",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: watch:css",
+            "detail": "npx sass src/css:dist --style=compressed --watch"
+        },
+        {
+            "type": "npm",
+            "script": "watch:js",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: watch:js",
+            "detail": "npx webpack -w"
+        },
+        {
+            "type": "npm",
+            "script": "lint",
+            "problemMatcher": [],
+            "label": "npm: lint",
+            "detail": "npm-run-all --parallel lint:*"
         }
     ]
 }

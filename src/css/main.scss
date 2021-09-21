@@ -1,0 +1,10 @@
+@import "_css_variables";
+
+.show-tweet-button {
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    padding: 1em 0.5em !important;
+    background: none;
+    color: var(--medium_emphasize_text_color);
+}
