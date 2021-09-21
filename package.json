@@ -14,7 +14,7 @@
     "lint:js": "npx eslint src/**/*.ts",
     "lint:css": "stylelint src/**/*.{css,scss,sass}",
     "lint": "npm-run-all --parallel lint:*",
-    "format": "npx prettier --write \"**/*.{js,ts,css}\"",
+    "format": "npx prettier --write \"src/**/*.{js,ts,css,scss}\"",
     "pack": "npx web-ext build --ignore-files \"./**/*.md\" \"./src/\" \"./docs/\" \"./gh-pages/\" \"./image/for_readme/\" package.json package-lock.json \"tsconfig*.json\" webpack.config.js \"./image/logo.*\""
   },
   "repository": {
