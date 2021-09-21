@@ -12,7 +12,7 @@
     "watch:css": "npx sass src/css:dist --style=compressed --watch",
     "watch": "npm-run-all --parallel watch:*",
     "lint:js": "npx eslint src/**/*.ts",
-    "lint:css": "stylelint **/*.{css,scss,sass}",
+    "lint:css": "stylelint src/**/*.{css,scss,sass}",
     "lint": "npm-run-all --parallel lint:*",
     "format": "npx prettier --write \"**/*.{js,ts,css}\"",
     "pack": "npx web-ext build --ignore-files \"./**/*.md\" \"./src/\" \"./docs/\" \"./gh-pages/\" \"./image/for_readme/\" package.json package-lock.json \"tsconfig*.json\" webpack.config.js \"./image/logo.*\""

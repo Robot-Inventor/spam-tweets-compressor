@@ -1,5 +1,18 @@
 {
+    "plugins": [
+        "stylelint-scss"
+    ],
     "extends": [
         "stylelint-config-recommended-scss"
-    ]
+    ],
+    "rules": {
+        "selector-type-no-unknown": [
+            true,
+            {
+                "ignore": [
+                    "custom-elements"
+                ]
+            }
+        ]
+    }
 }
