@@ -1,3 +1,11 @@
+@import "sanitize-css/_assets";
+@import "sanitize-css/_forms";
+@import "sanitize-css/_reduce-motion";
+@import "sanitize-css/_sanitize";
+@import "sanitize-css/_system-ui";
+@import "sanitize-css/_typography";
+@import "sanitize-css/_ui-monospace";
+
 * {
     background: var(--background_color);
     color: var(--high_emphasize_text_color);
