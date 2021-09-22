@@ -5,77 +5,86 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="advanced_setting.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
     <link rel="shortcut icon" href="../image/icon.svg" type="image/x-icon">
     <title data-i18n="advanced_setting_title_tag">詳細設定 - Spam Tweets Compressor</title>
 </head>
 <body>
-    <mwc-top-app-bar-fixed>
-        <mwc-icon-button id="menu_open_button" icon="menu" slot="navigationIcon"></mwc-icon-button>
-        <div slot="title">Spam Tweets Compressor</div>
-    </mwc-top-app-bar-fixed>
-    <h1 data-i18n="advanced_setting_h1">Spam Tweets Compressorの詳細設定</h1>
-    <div id="overlay"></div>
-    <div id="menu">
-        <span class="material_icon" id="menu_close_button">arrow_back</span>
-        <div id="menu_item_outer">
-            <hr>
-            <a data-i18n-link="advanced_setting_privacy_policy_link" href="https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/README.md#about-personal-information" target="_blank" rel="noopener noreferrer">
-                <div class="menu_item"><span data-i18n="advanced_setting_privacy_policy">プライバシーポリシー</span><span class="material_icon">open_in_new</span></div>
-            </a>
-            <a href="https://github.com/Robot-Inventor/spam-tweets-compressor" target="_blank" rel="noopener noreferrer">
-                <div class="menu_item">GitHub<span class="material_icon">open_in_new</span></div>
-            </a>
-            <a href="https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/docs/oss_license.md" target="_blank" rel="noopener noreferrer">
-                <div class="menu_item"><span data-i18n="advanced_setting_open_source_license">オープンソースライセンス</span><span class="material_icon">open_in_new</span></div>
-            </a>
-            <a href="https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/LICENSE.txt" target="_blank" rel="noopener noreferrer">
-                <div class="menu_item"><span data-i18n="advanced_setting_license">拡張機能のライセンス</span><span class="material_icon">open_in_new</span></div>
-            </a>
+    <mwc-drawer hasHeader type="modal">
+        <span slot="title">
+            <mwc-icon-button id="menu_close_button" icon="arrow_back"></mwc-icon-button>
+        </span>
+        <div>
+            <div id="menu">
+                <div id="menu_item_outer">
+                    <hr>
+                    <a data-i18n-link="advanced_setting_privacy_policy_link" href="https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/README.md#about-personal-information" target="_blank" rel="noopener noreferrer">
+                        <div class="menu_item"><span data-i18n="advanced_setting_privacy_policy">プライバシーポリシー</span><mwc-icon>open_in_new</mwc-icon></div>
+                    </a>
+                    <a href="https://github.com/Robot-Inventor/spam-tweets-compressor" target="_blank" rel="noopener noreferrer">
+                        <div class="menu_item">GitHub<mwc-icon>open_in_new</mwc-icon></div>
+                    </a>
+                    <a href="https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/docs/oss_license.md" target="_blank" rel="noopener noreferrer">
+                        <div class="menu_item"><span data-i18n="advanced_setting_open_source_license">オープンソースライセンス</span><mwc-icon>open_in_new</mwc-icon></div>
+                    </a>
+                    <a href="https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/LICENSE.txt" target="_blank" rel="noopener noreferrer">
+                        <div class="menu_item"><span data-i18n="advanced_setting_license">拡張機能のライセンス</span><mwc-icon>open_in_new</mwc-icon></div>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- The settings export function is hidden because the settings import function has not been implemented. -->
-    <h2 data-i18n="advanced_setting_export_title" style="display: none;">設定のエクスポート</h2>
-    <p data-i18n="advanced_setting_export_description" style="display: none;">
-        Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
-    </p>
-    <button data-i18n="advanced_setting_export_copy" id="copy_button" style="display: none;">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button" style="display: none;">保存</button>
-    <h2 id="ng_word_title" data-i18n="advanced_setting_ng_word_title">NGワード</h2>
-    <p data-i18n="advanced_setting_ng_word_description1">
-        NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。
-    </p>
-    <p data-i18n="advanced_setting_ng_word_description2">
-        また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。
-    </p>
-    <mwc-textarea data-i18n-label="advanced_setting_ng_word_textarea_label" id="ng_word" cols="30" rows="5" data-setting-name="ng_word" placeholder="SpamSpam" outlined></mwc-textarea>
-    <h2 id="allow_list_title" data-i18n="advanced_setting_allow_list_title">許可リスト</h2>
-    <p data-i18n="advanced_setting_allow_list_description">
-        ここにユーザーIDを入力されたユーザーは、スパム判定の対象から除外されます。複数個指定する場合は改行で区切ってください。
-    </p>
-    <mwc-textarea data-i18n-label="advanced_setting_allow_list_textarea_label" id="allow_list" cols="30" rows="5" data-setting-name="allow_list" data-i18n-validation-message="advanced_setting_allow_list_textarea_validation_message" placeholder="@Twitter" outlined></mwc-textarea>
-    <h2 id="exclude_url_title" data-i18n="advanced_setting_exclude_url_title">特定のページで無効化</h2>
-    <p data-i18n="advanced_setting_exclude_url_description">
-        指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。
-    </p>
-    <h3 data-i18n="advanced_setting_exclude_url_examples">参考</h3>
-    <ul>
-        <li><span data-i18n="advanced_setting_exclude_url_examples_home">ホーム</span>：https://twitter.com/home</li>
-        <li><span data-i18n="advanced_setting_exclude_url_examples_notification">通知</span>：https://twitter.com/notifications</li>
-        <li><span data-i18n="advanced_setting_exclude_url_examples_list">リスト</span>：https://twitter.com/i/lists/＜<span data-i18n="advanced_setting_exclude_url_examples_list_number">リストの番号</span>＞</li>
-        <li><span data-i18n="advanced_setting_exclude_url_examples_bookmark">ブックマーク</span>：https://twitter.com/i/bookmarks</li>
-    </ul>
-    <mwc-textarea data-i18n-label="advanced_setting_exclude_url_textarea_label" id="exclude_url" cols="30" rows="5" data-setting-name="exclude_url" placeholder="https://twitter.com/home" outlined></mwc-textarea>
-    <h2 id="advanced_spam_detection_title" data-i18n="advanced_setting_advanced_spam_detection_title">高度なスパム判定</h2>
-    <p data-i18n="advanced_setting_advanced_spam_detection_description1">
-        特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。
-    </p>
-    <p data-i18n="advanced_setting_advanced_spam_detection_description2">
-        注意：高度なスパム判定では偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。
-    </p>
-    <p>
-        <a data-i18n="advanced_setting_advanced_spam_detection_description3" href="https://github.com/Robot-Inventor/stc-filter/blob/main/docs/filter_description.md" target="_blank">フィルターの仕組みの概要と各フィルターに関する説明</a>
-    </p>
-    <div id="filter_list_outer"></div>
+        <div slot="appContent">
+            <mwc-top-app-bar-fixed>
+                <mwc-icon-button id="menu_open_button" icon="menu" slot="navigationIcon"></mwc-icon-button>
+                <div slot="title">Spam Tweets Compressor</div>
+            </mwc-top-app-bar-fixed>
+            <main>
+                <h1 data-i18n="advanced_setting_h1">Spam Tweets Compressorの詳細設定</h1>
+                <!-- The settings export function is hidden because the settings import function has not been implemented. -->
+                <h2 data-i18n="advanced_setting_export_title" style="display: none;">設定のエクスポート</h2>
+                <p data-i18n="advanced_setting_export_description" style="display: none;">
+                    Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
+                </p>
+                <button data-i18n="advanced_setting_export_copy" id="copy_button" style="display: none;">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button" style="display: none;">保存</button>
+                <h2 id="ng_word_title" data-i18n="advanced_setting_ng_word_title">NGワード</h2>
+                <p data-i18n="advanced_setting_ng_word_description1">
+                    NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。
+                </p>
+                <p data-i18n="advanced_setting_ng_word_description2">
+                    また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。
+                </p>
+                <mwc-textarea data-i18n-label="advanced_setting_ng_word_textarea_label" id="ng_word" cols="30" rows="5" data-setting-name="ng_word" placeholder="SpamSpam" outlined></mwc-textarea>
+                <h2 id="allow_list_title" data-i18n="advanced_setting_allow_list_title">許可リスト</h2>
+                <p data-i18n="advanced_setting_allow_list_description">
+                    ここにユーザーIDを入力されたユーザーは、スパム判定の対象から除外されます。複数個指定する場合は改行で区切ってください。
+                </p>
+                <mwc-textarea data-i18n-label="advanced_setting_allow_list_textarea_label" id="allow_list" cols="30" rows="5" data-setting-name="allow_list" data-i18n-validation-message="advanced_setting_allow_list_textarea_validation_message" placeholder="@Twitter" outlined></mwc-textarea>
+                <h2 id="exclude_url_title" data-i18n="advanced_setting_exclude_url_title">特定のページで無効化</h2>
+                <p data-i18n="advanced_setting_exclude_url_description">
+                    指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。
+                </p>
+                <h3 data-i18n="advanced_setting_exclude_url_examples">参考</h3>
+                <ul>
+                    <li><span data-i18n="advanced_setting_exclude_url_examples_home">ホーム</span>：https://twitter.com/home</li>
+                    <li><span data-i18n="advanced_setting_exclude_url_examples_notification">通知</span>：https://twitter.com/notifications</li>
+                    <li><span data-i18n="advanced_setting_exclude_url_examples_list">リスト</span>：https://twitter.com/i/lists/＜<span data-i18n="advanced_setting_exclude_url_examples_list_number">リストの番号</span>＞</li>
+                    <li><span data-i18n="advanced_setting_exclude_url_examples_bookmark">ブックマーク</span>：https://twitter.com/i/bookmarks</li>
+                </ul>
+                <mwc-textarea data-i18n-label="advanced_setting_exclude_url_textarea_label" id="exclude_url" cols="30" rows="5" data-setting-name="exclude_url" placeholder="https://twitter.com/home" outlined></mwc-textarea>
+                <h2 id="advanced_spam_detection_title" data-i18n="advanced_setting_advanced_spam_detection_title">高度なスパム判定</h2>
+                <p data-i18n="advanced_setting_advanced_spam_detection_description1">
+                    特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。
+                </p>
+                <p data-i18n="advanced_setting_advanced_spam_detection_description2">
+                    注意：高度なスパム判定では偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。
+                </p>
+                <p>
+                    <a data-i18n="advanced_setting_advanced_spam_detection_description3" href="https://github.com/Robot-Inventor/stc-filter/blob/main/docs/filter_description.md" target="_blank">フィルターの仕組みの概要と各フィルターに関する説明</a>
+                </p>
+                <div id="filter_list_outer"></div>
+            </main>
+        </div>
+    </mwc-drawer>
     <script src="webextension_polyfill/browser-polyfill.min.js"></script>
     <script src="i18n.js"></script>
     <script src="advanced_setting.js" type="module"></script>
