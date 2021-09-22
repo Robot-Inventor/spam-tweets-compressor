@@ -1,8 +1,10 @@
 import "./advanced_setting_view";
 import "@material/mwc-checkbox";
 import "@material/mwc-formfield";
+import "@material/mwc-icon-button";
 import "@material/mwc-list";
 import "@material/mwc-textarea";
+import "@material/mwc-top-app-bar-fixed";
 import "@material/mwc-list/mwc-check-list-item";
 import { Setting, setting_object } from "./setting";
 // eslint-disable-next-line no-duplicate-imports

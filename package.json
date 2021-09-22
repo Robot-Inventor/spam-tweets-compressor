@@ -30,9 +30,11 @@
   "devDependencies": {
     "@material/mwc-checkbox": "0.25.1",
     "@material/mwc-formfield": "0.25.1",
+    "@material/mwc-icon-button": "^0.25.1",
     "@material/mwc-list": "0.25.1",
     "@material/mwc-switch": "0.25.1",
     "@material/mwc-textarea": "0.25.1",
+    "@material/mwc-top-app-bar-fixed": "^0.25.1",
     "@types/jest": "27.0.2",
     "@typescript-eslint/eslint-plugin": "4.31.2",
     "@typescript-eslint/parser": "4.31.2",
