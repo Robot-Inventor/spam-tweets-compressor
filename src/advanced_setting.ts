@@ -1,4 +1,5 @@
 import "./advanced_setting_view";
+import "@material/mwc-circular-progress";
 import "@material/mwc-checkbox";
 import "@material/mwc-drawer";
 import "@material/mwc-formfield";
@@ -30,6 +31,17 @@ const get_setting_name = (element: HTMLElement) => {
 };
 
 /**
+ * Hide loading screen for filter list of Advanced Spam Detection.
+ */
+const hide_filter_loading_screen = () => {
+    const filter_loading_screen = document.getElementById("filter_loading_screen");
+    if (filter_loading_screen) filter_loading_screen.remove();
+    else console.error("filter_loading_screen was not found.");
+    const filter_list_outer = document.getElementById("filter_list_outer");
+    if (filter_list_outer) filter_list_outer.setAttribute("data-loaded", "");
+};
+
+/**
  * Download advanced filter list and generate setting UI.
  * @param setting
  */
@@ -54,9 +66,7 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
         const filter_id = json_data[filter_name].id;
         const is_selected = setting.advanced_filter.includes(filter_id);
         const checkbox = generate_check_list_item(filter_name, filter_id, is_selected);
-
         const separator = create_separator();
-
         mwc_list.appendChild(checkbox);
         mwc_list.appendChild(separator);
     }
@@ -78,6 +88,8 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
     });
 
     filter_list_outer.appendChild(mwc_list);
+    // eslint-disable-next-line no-magic-numbers
+    setTimeout(hide_filter_loading_screen, 1000);
 };
 
 /**
