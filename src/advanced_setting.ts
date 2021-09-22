@@ -1,6 +1,8 @@
 import "./advanced_setting_view";
 import "@material/mwc-checkbox";
+import "@material/mwc-drawer";
 import "@material/mwc-formfield";
+import "@material/mwc-icon";
 import "@material/mwc-icon-button";
 import "@material/mwc-list";
 import "@material/mwc-textarea";

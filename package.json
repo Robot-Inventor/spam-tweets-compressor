@@ -29,7 +29,9 @@
   "homepage": "https://github.com/Robot-Inventor/spam-tweets-compressor#readme",
   "devDependencies": {
     "@material/mwc-checkbox": "0.25.1",
+    "@material/mwc-drawer": "^0.25.1",
     "@material/mwc-formfield": "0.25.1",
+    "@material/mwc-icon": "^0.25.1",
     "@material/mwc-icon-button": "^0.25.1",
     "@material/mwc-list": "0.25.1",
     "@material/mwc-switch": "0.25.1",
