@@ -51,36 +51,15 @@ body {
     margin-bottom: 3rem;
 }
 
-header {
+mwc-top-app-bar-fixed {
     position: fixed;
     top: 0;
     left: 0;
-    background: var(--background_color);
-    margin: 0;
-    width: 100vw;
-    padding: 1.25rem 1.5rem;
-    font-size: 1.5rem;
-    box-shadow: 0.1rem 0.1rem 1rem black;
     z-index: $header_z_index;
-}
 
-header::before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: white;
-    opacity: 0.2;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-}
-
-#menu_open_button {
-    cursor: pointer;
-    margin-right: 1rem;
-    vertical-align: middle;
+    div[slot="title"] {
+        font-size: 1.25em;
+    }
 }
 
 h1 {
