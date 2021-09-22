@@ -197,10 +197,6 @@ mwc-formfield {
     display: block;
 }
 
-mwc-checkbox {
-    --mdc-checkbox-unchecked-color: var(--high_emphasize_text_color);
-}
-
 mwc-textarea {
     --mdc-text-field-ink-color: var(--high_emphasize_text_color);
     --mdc-text-field-outlined-idle-border-color: var(--medium_emphasize_text_color);
@@ -208,4 +204,17 @@ mwc-textarea {
     --mdc-text-field-label-ink-color: var(--medium_emphasize_text_color);
     width: 100%;
     margin-top: 1.5rem;
+}
+
+#filter_list_outer {
+    margin-top: 1em;
+}
+
+mwc-list *[divider] {
+    border-bottom-color: var(--medium_emphasize_text_color);
+}
+
+mwc-check-list-item {
+    --mdc-ripple-color: var(--high_emphasize_text_color);
+    --mdc-checkbox-unchecked-color: var(--high_emphasize_text_color);
 }
