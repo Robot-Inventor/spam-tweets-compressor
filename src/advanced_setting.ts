@@ -1,13 +1,17 @@
 import "./advanced_setting_view";
 import "@material/mwc-checkbox";
 import "@material/mwc-formfield";
+import "@material/mwc-list";
 import "@material/mwc-textarea";
+import "@material/mwc-list/mwc-check-list-item";
 import { Setting, setting_object } from "./setting";
 // eslint-disable-next-line no-duplicate-imports
-import { Checkbox } from "@material/mwc-checkbox";
+import { create_separator, generate_check_list_item } from "./advanced_setting_view";
+import { ListItemBase } from "@material/mwc-list/mwc-list-item-base";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
 import { advanced_filter_type } from "./advanced_filter_type";
+// eslint-disable-next-line no-duplicate-imports
 import { load_color_setting } from "./color";
 
 /**
@@ -38,29 +42,38 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json_data: advanced_filter_type = await response.json();
 
-    const add_filter_item = (key: string) => {
-        const checkbox = document.createElement("mwc-checkbox");
-        // eslint-disable-next-line no-irregular-whitespace
-        const filter_id = json_data[key].id;
-        checkbox.dataset.filterId = filter_id;
-        const form_field = document.createElement("mwc-formfield");
-        form_field.label = key;
-        form_field.appendChild(checkbox);
+    const mwc_list = document.createElement("mwc-list");
+    mwc_list.multi = true;
+    mwc_list.appendChild(create_separator());
 
-        if (setting.advanced_filter.includes(filter_id)) checkbox.checked = true;
+    for (const filter_name of Object.keys(json_data).sort()) {
+        const filter_id = json_data[filter_name].id;
+        const is_selected = setting.advanced_filter.includes(filter_id);
+        const checkbox = generate_check_list_item(filter_name, filter_id, is_selected);
 
-        checkbox.addEventListener("change", () => {
-            const all_checkbox: NodeListOf<Checkbox> = filter_list_outer.querySelectorAll("mwc-checkbox");
-            setting.advanced_filter = [...all_checkbox]
+        const separator = create_separator();
+
+        mwc_list.appendChild(checkbox);
+        mwc_list.appendChild(separator);
+    }
+
+    mwc_list.addEventListener("action", () => {
+        const selected_item: ListItemBase | Array<ListItemBase> | null = mwc_list.selected;
+        if (selected_item === null) {
+            setting.advanced_filter = [];
+        } else if (Array.isArray(selected_item)) {
+            const selected_id_list = selected_item
+                .map((item) => item.dataset.filterId)
                 // eslint-disable-next-line no-undefined
-                .filter((element) => element.checked && element.dataset.filterId !== undefined)
-                .map((element) => element.dataset.filterId || "");
-        });
+                .filter((id) => id !== undefined) as Array<string>;
+            setting.advanced_filter = selected_id_list;
+        } else {
+            const id = selected_item.dataset.filterId;
+            if (id) setting.advanced_filter = [id];
+        }
+    });
 
-        filter_list_outer.appendChild(form_field);
-    };
-
-    Object.keys(json_data).sort().forEach(add_filter_item);
+    filter_list_outer.appendChild(mwc_list);
 };
 
 /**

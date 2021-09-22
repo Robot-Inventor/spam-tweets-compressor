@@ -1,3 +1,5 @@
+import { CheckListItem } from "@material/mwc-list/mwc-check-list-item";
+
 /**
  * Shift the scroll position by the height of the header.
  */
@@ -6,6 +8,33 @@ const adjust_scroll_position = () => {
     // eslint-disable-next-line radix, no-magic-numbers
     if (header) scrollBy(0, parseInt(getComputedStyle(header).height.replace(/px$/u, "")) * -2);
     else console.error("header was not found.");
+};
+
+/**
+ * Create a separator element for the ``mwc-list`` element.
+ * @returns separator element
+ */
+const create_separator = (): HTMLLIElement => {
+    const separator = document.createElement("li");
+    separator.setAttribute("divider", "");
+    separator.setAttribute("role", "separator");
+    return separator;
+};
+
+/**
+ * Generate ``mwc-check-list-item`` for the filter list of Advanced Spam Detection.
+ * @param filter_name name of the filter
+ * @param filter_id id of the filter
+ * @param selected default status
+ * @returns ``mwc-check-list-item``
+ */
+const generate_check_list_item = (filter_name: string, filter_id: string, selected: boolean): CheckListItem => {
+    const checkbox = document.createElement("mwc-check-list-item");
+    checkbox.textContent = filter_name;
+    checkbox.setAttribute("left", "");
+    checkbox.dataset.filterId = filter_id;
+    if (selected) checkbox.setAttribute("selected", "");
+    return checkbox;
 };
 
 /**
@@ -71,3 +100,5 @@ class Menu {
 
 new Menu();
 if (location.hash) adjust_scroll_position();
+export { create_separator };
+export { generate_check_list_item };
