@@ -30,7 +30,7 @@
   "devDependencies": {
     "@material/mwc-checkbox": "0.25.1",
     "@material/mwc-formfield": "0.25.1",
-    "@material/mwc-list": "^0.25.1",
+    "@material/mwc-list": "0.25.1",
     "@material/mwc-switch": "0.25.1",
     "@material/mwc-textarea": "0.25.1",
     "@types/jest": "27.0.2",
