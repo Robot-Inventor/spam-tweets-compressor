@@ -72,8 +72,9 @@ npm install
 ### Lint
 
 ```powershell
-npm run lint:js
 npm run lint:css
+npm run lint:js
+npm run lint // lint CSS and JS
 ```
 
 ### Format
@@ -91,13 +92,17 @@ npm run test
 ### Build
 
 ```powershell
-npm run build
+npm run build:css
+npm run build:js
+npm run build // build CSS and JS
 ```
 
 または
 
 ```powershell
-npm run watch
+npm run watch:css
+npm run watch:js
+npm run watch // watch CSS and JS
 ```
 
 ### Package
