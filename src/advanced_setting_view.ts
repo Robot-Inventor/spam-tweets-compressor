@@ -62,7 +62,7 @@ class Menu {
             if (getComputedStyle(element).display !== "none" && element.textContent && this.item_outer) {
                 const menu_item = document.createElement("div");
                 menu_item.className = "menu_item";
-                menu_item.textContent = element.textContent;
+                menu_item.innerHTML = element.innerHTML;
                 menu_item.addEventListener("click", () => {
                     location.hash = element.id;
                     adjust_scroll_position();

@@ -33,7 +33,16 @@ h1 {
 h2 {
     margin-top: 3rem;
     margin-bottom: 0;
-    font-size: 1.5rem;
+
+    mwc-icon {
+        margin-right: 0.5em;
+        vertical-align: sub;
+    }
+
+    span,
+    mwc-icon {
+        font-size: 1.5rem;
+    }
 }
 
 h3 {
@@ -47,6 +56,29 @@ mwc-drawer {
 
 #menu_close_button {
     vertical-align: bottom;
+}
+
+.menu_item {
+    cursor: pointer;
+    position: relative;
+    padding: 1.25rem 2rem;
+
+    &:hover::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--high_emphasize_text_color);
+        opacity: 0.1;
+    }
+
+    mwc-icon {
+        margin-right: 0.5em;
+        vertical-align: super;
+    }
 }
 
 #menu {
@@ -72,24 +104,6 @@ mwc-drawer {
 
     a {
         text-decoration: none;
-    }
-}
-
-.menu_item {
-    cursor: pointer;
-    position: relative;
-    padding: 1.25rem 2rem;
-
-    &:hover::before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--high_emphasize_text_color);
-        opacity: 0.1;
     }
 }
 

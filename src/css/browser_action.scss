@@ -43,13 +43,25 @@ h1 {
     padding-bottom: 0.5rem;
     transition: 0.3s, font-weight 0s, color 0s, border-bottom-width 0s;
     font-weight: normal;
-    color: var(--medium_emphasize_text_color);
+
+    mwc-icon {
+        margin-right: 1em;
+    }
+
+    span,
+    mwc-icon {
+        color: var(--medium_emphasize_text_color);
+    }
 
     &:hover {
-        color: var(--high_emphasize_text_color);
         border-bottom: {
             color: var(--medium_emphasize_text_color);
             width: 0.1rem;
+        }
+
+        span,
+        mwc-icon {
+            color: var(--high_emphasize_text_color);
         }
     }
 
@@ -58,8 +70,12 @@ h1 {
             color: var(--main_color);
             width: 0.2rem;
         }
-        color: var(--main_color);
         font-weight: bold;
+
+        span,
+        mwc-icon {
+            color: var(--main_color);
+        }
     }
 }
 

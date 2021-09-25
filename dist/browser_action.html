@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="browser_action.css">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
     <title>Spam Tweets Compressor</title>
 </head>
 <body>
     <h1><img src="../image/icon.svg" alt="The logo of Spam Tweets Compressor" id="logo"> Spam Tweets Compressor<span id="extension_version"></span></h1>
     <div id="tab_switcher">
-        <div class="tab_switcher_item" data-selected data-target="#setting_item_general" data-i18n="browser_action_tab_switcher_general">一般</div>
-        <div class="tab_switcher_item" data-target="#setting_item_option" data-i18n="browser_action_tab_switcher_option">オプション</div>
-        <div class="tab_switcher_item" data-target="#setting_item_advanced" data-i18n="browser_action_tab_switcher_advanced">詳細</div>
+        <div class="tab_switcher_item" data-selected data-target="#setting_item_general"><mwc-icon>tune</mwc-icon><span data-i18n="browser_action_tab_switcher_general">一般</span></div>
+        <div class="tab_switcher_item" data-target="#setting_item_option"><mwc-icon>toggle_on</mwc-icon><span data-i18n="browser_action_tab_switcher_option">オプション</span></div>
+        <div class="tab_switcher_item" data-target="#setting_item_advanced"><mwc-icon>auto_fix_high</mwc-icon><span data-i18n="browser_action_tab_switcher_advanced">詳細</span></div>
         <div id="tab_switcher_bar"></div>
     </div>
     <div class="setting_item_group" id="setting_item_general">
