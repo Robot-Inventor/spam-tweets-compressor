@@ -1,4 +1,5 @@
 import "./browser_action_view";
+import "@material/mwc-icon";
 import "@material/mwc-switch";
 import "@material/mwc-formfield";
 import { Setting } from "./setting";

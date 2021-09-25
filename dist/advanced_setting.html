@@ -46,7 +46,7 @@
                     Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
                 </p>
                 <button data-i18n="advanced_setting_export_copy" id="copy_button" style="display: none;">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button" style="display: none;">保存</button>
-                <h2 id="ng_word_title" data-i18n="advanced_setting_ng_word_title">NGワード</h2>
+                <h2 id="ng_word_title"><mwc-icon>spellcheck</mwc-icon><span data-i18n="advanced_setting_ng_word_title">NGワード</span></h2>
                 <p data-i18n="advanced_setting_ng_word_description1">
                     NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。
                 </p>
@@ -54,12 +54,12 @@
                     また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。
                 </p>
                 <mwc-textarea data-i18n-label="advanced_setting_ng_word_textarea_label" id="ng_word" cols="30" rows="5" data-setting-name="ng_word" placeholder="SpamSpam" outlined></mwc-textarea>
-                <h2 id="allow_list_title" data-i18n="advanced_setting_allow_list_title">許可リスト</h2>
+                <h2 id="allow_list_title"><mwc-icon>verified_user</mwc-icon><span data-i18n="advanced_setting_allow_list_title">許可リスト</span></h2>
                 <p data-i18n="advanced_setting_allow_list_description">
                     ここにユーザーIDを入力されたユーザーは、スパム判定の対象から除外されます。複数個指定する場合は改行で区切ってください。
                 </p>
                 <mwc-textarea data-i18n-label="advanced_setting_allow_list_textarea_label" id="allow_list" cols="30" rows="5" data-setting-name="allow_list" data-i18n-validation-message="advanced_setting_allow_list_textarea_validation_message" placeholder="@Twitter" outlined></mwc-textarea>
-                <h2 id="exclude_url_title" data-i18n="advanced_setting_exclude_url_title">特定のページで無効化</h2>
+                <h2 id="exclude_url_title"><mwc-icon>link_off</mwc-icon><span  data-i18n="advanced_setting_exclude_url_title">特定のページで無効化</span></h2>
                 <p data-i18n="advanced_setting_exclude_url_description">
                     指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。
                 </p>
@@ -71,7 +71,7 @@
                     <li><span data-i18n="advanced_setting_exclude_url_examples_bookmark">ブックマーク</span>：https://twitter.com/i/bookmarks</li>
                 </ul>
                 <mwc-textarea data-i18n-label="advanced_setting_exclude_url_textarea_label" id="exclude_url" cols="30" rows="5" data-setting-name="exclude_url" placeholder="https://twitter.com/home" outlined></mwc-textarea>
-                <h2 id="advanced_spam_detection_title" data-i18n="advanced_setting_advanced_spam_detection_title">高度なスパム判定</h2>
+                <h2 id="advanced_spam_detection_title"><mwc-icon>auto_fix_high</mwc-icon><span data-i18n="advanced_setting_advanced_spam_detection_title">高度なスパム判定</span></h2>
                 <p data-i18n="advanced_setting_advanced_spam_detection_description1">
                     特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。
                 </p>
