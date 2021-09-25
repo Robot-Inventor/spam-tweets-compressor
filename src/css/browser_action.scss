@@ -29,53 +29,15 @@ h1 {
     color: var(--medium_emphasize_text_color);
 }
 
-#tab_switcher {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-}
+mwc-tab {
+    --mdc-tab-horizontal-padding: 1em;
+    --mdc-tab-text-label-color-default: var(--medium_emphasize_text_color);
+    --mdc-tab-color-default: var(--mdc-tab-text-label-color-default);
 
-.tab_switcher_item {
-    text-align: center;
-    flex-grow: 1;
-    cursor: pointer;
-    border-bottom: 0.2rem solid transparent;
-    padding-bottom: 0.5rem;
-    transition: 0.3s, font-weight 0s, color 0s, border-bottom-width 0s;
-    font-weight: normal;
-
-    mwc-icon {
-        margin-right: 1em;
-    }
-
-    span,
-    mwc-icon {
-        color: var(--medium_emphasize_text_color);
-    }
+    margin: 1em 0;
 
     &:hover {
-        border-bottom: {
-            color: var(--medium_emphasize_text_color);
-            width: 0.1rem;
-        }
-
-        span,
-        mwc-icon {
-            color: var(--high_emphasize_text_color);
-        }
-    }
-
-    &[data-selected] {
-        border-bottom: {
-            color: var(--main_color);
-            width: 0.2rem;
-        }
-        font-weight: bold;
-
-        span,
-        mwc-icon {
-            color: var(--main_color);
-        }
+        --mdc-tab-text-label-color-default: var(--high_emphasize_text_color);
     }
 }
 

@@ -36,6 +36,7 @@
     "@material/mwc-icon-button": "^0.25.1",
     "@material/mwc-list": "0.25.1",
     "@material/mwc-switch": "0.25.1",
+    "@material/mwc-tab-bar": "^0.25.1",
     "@material/mwc-textarea": "0.25.1",
     "@material/mwc-top-app-bar-fixed": "^0.25.1",
     "@types/jest": "27.0.2",
