@@ -1,6 +1,7 @@
 import "./browser_action_view";
 import "@material/mwc-icon";
 import "@material/mwc-switch";
+import "@material/mwc-tab-bar";
 import "@material/mwc-formfield";
 import { Setting } from "./setting";
 // eslint-disable-next-line no-duplicate-imports

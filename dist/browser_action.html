@@ -10,12 +10,11 @@
 </head>
 <body>
     <h1><img src="../image/icon.svg" alt="The logo of Spam Tweets Compressor" id="logo"> Spam Tweets Compressor<span id="extension_version"></span></h1>
-    <div id="tab_switcher">
-        <div class="tab_switcher_item" data-selected data-target="#setting_item_general"><mwc-icon>tune</mwc-icon><span data-i18n="browser_action_tab_switcher_general">一般</span></div>
-        <div class="tab_switcher_item" data-target="#setting_item_option"><mwc-icon>toggle_on</mwc-icon><span data-i18n="browser_action_tab_switcher_option">オプション</span></div>
-        <div class="tab_switcher_item" data-target="#setting_item_advanced"><mwc-icon>auto_fix_high</mwc-icon><span data-i18n="browser_action_tab_switcher_advanced">詳細</span></div>
-        <div id="tab_switcher_bar"></div>
-    </div>
+    <mwc-tab-bar>
+        <mwc-tab data-i18n-label="browser_action_tab_switcher_general" icon="tune" data-target="#setting_item_general"></mwc-tab>
+        <mwc-tab data-i18n-label="browser_action_tab_switcher_option" icon="toggle_on" data-target="#setting_item_option"></mwc-tab>
+        <mwc-tab data-i18n-label="browser_action_tab_switcher_advanced" icon="auto_fix_high" data-target="#setting_item_advanced"></mwc-tab>
+    </mwc-tab-bar>
     <div class="setting_item_group" id="setting_item_general">
         <mwc-formfield data-i18n-label="browser_action_show_reason">
             <mwc-switch data-setting-name="show_reason"></mwc-switch>
