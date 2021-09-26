@@ -35,6 +35,7 @@
     "@material/mwc-icon": "0.25.1",
     "@material/mwc-icon-button": "0.25.1",
     "@material/mwc-list": "0.25.1",
+    "@material/mwc-ripple": "^0.25.1",
     "@material/mwc-switch": "0.25.1",
     "@material/mwc-tab-bar": "0.25.1",
     "@material/mwc-textarea": "0.25.1",
