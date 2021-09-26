@@ -1,4 +1,5 @@
 import { Setting } from "./setting";
+import chroma from "chroma-js";
 import { selector } from "./selector";
 
 /**
@@ -42,8 +43,10 @@ const update_color_setting = async (retry = true): Promise<void> => {
  * @param opacity opacity you want to set
  * @returns ``rgba(r, g, b, ${opacity})``
  */
-const change_opacity = (rgb: string, opacity: number) =>
-    rgb.replace(/^rgb\(/u, "rgba(").replace(/\)$/u, `, ${opacity})`);
+const change_opacity = (rgb: string, opacity: number) => {
+    const rgba = chroma(rgb).alpha(opacity).rgba();
+    return `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${rgba[3]})`;
+};
 
 interface ColorScheme {
     background_color: string;
