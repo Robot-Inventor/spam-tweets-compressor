@@ -92,6 +92,7 @@ class Menu {
 
         this.init_menu_item();
         Menu.init_menu_button();
+        this.initialize_ripple();
     }
 
     private init_menu_item() {
@@ -123,6 +124,33 @@ class Menu {
 
     private hide() {
         if (this.open_button) this.open_button.click();
+    }
+
+    private initialize_ripple() {
+        if (!this.item_outer) {
+            console.error("menu_item_outer was not found.");
+            return;
+        }
+
+        const menu_item = this.item_outer.querySelectorAll(".menu_item");
+        menu_item.forEach((item) => {
+            const ripple = document.createElement("mwc-ripple");
+            item.appendChild(ripple);
+
+            item.addEventListener("mousedown", (event) => {
+                ripple.startPress(event);
+            });
+            item.addEventListener("mouseup", () => {
+                ripple.endPress();
+            });
+            item.addEventListener("mouseover", () => {
+                ripple.startHover();
+            });
+            item.addEventListener("mouseleave", () => {
+                ripple.endHover();
+                ripple.endPress();
+            });
+        });
     }
 }
 
