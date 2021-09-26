@@ -11,12 +11,11 @@ import "@material/mwc-top-app-bar-fixed";
 import "@material/mwc-list/mwc-check-list-item";
 import { Setting, setting_object } from "./setting";
 // eslint-disable-next-line no-duplicate-imports
-import { create_separator, generate_check_list_item } from "./advanced_setting_view";
+import { adjust_header_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
 import { ListItemBase } from "@material/mwc-list/mwc-list-item-base";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
 import { advanced_filter_type } from "./advanced_filter_type";
-// eslint-disable-next-line no-duplicate-imports
 import { load_color_setting } from "./color";
 
 /**
@@ -157,7 +156,9 @@ const setup_textarea_validation = () => {
 new Setting()
     .load()
     .then((setting) => {
-        void load_color_setting();
+        void load_color_setting()
+            .then((color_scheme) => adjust_header_appearance(color_scheme.background_color))
+            .catch(() => console.error("Failed to load color scheme."));
         void load_filter_list(setting);
 
         const textarea_list: NodeListOf<TextArea> = document.querySelectorAll("mwc-textarea");
