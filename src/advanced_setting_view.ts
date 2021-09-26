@@ -42,20 +42,25 @@ const generate_check_list_item = (filter_name: string, filter_id: string, select
  * Set header color as brighten color of document's background color and set border for bottom of the header.
  * @param background_color background color of document
  */
-const adjust_header_appearance = (background_color: string): void => {
-    const crm = chroma(background_color);
-    const header_background_rgb = crm.brighten().rgb();
-
+const adjust_appearance = (background_color: string): void => {
     const header = document.querySelector("mwc-top-app-bar-fixed");
     if (!header) {
         console.error("mwc-top-app-bar-fixed was not found.");
         return;
     }
 
+    const crm = chroma(background_color);
+    const header_rgb = crm.brighten().rgb();
+    const header_rgb_string = `rgb(${header_rgb[0]}, ${header_rgb[1]}, ${header_rgb[2]})`;
+
     const style = document.createElement("style");
     style.textContent = `
 mwc-top-app-bar-fixed {
-    --mdc-theme-primary: rgb(${header_background_rgb[0]}, ${header_background_rgb[1]}, ${header_background_rgb[2]});
+    --mdc-theme-primary: ${header_rgb_string};
+}
+
+mwc-drawer {
+    --mdc-theme-surface: ${header_rgb_string};
 }
 `;
     document.body.appendChild(style);
@@ -125,4 +130,4 @@ new Menu();
 if (location.hash) adjust_scroll_position();
 export { create_separator };
 export { generate_check_list_item };
-export { adjust_header_appearance };
+export { adjust_appearance };
