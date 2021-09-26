@@ -1,4 +1,5 @@
 import { CheckListItem } from "@material/mwc-list/mwc-check-list-item";
+import chroma from "chroma-js";
 
 /**
  * Shift the scroll position by the height of the header.
@@ -35,6 +36,37 @@ const generate_check_list_item = (filter_name: string, filter_id: string, select
     checkbox.dataset.filterId = filter_id;
     if (selected) checkbox.setAttribute("selected", "");
     return checkbox;
+};
+
+/**
+ * Set header color as brighten color of document's background color and set border for bottom of the header.
+ * @param background_color background color of document
+ */
+const adjust_header_appearance = (background_color: string): void => {
+    const crm = chroma(background_color);
+    const header_background_rgb = crm.brighten().rgb();
+
+    const header = document.querySelector("mwc-top-app-bar-fixed");
+    if (!header) {
+        console.error("mwc-top-app-bar-fixed was not found.");
+        return;
+    }
+
+    const style = document.createElement("style");
+    style.textContent = `
+mwc-top-app-bar-fixed {
+    --mdc-theme-primary: rgb(${header_background_rgb[0]}, ${header_background_rgb[1]}, ${header_background_rgb[2]});
+}
+`;
+    document.body.appendChild(style);
+
+    const header_shadow = header.shadowRoot;
+    if (header_shadow) {
+        const header_inner = header_shadow.querySelector("header");
+        if (!header_inner) return;
+
+        header_inner.style.borderBottom = "0.1rem solid rgba(0, 0, 0, 0.1)";
+    }
 };
 
 /**
@@ -93,3 +125,4 @@ new Menu();
 if (location.hash) adjust_scroll_position();
 export { create_separator };
 export { generate_check_list_item };
+export { adjust_header_appearance };

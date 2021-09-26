@@ -45,33 +45,52 @@ const update_color_setting = async (retry = true): Promise<void> => {
 const change_opacity = (rgb: string, opacity: number) =>
     rgb.replace(/^rgb\(/u, "rgba(").replace(/\)$/u, `, ${opacity})`);
 
+interface ColorScheme {
+    background_color: string;
+    high_emphasize_text_color: string;
+    main_color: string;
+    main_color_light: string;
+    medium_emphasize_text_color: string;
+}
+
 /**
- * Load color scheme and initialize CSS variables. The supported CSS variables are below:
+ * Load color scheme, return it and initialize CSS variables. The supported CSS variables are below:
  * - ``--main_color``: main color like Twitter Blue
  * - ``--main_color_light``: light main color like Twitter Blue (opacity: 0.6)
  * - ``--background_color``: document background color
  * - ``--high_emphasize_text_color``: color of normal text
  * - ``--medium_emphasize_text_color``: color of text that medium importance
  */
-const load_color_setting = async (): Promise<void> => {
+const load_color_setting = async (): Promise<ColorScheme> => {
     const high_emphasize_opacity = 1;
     const medium_emphasize_opacity = 0.87;
     const main_color_light_opacity = 0.6;
 
     const setting = await new Setting().load();
 
+    const color_scheme = {
+        background_color: setting.background_color,
+        high_emphasize_text_color: change_opacity(setting.font_color, high_emphasize_opacity),
+        main_color: setting.main_color,
+        main_color_light: change_opacity(setting.main_color, main_color_light_opacity),
+        medium_emphasize_text_color: change_opacity(setting.font_color, medium_emphasize_opacity)
+    } as const;
+
     const style_element = document.createElement("style");
     style_element.textContent = `
 :root {
-    --main_color: ${setting.main_color};
-    --main_color_light: ${change_opacity(setting.main_color, main_color_light_opacity)};
-    --background_color: ${setting.background_color};
-    --high_emphasize_text_color: ${change_opacity(setting.font_color, high_emphasize_opacity)};
-    --medium_emphasize_text_color: ${change_opacity(setting.font_color, medium_emphasize_opacity)};
+    --main_color: ${color_scheme.main_color};
+    --main_color_light: ${color_scheme.main_color_light};
+    --background_color: ${color_scheme.background_color};
+    --high_emphasize_text_color: ${color_scheme.high_emphasize_text_color};
+    --medium_emphasize_text_color: ${color_scheme.medium_emphasize_text_color};
 }
     `;
     document.body.appendChild(style_element);
+
+    return color_scheme;
 };
 
+export { ColorScheme };
 export { update_color_setting };
 export { load_color_setting };
