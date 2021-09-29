@@ -48,7 +48,7 @@ You can install the extension from each browser's extension store.
 This extension determines whether to hide a tweet based on the following factors.
 
 - NG words
-- Advanced Spam Detection
+- Advanced Filters
 
 <!-- When you rename About Personal Information section, change privacy policy link in _locales/**/message.json. -->
 ## About Personal Information

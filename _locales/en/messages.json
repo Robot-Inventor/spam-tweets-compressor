@@ -20,8 +20,8 @@
     "browser_action_exclude_url": {
         "message": "Exclude URL: "
     },
-    "browser_action_advanced_spam_detection": {
-        "message": "Advanced Spam Detection: "
+    "browser_action_advanced_filters": {
+        "message": "Advanced Filters: "
     },
     "browser_action_hide_completely": {
         "message": "Hide Completely (not recommended)"
@@ -131,16 +131,16 @@
     "advanced_setting_exclude_url_textarea_label": {
         "message": "Enter URLs"
     },
-    "advanced_setting_advanced_spam_detection_title": {
-        "message": "Advanced Spam Detection"
+    "advanced_setting_advanced_filters_title": {
+        "message": "Advanced Filters"
     },
-    "advanced_setting_advanced_spam_detection_description1": {
+    "advanced_setting_advanced_filters_description1": {
         "message": "You can enable or disable advanced filters that are specific to a particular purpose."
     },
-    "advanced_setting_advanced_spam_detection_description2": {
-        "message": "Note: Advanced Spam Detection will produce false positives and false negatives. Also, each filter is optimized for its own purpose, and false positives and false negatives will increase when used for other purposes."
+    "advanced_setting_advanced_filters_description2": {
+        "message": "Note: Advanced Filters will produce false positives and false negatives. Also, each filter is optimized for its own purpose, and false positives and false negatives will increase when used for other purposes."
     },
-    "advanced_setting_advanced_spam_detection_description3": {
+    "advanced_setting_advanced_filters_description3": {
         "message": "Overview of how filters work and description of each filter"
     },
     "decompress_button_strict_without_reason": {
@@ -177,7 +177,7 @@
         "message": "NG word"
     },
     "compress_reason_advanced_detection_default": {
-        "message": "Advanced Spam Detection"
+        "message": "Advanced Filter"
     },
     "error_message_user_id_bug": {
         "message": "Spam Tweets Compressor has failed to retrieve the user ID of a tweet. If possible, please report this as a bug to the extension store or the GitHub repository."

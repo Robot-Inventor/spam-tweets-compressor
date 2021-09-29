@@ -1,8 +1,8 @@
-# About Advanced Spam Detection
+# About Advanced Filters
 
-Spam Tweets Compressor implements advanced user-defined spam detection that cannot be done in the normal settings.
+Spam Tweets Compressor implements advanced user-defined filter that cannot be done in the normal settings.
 
-Settings for advanced spam detection are in JSON format. The ``query_object`` interface in TypeScript, which converted from the configuration JSON data into an object, looks like this.
+Settings for Advanced Filters are in JSON format. The ``query_object`` interface in TypeScript, which converted from the configuration JSON data into an object, looks like this.
 
 ```typescript
 interface query_element {
