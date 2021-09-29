@@ -1,10 +1,10 @@
-# 高度なスパム判定について
+# 高度なフィルターについて
 
 [English](../en/advanced_spam_detection.md)
 
-Spam Tweets Compressorには通常の設定では行えない、ユーザー定義の高度なスパム判定が実装されています。
+Spam Tweets Compressorには通常の設定では行えない、ユーザー定義の高度なフィルターが実装されています。
 
-高度なスパム判定の設定はJSON形式で行います。設定のJSONデータをオブジェクトに変換した、TypeScriptでの``query_object``インターフェースは次のようになっています。
+高度なフィルターの設定はJSON形式で行います。設定のJSONデータをオブジェクトに変換した、TypeScriptでの``query_object``インターフェースは次のようになっています。
 
 ```typescript
 interface query_element {

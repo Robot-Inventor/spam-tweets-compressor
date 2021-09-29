@@ -20,8 +20,8 @@
     "browser_action_exclude_url": {
         "message": "特定のページでは圧縮しない："
     },
-    "browser_action_advanced_spam_detection": {
-        "message": "高度なスパム判定："
+    "browser_action_advanced_filters": {
+        "message": "高度なフィルター："
     },
     "browser_action_hide_completely": {
         "message": "完全に非表示にする（非推奨）"
@@ -131,16 +131,16 @@
     "advanced_setting_exclude_url_textarea_label": {
         "message": "URLを入力"
     },
-    "advanced_setting_advanced_spam_detection_title": {
-        "message": "高度なスパム判定"
+    "advanced_setting_advanced_filters_title": {
+        "message": "高度なフィルター"
     },
-    "advanced_setting_advanced_spam_detection_description1": {
+    "advanced_setting_advanced_filters_description1": {
         "message": "特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。"
     },
-    "advanced_setting_advanced_spam_detection_description2": {
-        "message": "注意：高度なスパム判定では偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。"
+    "advanced_setting_advanced_filters_description2": {
+        "message": "注意：高度なフィルターでは偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。"
     },
-    "advanced_setting_advanced_spam_detection_description3": {
+    "advanced_setting_advanced_filters_description3": {
         "message": "フィルターの仕組みの概要と各フィルターに関する説明"
     },
     "decompress_button_strict_without_reason": {
@@ -177,7 +177,7 @@
         "message": "NGワード"
     },
     "compress_reason_advanced_detection_default": {
-        "message": "高度なスパム判定"
+        "message": "高度なフィルター"
     },
     "error_message_user_id_bug": {
         "message": "Spam Tweets CompressorはツイートのユーザーIDの取得に失敗しました。可能ならバグとして、拡張機能のストアまたはGitHubリポジトリーまで報告してください。"
