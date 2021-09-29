@@ -2,6 +2,62 @@
 
 ## Released
 
+### [v2.0.9.5] - 2021-09-30
+
+#### Added
+
+- READMEにテストのバッジを追加 [#217](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/217)
+- READMEにテストコマンドの説明を追加 [#219](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/219)
+- VSCodeのtasks.jsonにテストコマンドを追加 [#223](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/223)
+- READMEのアクセス権限にmobile.twitter.comを追加 [#218](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/218)
+- ユーザーIDなどの取得に失敗した場合にメッセージを表示する機能を追加 [#164](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/164)
+- stylelintを導入 [#232](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/232)
+- Prettierを導入 [#237](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/237)
+- hoverで解凍オプションを追加 [#15](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/15)
+- ユーザー名をNGワードの判定対象にするオプションを追加 [#252](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/252)
+- 詳細設定ページに個人情報に関する説明へのリンクを追加 [#267](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/267)
+- 完全に非表示にする機能を追加 [#288](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/288)
+- 高度なスパム判定の詳しい説明を追加 [#297](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/297)
+- SCSSを導入 [#345](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/345)
+- リセットCSSを導入 [#358](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/358)
+- README.mdのコマンド一覧を更新 [#353](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/353)
+- 高度なスパム判定のフィルターの一覧にローディング画面を実装 [#346](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/346)
+- browser actionのタブと詳細設定ページの項目名にアイコンを追加 [#374](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/374)
+- 詳細設定のメニューにリップルを追加 [#382](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/382)
+
+#### Changed
+
+- webpackのmodeをproductionに変更 [#245](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/245)
+- チェックボックスのカーソル形状を変更 [#266](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/266)
+- 高度なスパム判定のフィルターをIDで管理するように変更 [#263](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/263)
+- URLの正規化にライブラリーを使用したものに変更することで正規化を強化 [#301](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/301)
+- 詳細設定とbrowser actionのチェックボックスのデザインを改善 [#324](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/324)
+- browser actionのチェックボックスをトグルスイッチに変更 [#329](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/329)
+- 詳細設定のテキストボックスのデザインを改善 [#326](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/326)
+- 高度なスパム判定のフィルター一覧をmwc-listに置き換え [#365](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/365)
+- 詳細設定ページのヘッダーをmwc-top-app-bar-fixedに置き換え [#366](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/366)
+- 詳細設定ページのメニューをmwc-drawerに置き換え [#367](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/367)
+- browser actionのタブのデザインを改善 [#325](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/325)
+- 詳細設定のヘッダーの色を変更 [#381](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/381)
+- 詳細設定のメニューの色を変更 [#385](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/385)
+- 高度なスパム判定の名称高度なフィルターに変更 [#289](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/289)
+
+#### Fixed
+
+- 高度なスパム判定の設定変更時に自動で設定が適用されないバグを修正 [#213](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/213)
+- ユーザー名に含まれる絵文字を正しく処理できていないバグを修正 [#46](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/46)
+- ツイート本文に含まれる絵文字を取得できていないバグを修正 [#134](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/134)
+- 高度なスパム判定のフィルターを解除した際に自動で設定が適用されないバグを修正 [#275](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/275)
+- Twitterの配色の取得に失敗することがあるバグを修正 [#278](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/278)
+- クリーンインストール時に設定の読み込みに失敗するバグを修正 [#283](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/283)
+- high_emphasize_text_color のコントラストが低すぎたため修正 [#312](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/312)
+- デフォルト設定以外のフォントサイズの場合ユーザー名の取得に失敗するバグを修正 [#300](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/300)
+- デフォルト設定以外のフォントサイズの場合メインカラーの取得に失敗するバグを修正 [#299](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/299)
+
+#### Deleted
+
+- browser action内の再読み込みを促す表示を削除 [#214](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/214)
+
 ### [v2.0.8.4] - 2021-08-19
 
 #### Added

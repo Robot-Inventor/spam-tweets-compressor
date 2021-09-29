@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Spam Tweets Compressor",
     "short_name": "ST Compressor",
-    "version": "2.0.8.4",
+    "version": "2.0.9.5",
     "description": "__MSG_manifest_description__",
     "icons": {
         "16": "image/icon16.png",
