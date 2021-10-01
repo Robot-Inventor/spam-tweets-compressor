@@ -8,6 +8,10 @@ body {
     background: var(--background_color);
 }
 
+body {
+    padding: 0 1.5em;
+}
+
 mwc-top-app-bar-fixed {
     --mdc-theme-primary: var(--background_color);
     position: fixed;
