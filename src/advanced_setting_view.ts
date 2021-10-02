@@ -5,10 +5,8 @@ import chroma from "chroma-js";
  * Shift the scroll position by the height of the header.
  */
 const adjust_scroll_position = () => {
-    const header = document.querySelector("mwc-top-app-bar-fixed");
-    // eslint-disable-next-line radix, no-magic-numbers
-    if (header) scrollBy(0, parseInt(getComputedStyle(header).height.replace(/px$/u, "")) * -2);
-    else console.error("header was not found.");
+    // eslint-disable-next-line no-magic-numbers
+    scrollBy(0, -64);
 };
 
 /**
@@ -155,7 +153,17 @@ class Menu {
 }
 
 new Menu();
-if (location.hash) adjust_scroll_position();
+window.addEventListener("load", () => {
+    if (location.hash) {
+        const target_element = document.querySelector(location.hash);
+        if (target_element) {
+            target_element.scrollIntoView();
+            adjust_scroll_position();
+        } else {
+            console.error(`${location.hash} was not found.`);
+        }
+    }
+});
 export { create_separator };
 export { generate_check_list_item };
 export { adjust_appearance };
