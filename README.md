@@ -10,20 +10,20 @@ This extension protects you from tweets that you feel are harassing or threateni
 
 ## Summary
 
-What kind of tweets you find harassing or threatening varies from person to person, and it can be difficult to make an objective judgment. This extension will hide tweets that you find "harassing or threatening" according to "your standards". This is an unofficial browser extension to protect your mind when viewing replies or ego-surfing.
+What kind of tweets are perceived as harassment or threats varies from person to person. It can be difficult to judge objectively. This extension hides tweets that you judge to be "harassing or threatening" based on "your criteria". It is an unofficial browser extension that protects your mind when viewing replies or doing ego searches.
 
-### ✔ Can
+### ✔ What this does
 
-- It can protect your mind by hiding tweets that may be harassing or threatening
-- It allows you to set what kind of tweets are considered harassment or threats
+- You can protect your mind by hiding tweets that are harassing or threatening
+- You can hide them only in your own browser, so you cannot hide them in other people's browsers
 
-### ✖ Can't
+### ✖ What this can't do
 
 - There is no automatic reporting of tweets deemed potentially harassing or threatening, or the ability to mute or block the poster
 - Hide only on your browser. Can't be hidden on other people's browsers
-- Works only on [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com). It can't work on other Twitter clients or mobile apps
+- Only works on [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com). Will not work with other Twitter clients or mobile apps
 
-### ⚠ Caution
+### ⚠ Precaution
 
 - This is an unofficial extension, Twitter is not involved in any way
 - Hides "possibly" harassing or threatening tweets. False positives and false negatives can also occur
@@ -53,7 +53,7 @@ This extension determines whether to hide a tweet based on the following factors
 <!-- When you rename About Personal Information section, change privacy policy link in _locales/**/message.json. -->
 ## About Personal Information
 
-This extension analyzes tweets on the user's computer, so it does not send any information about the user to the outside world. However, it will communicate with the server to receive the latest filter data for " Advanced Spam Detection".
+This extension analyzes tweets on the user's computer, so it does not send any information about the user to the outside world. However, it does communicate with the server to receive the latest filter data for " Advanced Spam Detection".
 
 This extension will only use the permissions for the following purposes
 
