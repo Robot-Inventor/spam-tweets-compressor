@@ -53,13 +53,13 @@ This extension determines whether to hide a tweet based on the following factors
 <!-- When you rename About Personal Information section, change privacy policy link in _locales/**/message.json. -->
 ## About Personal Information
 
-This extension analyzes tweets on the user's computer, so it does not send any information about the user to the outside world. However, it does communicate with the server to receive the latest filter data for " Advanced Spam Detection".
+This extension does not send any information to the outside world, as the analysis takes place only on the user's PC. But please note that the extension will automatically receive "data to update the Advance Filter".
 
 This extension will only use the permissions for the following purposes
 
-- Use access to [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com) to determine if the displayed tweets are spam and to hide tweets that are considered spam
-- Use storage permission to save settings
-- Use access to [cdn.statically.io](https://cdn.statically.io) to get the latest filter data
+- Interferes with [twitter.com](https://twitter.com) and [mobile.twitter.com](https://mobile.twitter.com) to determine whether the displayed tweets are spam or not and hides tweets that are determined to be spam
+- Uses storage permission to save the extension settings in the user folder. Does not send settings to external clouds or servers
+- Access [cdn.statically.io](https://cdn.statically.io) to receive the latest spam information for Advanced Filter
 
 ## Development
 
