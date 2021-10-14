@@ -36,9 +36,6 @@ h1 {
 }
 
 h2 {
-    margin-top: 3rem;
-    margin-bottom: 0;
-
     mwc-icon {
         margin-right: 0.5em;
         vertical-align: sub;
@@ -109,6 +106,20 @@ p {
 
 ul {
     padding-left: 2rem;
+}
+
+.setting_card {
+    margin-top: 3rem;
+    background: rgb(44, 44, 44);
+    padding: 1.5em;
+    border-radius: 0.5em;
+    border: solid rgba(125, 125, 125, 0.25) 0.05rem;
+    transition: 0.3s;
+
+    &:hover {
+        border-color: transparent;
+        box-shadow: 0.1rem 0.1rem 0.25rem rgba(0, 0, 0, 0.25), -0.1rem -0.1rem 0.2rem rgba(0, 0, 0, 0.05);
+    }
 }
 
 mwc-formfield {
