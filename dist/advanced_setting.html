@@ -40,50 +40,60 @@
             </mwc-top-app-bar-fixed>
             <main>
                 <h1 data-i18n="advanced_setting_h1">Spam Tweets Compressorの詳細設定</h1>
-                <!-- The settings export function is hidden because the settings import function has not been implemented. -->
-                <h2 data-i18n="advanced_setting_export_title" style="display: none;">設定のエクスポート</h2>
-                <p data-i18n="advanced_setting_export_description" style="display: none;">
-                    Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
-                </p>
-                <button data-i18n="advanced_setting_export_copy" id="copy_button" style="display: none;">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button" style="display: none;">保存</button>
-                <h2 id="ng_word_title"><mwc-icon>spellcheck</mwc-icon><span data-i18n="advanced_setting_ng_word_title">NGワード</span></h2>
-                <p data-i18n="advanced_setting_ng_word_description1">
-                    NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。
-                </p>
-                <p data-i18n="advanced_setting_ng_word_description2">
-                    また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。
-                </p>
-                <mwc-textarea data-i18n-label="advanced_setting_ng_word_textarea_label" id="ng_word" cols="30" rows="5" data-setting-name="ng_word" placeholder="SpamSpam" outlined></mwc-textarea>
-                <h2 id="allow_list_title"><mwc-icon>verified_user</mwc-icon><span data-i18n="advanced_setting_allow_list_title">許可リスト</span></h2>
-                <p data-i18n="advanced_setting_allow_list_description">
-                    ここにユーザーIDを入力されたユーザーは、スパム判定の対象から除外されます。複数個指定する場合は改行で区切ってください。
-                </p>
-                <mwc-textarea data-i18n-label="advanced_setting_allow_list_textarea_label" id="allow_list" cols="30" rows="5" data-setting-name="allow_list" data-i18n-validation-message="advanced_setting_allow_list_textarea_validation_message" placeholder="@Twitter" outlined></mwc-textarea>
-                <h2 id="exclude_url_title"><mwc-icon>link_off</mwc-icon><span  data-i18n="advanced_setting_exclude_url_title">特定のページで無効化</span></h2>
-                <p data-i18n="advanced_setting_exclude_url_description">
-                    指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。
-                </p>
-                <h3 data-i18n="advanced_setting_exclude_url_examples">参考</h3>
-                <ul>
-                    <li><span data-i18n="advanced_setting_exclude_url_examples_home">ホーム</span>：https://twitter.com/home</li>
-                    <li><span data-i18n="advanced_setting_exclude_url_examples_notification">通知</span>：https://twitter.com/notifications</li>
-                    <li><span data-i18n="advanced_setting_exclude_url_examples_list">リスト</span>：https://twitter.com/i/lists/＜<span data-i18n="advanced_setting_exclude_url_examples_list_number">リストの番号</span>＞</li>
-                    <li><span data-i18n="advanced_setting_exclude_url_examples_bookmark">ブックマーク</span>：https://twitter.com/i/bookmarks</li>
-                </ul>
-                <mwc-textarea data-i18n-label="advanced_setting_exclude_url_textarea_label" id="exclude_url" cols="30" rows="5" data-setting-name="exclude_url" placeholder="https://twitter.com/home" outlined></mwc-textarea>
-                <h2 id="advanced_filters_title"><mwc-icon>auto_fix_high</mwc-icon><span data-i18n="advanced_setting_advanced_filters_title">高度なフィルター</span></h2>
-                <p data-i18n="advanced_setting_advanced_filters_description1">
-                    特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。
-                </p>
-                <p data-i18n="advanced_setting_advanced_filters_description2">
-                    注意：高度なフィルターでは偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。
-                </p>
-                <p>
-                    <a data-i18n="advanced_setting_advanced_filters_description3" href="https://github.com/Robot-Inventor/stc-filter/blob/main/docs/filter_description.md" target="_blank">高度なフィルターの仕組みの概要と各フィルターに関する説明</a>
-                </p>
-                <div id="filter_list_outer">
-                    <div id="filter_loading_screen">
-                        <mwc-circular-progress indeterminate></mwc-circular-progress>
+                <div class="setting_card" style="display: none;">
+                    <!-- The settings export function is hidden because the settings import function has not been implemented. -->
+                    <h2 data-i18n="advanced_setting_export_title" style="display: none;">設定のエクスポート</h2>
+                    <p data-i18n="advanced_setting_export_description" style="display: none;">
+                        Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
+                    </p>
+                    <button data-i18n="advanced_setting_export_copy" id="copy_button" style="display: none;">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button" style="display: none;">保存</button>
+                </div>
+                <div class="setting_card">
+                    <h2 id="ng_word_title"><mwc-icon>spellcheck</mwc-icon><span data-i18n="advanced_setting_ng_word_title">NGワード</span></h2>
+                    <p data-i18n="advanced_setting_ng_word_description1">
+                        NGワードを入力してください。複数個指定する場合は改行で区切ってください。大文字・小文字やカタカナ・ひらがなは区別しません。
+                    </p>
+                    <p data-i18n="advanced_setting_ng_word_description2">
+                        また、正規表現を使用する場合はNGワードの始めと終わりを/で囲み、正規表現フラグは終わりの/のあとに書いてください。
+                    </p>
+                    <mwc-textarea data-i18n-label="advanced_setting_ng_word_textarea_label" id="ng_word" cols="30" rows="5" data-setting-name="ng_word" placeholder="SpamSpam" outlined></mwc-textarea>
+                </div>
+                <div class="setting_card">
+                    <h2 id="allow_list_title"><mwc-icon>verified_user</mwc-icon><span data-i18n="advanced_setting_allow_list_title">許可リスト</span></h2>
+                    <p data-i18n="advanced_setting_allow_list_description">
+                        ここにユーザーIDを入力されたユーザーは、スパム判定の対象から除外されます。複数個指定する場合は改行で区切ってください。
+                    </p>
+                    <mwc-textarea data-i18n-label="advanced_setting_allow_list_textarea_label" id="allow_list" cols="30" rows="5" data-setting-name="allow_list" data-i18n-validation-message="advanced_setting_allow_list_textarea_validation_message" placeholder="@Twitter" outlined></mwc-textarea>
+                </div>
+                <div class="setting_card">
+                    <h2 id="exclude_url_title"><mwc-icon>link_off</mwc-icon><span  data-i18n="advanced_setting_exclude_url_title">特定のページで無効化</span></h2>
+                    <p data-i18n="advanced_setting_exclude_url_description">
+                        指定したURLでは拡張機能を無効化します。複数指定する場合は改行で区切ってください。
+                    </p>
+                    <h3 data-i18n="advanced_setting_exclude_url_examples">参考</h3>
+                    <ul>
+                        <li><span data-i18n="advanced_setting_exclude_url_examples_home">ホーム</span>：https://twitter.com/home</li>
+                        <li><span data-i18n="advanced_setting_exclude_url_examples_notification">通知</span>：https://twitter.com/notifications</li>
+                        <li><span data-i18n="advanced_setting_exclude_url_examples_list">リスト</span>：https://twitter.com/i/lists/＜<span data-i18n="advanced_setting_exclude_url_examples_list_number">リストの番号</span>＞</li>
+                        <li><span data-i18n="advanced_setting_exclude_url_examples_bookmark">ブックマーク</span>：https://twitter.com/i/bookmarks</li>
+                    </ul>
+                    <mwc-textarea data-i18n-label="advanced_setting_exclude_url_textarea_label" id="exclude_url" cols="30" rows="5" data-setting-name="exclude_url" placeholder="https://twitter.com/home" outlined></mwc-textarea>
+                </div>
+                <div class="setting_card">
+                    <h2 id="advanced_filters_title"><mwc-icon>auto_fix_high</mwc-icon><span data-i18n="advanced_setting_advanced_filters_title">高度なフィルター</span></h2>
+                    <p data-i18n="advanced_setting_advanced_filters_description1">
+                        特定の目的に特化した高度なフィルターの有効・無効を切り替えられます。
+                    </p>
+                    <p data-i18n="advanced_setting_advanced_filters_description2">
+                        注意：高度なフィルターでは偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。
+                    </p>
+                    <p>
+                        <a data-i18n="advanced_setting_advanced_filters_description3" href="https://github.com/Robot-Inventor/stc-filter/blob/main/docs/filter_description.md" target="_blank">高度なフィルターの仕組みの概要と各フィルターに関する説明</a>
+                    </p>
+                    <div id="filter_list_outer">
+                        <div id="filter_loading_screen">
+                            <mwc-circular-progress indeterminate></mwc-circular-progress>
+                        </div>
                     </div>
                 </div>
             </main>

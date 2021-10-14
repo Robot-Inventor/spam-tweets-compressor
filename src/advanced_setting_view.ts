@@ -48,8 +48,17 @@ const adjust_appearance = (background_color: string): void => {
     }
 
     const crm = chroma(background_color);
+
     const header_rgb = crm.brighten().rgb();
     const header_rgb_string = `rgb(${header_rgb[0]}, ${header_rgb[1]}, ${header_rgb[2]})`;
+
+    // eslint-disable-next-line no-magic-numbers
+    const setting_card_rgb = crm.brighten(0.5).rgb();
+    const setting_card_rgb_string = `rgb(${setting_card_rgb[0]}, ${setting_card_rgb[1]}, ${setting_card_rgb[2]})`;
+
+    // eslint-disable-next-line no-magic-numbers
+    const setting_card_hover_rgb = crm.brighten(0.6).rgb();
+    const setting_card_hover_rgb_string = `rgb(${setting_card_hover_rgb[0]}, ${setting_card_hover_rgb[1]}, ${setting_card_hover_rgb[2]})`;
 
     const style = document.createElement("style");
     style.textContent = `
@@ -59,6 +68,14 @@ mwc-top-app-bar-fixed {
 
 mwc-drawer {
     --mdc-theme-surface: ${header_rgb_string};
+}
+
+.setting_card {
+    background: ${setting_card_rgb_string};
+}
+
+.setting_card:hover {
+    background: ${setting_card_hover_rgb_string};
 }
 `;
     document.body.appendChild(style);
