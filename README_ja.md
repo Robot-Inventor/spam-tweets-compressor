@@ -31,6 +31,14 @@
 [<img src="docs/available_in_chrome_web_store.svg" width="50%">](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
 [<img src="docs/get_the_addon_fx_apr_2020.svg" width="43%">](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
 
+### バグの報告・機能提案
+
+バグの報告や機能提案は、次のいずれかの場所にお願いします。
+
+- GitHubの[Issue](https://github.com/Robot-Inventor/spam-tweets-compressor/issues)（GitHubアカウントを持っている場合）
+- [Chrome ウェブストア](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)の [サポート] セクション（Google Chromeの場合）
+- [AMO](https://addons.mozilla.org/firefox/addon/spam-tweets-compressor/)のレビュー（Mozilla Firefoxの場合）
+
 ## 対応ブラウザー
 
 - Google Chrome

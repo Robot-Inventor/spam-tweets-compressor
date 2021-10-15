@@ -31,6 +31,14 @@ What kind of tweets are perceived as harassment or threats varies from person to
 [<img src="docs/available_in_chrome_web_store.svg" width="50%">](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
 [<img src="docs/get_the_addon_fx_apr_2020.svg" width="43%">](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
 
+### Report Bugs and Suggest Features
+
+Bug reports and feature suggestions should be sent to one of the following places.
+
+- GitHub [Issues](https://github.com/Robot-Inventor/spam-tweets-compressor/issues)（If you have a GitHub account）
+- [Chrome Web Store](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)'s [Support] section（If you are using Google Chrome）
+- [AMO](https://addons.mozilla.org/firefox/addon/spam-tweets-compressor/)'s review（If you are using Mozilla Firefox）
+
 ## Supported Browsers
 
 - Google Chrome
