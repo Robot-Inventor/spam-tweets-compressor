@@ -30,6 +30,7 @@
 
 [<img src="docs/available_in_chrome_web_store.svg" width="40%">](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
 [<img src="docs/get_the_addon_fx_apr_2020.svg" width="40%">](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
+
 ## 対応ブラウザー
 
 - Google Chrome
