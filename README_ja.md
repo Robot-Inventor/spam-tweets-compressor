@@ -29,7 +29,7 @@
 - 嫌がらせや脅迫の「可能性がある」ツイートを非表示にします。偽陽性や偽陰性も発生します
 
 [<img src="docs/available_in_chrome_web_store.svg" width="50%">](https://chrome.google.com/webstore/detail/spam-tweets-compressor/ahbajmjkdmknfdkcppkginogfjmpefjf)
-[<img src="docs/get_the_addon_fx_apr_2020.svg" width="43%">](https://addons.mozilla.org/ja/firefox/addon/spam-tweets-compressor/)
+[<img src="docs/get_the_addon_fx_apr_2020.svg" width="43%">](https://addons.mozilla.org/firefox/addon/spam-tweets-compressor/)
 
 ### バグの報告・機能提案
 
