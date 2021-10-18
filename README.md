@@ -10,7 +10,9 @@ This extension protects you from tweets that you feel are harassing or threateni
 
 ## Summary
 
-What kind of tweets are perceived as harassment or threats varies from person to person. It can be difficult to judge objectively. This extension hides tweets that you judge to be "harassing or threatening" based on "your criteria". It is an unofficial browser extension that protects your mind when viewing replies or doing ego searches.
+What kind of tweets are perceived as harassment or threats varies from person to person. It can be difficult to judge objectively. This extension hides tweets that you judge to be "harassing or threatening" based on "your criteria". This is an unofficial browser extension to protect yourself from mindless maliciousness when replying to yourself or viewing tweets about yourself!
+
+You can also hide the tweets of people who send "threats," "harassment of any kind," "promotion of violence," "posting of gross images," etc. with hashtags to specific female idols and female streamers.
 
 ### ✔ What this does
 
