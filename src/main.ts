@@ -90,7 +90,7 @@ const load_advanced_filter = async (filter_id_list: Array<string>) => {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const filter_url_data: advanced_filter_type = await get_json(
-        "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json"
+        "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json?dev=0"
     );
 
     const url_list = Object.keys(filter_url_data)
