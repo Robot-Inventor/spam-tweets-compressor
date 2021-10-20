@@ -135,7 +135,7 @@
         "message": "Advanced Filters"
     },
     "advanced_setting_advanced_filters_description1": {
-        "message": "You can enable or disable advanced filters that are specific to a particular purpose."
+        "message": "You can enable or disable the \"Advanced Filters\" that hides spam and spoofing against specific female idols and streamers. It works by using various information such as specific words, hashtags, and URLs contained in tweets."
     },
     "advanced_setting_advanced_filters_description2": {
         "message": "Note: Advanced Filters will produce false positives and false negatives. Also, each filter is optimized for its own purpose, and false positives and false negatives will increase when used for other purposes."
