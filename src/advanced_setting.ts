@@ -134,7 +134,7 @@ const temporarily_change_button_text = (button: HTMLElement, text: string) => {
     setTimeout(() => (button.textContent = default_text), button_text_change_time);
 };
 
-const setup_textarea_validation = () => {
+const initialize_textarea_validation = () => {
     const allow_list = document.getElementById("allow_list") as TextArea | null;
     if (allow_list) {
         allow_list.validityTransform = (newValue, nativeValidity) => {
@@ -153,6 +153,39 @@ const setup_textarea_validation = () => {
     } else console.error("Textarea of allow list was not found.");
 };
 
+/**
+ * Set current setting to textarea and save new setting when the textarea is updated.
+ * @param textarea target textarea to validate
+ * @param setting setting object
+ */
+const initialize_textarea = (textarea: TextArea, setting: setting_object) => {
+    const setting_name = get_setting_name(textarea);
+
+    if (Object.keys(setting).includes(setting_name)) {
+        const saved_value = setting[setting_name];
+        textarea.value = Array.isArray(saved_value) ? saved_value.join("\n") : "";
+
+        const process_string = (text: string) =>
+            text
+                .split("\n")
+                .map((txt) => txt.trim())
+                .filter((txt) => txt);
+
+        const save_textarea = () => {
+            if (textarea.validity.valid) setting[setting_name] = process_string(textarea.value);
+        };
+
+        window.addEventListener("beforeunload", save_textarea);
+        // eslint-disable-next-line init-declarations
+        let textarea_timeout: NodeJS.Timeout;
+        textarea.addEventListener("input", () => {
+            clearTimeout(textarea_timeout);
+            // eslint-disable-next-line no-magic-numbers
+            textarea_timeout = setTimeout(save_textarea, 5000);
+        });
+    }
+};
+
 new Setting()
     .load()
     .then((setting) => {
@@ -163,29 +196,10 @@ new Setting()
 
         const textarea_list: NodeListOf<TextArea> = document.querySelectorAll("mwc-textarea");
         textarea_list.forEach((textarea) => {
-            const setting_name = get_setting_name(textarea);
-
-            if (Object.keys(setting).includes(setting_name)) {
-                const saved_value = setting[setting_name];
-                textarea.value = saved_value instanceof Array ? saved_value.join("\n") : "";
-
-                const process_string = (text: string) => {
-                    const result = text
-                        .split("\n")
-                        .map((txt) => txt.trim())
-                        .filter((txt) => txt);
-                    return result;
-                };
-
-                const save_textarea = () => {
-                    if (textarea.validity.valid) setting[setting_name] = process_string(textarea.value);
-                };
-
-                window.addEventListener("beforeunload", save_textarea);
-            }
+            initialize_textarea(textarea, setting);
         });
 
-        setup_textarea_validation();
+        initialize_textarea_validation();
 
         const copy_button = document.getElementById("copy_button");
         if (copy_button) {
