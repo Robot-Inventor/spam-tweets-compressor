@@ -26,7 +26,7 @@ export class Emoji {
         if (!this.emoji_list) throw new Error("Emoji.init() must be called before Emoji.using get_from_url().");
 
         const compressed_url = url.replace(/https:\/\/abs-0\.twimg\.com\/emoji\/v2\/svg\/(?<id>.+?)\.svg/u, "$<id>");
-        if (url in this.emoji_list) return this.emoji_list[compressed_url];
+        if (compressed_url in this.emoji_list) return this.emoji_list[compressed_url];
         else return null;
     }
 }
