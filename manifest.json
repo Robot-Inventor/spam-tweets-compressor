@@ -34,9 +34,6 @@
         "default_popup": "dist/browser_action.html",
         "default_title": "Spam Tweets Compressor"
     },
-    "web_accessible_resources": [
-        "dist/twitter-emoji-url-list/twitter-emoji-url-list.json"
-    ],
     "default_locale": "en",
     "permissions": [
         "storage",
