@@ -111,52 +111,49 @@ const load_advanced_filter = async (filter_id_list: Array<string>) => {
     return joined_advanced_filter;
 };
 
-tweet_element
-    .init()
-    .then(async () => {
-        const setting_instance = new Setting();
-        const setting = await setting_instance.load();
+(async () => {
+    const setting_instance = new Setting();
+    const setting = await setting_instance.load();
 
-        let joined_advanced_filter: query_type = await load_advanced_filter(setting.advanced_filter);
+    let joined_advanced_filter: query_type = await load_advanced_filter(setting.advanced_filter);
 
-        const reload_filter = async () => {
-            joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
-        };
+    const reload_filter = async () => {
+        joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
+    };
 
-        // eslint-disable-next-line no-magic-numbers
-        const filter_reload_interval = 1000 * 60 * 60 * 24;
-        setInterval(() => void reload_filter(), filter_reload_interval);
+    // eslint-disable-next-line no-magic-numbers
+    const filter_reload_interval = 1000 * 60 * 60 * 24;
+    setInterval(() => void reload_filter(), filter_reload_interval);
 
-        setting_instance.onChange(() => {
-            void (async () => {
-                await reload_filter();
-                decompress_all();
-                reset_check_status();
-            })();
-        });
+    setting_instance.onChange(() => {
+        void (async () => {
+            await reload_filter();
+            decompress_all();
+            reset_check_status();
+        })();
+    });
 
-        const body_observer_target = document.body;
-        const body_observer = new MutationObserver(() => {
-            const timeline = document.querySelector(selector.timeline);
+    const body_observer_target = document.body;
+    const body_observer = new MutationObserver(() => {
+        const timeline = document.querySelector(selector.timeline);
 
-            if (timeline) {
-                body_observer.disconnect();
+        if (timeline) {
+            body_observer.disconnect();
 
-                update_color_setting()
-                    .then(load_color_setting)
-                    .catch((error) => console.error(error));
+            update_color_setting()
+                .then(load_color_setting)
+                .catch((error) => console.error(error));
 
-                const main_observer_target = timeline;
-                const main_observer = new MutationObserver(() => void run_check(setting, joined_advanced_filter));
-                main_observer.observe(main_observer_target, {
-                    childList: true,
-                    subtree: true
-                });
-            }
-        });
-        body_observer.observe(body_observer_target, {
-            childList: true,
-            subtree: true
-        });
-    })
-    .catch((error) => console.error(error));
+            const main_observer_target = timeline;
+            const main_observer = new MutationObserver(() => void run_check(setting, joined_advanced_filter));
+            main_observer.observe(main_observer_target, {
+                childList: true,
+                subtree: true
+            });
+        }
+    });
+    body_observer.observe(body_observer_target, {
+        childList: true,
+        subtree: true
+    });
+})().catch((err) => console.error(err));

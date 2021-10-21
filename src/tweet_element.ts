@@ -14,16 +14,9 @@ export interface TweetElementInterface extends HTMLElement {
 
 export class TweetElement {
     readonly emoji_detector: Emoji;
-    initialized: boolean;
 
     constructor() {
         this.emoji_detector = new Emoji();
-        this.initialized = false;
-    }
-
-    async init(): Promise<void> {
-        await this.emoji_detector.init();
-        this.initialized = true;
     }
 
     generate(tweet: TweetElementInterface): TweetElementInterface {

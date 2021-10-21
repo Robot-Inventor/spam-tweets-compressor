@@ -1,20 +1,17 @@
+import emoji_list from "./twitter-emoji-url-list/twitter-emoji-url-list.json";
+
+interface EmojiList {
+    [emoji_id: string]: string;
+}
+
 /**
  * Determine what kind of emoji it is from the image URL.
  */
 export class Emoji {
-    private emoji_list: { [key: string]: string } | null;
+    private emoji_list: EmojiList;
 
     constructor() {
-        this.emoji_list = null;
-    }
-
-    /**
-     * To use the class, call this function first.
-     */
-    async init(): Promise<void> {
-        const response = await fetch(browser.runtime.getURL("dist/twitter-emoji-url-list/twitter-emoji-url-list.json"));
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        this.emoji_list = await response.json();
+        this.emoji_list = emoji_list as EmojiList;
     }
 
     /**
@@ -23,8 +20,6 @@ export class Emoji {
      * @returns emoji
      */
     get_from_url(url: string): string | null {
-        if (!this.emoji_list) throw new Error("Emoji.init() must be called before Emoji.using get_from_url().");
-
         const compressed_url = url.replace(/https:\/\/abs-0\.twimg\.com\/emoji\/v2\/svg\/(?<id>.+?)\.svg/u, "$<id>");
         if (compressed_url in this.emoji_list) return this.emoji_list[compressed_url];
         else return null;
