@@ -54,7 +54,13 @@ const init_i18n_validation_message = () => {
     });
 };
 
-init_i18n_text();
-init_i18n_link();
-init_i18n_label();
-init_i18n_validation_message();
+const init_i18n = () => {
+    init_i18n_text();
+    init_i18n_link();
+    init_i18n_label();
+    init_i18n_validation_message();
+};
+
+init_i18n();
+
+export { init_i18n };

@@ -1,0 +1,53 @@
+{
+    "general": [
+        {
+            "type": "switch",
+            "label": "browser_action_show_reason",
+            "name": "show_reason"
+        },
+        {
+            "type": "link",
+            "label": "browser_action_ng_word",
+            "link": "advanced_setting.html#ng_word_title"
+        },
+        {
+            "type": "link",
+            "label": "browser_action_advanced_filters",
+            "link": "advanced_setting.html#advanced_filters_title"
+        }
+    ],
+    "option": [
+        {
+            "type": "switch",
+            "label": "browser_action_hide_completely",
+            "name": "hide_completely"
+        },
+        {
+            "type": "switch",
+            "label": "browser_action_include_user_name",
+            "name": "include_user_name"
+        },
+        {
+            "type": "switch",
+            "label": "browser_action_decompress_on_hover",
+            "name": "decompress_on_hover"
+        },
+        {
+            "type": "switch",
+            "label": "browser_action_include_verified_account",
+            "name": "include_verified_account"
+        }
+    ],
+    "advanced": [
+        {
+            "type": "link",
+            "label": "browser_action_allow_list",
+            "link": "advanced_setting.html#allow_list_title"
+        },
+        {
+            "type": "link",
+            "label": "browser_action_exclude_url",
+            "link": "advanced_setting.html#exclude_url_title"
+        }
+    ]
+}
