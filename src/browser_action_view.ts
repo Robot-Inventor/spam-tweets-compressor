@@ -1,3 +1,5 @@
+import { LoadBrowserActionContent } from "./browser_action_load_content";
+
 /**
  * Initialize tab switcher.
  */
@@ -45,5 +47,6 @@ const show_version = () => {
     if (target_element) target_element.textContent = `${version}`;
 };
 
+new LoadBrowserActionContent();
 new TabSwitcher();
 show_version();

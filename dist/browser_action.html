@@ -15,41 +15,10 @@
         <mwc-tab data-i18n-label="browser_action_tab_switcher_option" icon="toggle_on" data-target="#setting_item_option"></mwc-tab>
         <mwc-tab data-i18n-label="browser_action_tab_switcher_advanced" icon="auto_fix_high" data-target="#setting_item_advanced"></mwc-tab>
     </mwc-tab-bar>
-    <div class="setting_item_group" id="setting_item_general">
-        <mwc-formfield data-i18n-label="browser_action_show_reason">
-            <mwc-switch data-setting-name="show_reason"></mwc-switch>
-        </mwc-formfield>
-        <div class="setting_item_outer">
-            <span id="ng_word" data-i18n="browser_action_ng_word">NGワードを設定</span>　<a href="advanced_setting.html#ng_word_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
-        </div>
-        <div class="setting_item_outer">
-            <span id="advanced_filters" data-i18n="browser_action_advanced_filters">高度なフィルター</span>　<a href="advanced_setting.html#advanced_filters_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
-        </div>
-    </div>
-    <div class="setting_item_group" id="setting_item_option">
-        <mwc-formfield data-i18n-label="browser_action_hide_completely">
-            <mwc-switch data-setting-name="hide_completely"></mwc-switch>
-        </mwc-formfield>
-        <mwc-formfield data-i18n-label="browser_action_include_user_name">
-            <mwc-switch data-setting-name="include_user_name"></mwc-switch>
-        </mwc-formfield>
-        <mwc-formfield data-i18n-label="browser_action_decompress_on_hover">
-            <mwc-switch data-setting-name="decompress_on_hover"></mwc-switch>
-        </mwc-formfield>
-        <mwc-formfield data-i18n-label="browser_action_include_verified_account">
-            <mwc-switch data-setting-name="include_verified_account"></mwc-switch>
-        </mwc-formfield>
-    </div>
-    <div class="setting_item_group" id="setting_item_advanced">
-        <div class="setting_item_outer">
-            <span id="allow_list" data-i18n="browser_action_allow_list">許可リスト</span>　<a href="advanced_setting.html#allow_list_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
-        </div>
-        <div class="setting_item_outer">
-            <span id="exclude_url" data-i18n="browser_action_exclude_url">特定のページでは圧縮しない</span>　<a href="advanced_setting.html#exclude_url_title" target="_blank" data-i18n="browser_action_open_setting">設定を開く</a>
-        </div>
-    </div>
+    <div class="setting_item_group" id="setting_item_general"></div>
+    <div class="setting_item_group" id="setting_item_option"></div>
+    <div class="setting_item_group" id="setting_item_advanced"></div>
     <script src="webextension_polyfill/browser-polyfill.min.js"></script>
-    <script src="i18n.js"></script>
-    <script src="browser_action.js" type="module"></script>
+    <script src="browser_action.js"></script>
 </body>
 </html>
