@@ -29,6 +29,6 @@ export const selector = {
     tweet_content: ".css-901oao.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
     tweet_outer: "div.css-1dbjc4n.r-1adg3ll.r-1ny4l3l",
     user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-16dba41.r-bcqeeo.r-qvutc0",
-    user_name: ".css-901oao.css-bfa6kz.r-1awozwy.r-6koalj.r-1tl8opc.r-b88u0q.r-bcqeeo.r-1udh08x.r-3s2u2q.r-qvutc0",
+    user_name: ".css-901oao.r-1awozwy.r-6koalj.r-1tl8opc.r-b88u0q.r-bcqeeo.r-1udh08x.r-3s2u2q.r-qvutc0",
     verified_badge: "svg.r-4qtqp9.r-yyyyoo.r-1xvli5t.r-9cviqr.r-f9ja8p.r-og9te1.r-bnwqim.r-1plcrui.r-lrvibr"
 } as const;
