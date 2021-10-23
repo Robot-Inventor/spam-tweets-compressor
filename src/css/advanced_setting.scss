@@ -1,5 +1,7 @@
-@import "_reset";
-@import "_css_variables";
+@use "sass:string";
+
+@import "reset";
+@import "css_variables";
 
 $header_z_index: 1;
 
@@ -27,7 +29,7 @@ mwc-top-app-bar-fixed {
 main {
     margin-top: 7em;
     max-width: 40em;
-    margin-left: calc((100% - min(100%, 40em)) / 2);
+    margin-left: string.unquote("calc((100% - min(100%, 40em)) / 2)");
     padding-bottom: 5em;
 }
 
