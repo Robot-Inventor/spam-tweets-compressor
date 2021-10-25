@@ -52,7 +52,8 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
     }
 
     const response = await fetch(
-        "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json"
+        "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json",
+        { cache: "no-cache" }
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json_data: advanced_filter_type = await response.json();
