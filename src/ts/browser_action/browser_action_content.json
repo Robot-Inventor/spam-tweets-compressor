@@ -8,12 +8,12 @@
         {
             "type": "link",
             "label": "browser_action_ng_word",
-            "link": "advanced_setting.html#ng_word_title"
+            "link": "../advanced_setting/index.html#ng_word_title"
         },
         {
             "type": "link",
             "label": "browser_action_advanced_filters",
-            "link": "advanced_setting.html#advanced_filters_title"
+            "link": "../advanced_setting/index.html#advanced_filters_title"
         }
     ],
     "option": [
@@ -42,12 +42,12 @@
         {
             "type": "link",
             "label": "browser_action_allow_list",
-            "link": "advanced_setting.html#allow_list_title"
+            "link": "../advanced_setting/index.html#allow_list_title"
         },
         {
             "type": "link",
             "label": "browser_action_exclude_url",
-            "link": "advanced_setting.html#exclude_url_title"
+            "link": "../advanced_setting/index.html#exclude_url_title"
         }
     ]
 }

@@ -3,7 +3,7 @@ import { is_regexp, parse_regexp } from "./parse_regexp";
 import { TweetElementInterface } from "./tweet_element";
 import { normalize } from "./normalize";
 import { selector } from "./selector";
-import { setting_object } from "./setting";
+import { setting_object } from "../common/setting";
 
 /**
  * Return weather or not the target text includes NG words.
