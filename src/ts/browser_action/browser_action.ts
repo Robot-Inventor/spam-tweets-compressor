@@ -3,10 +3,10 @@ import "@material/mwc-icon";
 import "@material/mwc-switch";
 import "@material/mwc-tab-bar";
 import "@material/mwc-formfield";
-import { Setting } from "./setting";
+import { Setting } from "../common/setting";
 // eslint-disable-next-line no-duplicate-imports
 import { Switch } from "@material/mwc-switch";
-import { load_color_setting } from "./color";
+import { load_color_setting } from "../common/color";
 
 /**
  * Get setting name information from input element.

@@ -1,5 +1,5 @@
 import browser_action_content from "./browser_action_content.json";
-import { init_i18n } from "./i18n";
+import { init_i18n } from "../common/i18n";
 
 interface BrowserActionContentSwitch {
     type: "switch";

@@ -1,6 +1,6 @@
 import { Setting } from "./setting";
 import chroma from "chroma-js";
-import { selector } from "./selector";
+import { selector } from "../main/selector";
 
 /**
  * Get the color scheme of Twitter and sync the color scheme of the extension with it.

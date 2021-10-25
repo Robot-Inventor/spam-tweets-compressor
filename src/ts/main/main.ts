@@ -1,8 +1,8 @@
-import { Setting, setting_object } from "./setting";
+import { Setting, setting_object } from "../common/setting";
 import { TweetElement, TweetElementInterface } from "./tweet_element";
-import { load_color_setting, update_color_setting } from "./color";
+import { load_color_setting, update_color_setting } from "../common/color";
 import { query_object, query_type } from "./advanced_spam_detection";
-import { advanced_filter_type } from "./advanced_filter_type";
+import { advanced_filter_type } from "../common/advanced_filter_type";
 import { detect_spam } from "./detect_spam";
 import { normalize_user_id } from "./normalize";
 import { selector } from "./selector";

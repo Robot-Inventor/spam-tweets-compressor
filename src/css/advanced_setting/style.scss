@@ -1,7 +1,7 @@
 @use "sass:string";
 
-@import "reset";
-@import "css_variables";
+@import "../common/reset";
+@import "../common/css_variables";
 
 $header_z_index: 1;
 

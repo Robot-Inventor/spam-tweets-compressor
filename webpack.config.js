@@ -4,10 +4,10 @@ module.exports = {
     mode: "production",
     devtool: false,
     entry: {
-        advanced_setting: "./src/advanced_setting.ts",
-        browser_action: "./src/browser_action.ts",
-        i18n: "./src/i18n.ts",
-        main: "./src/main.ts"
+        "advanced_setting/script.js": "./src/ts/advanced_setting/advanced_setting.ts",
+        "browser_action/script.js": "./src/ts/browser_action/browser_action.ts",
+        "common/i18n.js": "./src/ts/common/i18n.ts",
+        "main.js": "./src/ts/main/main.ts"
     },
     module: {
         rules: [
@@ -19,5 +19,8 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts", ".js"]
+    },
+    output: {
+        filename: "[name]"
     }
 };
