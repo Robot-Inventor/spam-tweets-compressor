@@ -7,6 +7,7 @@
     --mdc-theme-primary: var(--main_color);
     --mdc-theme-secondary: var(--main_color);
     --mdc-theme-text-primary-on-background: var(--high_emphasize_text_color);
+    --mdc-icon-font: "Material Icons Outlined";
 }
 
 @media (prefers-color-scheme: dark) {
