@@ -1,17 +1,27 @@
-type setting_value_type = number | string | boolean | Array<string> | { [key: string]: { url: string } };
+interface ColorSetting {
+    main: string;
+    main_light: string;
+    background: string;
+    high_emphasize_text: string;
+    medium_emphasize_text: string;
+    top_app_bar: string;
+    drawer: string;
+    card: string;
+    card_hover: string;
+}
+
+type setting_value_type = number | string | boolean | Array<string> | { [key: string]: { url: string } } | ColorSetting;
 
 export interface setting_object {
     [key: string]: setting_value_type;
     advanced_filter: Array<string>;
     allow_list: Array<string>;
-    background_color: string;
+    color: ColorSetting;
     decompress_on_hover: boolean;
     exclude_url: Array<string>;
-    font_color: string;
     hide_completely: boolean;
     include_user_name: boolean;
     include_verified_account: boolean;
-    main_color: string;
     ng_word: Array<string>;
     show_reason: boolean;
 }
@@ -20,13 +30,23 @@ const default_setting: setting_object = {
     advanced_filter: [""],
     allow_list: [""],
     background_color: "rgb(0, 0, 0)",
+    color: {
+        background: "rgb(0, 0, 0)",
+        card: "rgb(25, 25, 25)",
+        card_hover: "rgb(29, 29, 29)",
+        drawer: "rgb(44, 44, 44)",
+        high_emphasize_text: "rgba(217, 217, 217, 1)",
+        main: "rgb(29, 155, 240)",
+        main_light: "rgba(29, 155, 240, 0.6)",
+        medium_emphasize_text: "rgba(217, 217, 217, 0.87)",
+        top_app_bar: "rgb(44, 44, 44)"
+    },
     decompress_on_hover: false,
     exclude_url: ["https://twitter.com/home"],
     font_color: "rgb(255, 255, 255)",
     hide_completely: false,
     include_user_name: false,
     include_verified_account: false,
-    main_color: "rgb(29, 161, 242)",
     ng_word: [""],
     show_reason: true
 };
@@ -50,7 +70,7 @@ export class Setting {
      * @returns setting data
      */
     async load(): Promise<setting_object> {
-        const saved_setting: { setting: setting_object } = await browser.storage.local.get("setting");
+        const saved_setting = (await browser.storage.local.get("setting")) as { setting: setting_object };
         const setting = default_setting;
 
         if (saved_setting.setting) {
@@ -79,7 +99,8 @@ export class Setting {
      * Save overwrite the setting.
      */
     private save(): void {
-        void browser.storage.local.set({ setting: this.setting });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+        void browser.storage.local.set({ setting: this.setting as any });
     }
 
     /**
