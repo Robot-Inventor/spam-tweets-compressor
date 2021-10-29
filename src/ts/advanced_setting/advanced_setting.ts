@@ -190,9 +190,9 @@ const initialize_textarea = (textarea: TextArea, setting: setting_object) => {
 new Setting()
     .load()
     .then((setting) => {
-        void load_color_setting()
-            .then((color_scheme) => adjust_appearance(color_scheme.background_color))
-            .catch(() => console.error("Failed to load color scheme."));
+        adjust_appearance();
+
+        void load_color_setting().catch(() => console.error("Failed to load color scheme."));
         void load_filter_list(setting);
 
         const textarea_list: NodeListOf<TextArea> = document.querySelectorAll("mwc-textarea");
