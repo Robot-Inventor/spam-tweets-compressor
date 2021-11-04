@@ -85,6 +85,7 @@ export class Setting {
             if (this.callback) this.callback();
         });
 
+        // The first argument of Proxy is the source object, so instead of ``this.setting``, use the ``setting`` overwritten by the current setting.
         return new Proxy(setting, {
             get: (target, key: string) => this.setting[key],
             set: (target, key: string, value: setting_value_type) => {
@@ -109,5 +110,22 @@ export class Setting {
      */
     onChange(callback: () => void): void {
         this.callback = callback;
+    }
+
+    /**
+     * Clear storage and set default setting.
+     */
+    /*
+     * WARNING: When reload the page after calling this function, some errors may occur.
+     *
+     * > Uncaught TypeError: can't access property "xxxxx(e.g. exclude_url)", this.setting is undefined
+     *
+     * The cause of this error is that the current setting becomes undefined after clearing the storage,
+     * and it occurs in the proxy setter of the object of the setting.
+     * For some reason, overwriting the current setting with the default setting does not succeed.
+     */
+    async clear(): Promise<void> {
+        await browser.storage.local.clear();
+        this.setting = default_setting;
     }
 }

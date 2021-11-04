@@ -187,37 +187,49 @@ const initialize_textarea = (textarea: TextArea, setting: setting_object) => {
     }
 };
 
-new Setting()
-    .load()
-    .then((setting) => {
-        adjust_appearance();
+void (() => {
+    const setting_instance = new Setting();
 
-        void load_color_setting().catch(() => console.error("Failed to load color scheme."));
-        void load_filter_list(setting);
+    setting_instance
+        .load()
+        .then((setting) => {
+            adjust_appearance();
 
-        const textarea_list: NodeListOf<TextArea> = document.querySelectorAll("mwc-textarea");
-        textarea_list.forEach((textarea) => {
-            initialize_textarea(textarea, setting);
+            void load_color_setting().catch(() => console.error("Failed to load color scheme."));
+            void load_filter_list(setting);
+
+            const textarea_list: NodeListOf<TextArea> = document.querySelectorAll("mwc-textarea");
+            textarea_list.forEach((textarea) => {
+                initialize_textarea(textarea, setting);
+            });
+
+            initialize_textarea_validation();
+
+            const copy_button = document.getElementById("copy_button");
+            if (copy_button) {
+                copy_button.addEventListener("click", () => {
+                    // eslint-disable-next-line no-magic-numbers
+                    copy_text(convert_setting_to_json(setting));
+                    temporarily_change_button_text(
+                        copy_button,
+                        browser.i18n.getMessage("advanced_setting_export_copied")
+                    );
+                });
+            }
+
+            const save_button = document.getElementById("save_button");
+            if (save_button) {
+                save_button.addEventListener("click", () => {
+                    // eslint-disable-next-line no-magic-numbers
+                    download_json(convert_setting_to_json(setting), "stc_setting.json");
+                    temporarily_change_button_text(
+                        save_button,
+                        browser.i18n.getMessage("advanced_setting_export_saved")
+                    );
+                });
+            }
+        })
+        .catch((error) => {
+            console.error(error);
         });
-
-        initialize_textarea_validation();
-
-        const copy_button = document.getElementById("copy_button");
-        if (copy_button) {
-            copy_button.addEventListener("click", () => {
-                // eslint-disable-next-line no-magic-numbers
-                copy_text(convert_setting_to_json(setting));
-                temporarily_change_button_text(copy_button, browser.i18n.getMessage("advanced_setting_export_copied"));
-            });
-        }
-
-        const save_button = document.getElementById("save_button");
-        if (save_button) {
-            save_button.addEventListener("click", () => {
-                // eslint-disable-next-line no-magic-numbers
-                download_json(convert_setting_to_json(setting), "stc_setting.json");
-                temporarily_change_button_text(save_button, browser.i18n.getMessage("advanced_setting_export_saved"));
-            });
-        }
-    })
-    .catch(() => console.error("設定を読み込めませんでした"));
+})();
