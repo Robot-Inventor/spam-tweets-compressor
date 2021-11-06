@@ -32,9 +32,6 @@
     "browser_action_show_reason": {
         "message": "Show Reason for Judgment"
     },
-    "browser_action_trim_leading_whitespace": {
-        "message": "Trim Leading Whitespace"
-    },
     "browser_action_decompress_on_hover": {
         "message": "Show Hidden Tweets on Mouseover"
     },
