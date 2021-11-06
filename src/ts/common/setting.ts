@@ -118,16 +118,6 @@ export class Setting {
 
     /**
      * Clear storage and set default setting.
-     *
-     * ----------
-     *
-     * WARNING: When reload the page after calling this function, some errors may occur.
-     *
-     * > Uncaught TypeError: can't access property "xxxxx(e.g. exclude_url)", this.setting is undefined
-     *
-     * The cause of this error is that the current setting becomes undefined after clearing the storage,
-     * and it occurs in the proxy setter of the object of the setting.
-     * For some reason, overwriting the current setting with the default setting does not succeed.
      */
     async clear(): Promise<void> {
         await browser.storage.local.clear();
