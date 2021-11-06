@@ -28,8 +28,10 @@
   },
   "homepage": "https://github.com/Robot-Inventor/spam-tweets-compressor#readme",
   "devDependencies": {
+    "@material/mwc-button": "^0.25.3",
     "@material/mwc-checkbox": "0.25.3",
     "@material/mwc-circular-progress": "0.25.3",
+    "@material/mwc-dialog": "^0.25.3",
     "@material/mwc-drawer": "0.25.3",
     "@material/mwc-formfield": "0.25.3",
     "@material/mwc-icon": "0.25.3",

@@ -169,3 +169,8 @@ mwc-check-list-item {
     --mdc-ripple-color: var(--high_emphasize_text_color);
     --mdc-checkbox-unchecked-color: var(--high_emphasize_text_color);
 }
+
+mwc-button {
+    --mdc-button-outline-color: var(--main_color_light);
+    margin-top: 1em;
+}

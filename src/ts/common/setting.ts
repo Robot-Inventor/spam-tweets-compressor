@@ -57,10 +57,12 @@ const default_setting: setting_object = {
 export class Setting {
     private setting: setting_object;
     private callback: null | (() => void);
+    readonly: boolean;
 
     constructor() {
         this.setting = default_setting;
         this.callback = null;
+        this.readonly = false;
     }
 
     /**
@@ -100,6 +102,8 @@ export class Setting {
      * Save overwrite the setting.
      */
     private save(): void {
+        if (this.readonly) return;
+
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
         void browser.storage.local.set({ setting: this.setting as any });
     }
@@ -114,8 +118,9 @@ export class Setting {
 
     /**
      * Clear storage and set default setting.
-     */
-    /*
+     *
+     * ----------
+     *
      * WARNING: When reload the page after calling this function, some errors may occur.
      *
      * > Uncaught TypeError: can't access property "xxxxx(e.g. exclude_url)", this.setting is undefined

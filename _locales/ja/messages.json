@@ -143,6 +143,24 @@
     "advanced_setting_advanced_filters_description3": {
         "message": "フィルターの仕組みの概要と各フィルターに関する説明"
     },
+    "advanced_setting_reset_title": {
+        "message": "設定のリセット"
+    },
+    "advanced_setting_reset_description": {
+        "message": "Spam Tweets Compressorのすべての設定をリセットし、インストール時の状態に戻します。"
+    },
+    "advanced_setting_reset_button": {
+        "message": "設定をリセット"
+    },
+    "advanced_setting_reset_confirm": {
+        "message": "Spam Tweets Compressorのすべての設定をリセットし、インストール時の状態に戻します。よろしいですか？"
+    },
+    "advanced_setting_reset_confirm_ok": {
+        "message": "リセット"
+    },
+    "advanced_setting_reset_confirm_cancel": {
+        "message": "キャンセル"
+    },
     "decompress_button_strict_without_reason": {
         "message": "$USER_NAME$（$USER_ID$）のツイートを表示",
         "placeholders": {

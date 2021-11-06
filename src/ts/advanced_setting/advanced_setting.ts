@@ -1,6 +1,8 @@
 import "./advanced_setting_view";
+import "@material/mwc-button";
 import "@material/mwc-circular-progress";
 import "@material/mwc-checkbox";
+import "@material/mwc-dialog";
 import "@material/mwc-drawer";
 import "@material/mwc-formfield";
 import "@material/mwc-icon";
@@ -12,6 +14,8 @@ import "@material/mwc-list/mwc-check-list-item";
 import { Setting, setting_object } from "../common/setting";
 // eslint-disable-next-line no-duplicate-imports
 import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
+// eslint-disable-next-line no-duplicate-imports
+import { Dialog } from "@material/mwc-dialog";
 import { ListItemBase } from "@material/mwc-list/mwc-list-item-base";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
@@ -192,6 +196,7 @@ void (() => {
 
     setting_instance
         .load()
+        // eslint-disable-next-line max-lines-per-function
         .then((setting) => {
             adjust_appearance();
 
@@ -226,6 +231,22 @@ void (() => {
                         save_button,
                         browser.i18n.getMessage("advanced_setting_export_saved")
                     );
+                });
+            }
+
+            const reset_button = document.getElementById("advanced_setting_reset_button");
+            const reset_dialog = document.getElementById("advanced_setting_reset_confirm_dialog") as Dialog | null;
+            if (reset_button && reset_dialog) {
+                reset_button.addEventListener("click", () => {
+                    reset_dialog.show();
+                    reset_dialog.addEventListener("closed", (event: unknown) => {
+                        const { detail } = event as { detail: { action: "ok" | "cancel" } };
+                        if (detail.action === "ok") {
+                            setting_instance.readonly = true;
+                            void setting_instance.clear();
+                            location.reload();
+                        }
+                    });
                 });
             }
         })
