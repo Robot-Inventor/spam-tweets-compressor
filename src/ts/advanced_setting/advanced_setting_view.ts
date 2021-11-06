@@ -4,8 +4,9 @@ import { CheckListItem } from "@material/mwc-list/mwc-check-list-item";
  * Shift the scroll position by the height of the header.
  */
 const adjust_scroll_position = () => {
-    // eslint-disable-next-line no-magic-numbers
-    scrollBy(0, -64);
+    const header_height = -64;
+    const offset_x = 0;
+    scrollBy(offset_x, header_height);
 };
 
 /**

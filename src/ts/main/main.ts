@@ -48,12 +48,11 @@ const run_check = (setting: setting_object, advanced_filter: query_type) => {
 
     if (exclude_url.includes(location.href)) return;
 
-    const check_target = get_unchecked_tweets();
+    const check_target = get_unchecked_tweets().filter(
+        (target) => setting.allow_list.map(normalize_user_id).includes(target.user_id) === false
+    );
 
     for (const target of check_target) {
-        // eslint-disable-next-line no-continue
-        if (setting.allow_list.map(normalize_user_id).includes(target.user_id)) continue;
-
         const judgement = detect_spam(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason) {
@@ -72,7 +71,7 @@ const run_check = (setting: setting_object, advanced_filter: query_type) => {
  * @returns Object
  */
 const get_json = async (url: string) => {
-    // Deepcode ignore Ssrf: <This is because the function is to read only the trusted files listed in dist/advanced_filter.json.>
+    // Deepcode ignore Ssrf: <This is because the function is to read only the trusted files.>
     const response = await fetch(url, { cache: "no-cache" });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json = await response.json();
@@ -88,18 +87,16 @@ const get_json = async (url: string) => {
 const load_advanced_filter = async (filter_id_list: Array<string>) => {
     const filter_list: Array<Promise<query_type>> = [];
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const filter_url_data: advanced_filter_type = await get_json(
+    const filter_url_data = (await get_json(
         "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json?dev=0"
-    );
+    )) as advanced_filter_type;
 
     const url_list = Object.keys(filter_url_data)
         .filter((key) => filter_id_list.includes(filter_url_data[key].id))
         .map((key) => filter_url_data[key].url);
 
     const get_rule = async (url: string) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const data: query_object = await get_json(url);
+        const data = (await get_json(url)) as query_object;
         return data.rule;
     };
 
@@ -121,6 +118,9 @@ const load_advanced_filter = async (filter_id_list: Array<string>) => {
         joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
     };
 
+    /**
+     * Reload every 24 hours.
+     */
     // eslint-disable-next-line no-magic-numbers
     const filter_reload_interval = 1000 * 60 * 60 * 24;
     setInterval(() => void reload_filter(), filter_reload_interval);

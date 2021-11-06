@@ -33,6 +33,8 @@ const update_color_setting = async (retry = true): Promise<void> => {
         const high_emphasize_opacity = 1;
         const medium_emphasize_opacity = 0.87;
         const main_color_light_opacity = 0.6;
+        const card_brighten = 0.5;
+        const card_hover_brighten = 0.6;
 
         const color_setting = setting.color;
 
@@ -50,10 +52,8 @@ const update_color_setting = async (retry = true): Promise<void> => {
 
         color_setting.top_app_bar = `rgb(${chroma_bg.brighten().rgb().join()})`;
         color_setting.drawer = color_setting.top_app_bar;
-        // eslint-disable-next-line no-magic-numbers
-        color_setting.card = `rgb(${chroma_bg.brighten(0.5).rgb().join()})`;
-        // eslint-disable-next-line no-magic-numbers
-        color_setting.card_hover = `rgb(${chroma_bg.brighten(0.6).rgb().join()})`;
+        color_setting.card = `rgb(${chroma_bg.brighten(card_brighten).rgb().join()})`;
+        color_setting.card_hover = `rgb(${chroma_bg.brighten(card_hover_brighten).rgb().join()})`;
 
         setting.color = color_setting;
     } else if (retry) {
