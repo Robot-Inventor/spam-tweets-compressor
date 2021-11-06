@@ -31,7 +31,7 @@ const detect_verified_badge = (tweet: TweetElementInterface) => Boolean(tweet.qu
  * Determine if a tweet is spam.
  * @param target target tweet
  * @param setting setting
- * @param advanced_filter advanced filter data for Advanced Spam Detection
+ * @param advanced_filter advanced filter data
  * @returns is the tweet spam
  */
 const detect_spam = (
