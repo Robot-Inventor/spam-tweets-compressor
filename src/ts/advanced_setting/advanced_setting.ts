@@ -1,6 +1,7 @@
 import "@material/mwc-button";
 import "@material/mwc-circular-progress";
 import "@material/mwc-checkbox";
+import "@material/mwc-dialog";
 import "@material/mwc-drawer";
 import "@material/mwc-formfield";
 import "@material/mwc-icon";
