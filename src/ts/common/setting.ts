@@ -57,10 +57,12 @@ const default_setting: setting_object = {
 export class Setting {
     private setting: setting_object;
     private callback: null | (() => void);
+    readonly: boolean;
 
     constructor() {
         this.setting = default_setting;
         this.callback = null;
+        this.readonly = false;
     }
 
     /**
@@ -85,6 +87,7 @@ export class Setting {
             if (this.callback) this.callback();
         });
 
+        // The first argument of Proxy is the source object, so instead of ``this.setting``, use the ``setting`` overwritten by the current setting.
         return new Proxy(setting, {
             get: (target, key: string) => this.setting[key],
             set: (target, key: string, value: setting_value_type) => {
@@ -99,6 +102,8 @@ export class Setting {
      * Save overwrite the setting.
      */
     private save(): void {
+        if (this.readonly) return;
+
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
         void browser.storage.local.set({ setting: this.setting as any });
     }
@@ -109,5 +114,13 @@ export class Setting {
      */
     onChange(callback: () => void): void {
         this.callback = callback;
+    }
+
+    /**
+     * Clear storage and set default setting.
+     */
+    async clear(): Promise<void> {
+        await browser.storage.local.clear();
+        this.setting = default_setting;
     }
 }

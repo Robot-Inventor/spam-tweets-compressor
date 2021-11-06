@@ -143,6 +143,24 @@
     "advanced_setting_advanced_filters_description3": {
         "message": "Overview of how filters work and description of each filter"
     },
+    "advanced_setting_reset_title": {
+        "message": "Reset Settings"
+    },
+    "advanced_setting_reset_description": {
+        "message": "Resets all settings of Spam Tweets Compressor to the state it was in when it was installed."
+    },
+    "advanced_setting_reset_button": {
+        "message": "Reset Settings"
+    },
+    "advanced_setting_reset_confirm": {
+        "message": "This will reset all settings of Spam Tweets Compressor to the state it was in when it was installed. Are you sure?"
+    },
+    "advanced_setting_reset_confirm_ok": {
+        "message": "RESET"
+    },
+    "advanced_setting_reset_confirm_cancel": {
+        "message": "CANCEL"
+    },
     "decompress_button_strict_without_reason": {
         "message": "Show a tweet by $USER_NAME$ ($USER_ID$)",
         "placeholders": {

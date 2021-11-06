@@ -1,6 +1,8 @@
 import "./advanced_setting_view";
+import "@material/mwc-button";
 import "@material/mwc-circular-progress";
 import "@material/mwc-checkbox";
+import "@material/mwc-dialog";
 import "@material/mwc-drawer";
 import "@material/mwc-formfield";
 import "@material/mwc-icon";
@@ -12,6 +14,8 @@ import "@material/mwc-list/mwc-check-list-item";
 import { Setting, setting_object } from "../common/setting";
 // eslint-disable-next-line no-duplicate-imports
 import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
+// eslint-disable-next-line no-duplicate-imports
+import { Dialog } from "@material/mwc-dialog";
 import { ListItemBase } from "@material/mwc-list/mwc-list-item-base";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
@@ -187,37 +191,78 @@ const initialize_textarea = (textarea: TextArea, setting: setting_object) => {
     }
 };
 
-new Setting()
-    .load()
-    .then((setting) => {
-        adjust_appearance();
-
-        void load_color_setting().catch(() => console.error("Failed to load color scheme."));
-        void load_filter_list(setting);
-
-        const textarea_list: NodeListOf<TextArea> = document.querySelectorAll("mwc-textarea");
-        textarea_list.forEach((textarea) => {
-            initialize_textarea(textarea, setting);
+/**
+ * Initialize the setting copy button.
+ * @param setting setting object
+ */
+const initialize_copy_button = (setting: setting_object) => {
+    const copy_button = document.getElementById("copy_button");
+    if (copy_button) {
+        copy_button.addEventListener("click", () => {
+            copy_text(convert_setting_to_json(setting));
+            temporarily_change_button_text(copy_button, browser.i18n.getMessage("advanced_setting_export_copied"));
         });
+    } else console.error("Copy button was not found.");
+};
 
-        initialize_textarea_validation();
+/**
+ * Initialize the setting download button.
+ * @param setting setting object
+ */
+const initialize_download_button = (setting: setting_object) => {
+    const download_button = document.getElementById("save_button");
+    if (download_button) {
+        download_button.addEventListener("click", () => {
+            download_json(convert_setting_to_json(setting), "stc_setting.json");
+            temporarily_change_button_text(download_button, browser.i18n.getMessage("advanced_setting_export_saved"));
+        });
+    } else console.error("Download button was not found.");
+};
 
-        const copy_button = document.getElementById("copy_button");
-        if (copy_button) {
-            copy_button.addEventListener("click", () => {
-                // eslint-disable-next-line no-magic-numbers
-                copy_text(convert_setting_to_json(setting));
-                temporarily_change_button_text(copy_button, browser.i18n.getMessage("advanced_setting_export_copied"));
+/**
+ * Initialize the setting reset button.
+ * @param setting_instance instance of setting class
+ */
+const initialize_reset_button = (setting_instance: Setting) => {
+    const reset_button = document.getElementById("advanced_setting_reset_button");
+    const reset_dialog = document.getElementById("advanced_setting_reset_confirm_dialog") as Dialog | null;
+    if (reset_button && reset_dialog) {
+        reset_button.addEventListener("click", () => {
+            reset_dialog.show();
+            reset_dialog.addEventListener("closed", (event: unknown) => {
+                const { detail } = event as { detail: { action: "ok" | "cancel" } };
+                if (detail.action === "ok") {
+                    setting_instance.readonly = true;
+                    void setting_instance.clear();
+                    location.reload();
+                }
             });
-        }
+        });
+    }
+};
 
-        const save_button = document.getElementById("save_button");
-        if (save_button) {
-            save_button.addEventListener("click", () => {
-                // eslint-disable-next-line no-magic-numbers
-                download_json(convert_setting_to_json(setting), "stc_setting.json");
-                temporarily_change_button_text(save_button, browser.i18n.getMessage("advanced_setting_export_saved"));
+void (() => {
+    const setting_instance = new Setting();
+
+    setting_instance
+        .load()
+        .then((setting) => {
+            adjust_appearance();
+
+            void load_color_setting().catch(() => console.error("Failed to load color scheme."));
+            void load_filter_list(setting);
+
+            const textarea_list: NodeListOf<TextArea> = document.querySelectorAll("mwc-textarea");
+            textarea_list.forEach((textarea) => {
+                initialize_textarea(textarea, setting);
             });
-        }
-    })
-    .catch(() => console.error("設定を読み込めませんでした"));
+            initialize_textarea_validation();
+
+            initialize_copy_button(setting);
+            initialize_download_button(setting);
+            initialize_reset_button(setting_instance);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+})();
