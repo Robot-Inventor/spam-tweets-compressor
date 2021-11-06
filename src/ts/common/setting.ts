@@ -82,8 +82,7 @@ export class Setting {
         }
 
         browser.storage.onChanged.addListener((changes) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-            this.setting = changes.setting.newValue;
+            this.setting = changes.setting.newValue as setting_object;
             if (this.callback) this.callback();
         });
 

@@ -12,10 +12,8 @@ import { setting_object } from "../common/setting";
  * @returns weather the target text includes NG words or not.
  */
 const detect_ng_word = (text: string, ng_words: Array<string>) => {
-    for (const word of ng_words) {
-        // eslint-disable-next-line no-continue
-        if (!word) continue;
-
+    const not_empty_ng_words = ng_words.filter((word) => word);
+    for (const word of not_empty_ng_words) {
         if (is_regexp(word) && parse_regexp(word).test(text)) return true;
         if (text.includes(word)) return true;
     }

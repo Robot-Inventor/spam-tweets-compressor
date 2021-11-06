@@ -11,18 +11,18 @@ class TabSwitcher {
             return;
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        tab_bar.addEventListener("MDCTabBar:activated", (event: any) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            const item_index = event.detail.index as number;
+        tab_bar.addEventListener("MDCTabBar:activated", (event: unknown) => {
+            const { detail } = event as { detail: { index: number } };
+            const item_index = detail.index;
             const items = tab_bar.querySelectorAll("mwc-tab");
             const selected_item = items[item_index];
 
             const tab_bar_transition_duration = 300;
+            // eslint-disable-next-line no-magic-numbers
+            const item_display_time_difference = tab_bar_transition_duration / 2;
             setTimeout(() => {
                 TabSwitcher.show_item(selected_item.dataset.target);
-                // eslint-disable-next-line no-magic-numbers
-            }, tab_bar_transition_duration / 2);
+            }, item_display_time_difference);
         });
     }
 

@@ -10,72 +10,40 @@ interface query_element {
 
 export type query_type = ["and" | "or", Array<query_element | query_type>];
 
+/**
+ * To see example, please refer to docs/<lang>/advanced_spam_detection.md
+ */
 export interface query_object {
     rule: query_type;
 }
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const query_example: query_object = {
-    rule: [
-        "and",
-        [
-            {
-                mode: "include",
-                string: "spam spam",
-                type: "text"
-            },
-            {
-                mode: "exclude",
-                string: "i am spam",
-                type: "name"
-            },
-            {
-                mode: "include",
-                string: "/spam.*+/i",
-                type: "id"
-            },
-            {
-                mode: "exclude",
-                string: "spam",
-                type: "hashtag"
-            },
-            [
-                "or",
-                [
-                    {
-                        mode: "exclude",
-                        string: "twitter.com/home",
-                        type: "link"
-                    },
-                    {
-                        mode: "include",
-                        string: "i'm spam",
-                        type: "text"
-                    }
-                ]
-            ]
-        ]
-    ]
-};
 
 /**
  * Return if the type of target variable is query_element.
  * @param argument target variable
  * @returns weather or not the target variable is query_element
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const is_query_element = (argument: any): argument is query_element =>
-    argument !== null &&
-    typeof argument === "object" &&
-    "mode" in argument &&
-    "type" in argument &&
-    "string" in argument &&
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    typeof argument.mode === "string" &&
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    typeof argument.type === "string" &&
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    typeof argument.string === "string";
+const is_query_element = (argument: unknown): argument is query_element => {
+    // Check if argument is an object.
+    if (!(typeof argument === "object" && argument !== null && argument.constructor === Object)) return false;
+
+    // Check if argument has all necessary properties.
+    if (!("mode" in argument && "type" in argument && "string" in argument)) return false;
+
+    const object_with_all_properties = argument as {
+        mode: unknown;
+        type: unknown;
+        string: unknown;
+    };
+
+    // Check the types of all necessary properties.
+    if (
+        typeof object_with_all_properties.mode === "string" &&
+        typeof object_with_all_properties.type === "string" &&
+        typeof object_with_all_properties.string === "string"
+    )
+        return true;
+    else return false;
+};
 
 const judge = (target: string | Array<string>, pattern: string) => {
     const is_regex = is_regexp(pattern);

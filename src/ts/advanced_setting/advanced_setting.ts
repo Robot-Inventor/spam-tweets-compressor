@@ -1,8 +1,6 @@
-import "./advanced_setting_view";
 import "@material/mwc-button";
 import "@material/mwc-circular-progress";
 import "@material/mwc-checkbox";
-import "@material/mwc-dialog";
 import "@material/mwc-drawer";
 import "@material/mwc-formfield";
 import "@material/mwc-icon";
@@ -12,7 +10,6 @@ import "@material/mwc-textarea";
 import "@material/mwc-top-app-bar-fixed";
 import "@material/mwc-list/mwc-check-list-item";
 import { Setting, setting_object } from "../common/setting";
-// eslint-disable-next-line no-duplicate-imports
 import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
 // eslint-disable-next-line no-duplicate-imports
 import { Dialog } from "@material/mwc-dialog";
@@ -59,8 +56,7 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
         "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json",
         { cache: "no-cache" }
     );
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const json_data: advanced_filter_type = await response.json();
+    const json_data = (await response.json()) as advanced_filter_type;
 
     const mwc_list = document.createElement("mwc-list");
     mwc_list.multi = true;
@@ -82,8 +78,7 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
         } else if (Array.isArray(selected_item)) {
             const selected_id_list = selected_item
                 .map((item) => item.dataset.filterId)
-                // eslint-disable-next-line no-undefined
-                .filter((id) => id !== undefined) as Array<string>;
+                .filter((id) => typeof id === "string") as Array<string>;
             setting.advanced_filter = selected_id_list;
         } else {
             const id = selected_item.dataset.filterId;
@@ -92,8 +87,8 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
     });
 
     filter_list_outer.appendChild(mwc_list);
-    // eslint-disable-next-line no-magic-numbers
-    setTimeout(hide_filter_loading_screen, 1000);
+    const loading_screen_display_time = 1000;
+    setTimeout(hide_filter_loading_screen, loading_screen_display_time);
 };
 
 /**
@@ -124,8 +119,10 @@ const download_json = (json: string, file_name: string) => {
  * @param setting setting object
  * @returns json string
  */
-// eslint-disable-next-line no-magic-numbers
-const convert_setting_to_json = (setting: setting_object) => JSON.stringify(setting, null, 4);
+const convert_setting_to_json = (setting: setting_object) => {
+    const indent = 4;
+    return JSON.stringify(setting, null, indent);
+};
 
 /**
  * Change the text of the button, then change it back after 5 seconds.
@@ -185,8 +182,8 @@ const initialize_textarea = (textarea: TextArea, setting: setting_object) => {
         let textarea_timeout: NodeJS.Timeout;
         textarea.addEventListener("input", () => {
             clearTimeout(textarea_timeout);
-            // eslint-disable-next-line no-magic-numbers
-            textarea_timeout = setTimeout(save_textarea, 5000);
+            const save_interval = 5000;
+            textarea_timeout = setTimeout(save_textarea, save_interval);
         });
     }
 };
