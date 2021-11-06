@@ -31,7 +31,7 @@ const get_setting_name = (element: HTMLElement) => {
 };
 
 /**
- * Hide loading screen for filter list of Advanced Spam Detection.
+ * Hide loading screen for filter list of Advanced Filters.
  */
 const hide_filter_loading_screen = () => {
     const filter_loading_screen = document.getElementById("filter_loading_screen");

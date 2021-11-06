@@ -21,7 +21,7 @@ const create_separator = (): HTMLLIElement => {
 };
 
 /**
- * Generate ``mwc-check-list-item`` for the filter list of Advanced Spam Detection.
+ * Generate ``mwc-check-list-item`` for the filter list of Advanced Filters.
  * @param filter_name name of the filter
  * @param filter_id id of the filter
  * @param selected default status

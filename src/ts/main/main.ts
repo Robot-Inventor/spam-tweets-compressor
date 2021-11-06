@@ -41,7 +41,7 @@ const decompress_all = () => {
 /**
  * Detect spam tweets and compress or hide them.
  * @param setting setting
- * @param advanced_filter advanced filter data of Advanced Spam Detection
+ * @param advanced_filter advanced filter data
  */
 const run_check = (setting: setting_object, advanced_filter: query_type) => {
     const { exclude_url } = setting;
