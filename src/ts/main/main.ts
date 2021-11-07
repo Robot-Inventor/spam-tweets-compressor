@@ -108,6 +108,7 @@ const load_advanced_filter = async (filter_id_list: Array<string>): Promise<quer
 
 (async () => {
     const setting_instance = new Setting();
+    setting_instance.readonly = true;
     const setting = await setting_instance.load();
 
     let joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);

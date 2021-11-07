@@ -87,7 +87,9 @@ interface ColorScheme {
  * - ``--medium_emphasize_text_color``: color of text that medium importance
  */
 const load_color_setting = async (): Promise<void> => {
-    const color_setting = (await new Setting().load()).color;
+    const setting_instance = new Setting();
+    setting_instance.readonly = true;
+    const color_setting = (await setting_instance.load()).color;
 
     const style_element = document.createElement("style");
     style_element.textContent = `
