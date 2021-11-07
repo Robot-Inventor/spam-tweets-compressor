@@ -1,5 +1,5 @@
 import { Setting, setting_object } from "../common/setting";
-import { TweetElement, TweetElementInterface } from "./tweet_element";
+import { TweetElementInterface, generate_tweet_element } from "./tweet_element";
 import { load_color_setting, update_color_setting } from "../common/color";
 import { query_object, query_type } from "./advanced_spam_detection";
 import { advanced_filter_type } from "../common/advanced_filter_type";
@@ -16,7 +16,7 @@ const get_unchecked_tweets = (): Array<TweetElementInterface> => {
         `${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`
     );
 
-    return [...tweets].map((tweet) => TweetElement.generate(tweet));
+    return [...tweets].map((tweet) => generate_tweet_element(tweet));
 };
 
 /**
