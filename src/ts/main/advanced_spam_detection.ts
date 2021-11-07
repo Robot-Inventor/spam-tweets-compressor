@@ -1,6 +1,6 @@
 import { is_regexp, parse_regexp } from "./parse_regexp";
 import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
-import { TweetElementInterface } from "./tweet_element";
+import { TweetElement } from "./tweet_element";
 
 interface query_element {
     mode: "include" | "exclude";
@@ -66,7 +66,7 @@ const judge = (target: string | Array<string>, pattern: string) => {
  * @param tweet target tweet
  * @returns weather or not the target tweet is spam
  */
-const advanced_spam_detection = (query: query_type, tweet: TweetElementInterface): boolean => {
+const advanced_spam_detection = (query: query_type, tweet: TweetElement): boolean => {
     let result = query[0] === "and";
 
     query[1].forEach((query_obj) => {

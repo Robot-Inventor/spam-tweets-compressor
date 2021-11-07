@@ -1,5 +1,5 @@
 import { Setting, setting_object } from "../common/setting";
-import { TweetElementInterface, generate_tweet_element } from "./tweet_element";
+import { TweetElement, generate_tweet_element } from "./tweet_element";
 import { load_color_setting, update_color_setting } from "../common/color";
 import { query_object, query_type } from "./advanced_spam_detection";
 import { advanced_filter_type } from "../common/advanced_filter_type";
@@ -11,8 +11,8 @@ import { selector } from "./selector";
  * Return an array of unchecked tweets.
  * @returns unchecked Tweets
  */
-const get_unchecked_tweets = (): Array<TweetElementInterface> => {
-    const tweets: NodeListOf<TweetElementInterface> = document.querySelectorAll(
+const get_unchecked_tweets = (): Array<TweetElement> => {
+    const tweets: NodeListOf<TweetElement> = document.querySelectorAll(
         `${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`
     );
 
@@ -32,7 +32,7 @@ const reset_check_status = () => {
  * Decompress all compressed tweets.
  */
 const decompress_all = () => {
-    const tweets: NodeListOf<TweetElementInterface> = document.querySelectorAll(selector.show_tweet_button);
+    const tweets: NodeListOf<TweetElement> = document.querySelectorAll(selector.show_tweet_button);
     tweets.forEach((element) => element.click());
 };
 

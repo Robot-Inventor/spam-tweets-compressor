@@ -1,5 +1,5 @@
 import { hash_symbol, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
-import { TweetElementInterface } from "./tweet_element";
+import { TweetElement } from "./tweet_element";
 import { selector } from "./selector";
 import { url_to_emoji } from "./emoji";
 
@@ -7,11 +7,11 @@ import { url_to_emoji } from "./emoji";
  * Analyse tweet and provide compressing feature.
  */
 export class TweetAnalyser {
-    private readonly tweet: TweetElementInterface;
+    private readonly tweet: TweetElement;
     private readonly content_element: HTMLElement | null;
     private readonly decompress_button: HTMLElement;
 
-    constructor(tweet: TweetElementInterface) {
+    constructor(tweet: TweetElement) {
         this.tweet = tweet;
         this.content_element = tweet.querySelector(selector.tweet_content);
         this.decompress_button = document.createElement("button");

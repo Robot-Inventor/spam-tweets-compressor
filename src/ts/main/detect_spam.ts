@@ -1,6 +1,6 @@
 import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
 import { is_regexp, parse_regexp } from "./parse_regexp";
-import { TweetElementInterface } from "./tweet_element";
+import { TweetElement } from "./tweet_element";
 import { normalize } from "./normalize";
 import { selector } from "./selector";
 import { setting_object } from "../common/setting";
@@ -25,7 +25,7 @@ const detect_ng_word = (text: string, ng_words: Array<string>) => {
  * @param tweet target tweet
  * @returns does the account have verified badge.
  */
-const detect_verified_badge = (tweet: TweetElementInterface) => Boolean(tweet.querySelector(selector.verified_badge));
+const detect_verified_badge = (tweet: TweetElement) => Boolean(tweet.querySelector(selector.verified_badge));
 
 /**
  * Determine if a tweet is spam.
@@ -35,7 +35,7 @@ const detect_verified_badge = (tweet: TweetElementInterface) => Boolean(tweet.qu
  * @returns is the tweet spam
  */
 const detect_spam = (
-    target: TweetElementInterface,
+    target: TweetElement,
     setting: setting_object,
     advanced_filter: query_type
 ): [false] | [true, string] => {

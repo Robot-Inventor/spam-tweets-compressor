@@ -1,7 +1,7 @@
 import { TweetAnalyser } from "./tweet_analyser";
 import { selector } from "./selector";
 
-export interface TweetElementInterface extends HTMLElement {
+export interface TweetElement extends HTMLElement {
     content: string;
     compress: (hide_completely: boolean, reason?: string, decompress_on_hover?: boolean) => void;
     user_name: string;
@@ -11,7 +11,7 @@ export interface TweetElementInterface extends HTMLElement {
     link: Array<string>;
 }
 
-const generate_tweet_element = (tweet: TweetElementInterface): TweetElementInterface => {
+const generate_tweet_element = (tweet: TweetElement): TweetElement => {
     tweet.classList.add(selector.checked_tweet_class_name);
 
     const analyser: TweetAnalyser = new TweetAnalyser(tweet);
