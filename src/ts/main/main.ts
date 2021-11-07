@@ -7,8 +7,6 @@ import { detect_spam } from "./detect_spam";
 import { normalize_user_id } from "./normalize";
 import { selector } from "./selector";
 
-const tweet_element = new TweetElement();
-
 /**
  * Return an array of unchecked tweets.
  * @returns unchecked Tweets
@@ -18,7 +16,7 @@ const get_unchecked_tweets = (): Array<TweetElementInterface> => {
         `${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`
     );
 
-    return [...tweets].map((tweet) => tweet_element.generate(tweet));
+    return [...tweets].map((tweet) => TweetElement.generate(tweet));
 };
 
 /**
