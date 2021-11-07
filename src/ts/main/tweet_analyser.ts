@@ -1,7 +1,7 @@
 import { hash_symbol, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
-import { Emoji } from "./emoji";
 import { TweetElementInterface } from "./tweet_element";
 import { selector } from "./selector";
+import { url_to_emoji } from "./emoji";
 
 /**
  * Analyse tweet and provide compressing feature.
@@ -9,22 +9,20 @@ import { selector } from "./selector";
 export class TweetAnalyser {
     private readonly tweet: TweetElementInterface;
     private readonly content_element: HTMLElement | null;
-    private readonly emoji_detector: Emoji;
     private readonly decompress_button: HTMLElement;
 
-    constructor(tweet: TweetElementInterface, emoji_detector: Emoji) {
+    constructor(tweet: TweetElementInterface) {
         this.tweet = tweet;
         this.content_element = tweet.querySelector(selector.tweet_content);
-        this.emoji_detector = emoji_detector;
         this.decompress_button = document.createElement("button");
     }
 
-    private get_text_content(element: HTMLElement) {
+    private static get_text_content(element: HTMLElement) {
         const clone = element.cloneNode(true);
         const temp = document.createElement("div");
         temp.appendChild(clone);
         temp.querySelectorAll("img").forEach((img) => {
-            const emoji = this.emoji_detector.get_from_url(img.src);
+            const emoji = url_to_emoji(img.src);
             if (emoji) img.insertAdjacentText("afterend", emoji);
             img.remove();
         });
@@ -37,7 +35,7 @@ export class TweetAnalyser {
     get content(): string | null {
         if (!this.content_element) return null;
 
-        return this.get_text_content(this.content_element) || "";
+        return TweetAnalyser.get_text_content(this.content_element) || "";
     }
 
     /**
@@ -45,7 +43,7 @@ export class TweetAnalyser {
      */
     get user_name(): string {
         const user_name_element: HTMLElement | null = this.tweet.querySelector(selector.user_name);
-        if (user_name_element) return this.get_text_content(user_name_element) || "";
+        if (user_name_element) return TweetAnalyser.get_text_content(user_name_element) || "";
         else return "";
     }
 

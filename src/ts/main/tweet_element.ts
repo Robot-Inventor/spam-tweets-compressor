@@ -1,4 +1,3 @@
-import { Emoji } from "./emoji";
 import { TweetAnalyser } from "./tweet_analyser";
 import { selector } from "./selector";
 
@@ -13,16 +12,10 @@ export interface TweetElementInterface extends HTMLElement {
 }
 
 export class TweetElement {
-    readonly emoji_detector: Emoji;
-
-    constructor() {
-        this.emoji_detector = new Emoji();
-    }
-
-    generate(tweet: TweetElementInterface): TweetElementInterface {
+    static generate(tweet: TweetElementInterface): TweetElementInterface {
         tweet.classList.add(selector.checked_tweet_class_name);
 
-        const analyser: TweetAnalyser = new TweetAnalyser(tweet, this.emoji_detector);
+        const analyser: TweetAnalyser = new TweetAnalyser(tweet);
 
         const user_id_bug_exclude_list: ReadonlyArray<string> = ["/notifications"];
 
