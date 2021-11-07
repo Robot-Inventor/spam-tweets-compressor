@@ -81,10 +81,10 @@ export class TweetAnalyser {
 
     /**
      * Compress the tweet.
-     * @param reason reason why the tweet was judged as spam.
      * @param decompress_on_hover Whether or not to automatically decompress the tweet when the mouse is over the decompress button.
+     * @param reason reason why the tweet was judged as spam.
      */
-    compress(reason?: string, decompress_on_hover?: boolean): void {
+    compress(decompress_on_hover: boolean, reason?: string): void {
         this.decompress_button.setAttribute("class", this.tweet.getAttribute("class") || "");
         this.decompress_button.classList.add(selector.show_tweet_button.replace(/^\./u, ""));
 

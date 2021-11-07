@@ -39,7 +39,7 @@ const generate_tweet_element = (tweet: TweetElement): TweetElement => {
     tweet.language = analyser.language;
     tweet.compress = (hide_completely: boolean, decompress_on_hover: boolean, reason?: string) => {
         if (hide_completely) analyser.hide_completely();
-        else analyser.compress(reason, decompress_on_hover);
+        else analyser.compress(decompress_on_hover, reason);
     };
     tweet.hashtag = analyser.hashtag;
     tweet.link = analyser.link;
