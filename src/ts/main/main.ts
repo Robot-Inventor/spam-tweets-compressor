@@ -54,10 +54,10 @@ const run_check = (setting: setting_object, advanced_filter: query_type) => {
         const judgement = detect_spam(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason) {
-                target.compress(setting.hide_completely, judgement[1], setting.decompress_on_hover);
+                target.compress(setting.hide_completely, setting.decompress_on_hover, judgement[1]);
             } else {
                 // eslint-disable-next-line no-undefined
-                target.compress(setting.hide_completely, undefined, setting.decompress_on_hover);
+                target.compress(setting.hide_completely, setting.decompress_on_hover);
             }
         }
     }

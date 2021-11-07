@@ -3,7 +3,7 @@ import { selector } from "./selector";
 
 export interface TweetElement extends HTMLElement {
     content: string;
-    compress: (hide_completely: boolean, reason?: string, decompress_on_hover?: boolean) => void;
+    compress: (hide_completely: boolean, decompress_on_hover: boolean, reason?: string) => void;
     user_name: string;
     user_id: string;
     language: Promise<string>;
@@ -37,7 +37,7 @@ const generate_tweet_element = (tweet: TweetElement): TweetElement => {
     tweet.user_name = analyser.user_name;
     tweet.user_id = analyser.user_id || "";
     tweet.language = analyser.language;
-    tweet.compress = (hide_completely: boolean, reason?: string, decompress_on_hover?: boolean) => {
+    tweet.compress = (hide_completely: boolean, decompress_on_hover: boolean, reason?: string) => {
         if (hide_completely) analyser.hide_completely();
         else analyser.compress(reason, decompress_on_hover);
     };
