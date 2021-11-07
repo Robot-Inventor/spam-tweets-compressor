@@ -14,7 +14,6 @@ import { Setting, setting_object } from "../common/setting";
 import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
 // eslint-disable-next-line no-duplicate-imports
 import { Dialog } from "@material/mwc-dialog";
-import { ListItemBase } from "@material/mwc-list/mwc-list-item-base";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
 import { advanced_filter_type } from "../common/advanced_filter_type";
@@ -73,7 +72,7 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
     }
 
     mwc_list.addEventListener("action", () => {
-        const selected_item: ListItemBase | Array<ListItemBase> | null = mwc_list.selected;
+        const selected_item = mwc_list.selected;
         if (selected_item === null) {
             setting.advanced_filter = [];
         } else if (Array.isArray(selected_item)) {
@@ -250,7 +249,7 @@ void (() => {
             void load_color_setting().catch(() => console.error("Failed to load color scheme."));
             void load_filter_list(setting);
 
-            const textarea_list: NodeListOf<TextArea> = document.querySelectorAll("mwc-textarea");
+            const textarea_list = document.querySelectorAll("mwc-textarea");
             textarea_list.forEach((textarea) => {
                 initialize_textarea(textarea, setting);
             });

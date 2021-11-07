@@ -91,14 +91,14 @@ export class TweetAnalyser {
         const { user_name } = this.tweet;
         const { user_id } = this.tweet;
         if (reason) {
-            const button_text: string = browser.i18n.getMessage("decompress_button_strict_with_reason", [
+            const button_text = browser.i18n.getMessage("decompress_button_strict_with_reason", [
                 user_name,
                 `@${user_id}`,
                 reason
             ]);
             this.decompress_button.textContent = button_text;
         } else {
-            const button_text: string = browser.i18n.getMessage("decompress_button_strict_without_reason", [
+            const button_text = browser.i18n.getMessage("decompress_button_strict_without_reason", [
                 user_name,
                 `@${user_id}`
             ]);

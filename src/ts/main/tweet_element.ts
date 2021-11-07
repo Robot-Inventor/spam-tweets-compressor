@@ -14,7 +14,7 @@ export interface TweetElement extends HTMLElement {
 const generate_tweet_element = (tweet: TweetElement): TweetElement => {
     tweet.classList.add(selector.checked_tweet_class_name);
 
-    const analyser: TweetAnalyser = new TweetAnalyser(tweet);
+    const analyser = new TweetAnalyser(tweet);
 
     const user_id_bug_exclude_list: ReadonlyArray<string> = ["/notifications"];
 

@@ -82,7 +82,7 @@ const get_json = async (url: string) => {
  * @param filter_id_list ID list of filters
  * @returns advanced filter data.
  */
-const load_advanced_filter = async (filter_id_list: Array<string>) => {
+const load_advanced_filter = async (filter_id_list: Array<string>): Promise<query_type> => {
     const filter_list: Array<Promise<query_type>> = [];
 
     const filter_url_data = (await get_json(
@@ -110,7 +110,7 @@ const load_advanced_filter = async (filter_id_list: Array<string>) => {
     const setting_instance = new Setting();
     const setting = await setting_instance.load();
 
-    let joined_advanced_filter: query_type = await load_advanced_filter(setting.advanced_filter);
+    let joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
 
     const reload_filter = async () => {
         joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
