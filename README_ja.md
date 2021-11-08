@@ -78,48 +78,54 @@
 
 開発する際は、まず必要なパッケージをインストールします。
 
-```powershell
+```sh
 npm install
 ```
 
 ### Lint
 
-```powershell
+```sh
 npm run lint:css
 npm run lint:js
-npm run lint // lint CSS and JS
+
+# lint CSS and JS
+npm run lint
 ```
 
 ### Format
 
-```powershell
+```sh
 npm run format
 ```
 
 ### Test
 
-```powershell
+```sh
 npm run test
 ```
 
 ### Build
 
-```powershell
+```sh
 npm run build:css
 npm run build:js
-npm run build // build CSS and JS
+
+# build CSS and JS
+npm run build
 ```
 
 または
 
-```powershell
+```sh
 npm run watch:css
 npm run watch:js
-npm run watch // watch CSS and JS
+
+# watch CSS and JS
+npm run watch
 ```
 
 ### Package
 
-```powershell
+```sh
 npm run pack
 ```
