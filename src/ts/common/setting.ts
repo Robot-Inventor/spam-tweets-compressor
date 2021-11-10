@@ -1,3 +1,7 @@
+import deepmerge from "deepmerge";
+import { diff } from "deep-diff";
+import { remove as dot_remove } from "dot-object";
+
 interface ColorSetting {
     main: string;
     main_light: string;
@@ -52,6 +56,43 @@ const default_setting: setting_object = {
 };
 
 /**
+ * Delete old properties and add new properties. Existing properties will not be overwritten.
+ * @param old_setting old setting object
+ * @param new_setting new setting object
+ */
+// eslint-disable-next-line max-lines-per-function
+const merge_setting = (old_setting: setting_object, new_setting: setting_object): setting_object => {
+    // TODO: stringの配列もマージされてしまう。stringの配列はマージせず、オブジェクトの配列はマージしたい。
+    // overwrite_merge()にその処理を追加する。
+    const overwrite_merge = (destination_array: Array<unknown>, source_array: Array<unknown>, options: unknown) => {
+        const result = destination_array;
+    };
+
+    // Add new properties.
+    const merged_setting = deepmerge(new_setting, old_setting, { arrayMerge: overwrite_merge });
+
+    const properties_diff = diff(old_setting, new_setting);
+
+    // Delete unused properties.
+    if (properties_diff) {
+        const unused_properties = properties_diff.filter((o_diff) => o_diff.kind === "D");
+
+        for (const piece_of_diff of unused_properties) {
+            if (piece_of_diff.path) {
+                // Convert deletion target path to dot notation.
+                const deletion_target_path = piece_of_diff.path
+                    .map((path: string | number) => (typeof path === "string" ? `${path}.` : `[${path}].`))
+                    .join("")
+                    .replace(/\.$/u, "");
+                dot_remove(deletion_target_path, merged_setting);
+            }
+        }
+    }
+
+    return merged_setting;
+};
+
+/**
  * Class for setting-related processing.
  */
 export class Setting {
@@ -73,13 +114,8 @@ export class Setting {
      */
     async load(): Promise<setting_object> {
         const saved_setting = (await browser.storage.local.get("setting")) as { setting: setting_object };
-        const setting = default_setting;
 
-        if (saved_setting.setting) {
-            Object.keys(saved_setting.setting)
-                .filter((key) => key in default_setting)
-                .forEach((key) => (setting[key] = saved_setting.setting[key]));
-        }
+        const setting = merge_setting(saved_setting.setting, default_setting);
 
         browser.storage.onChanged.addListener((changes) => {
             this.setting = changes.setting.newValue as setting_object;
