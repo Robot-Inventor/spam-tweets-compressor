@@ -1,5 +1,5 @@
 import { Setting, setting_object } from "../common/setting";
-import { TweetElement, TweetElementInterface } from "./tweet_element";
+import { TweetElement, generate_tweet_element } from "./tweet_element";
 import { load_color_setting, update_color_setting } from "../common/color";
 import { query_object, query_type } from "./advanced_spam_detection";
 import { advanced_filter_type } from "../common/advanced_filter_type";
@@ -11,12 +11,12 @@ import { selector } from "./selector";
  * Return an array of unchecked tweets.
  * @returns unchecked Tweets
  */
-const get_unchecked_tweets = (): Array<TweetElementInterface> => {
-    const tweets: NodeListOf<TweetElementInterface> = document.querySelectorAll(
+const get_unchecked_tweets = (): Array<TweetElement> => {
+    const tweets: NodeListOf<TweetElement> = document.querySelectorAll(
         `${selector.tweet_outer}:not(.${selector.checked_tweet_class_name})`
     );
 
-    return [...tweets].map((tweet) => TweetElement.generate(tweet));
+    return [...tweets].map((tweet) => generate_tweet_element(tweet));
 };
 
 /**
@@ -32,7 +32,7 @@ const reset_check_status = () => {
  * Decompress all compressed tweets.
  */
 const decompress_all = () => {
-    const tweets: NodeListOf<TweetElementInterface> = document.querySelectorAll(selector.show_tweet_button);
+    const tweets: NodeListOf<TweetElement> = document.querySelectorAll(selector.show_tweet_button);
     tweets.forEach((element) => element.click());
 };
 
@@ -54,10 +54,10 @@ const run_check = (setting: setting_object, advanced_filter: query_type) => {
         const judgement = detect_spam(target, setting, advanced_filter);
         if (judgement[0]) {
             if (setting.show_reason) {
-                target.compress(setting.hide_completely, judgement[1], setting.decompress_on_hover);
+                target.compress(setting.hide_completely, setting.decompress_on_hover, judgement[1]);
             } else {
                 // eslint-disable-next-line no-undefined
-                target.compress(setting.hide_completely, undefined, setting.decompress_on_hover);
+                target.compress(setting.hide_completely, setting.decompress_on_hover);
             }
         }
     }
@@ -82,7 +82,7 @@ const get_json = async (url: string) => {
  * @param filter_id_list ID list of filters
  * @returns advanced filter data.
  */
-const load_advanced_filter = async (filter_id_list: Array<string>) => {
+const load_advanced_filter = async (filter_id_list: Array<string>): Promise<query_type> => {
     const filter_list: Array<Promise<query_type>> = [];
 
     const filter_url_data = (await get_json(
@@ -108,9 +108,10 @@ const load_advanced_filter = async (filter_id_list: Array<string>) => {
 
 (async () => {
     const setting_instance = new Setting();
+    setting_instance.readonly = true;
     const setting = await setting_instance.load();
 
-    let joined_advanced_filter: query_type = await load_advanced_filter(setting.advanced_filter);
+    let joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);
 
     const reload_filter = async () => {
         joined_advanced_filter = await load_advanced_filter(setting.advanced_filter);

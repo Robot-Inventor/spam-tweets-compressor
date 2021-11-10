@@ -7,7 +7,7 @@ const init_i18n_text = () => {
         const message_name = target.dataset.i18n;
         if (!message_name) return;
 
-        const message: string = browser.i18n.getMessage(message_name);
+        const message = browser.i18n.getMessage(message_name);
         if (message) target.textContent = message;
     });
 };
@@ -21,7 +21,7 @@ const init_i18n_link = () => {
         const link_name = target.dataset.i18nLink;
         if (!link_name) return;
 
-        const link: string = browser.i18n.getMessage(link_name);
+        const link = browser.i18n.getMessage(link_name);
         if (link) target.href = link;
     });
 };
@@ -35,7 +35,7 @@ const init_i18n_label = () => {
         const label_name = target.dataset.i18nLabel;
         if (!label_name) return;
 
-        const label: string = browser.i18n.getMessage(label_name);
+        const label = browser.i18n.getMessage(label_name);
         if (label) target.setAttribute("label", label);
     });
 };
@@ -49,7 +49,7 @@ const init_i18n_validation_message = () => {
         const validation_message_name = target.dataset.i18nValidationMessage;
         if (!validation_message_name) return;
 
-        const validation_message: string = browser.i18n.getMessage(validation_message_name);
+        const validation_message = browser.i18n.getMessage(validation_message_name);
         if (validation_message) target.setAttribute("validationMessage", validation_message);
     });
 };

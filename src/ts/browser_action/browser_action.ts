@@ -24,7 +24,7 @@ new Setting()
     .then((setting) => {
         void load_color_setting();
 
-        const switch_list: NodeListOf<Switch> = document.querySelectorAll("mwc-switch");
+        const switch_list = document.querySelectorAll("mwc-switch");
         switch_list.forEach((switch_element) => {
             const setting_name = get_setting_name(switch_element);
 
