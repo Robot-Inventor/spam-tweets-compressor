@@ -60,7 +60,6 @@ const default_setting: setting_object = {
  * @param old_setting old setting object
  * @param new_setting new setting object
  */
-// eslint-disable-next-line max-lines-per-function
 const merge_setting = (old_setting: setting_object, new_setting: setting_object): setting_object => {
     // TODO: stringの配列もマージされてしまう。stringの配列はマージせず、オブジェクトの配列はマージしたい。
     // overwrite_merge()にその処理を追加する。
