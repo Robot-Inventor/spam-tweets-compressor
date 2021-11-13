@@ -61,10 +61,12 @@ const default_setting: setting_object = {
  * @param new_setting new setting object
  */
 const merge_setting = (old_setting: setting_object, new_setting: setting_object): setting_object => {
-    // TODO: stringの配列もマージされてしまう。stringの配列はマージせず、オブジェクトの配列はマージしたい。
-    // overwrite_merge()にその処理を追加する。
-    const overwrite_merge = (destination_array: Array<unknown>, source_array: Array<unknown>, options: unknown) => {
-        const result = destination_array;
+    const overwrite_merge = (destination_array: Array<unknown>, source_array: Array<unknown>) => {
+        const result = [
+            ...source_array,
+            ...destination_array.filter((value) => Object.prototype.toString.call(value) === "[object Object]")
+        ];
+        return result;
     };
 
     // Add new properties.
@@ -113,6 +115,9 @@ export class Setting {
      */
     async load(): Promise<setting_object> {
         const saved_setting = (await browser.storage.local.get("setting")) as { setting: setting_object };
+        const a = { a: { b: { c: "cccc", d: ["a", "b"], f: "fff" } } } as any;
+        const b = { a: { b: { c: "cccc", d: ["c", "d", ["e", "f"], {}] }, e: "aaa" } } as any;
+        console.log(merge_setting(a, b));
 
         const setting = merge_setting(saved_setting.setting, default_setting);
 
