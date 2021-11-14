@@ -115,9 +115,6 @@ export class Setting {
      */
     async load(): Promise<setting_object> {
         const saved_setting = (await browser.storage.local.get("setting")) as { setting: setting_object };
-        const a = { a: { b: { c: "cccc", d: ["a", "b"], f: "fff" } } } as any;
-        const b = { a: { b: { c: "cccc", d: ["c", "d", ["e", "f"], {}] }, e: "aaa" } } as any;
-        console.log(merge_setting(a, b));
 
         const setting = merge_setting(saved_setting.setting, default_setting);
 
