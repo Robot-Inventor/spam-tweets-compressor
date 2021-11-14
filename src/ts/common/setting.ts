@@ -114,7 +114,7 @@ export class Setting {
      * @returns setting data
      */
     async load(): Promise<setting_object> {
-        const saved_setting = (await browser.storage.local.get("setting")) as { setting: setting_object };
+        const saved_setting = (await browser.storage.local.get("setting")) as { setting: setting_object | undefined };
 
         if (saved_setting.setting) this.setting = merge_setting(saved_setting.setting, default_setting);
         else this.setting = default_setting;
