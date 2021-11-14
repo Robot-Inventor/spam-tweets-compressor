@@ -24,8 +24,7 @@ export const selector = {
     normal_text: ".css-901oao.css-16my406.r-1tl8opc.r-bcqeeo.r-qvutc0",
     show_tweet_button: ".show-tweet-button",
     timeline: "main",
-    tweet_button_inner:
-        ".css-4rbku5.css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1waj6vr.r-1loqt21.r-1ny4l3l.r-o7ynqc.r-6416eg.r-lrvibr",
+    tweet_button_inner: "*[data-testid='SideNav_NewTweet_Button']",
     tweet_content: ".css-901oao.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0",
     tweet_outer: "div.css-1dbjc4n.r-1adg3ll.r-1ny4l3l",
     user_id: ".css-901oao.css-bfa6kz.r-18u37iz.r-16dba41.r-bcqeeo.r-qvutc0",
