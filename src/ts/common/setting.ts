@@ -116,15 +116,14 @@ export class Setting {
     async load(): Promise<setting_object> {
         const saved_setting = (await browser.storage.local.get("setting")) as { setting: setting_object };
 
-        const setting = merge_setting(saved_setting.setting, default_setting);
+        this.setting = merge_setting(saved_setting.setting, default_setting);
 
         browser.storage.onChanged.addListener((changes) => {
             this.setting = changes.setting.newValue as setting_object;
             if (this.callback) this.callback();
         });
 
-        // The first argument of Proxy is the source object, so instead of ``this.setting``, use the ``setting`` overwritten by the current setting.
-        return new Proxy(setting, {
+        return new Proxy(this.setting, {
             get: (target, key: string) => this.setting[key],
             set: (target, key: string, value: setting_value_type) => {
                 this.setting[key] = value;
