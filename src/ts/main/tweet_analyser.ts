@@ -22,7 +22,7 @@ export class TweetAnalyser {
         const temp = document.createElement("div");
         temp.appendChild(clone);
         temp.querySelectorAll("img").forEach((img) => {
-            const emoji = url_to_emoji(img.src);
+            const emoji = url_to_emoji(img.src) || "";
             if (emoji) img.insertAdjacentText("afterend", emoji);
             img.remove();
         });
