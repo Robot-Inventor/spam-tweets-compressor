@@ -1,6 +1,7 @@
 import { is_regexp, parse_regexp } from "./parse_regexp";
 import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { TweetElement } from "./tweet_element";
+import { is_object } from "../common/type_predicate_utility";
 
 interface query_element {
     mode: "include" | "exclude";
@@ -24,25 +25,30 @@ export interface query_object {
  */
 const is_query_element = (argument: unknown): argument is query_element => {
     // Check if argument is an object.
-    if (!(typeof argument === "object" && argument !== null && argument.constructor === Object)) return false;
+    if (!is_object(argument)) return false;
 
     // Check if argument has all necessary properties.
-    if (!("mode" in argument && "type" in argument && "string" in argument)) return false;
+    const all_properties = ["mode", "type", "string"];
+    const has_all_properties = all_properties.every((property) => property in argument && typeof property === "string");
+    return has_all_properties;
+};
 
-    const object_with_all_properties = argument as {
-        mode: unknown;
-        type: unknown;
-        string: unknown;
-    };
+const is_query_type = (input: unknown): input is query_type => {
+    if (!Array.isArray(input)) return false;
 
-    // Check the types of all necessary properties.
-    if (
-        typeof object_with_all_properties.mode === "string" &&
-        typeof object_with_all_properties.type === "string" &&
-        typeof object_with_all_properties.string === "string"
-    )
-        return true;
-    else return false;
+    if (input.length !== 2) return false;
+
+    if (!["and", "or"].includes(input[0])) return false;
+
+    if (!Array.isArray(input[1])) return false;
+
+    return input[1].every((element) => is_query_element(element) || is_query_type(element));
+};
+
+const is_query_object = (input: unknown): input is query_object => {
+    if (!is_object(input)) return false;
+    if (!("rule" in input)) return false;
+    return is_query_type(input.rule);
 };
 
 const judge = (target: string | Array<string>, pattern: string) => {
@@ -115,4 +121,4 @@ const advanced_spam_detection = (query: query_type, tweet: TweetElement): boolea
     return result;
 };
 
-export { advanced_spam_detection };
+export { advanced_spam_detection, is_query_object };

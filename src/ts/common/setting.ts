@@ -1,6 +1,7 @@
 import deepmerge from "deepmerge";
 import { diff } from "deep-diff";
 import { remove as dot_remove } from "dot-object";
+import { is_object, is_string_array } from "./type_predicate_utility";
 
 interface ColorSetting {
     main: string;
@@ -53,6 +54,58 @@ const default_setting: setting_object = {
     include_verified_account: false,
     ng_word: [""],
     show_reason: true
+};
+
+const is_color_setting = (input: unknown): input is ColorSetting => {
+    if (!is_object(input)) return false;
+
+    const all_properties = [
+        "main",
+        "main_light",
+        "background",
+        "high_emphasize_text",
+        "medium_emphasize_text",
+        "top_app_bar",
+        "drawer",
+        "card",
+        "card_hover"
+    ];
+    const has_all_properties = all_properties.every(
+        (property) => property in input && typeof input[property] === "string"
+    );
+    return has_all_properties;
+};
+
+const is_setting_object = (input: unknown): input is setting_object => {
+    if (!is_object(input)) return false;
+
+    const all_properties = [
+        "advanced_filter",
+        "allow_list",
+        "color",
+        "decompress_on_hover",
+        "exclude_url",
+        "hide_completely",
+        "include_user_name",
+        "include_verified_account",
+        "ng_word",
+        "show_reason"
+    ];
+    const has_all_properties = all_properties.every((property) => property in input);
+    if (!has_all_properties) return false;
+
+    if (!is_string_array(input.advanced_filter)) return false;
+    if (!is_string_array(input.allow_list)) return false;
+    if (!is_color_setting(input.color)) return false;
+    if (typeof input.decompress_on_hover !== "boolean") return false;
+    if (!is_string_array(input.exclude_url)) return false;
+    if (typeof input.hide_completely !== "boolean") return false;
+    if (typeof input.include_user_name !== "boolean") return false;
+    if (typeof input.include_verified_account !== "boolean") return false;
+    if (!is_string_array(input.ng_word)) return false;
+    if (typeof input.show_reason !== "boolean") return false;
+
+    return true;
 };
 
 /**
@@ -114,13 +167,15 @@ export class Setting {
      * @returns setting data
      */
     async load(): Promise<setting_object> {
-        const saved_setting = (await browser.storage.local.get("setting")) as { setting: setting_object | undefined };
+        const saved_setting = await browser.storage.local.get("setting");
 
-        if (saved_setting.setting) this.setting = merge_setting(saved_setting.setting, default_setting);
+        if (is_setting_object(saved_setting.setting))
+            this.setting = merge_setting(saved_setting.setting, default_setting);
         else this.setting = default_setting;
 
         browser.storage.onChanged.addListener((changes) => {
-            this.setting = changes.setting.newValue as setting_object;
+            if (!is_setting_object(changes.setting.newValue)) return;
+            this.setting = changes.setting.newValue;
             if (this.callback) this.callback();
         });
 

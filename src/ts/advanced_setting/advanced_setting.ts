@@ -16,7 +16,7 @@ import { adjust_appearance, create_separator, generate_check_list_item } from ".
 import { Dialog } from "@material/mwc-dialog";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
-import { advanced_filter_type } from "../common/advanced_filter_type";
+import { is_advanced_filter_type } from "../common/advanced_filter_type";
 import { load_color_setting } from "../common/color";
 
 /**
@@ -47,16 +47,14 @@ const hide_filter_loading_screen = () => {
  */
 const load_filter_list = async (setting: setting_object): Promise<void> => {
     const filter_list_outer = document.getElementById("filter_list_outer");
-    if (!filter_list_outer) {
-        console.error("#filter_list_outer was not found.");
-        return;
-    }
+    if (!filter_list_outer) throw new Error("#filter_list_outer was not found.");
 
     const response = await fetch(
         "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json",
         { cache: "no-cache" }
     );
-    const json_data = (await response.json()) as advanced_filter_type;
+    const json_data = await response.json();
+    if (!is_advanced_filter_type(json_data)) throw new Error("The type of advanced filter is invalid.");
 
     const mwc_list = document.createElement("mwc-list");
     mwc_list.multi = true;
