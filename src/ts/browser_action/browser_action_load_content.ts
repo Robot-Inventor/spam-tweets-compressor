@@ -58,12 +58,11 @@ const is_browser_action_content = (input: unknown): input is BrowserActionConten
 
     if (!(Array.isArray(input.general) && Array.isArray(input.option) && Array.isArray(input.advanced))) return false;
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const all_array_element = [...input.general, ...input.option, ...input.advanced];
-    for (const element of all_array_element) {
-        if (!(is_browser_action_content_switch(element) || is_browser_action_content_link(element))) return false;
-    }
-
-    return true;
+    return all_array_element.every(
+        (element) => is_browser_action_content_switch(element) || is_browser_action_content_link(element)
+    );
 };
 
 export class LoadBrowserActionContent {

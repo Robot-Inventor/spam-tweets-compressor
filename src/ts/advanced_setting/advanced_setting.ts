@@ -53,6 +53,7 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
         "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json",
         { cache: "no-cache" }
     );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const json_data = await response.json();
     if (!is_advanced_filter_type(json_data)) throw new Error("The type of advanced filter is invalid.");
 

@@ -1,7 +1,7 @@
+import { is_object, is_string_array } from "./type_predicate_utility";
 import deepmerge from "deepmerge";
 import { diff } from "deep-diff";
 import { remove as dot_remove } from "dot-object";
-import { is_object, is_string_array } from "./type_predicate_utility";
 
 interface ColorSetting {
     main: string;

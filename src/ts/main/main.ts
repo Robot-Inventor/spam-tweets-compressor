@@ -1,9 +1,9 @@
 import { Setting, setting_object } from "../common/setting";
 import { TweetElement, generate_tweet_element } from "./tweet_element";
+import { is_query_object, query_type } from "./advanced_spam_detection";
 import { load_color_setting, update_color_setting } from "../common/color";
-import { is_query_object, query_object, query_type } from "./advanced_spam_detection";
-import { advanced_filter_type, is_advanced_filter_type } from "../common/advanced_filter_type";
 import { detect_spam } from "./detect_spam";
+import { is_advanced_filter_type } from "../common/advanced_filter_type";
 import { normalize_user_id } from "./normalize";
 import { selector } from "./selector";
 
@@ -85,6 +85,7 @@ const get_json = async (url: string) => {
 const load_advanced_filter = async (filter_id_list: Array<string>): Promise<query_type> => {
     const filter_list: Array<Promise<query_type>> = [];
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const filter_url_data = await get_json(
         "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json?dev=0"
     );
@@ -95,6 +96,7 @@ const load_advanced_filter = async (filter_id_list: Array<string>): Promise<quer
         .map((key) => filter_url_data[key].url);
 
     const get_rule = async (url: string) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const data = await get_json(url);
         if (!is_query_object(data)) throw new Error("Invalid type of data.");
         return data.rule;

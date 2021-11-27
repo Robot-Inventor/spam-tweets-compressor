@@ -34,10 +34,13 @@ const is_query_element = (argument: unknown): argument is query_element => {
 };
 
 const is_query_type = (input: unknown): input is query_type => {
+    const array_length = 2;
+
     if (!Array.isArray(input)) return false;
 
-    if (input.length !== 2) return false;
+    if (input.length !== array_length) return false;
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     if (!["and", "or"].includes(input[0])) return false;
 
     if (!Array.isArray(input[1])) return false;
