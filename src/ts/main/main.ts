@@ -1,11 +1,12 @@
-import { Setting, setting_object } from "../common/setting";
 import { TweetElement, generate_tweet_element } from "./tweet_element";
-import { is_query_object, query_type } from "./advanced_spam_detection";
+import { is_query_object, query_type } from "../types/main/advanced_spam_detection";
 import { load_color_setting, update_color_setting } from "../common/color";
+import { Setting } from "../common/setting";
 import { detect_spam } from "./detect_spam";
-import { is_advanced_filter_type } from "../common/advanced_filter_type";
+import { is_advanced_filter_type } from "../types/common/advanced_filter_type";
 import { normalize_user_id } from "./normalize";
 import { selector } from "./selector";
+import { setting_object } from "../types/common/setting";
 
 /**
  * Return an array of unchecked tweets.

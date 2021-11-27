@@ -10,14 +10,15 @@ import "@material/mwc-list";
 import "@material/mwc-textarea";
 import "@material/mwc-top-app-bar-fixed";
 import "@material/mwc-list/mwc-check-list-item";
-import { Setting, setting_object } from "../common/setting";
 import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
 // eslint-disable-next-line no-duplicate-imports
 import { Dialog } from "@material/mwc-dialog";
+import { Setting } from "../common/setting";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
-import { is_advanced_filter_type } from "../common/advanced_filter_type";
+import { is_advanced_filter_type } from "../types/common/advanced_filter_type";
 import { load_color_setting } from "../common/color";
+import { setting_object } from "../types/common/setting";
 
 /**
  * Get setting name information from input element.

@@ -1,9 +1,10 @@
-import { advanced_spam_detection, query_type } from "./advanced_spam_detection";
 import { is_regexp, parse_regexp } from "./parse_regexp";
 import { TweetElement } from "./tweet_element";
+import { advanced_spam_detection } from "./advanced_spam_detection";
 import { normalize } from "./normalize";
+import { query_type } from "../types/main/advanced_spam_detection";
 import { selector } from "./selector";
-import { setting_object } from "../common/setting";
+import { setting_object } from "../types/common/setting";
 
 /**
  * Return weather or not the target text includes NG words.
