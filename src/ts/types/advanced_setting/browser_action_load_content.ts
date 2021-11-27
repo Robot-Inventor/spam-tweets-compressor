@@ -64,4 +64,4 @@ const is_browser_action_content = (input: unknown): input is BrowserActionConten
 };
 
 export { BrowserActionContentSwitch, BrowserActionContentLink, BrowserActionContent };
-export { is_browser_action_content };
+export { is_browser_action_content_switch, is_browser_action_content_link, is_browser_action_content };
