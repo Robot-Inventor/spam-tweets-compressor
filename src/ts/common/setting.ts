@@ -1,34 +1,7 @@
+import { is_setting_object, setting_object, setting_value_type } from "../types/common/setting";
 import deepmerge from "deepmerge";
 import { diff } from "deep-diff";
 import { remove as dot_remove } from "dot-object";
-
-interface ColorSetting {
-    main: string;
-    main_light: string;
-    background: string;
-    high_emphasize_text: string;
-    medium_emphasize_text: string;
-    top_app_bar: string;
-    drawer: string;
-    card: string;
-    card_hover: string;
-}
-
-type setting_value_type = number | string | boolean | Array<string> | { [key: string]: { url: string } } | ColorSetting;
-
-export interface setting_object {
-    [key: string]: setting_value_type;
-    advanced_filter: Array<string>;
-    allow_list: Array<string>;
-    color: ColorSetting;
-    decompress_on_hover: boolean;
-    exclude_url: Array<string>;
-    hide_completely: boolean;
-    include_user_name: boolean;
-    include_verified_account: boolean;
-    ng_word: Array<string>;
-    show_reason: boolean;
-}
 
 const default_setting: setting_object = {
     advanced_filter: [""],
@@ -114,13 +87,15 @@ export class Setting {
      * @returns setting data
      */
     async load(): Promise<setting_object> {
-        const saved_setting = (await browser.storage.local.get("setting")) as { setting: setting_object | undefined };
+        const saved_setting = await browser.storage.local.get("setting");
 
-        if (saved_setting.setting) this.setting = merge_setting(saved_setting.setting, default_setting);
+        if (is_setting_object(saved_setting.setting))
+            this.setting = merge_setting(saved_setting.setting, default_setting);
         else this.setting = default_setting;
 
         browser.storage.onChanged.addListener((changes) => {
-            this.setting = changes.setting.newValue as setting_object;
+            if (!is_setting_object(changes.setting.newValue)) return;
+            this.setting = changes.setting.newValue;
             if (this.callback) this.callback();
         });
 

@@ -1,29 +1,18 @@
+import {
+    BrowserActionContent,
+    BrowserActionContentLink,
+    BrowserActionContentSwitch,
+    is_browser_action_content
+} from "../types/advanced_setting/browser_action_load_content";
 import browser_action_content from "./browser_action_content.json";
 import { init_i18n } from "../common/i18n";
-
-interface BrowserActionContentSwitch {
-    type: "switch";
-    label: string;
-    name: string;
-}
-
-interface BrowserActionContentLink {
-    type: "link";
-    label: string;
-    link: string;
-}
-
-interface BrowserActionContent {
-    general: Array<BrowserActionContentSwitch | BrowserActionContentLink>;
-    option: Array<BrowserActionContentSwitch | BrowserActionContentLink>;
-    advanced: Array<BrowserActionContentSwitch | BrowserActionContentLink>;
-}
 
 export class LoadBrowserActionContent {
     private readonly content: BrowserActionContent;
 
     constructor() {
-        this.content = browser_action_content as BrowserActionContent;
+        if (!is_browser_action_content(browser_action_content)) throw new Error("Invalid browser action content");
+        this.content = browser_action_content;
 
         const general_outer = document.getElementById("setting_item_general");
         if (!general_outer) return;

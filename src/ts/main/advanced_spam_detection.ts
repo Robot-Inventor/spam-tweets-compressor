@@ -1,49 +1,7 @@
+import { is_query_element, query_type } from "../types/main/advanced_spam_detection";
 import { is_regexp, parse_regexp } from "./parse_regexp";
 import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { TweetElement } from "./tweet_element";
-
-interface query_element {
-    mode: "include" | "exclude";
-    type: "text" | "hashtag" | "name" | "id" | "link";
-    string: string;
-}
-
-export type query_type = ["and" | "or", Array<query_element | query_type>];
-
-/**
- * To see example, please refer to docs/<lang>/advanced_spam_detection.md
- */
-export interface query_object {
-    rule: query_type;
-}
-
-/**
- * Return if the type of target variable is query_element.
- * @param argument target variable
- * @returns weather or not the target variable is query_element
- */
-const is_query_element = (argument: unknown): argument is query_element => {
-    // Check if argument is an object.
-    if (!(typeof argument === "object" && argument !== null && argument.constructor === Object)) return false;
-
-    // Check if argument has all necessary properties.
-    if (!("mode" in argument && "type" in argument && "string" in argument)) return false;
-
-    const object_with_all_properties = argument as {
-        mode: unknown;
-        type: unknown;
-        string: unknown;
-    };
-
-    // Check the types of all necessary properties.
-    if (
-        typeof object_with_all_properties.mode === "string" &&
-        typeof object_with_all_properties.type === "string" &&
-        typeof object_with_all_properties.string === "string"
-    )
-        return true;
-    else return false;
-};
 
 const judge = (target: string | Array<string>, pattern: string) => {
     const is_regex = is_regexp(pattern);
