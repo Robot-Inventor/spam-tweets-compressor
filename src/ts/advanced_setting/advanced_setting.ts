@@ -11,12 +11,13 @@ import "@material/mwc-textarea";
 import "@material/mwc-top-app-bar-fixed";
 import "@material/mwc-list/mwc-check-list-item";
 import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
+import { advanced_filter_type, is_advanced_filter_type } from "../types/common/advanced_filter_type";
 // eslint-disable-next-line no-duplicate-imports
 import { Dialog } from "@material/mwc-dialog";
 import { Setting } from "../common/setting";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
-import { is_advanced_filter_type } from "../types/common/advanced_filter_type";
+import { is_error } from "../types/common/type_predicate_utility";
 import { load_color_setting } from "../common/color";
 import { setting_object } from "../types/common/setting";
 
@@ -43,6 +44,33 @@ const hide_filter_loading_screen = () => {
 };
 
 /**
+ * Fetch filter list of Advanced Filters.
+ * @returns advanced filter list
+ */
+const fetch_filter_list = async (): Promise<advanced_filter_type> => {
+    try {
+        const response = await fetch(
+            "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json",
+            { cache: "no-cache" }
+        );
+
+        if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const json_data = await response.json();
+        if (!is_advanced_filter_type(json_data)) throw new TypeError("The type of advanced filter is invalid.");
+
+        return json_data;
+    } catch (error) {
+        if (is_error(error)) throw new Error(`${error.message}\nPlease reload the page.`);
+        else
+            throw new Error(
+                "An unknown error occurred when loading the filter list of Advanced Filters.\nPlease reload the page."
+            );
+    }
+};
+
+/**
  * Download advanced filter list and generate setting UI.
  * @param setting
  */
@@ -50,45 +78,46 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
     const filter_list_outer = document.getElementById("filter_list_outer");
     if (!filter_list_outer) throw new Error("#filter_list_outer was not found.");
 
-    const response = await fetch(
-        "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/main/dist/advanced_filter.json",
-        { cache: "no-cache" }
-    );
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const json_data = await response.json();
-    if (!is_advanced_filter_type(json_data)) throw new Error("The type of advanced filter is invalid.");
+    try {
+        const json_data = await fetch_filter_list();
 
-    const mwc_list = document.createElement("mwc-list");
-    mwc_list.multi = true;
-    mwc_list.appendChild(create_separator());
+        const mwc_list = document.createElement("mwc-list");
+        mwc_list.multi = true;
+        mwc_list.appendChild(create_separator());
 
-    for (const filter_name of Object.keys(json_data).sort()) {
-        const filter_id = json_data[filter_name].id;
-        const is_selected = setting.advanced_filter.includes(filter_id);
-        const checkbox = generate_check_list_item(filter_name, filter_id, is_selected);
-        const separator = create_separator();
-        mwc_list.appendChild(checkbox);
-        mwc_list.appendChild(separator);
-    }
-
-    mwc_list.addEventListener("action", () => {
-        const selected_item = mwc_list.selected;
-        if (selected_item === null) {
-            setting.advanced_filter = [];
-        } else if (Array.isArray(selected_item)) {
-            const selected_id_list = selected_item
-                .map((item) => item.dataset.filterId)
-                .filter((id) => typeof id === "string") as Array<string>;
-            setting.advanced_filter = selected_id_list;
-        } else {
-            const id = selected_item.dataset.filterId;
-            if (id) setting.advanced_filter = [id];
+        for (const filter_name of Object.keys(json_data).sort()) {
+            const filter_id = json_data[filter_name].id;
+            const is_selected = setting.advanced_filter.includes(filter_id);
+            const checkbox = generate_check_list_item(filter_name, filter_id, is_selected);
+            const separator = create_separator();
+            mwc_list.appendChild(checkbox);
+            mwc_list.appendChild(separator);
         }
-    });
 
-    filter_list_outer.appendChild(mwc_list);
-    const loading_screen_display_time = 1000;
-    setTimeout(hide_filter_loading_screen, loading_screen_display_time);
+        mwc_list.addEventListener("action", () => {
+            const selected_item = mwc_list.selected;
+            if (selected_item === null) {
+                setting.advanced_filter = [];
+            } else if (Array.isArray(selected_item)) {
+                const selected_id_list = selected_item
+                    .map((item) => item.dataset.filterId)
+                    .filter((id) => typeof id === "string") as Array<string>;
+                setting.advanced_filter = selected_id_list;
+            } else {
+                const id = selected_item.dataset.filterId;
+                if (id) setting.advanced_filter = [id];
+            }
+        });
+
+        filter_list_outer.appendChild(mwc_list);
+        const loading_screen_display_time = 1000;
+        setTimeout(hide_filter_loading_screen, loading_screen_display_time);
+    } catch (error) {
+        if (is_error(error)) filter_list_outer.textContent = error.message;
+        else
+            filter_list_outer.textContent =
+                "Failed to load filter list. Detailed information is not available.\nPlease reload the page.";
+    }
 };
 
 /**
