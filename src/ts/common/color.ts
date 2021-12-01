@@ -36,26 +36,22 @@ const update_color_setting = async (retry = true): Promise<void> => {
         const card_brighten = 0.5;
         const card_hover_brighten = 0.6;
 
-        const color_setting = setting.color;
-
         const main_color = getComputedStyle(tweet_button_inner).backgroundColor;
-        color_setting.main = main_color;
-        color_setting.main_light = change_opacity(main_color, main_color_light_opacity);
+        setting.color.main = main_color;
+        setting.color.main_light = change_opacity(main_color, main_color_light_opacity);
 
-        color_setting.background = background_color;
+        setting.color.background = background_color;
 
         const base_font_color = getComputedStyle(account_name).color;
-        color_setting.high_emphasize_text = change_opacity(base_font_color, high_emphasize_opacity);
-        color_setting.medium_emphasize_text = change_opacity(base_font_color, medium_emphasize_opacity);
+        setting.color.high_emphasize_text = change_opacity(base_font_color, high_emphasize_opacity);
+        setting.color.medium_emphasize_text = change_opacity(base_font_color, medium_emphasize_opacity);
 
         const chroma_bg = chroma(background_color);
 
-        color_setting.top_app_bar = `rgb(${chroma_bg.brighten().rgb().join()})`;
-        color_setting.drawer = color_setting.top_app_bar;
-        color_setting.card = `rgb(${chroma_bg.brighten(card_brighten).rgb().join()})`;
-        color_setting.card_hover = `rgb(${chroma_bg.brighten(card_hover_brighten).rgb().join()})`;
-
-        setting.color = color_setting;
+        setting.color.top_app_bar = `rgb(${chroma_bg.brighten().rgb().join()})`;
+        setting.color.drawer = setting.color.top_app_bar;
+        setting.color.card = `rgb(${chroma_bg.brighten(card_brighten).rgb().join()})`;
+        setting.color.card_hover = `rgb(${chroma_bg.brighten(card_hover_brighten).rgb().join()})`;
     } else if (retry) {
         result = new Promise((resolve, reject) => {
             const retry_interval = 1000;

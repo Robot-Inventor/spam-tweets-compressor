@@ -1,7 +1,8 @@
-import { is_setting_object, setting_object, setting_value_type } from "../types/common/setting";
+import { is_setting_object, setting_object } from "../types/common/setting";
 import deepmerge from "deepmerge";
 import { diff } from "deep-diff";
 import { remove as dot_remove } from "dot-object";
+import { is_object } from "../types/common/type_predicate_utility";
 
 const default_setting: setting_object = {
     advanced_filter: [""],
@@ -81,6 +82,35 @@ export class Setting {
     }
 
     /**
+     * Generate a proxy object that can be used to access the setting.
+     * @param object original object of setting
+     * @returns proxy object
+     */
+    generate_proxy<T>(object: T): T {
+        if (!is_object(object)) throw new Error('Parameter "object" must be an object');
+
+        const target_object = object as { [key: string]: unknown };
+
+        const proxy = new Proxy(target_object, {
+            get: (target, key: string) => {
+                // Support for nested objects.
+                const value = target_object[key];
+                if (is_object(value)) return this.generate_proxy(value);
+                else return value;
+            },
+
+            set: (target, key: string, value: unknown) => {
+                target_object[key] = value;
+                this.save();
+                return true;
+            }
+        });
+
+        // "proxy" is a proxy object of setting, so its type is same as "object".
+        return proxy as unknown as T;
+    }
+
+    /**
      * Load current setting. To use the class, call this function first.
      *
      * This function returns setting object. If a property of the object has been changed, setting will be saved overwrite.
@@ -99,14 +129,15 @@ export class Setting {
             if (this.callback) this.callback();
         });
 
-        return new Proxy(this.setting, {
-            get: (target, key: string) => this.setting[key],
-            set: (target, key: string, value: setting_value_type) => {
-                this.setting[key] = value;
-                this.save();
-                return true;
-            }
-        });
+        try {
+            return this.generate_proxy(this.setting);
+        } catch (err) {
+            console.error(err);
+            console.error(
+                "Failed to generate proxy object of setting. Spam Tweets Compressor will work with default setting. The user can't change the setting."
+            );
+            return this.setting;
+        }
     }
 
     /**
