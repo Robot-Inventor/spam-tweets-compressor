@@ -2,6 +2,45 @@
 
 ## Released
 
+### [v2.0.10.6] - 2021-12-12
+
+#### Added
+
+- 詳細設定ページにパディングを追加 [#403](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/403)
+- 詳細設定の各項目をカードでグループ化 [#430](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/430)
+- READMEにストアへのリンク付きの画像を設置 [#429](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/429)
+- ストアの説明文にバグ報告などの連絡方法を記載 [#413](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/413)
+- 詳細設定のテキストボックスの内容を定期的に保存する機能を追加 [#404](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/404)
+- 詳細設定のメニュー項目にアイコンを追加 [#489](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/489)
+- 設定のリセット機能を実装 [#220](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/220)
+- ネストされた設定オブジェクトに対応 [#507](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/507)
+- 高度なフィルターの読み込み失敗時の処理を追加 [#557](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/557)
+
+#### Changed
+
+- READMEの英訳の改善 [#408](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/408)
+- READMEの言語変更リンクを目立つように変更 [#411](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/411)
+- READMEのストアのリンクを言語非依存に変更 [#441](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/441)
+- READMEの文言の改善 [#414](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/414)
+- 高度なフィルターの説明を改善 [#400](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/400)
+- browser actionのコンテンツをJSONに移行 [#461](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/461)
+- フィルター読み込み時にキャッシュを無効化 [#475](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/475)
+- アイコンをアウトラインアイコンに変更 [#483](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/483)
+- 色を事前に計算しておくように変更 [#389](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/389)
+- URLから絵文字への変換方法を変更し、処理を高速化 [#502](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/502)
+- README.mdのコマンドのハイライトをshに変更 [#506](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/506)
+
+#### Fixed
+
+- browser actionから詳細設定を開いた際にスクロール位置がずれるバグを修正 [#401](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/401)
+- ユーザー名の取得に失敗するバグを修正 [#476](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/476)
+- 詳細設定のダイアログが正しく表示されないバグを修正 [#500](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/500)
+- Twitterの配色の取得に失敗するバグの修正 [#517](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/517)
+- 初回インストール時と設定のリセット後に設定が読み込まれないバグを修正 [#523](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/523)
+- 絵文字がSVGではなくPNGのときにエラーが発生するバグを修正 [#530](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/530)
+- 詳細設定のローディング画面が枠をはみ出しているのを修正 [#521](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/521)
+- json-schemaの脆弱性を回避 [#539](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/539)
+
 ### [v2.0.9.5] - 2021-09-30
 
 #### Added
