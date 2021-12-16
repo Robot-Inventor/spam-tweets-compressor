@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "「あなたの基準」で嫌がらせや脅迫と感じるツイートからあなたを守ります。"
+        "message": "この拡張機能に嫌やがらせの言葉や脅威を感じる言葉を入力することで、不快に感じるツイートから身を守ることができます。自分の基準で言葉を選ぶことができます。"
     },
     "browser_action_tab_switcher_general": {
         "message": "一般"
@@ -12,16 +12,16 @@
         "message": "詳細設定"
     },
     "browser_action_ng_word": {
-        "message": "NGワードの設定："
+        "message": "NGワードの設定: "
     },
     "browser_action_allow_list": {
-        "message": "許可リスト："
+        "message": "許可リスト: "
     },
     "browser_action_exclude_url": {
-        "message": "特定のページでは圧縮しない："
+        "message": "特定のページでは圧縮しない: "
     },
     "browser_action_advanced_filters": {
-        "message": "高度なフィルター："
+        "message": "高度なフィルター: "
     },
     "browser_action_hide_completely": {
         "message": "完全に非表示にする（非推奨）"

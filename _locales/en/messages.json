@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "This extension protects you from tweets that you feel are harassing or threatening by \"your standards\"."
+        "message": "By entering words that you dislike or find threatening into this extension, you can protect yourself from tweets that you find offensive. You can choose words based on your own criteria."
     },
     "browser_action_tab_switcher_general": {
         "message": "General"
@@ -12,10 +12,10 @@
         "message": "Advanced Setting"
     },
     "browser_action_ng_word": {
-        "message": "NG Word Setting: "
+        "message": "Your Blackwords: "
     },
     "browser_action_allow_list": {
-        "message": "Allow List: "
+        "message": "The list you have authorized: "
     },
     "browser_action_exclude_url": {
         "message": "Exclude URL: "
