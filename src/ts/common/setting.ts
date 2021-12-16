@@ -86,9 +86,7 @@ export class Setting {
      * @param object original object of setting
      * @returns proxy object
      */
-    generate_proxy<T>(object: T): T {
-        if (!is_object(object)) throw new Error('Parameter "object" must be an object');
-
+    generate_proxy<T extends object>(object: T): T {
         const target_object = object as { [key: string]: unknown };
 
         const proxy = new Proxy(target_object, {
