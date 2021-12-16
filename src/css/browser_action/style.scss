@@ -12,14 +12,21 @@ body {
     box-sizing: border-box;
 }
 
-#logo {
-    width: 1.5rem;
-    vertical-align: middle;
-}
-
 h1 {
     font-size: 1.5rem;
     margin-top: 0;
+
+    a {
+        text-decoration: inherit;
+        font-size: inherit;
+        font-family: inherit;
+        color: inherit;
+    }
+}
+
+#logo {
+    width: 1.5rem;
+    vertical-align: middle;
 }
 
 #extension_version {
