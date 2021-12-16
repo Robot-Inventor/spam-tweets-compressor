@@ -43,8 +43,12 @@ class TabSwitcher {
 const show_version = () => {
     const manifest = browser.runtime.getManifest();
     const { version } = manifest;
-    const target_element = document.getElementById("extension_version");
-    if (target_element) target_element.textContent = `${version}`;
+
+    const target_element = document.getElementById("extension_version") as HTMLAnchorElement | null;
+    if (target_element) {
+        target_element.textContent = version;
+        target_element.href = `https://github.com/Robot-Inventor/spam-tweets-compressor/releases/tag/v${version}`;
+    }
 };
 
 new LoadBrowserActionContent();
