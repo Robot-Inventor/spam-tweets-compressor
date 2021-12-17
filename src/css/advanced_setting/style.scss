@@ -22,14 +22,10 @@ mwc-top-app-bar-fixed {
     z-index: $header_z_index;
 
     #extension_name {
-        font-size: 1.25em;
-
-        a {
-            text-decoration: inherit;
-            font-size: inherit;
-            font-family: inherit;
-            color: inherit;
-        }
+        font-size: 1.5rem;
+        text-decoration: inherit;
+        font-family: inherit;
+        color: inherit;
     }
 }
 
