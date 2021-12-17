@@ -21,8 +21,11 @@ mwc-top-app-bar-fixed {
     left: 0;
     z-index: $header_z_index;
 
-    div[slot="title"] {
-        font-size: 1.25em;
+    #extension_name {
+        font-size: 1.5rem;
+        text-decoration: inherit;
+        font-family: inherit;
+        color: inherit;
     }
 }
 
