@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "この拡張機能に嫌やがらせの言葉や脅威を感じる言葉を入力することで、不快に感じるツイートから身を守ることができます。自分の基準で言葉を選ぶことができます。"
+        "message": "この拡張機能を使って単語をミュートすると、その単語を含むツイートが通知タブや検索結果に表示されなくなります。"
     },
     "browser_action_tab_switcher_general": {
         "message": "一般"
@@ -12,13 +12,13 @@
         "message": "詳細設定"
     },
     "browser_action_ng_word": {
-        "message": "NGワードの設定: "
+        "message": "NGワード: "
     },
     "browser_action_allow_list": {
         "message": "許可リスト: "
     },
     "browser_action_exclude_url": {
-        "message": "特定のページでは圧縮しない: "
+        "message": "URLを除外: "
     },
     "browser_action_advanced_filters": {
         "message": "高度なフィルター: "

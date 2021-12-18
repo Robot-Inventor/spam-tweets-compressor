@@ -1,33 +1,33 @@
 {
     "manifest_description": {
-        "message": "By entering words that you dislike or find threatening into this extension, you can protect yourself from tweets that you find offensive. You can choose words based on your own criteria."
+        "message": "When you mute words, you won't get any new notifications for Tweets that include them, and it will also hide when you did an active search."
     },
     "browser_action_tab_switcher_general": {
-        "message": "General"
+        "message": "General Settings"
     },
     "browser_action_tab_switcher_option": {
-        "message": "Options"
+        "message": "Additional Settings"
     },
     "browser_action_tab_switcher_advanced": {
-        "message": "Advanced Setting"
+        "message": "Detailed Setting"
     },
     "browser_action_ng_word": {
-        "message": "Your Blackwords: "
+        "message": "Mute words: "
     },
     "browser_action_allow_list": {
-        "message": "The list you have authorized: "
+        "message": "Allowed accounts: "
     },
     "browser_action_exclude_url": {
-        "message": "Exclude URL: "
+        "message": "Allowed URLs: "
     },
     "browser_action_advanced_filters": {
-        "message": "Advanced Filters: "
+        "message": "Advanced settings: "
     },
     "browser_action_hide_completely": {
-        "message": "Hide Completely (not recommended)"
+        "message": "Hide completely"
     },
     "browser_action_include_user_name": {
-        "message": "Include User Names in the NG Word Detection"
+        "message": "Include user name in mute word determination"
     },
     "browser_action_show_reason": {
         "message": "Show Reason for Judgment"
