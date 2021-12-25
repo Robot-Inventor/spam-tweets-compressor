@@ -84,7 +84,7 @@
         "message": "Enter the Mute words. When you enter more than one, please separate them with a new line. There is no distinction between uppercase and lowercase letters, or between Katakana and Hiragana."
     },
     "advanced_setting_ng_word_description2": {
-        "message": "Also, when using regular expressions, enclose the beginning and end of the NG word with /, and write the regular expression flag after the ending /."
+        "message": "Also, when using regular expressions, enclose the beginning and end of the mute word with /, and write the regular expression flag after the ending /."
     },
     "advanced_setting_ng_word_textarea_label": {
         "message": "Enter mute words"
