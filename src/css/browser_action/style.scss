@@ -3,7 +3,7 @@
 
 html,
 body {
-    width: 32rem;
+    min-width: 32rem;
     font-size: 13px;
 }
 
@@ -36,15 +36,19 @@ h1 {
     color: var(--medium_emphasize_text_color);
 }
 
-mwc-tab {
-    --mdc-tab-horizontal-padding: 1em;
-    --mdc-tab-text-label-color-default: var(--medium_emphasize_text_color);
-    --mdc-tab-color-default: var(--mdc-tab-text-label-color-default);
+mwc-tab-bar {
+    min-width: 100%;
 
-    margin: 1em 0;
+    mwc-tab {
+        --mdc-tab-horizontal-padding: 1em;
+        --mdc-tab-text-label-color-default: var(--medium_emphasize_text_color);
+        --mdc-tab-color-default: var(--mdc-tab-text-label-color-default);
 
-    &:hover {
-        --mdc-tab-text-label-color-default: var(--high_emphasize_text_color);
+        margin: 1em 0;
+
+        &:hover {
+            --mdc-tab-text-label-color-default: var(--high_emphasize_text_color);
+        }
     }
 }
 
@@ -55,6 +59,7 @@ mwc-tab {
 .setting_item_outer,
 mwc-formfield {
     margin-top: 2em;
+    display: block;
 }
 
 mwc-switch {
