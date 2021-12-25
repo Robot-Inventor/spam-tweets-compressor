@@ -187,3 +187,9 @@ mwc-button {
 #advanced_setting_reset_button {
     width: 100%;
 }
+
+mwc-dialog {
+    mwc-button {
+        margin: 0.5em;
+    }
+}
