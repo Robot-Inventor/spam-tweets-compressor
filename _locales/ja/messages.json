@@ -1,6 +1,6 @@
 {
     "manifest_description": {
-        "message": "「あなたの基準」で嫌がらせや脅迫と感じるツイートからあなたを守ります。"
+        "message": "この拡張機能を使って単語をミュートすると、その単語を含むツイートが通知タブや検索結果に表示されなくなります。"
     },
     "browser_action_tab_switcher_general": {
         "message": "一般"
@@ -12,16 +12,16 @@
         "message": "詳細設定"
     },
     "browser_action_ng_word": {
-        "message": "NGワードの設定："
+        "message": "NGワード: "
     },
     "browser_action_allow_list": {
-        "message": "許可リスト："
+        "message": "許可リスト: "
     },
     "browser_action_exclude_url": {
-        "message": "特定のページでは圧縮しない："
+        "message": "URLを除外: "
     },
     "browser_action_advanced_filters": {
-        "message": "高度なフィルター："
+        "message": "高度なフィルター: "
     },
     "browser_action_hide_completely": {
         "message": "完全に非表示にする（非推奨）"
@@ -135,7 +135,7 @@
         "message": "特定の女性アイドルや配信者に対するスパムやなりすましを非表示にする、「高度なフィルター」の有効・無効を切り替えられます。特定の単語やハッシュタグ、ツイートに含まれるURLなどの様々な情報を利用して動作します。"
     },
     "advanced_setting_advanced_filters_description2": {
-        "message": "注意：高度なフィルターでは偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。"
+        "message": "注意: この機能は誤検知を起こす場合があります。"
     },
     "advanced_setting_advanced_filters_description3": {
         "message": "フィルターの仕組みの概要と各フィルターに関する説明"
@@ -172,7 +172,7 @@
         }
     },
     "decompress_button_strict_with_reason": {
-        "message": "$USER_NAME$（$USER_ID$）のツイートを表示（判定理由：$REASON$）",
+        "message": "$USER_NAME$（$USER_ID$）のツイートを表示（$REASON$）",
         "placeholders": {
             "user_name": {
                 "content": "$1",

@@ -1,51 +1,51 @@
 {
     "manifest_description": {
-        "message": "This extension protects you from tweets that you feel are harassing or threatening by \"your standards\"."
+        "message": "Protects you from tweets that are harassing or threatening. You can set the environment for muting \"By your standards\"."
     },
     "browser_action_tab_switcher_general": {
-        "message": "General"
+        "message": "Settings"
     },
     "browser_action_tab_switcher_option": {
-        "message": "Options"
+        "message": "Professional"
     },
     "browser_action_tab_switcher_advanced": {
-        "message": "Advanced Setting"
+        "message": "Detailed Settings"
     },
     "browser_action_ng_word": {
-        "message": "NG Word Setting: "
+        "message": "Mute words: "
     },
     "browser_action_allow_list": {
-        "message": "Allow List: "
+        "message": "Allowed accounts: "
     },
     "browser_action_exclude_url": {
-        "message": "Exclude URL: "
+        "message": "Disable on specific pages: "
     },
     "browser_action_advanced_filters": {
         "message": "Advanced Filters: "
     },
     "browser_action_hide_completely": {
-        "message": "Hide Completely (not recommended)"
+        "message": "Hide completely"
     },
     "browser_action_include_user_name": {
-        "message": "Include User Names in the NG Word Detection"
+        "message": "Include user name in mute word determination"
     },
     "browser_action_show_reason": {
-        "message": "Show Reason for Judgment"
+        "message": "Show why the app are hiding it"
     },
     "browser_action_decompress_on_hover": {
-        "message": "Show Hidden Tweets on Mouseover"
+        "message": "Show the muted reason when you hover the mouse over"
     },
     "browser_action_include_verified_account": {
-        "message": "Include Verified Accounts in the Audit"
+        "message": "Include verified accounts in the audit"
     },
     "browser_action_open_setting": {
-        "message": "Open Setting"
+        "message": "Open the settings"
     },
     "advanced_setting_title_tag": {
-        "message": "Advanced Setting - Spam Tweets Compressor"
+        "message": "Detailed Settings - Spam Tweets Compressor"
     },
     "advanced_setting_h1": {
-        "message": "Advanced Setting"
+        "message": "Detailed Settings"
     },
     "advanced_setting_privacy_policy_link": {
         "message": "https://github.com/Robot-Inventor/spam-tweets-compressor/blob/main/README.md#about-personal-information"
@@ -57,10 +57,10 @@
         "message": "Open Source License"
     },
     "advanced_setting_license": {
-        "message": "License of this Extension"
+        "message": "Extension License"
     },
     "advanced_setting_export_title": {
-        "message": "Export Setting"
+        "message": "Export Settings"
     },
     "advanced_setting_export_description": {
         "message": "Exports the settings of the Spam Tweets Compressor. You can copy them to the clipboard or save them to a file."
@@ -78,37 +78,37 @@
         "message": "Saved"
     },
     "advanced_setting_ng_word_title": {
-        "message": "NG Words"
+        "message": "Mute Words"
     },
     "advanced_setting_ng_word_description1": {
-        "message": "Input NG Words. To input multiple items, separate them with a new line. No distinction is made between uppercase and lowercase letters, or between katakana and hiragana."
+        "message": "Enter the Mute words. When you enter more than one, please separate them with a new line. There is no distinction between uppercase and lowercase letters, or between Katakana and Hiragana."
     },
     "advanced_setting_ng_word_description2": {
         "message": "Also, when using regular expressions, enclose the beginning and end of the NG word with /, and write the regular expression flag after the ending /."
     },
     "advanced_setting_ng_word_textarea_label": {
-        "message": "Enter NG words"
+        "message": "Enter mute words"
     },
     "advanced_setting_allow_list_title": {
-        "message": "Allow List"
+        "message": "Allowed Accounts"
     },
     "advanced_setting_allow_list_description": {
-        "message": "Users whose user IDs are input here will be excluded from the spam detection. If you want to specify multiple user IDs, separate them with a new line."
+        "message": "Tweets with this URL will be showed even it have mute words. When you enter more than one, please separate them with a new line."
     },
     "advanced_setting_allow_list_textarea_label": {
-        "message": "Enter the user IDs"
+        "message": "Enter the user's ID"
     },
     "advanced_setting_allow_list_textarea_validation_message": {
-        "message": "Each line must start with @."
+        "message": "Each line must start with @"
     },
     "advanced_setting_exclude_url_title": {
-        "message": "Exclude URLs"
+        "message": "Disable on Specific Pages"
     },
     "advanced_setting_exclude_url_description": {
-        "message": "Disable the extension for the specified URL. To input multiple URLs, separate them with a new line."
+        "message": "Disable the extension for the specified URL. When you enter more than one, please separate them with a new line."
     },
     "advanced_setting_exclude_url_examples": {
-        "message": "Examples"
+        "message": "Consultation"
     },
     "advanced_setting_exclude_url_examples_home": {
         "message": "Home"
@@ -120,37 +120,37 @@
         "message": "Lists"
     },
     "advanced_setting_exclude_url_examples_list_number": {
-        "message": "the number of the list"
+        "message": "list number"
     },
     "advanced_setting_exclude_url_examples_bookmark": {
         "message": "Bookmarks"
     },
     "advanced_setting_exclude_url_textarea_label": {
-        "message": "Enter URLs"
+        "message": "Enter the URL"
     },
     "advanced_setting_advanced_filters_title": {
         "message": "Advanced Filters"
     },
     "advanced_setting_advanced_filters_description1": {
-        "message": "You can enable or disable the \"Advanced Filters\" that hides spam and spoofing against specific female idols and streamers. It works by using various information such as specific words, hashtags, and URLs contained in tweets."
+        "message": "You can enable or disable the \"Advanced Filters\" which hides unwanted spam tweet or spoofed tweets to specific female idols or distributors. It is a system that uses a variety of information such as specific words, hashtags, and URLs contained in tweets."
     },
     "advanced_setting_advanced_filters_description2": {
-        "message": "Note: Advanced Filters will produce false positives and false negatives. Also, each filter is optimized for its own purpose, and false positives and false negatives will increase when used for other purposes."
+        "message": "Caution: This feature can cause false positives."
     },
     "advanced_setting_advanced_filters_description3": {
-        "message": "Overview of how filters work and description of each filter"
+        "message": "Detailed explanation of Advanced Filters."
     },
     "advanced_setting_reset_title": {
-        "message": "Reset Settings"
+        "message": "Restore to Original Settings"
     },
     "advanced_setting_reset_description": {
-        "message": "Resets all settings of Spam Tweets Compressor to the state it was in when it was installed."
+        "message": "Restore to original setting of Spam Tweet Compressor to original setting"
     },
     "advanced_setting_reset_button": {
-        "message": "Reset Settings"
+        "message": "Restore to original settings"
     },
     "advanced_setting_reset_confirm": {
-        "message": "This will reset all settings of Spam Tweets Compressor to the state it was in when it was installed. Are you sure?"
+        "message": "Restore to original setting of Spam Tweet Compressor to original setting. Is it ok with you?"
     },
     "advanced_setting_reset_confirm_ok": {
         "message": "RESET"
@@ -159,7 +159,7 @@
         "message": "CANCEL"
     },
     "decompress_button_strict_without_reason": {
-        "message": "Show a tweet by $USER_NAME$ ($USER_ID$)",
+        "message": "Show $USER_NAME$ ($USER_ID$)'s tweet",
         "placeholders": {
             "user_name": {
                 "content": "$1",
@@ -172,7 +172,7 @@
         }
     },
     "decompress_button_strict_with_reason": {
-        "message": "Show a tweet by $USER_NAME$ ($USER_ID$) (reason for judgement：$REASON$)",
+        "message": "Show $USER_NAME$ ($USER_ID$)'s tweet ($REASON$)",
         "placeholders": {
             "user_name": {
                 "content": "$1",
@@ -184,15 +184,15 @@
             },
             "reason": {
                 "content": "$3",
-                "example": "too many line breaks"
+                "example": "Many line breaks"
             }
         }
     },
     "compress_reason_ng_word": {
-        "message": "NG word"
+        "message": "Mute words"
     },
     "compress_reason_advanced_detection_default": {
-        "message": "Advanced Filter"
+        "message": "Advanced Filters"
     },
     "error_message_user_id_bug": {
         "message": "Spam Tweets Compressor has failed to retrieve the user ID of a tweet. If possible, please report this as a bug to the extension store or the GitHub repository."
