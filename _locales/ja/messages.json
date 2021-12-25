@@ -135,7 +135,7 @@
         "message": "特定の女性アイドルや配信者に対するスパムやなりすましを非表示にする、「高度なフィルター」の有効・無効を切り替えられます。特定の単語やハッシュタグ、ツイートに含まれるURLなどの様々な情報を利用して動作します。"
     },
     "advanced_setting_advanced_filters_description2": {
-        "message": "注意：高度なフィルターでは偽陽性や偽陰性が発生します。また、各フィルターはそれぞれの目的のために最適化されており、別の目的で使用した場合は偽陽性や偽陰性が増加します。"
+        "message": "注意: この機能は誤検知を起こす場合があります。"
     },
     "advanced_setting_advanced_filters_description3": {
         "message": "フィルターの仕組みの概要と各フィルターに関する説明"
@@ -172,7 +172,7 @@
         }
     },
     "decompress_button_strict_with_reason": {
-        "message": "$USER_NAME$（$USER_ID$）のツイートを表示（判定理由：$REASON$）",
+        "message": "$USER_NAME$（$USER_ID$）のツイートを表示（$REASON$）",
         "placeholders": {
             "user_name": {
                 "content": "$1",
