@@ -2,6 +2,26 @@
 
 ## Released
 
+### [v2.0.11.7] - 2021-12-26
+
+#### Added
+
+- 拡張機能の名称をクリックしてGitHubを開く機能を追加 [#581](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/581)
+- 一部の要素にツールチップを実装 [#601](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/601)
+
+#### Changed
+
+- 設定のリセットボタンの幅を100%に変更 [#591](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/591)
+- アイコンを選択禁止に変更 [#593](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/593)
+- 詳細設定のテキストボックスやボタンのマージンを増やす [#597](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/597)
+- 設定リセットのダイアログのキャンセルボタンを目立たせる [#599](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/599)
+
+#### Fixed
+
+- READMEの「個人情報について」セクションの誤訳を修正 [#572](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/572)
+- UIの英訳の改善 [#576](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/576)
+- browser actionのタブが見切れることがあるのを修正 [#595](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/595)
+
 ### [v2.0.10.6] - 2021-12-12
 
 #### Added
