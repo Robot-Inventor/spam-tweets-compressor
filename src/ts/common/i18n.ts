@@ -54,6 +54,12 @@ const init_i18n_validation_message = () => {
     });
 };
 
+/**
+ * Get i18n message.
+ * @param message_name message name
+ */
+const get_message = (message_name: string) => browser.i18n.getMessage(message_name);
+
 const init_i18n = () => {
     init_i18n_text();
     init_i18n_link();
@@ -63,4 +69,4 @@ const init_i18n = () => {
 
 init_i18n();
 
-export { init_i18n };
+export { init_i18n, get_message };

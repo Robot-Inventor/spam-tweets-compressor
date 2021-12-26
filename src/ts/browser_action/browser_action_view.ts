@@ -1,4 +1,5 @@
 import { LoadBrowserActionContent } from "./browser_action_load_content";
+import { initialize_tooltip } from "./../common/tooltip";
 
 /**
  * Initialize tab switcher.
@@ -54,3 +55,4 @@ const show_version = () => {
 new LoadBrowserActionContent();
 new TabSwitcher();
 show_version();
+initialize_tooltip();

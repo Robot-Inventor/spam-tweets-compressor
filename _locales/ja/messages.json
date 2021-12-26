@@ -2,6 +2,12 @@
     "manifest_description": {
         "message": "この拡張機能を使って単語をミュートすると、その単語を含むツイートが通知タブや検索結果に表示されなくなります。"
     },
+    "browser_action_tooltip_open_repository": {
+        "message": "リポジトリを開く"
+    },
+    "browser_action_tooltip_open_release_note": {
+        "message": "リリースノートを開く"
+    },
     "browser_action_tab_switcher_general": {
         "message": "一般"
     },
@@ -43,6 +49,15 @@
     },
     "advanced_setting_title_tag": {
         "message": "詳細設定 - Spam Tweets Compressor"
+    },
+    "advanced_setting_tooltip_open_menu": {
+        "message": "メニューを開く"
+    },
+    "advanced_setting_tooltip_close_menu": {
+        "message": "メニューを閉じる"
+    },
+    "advanced_setting_tooltip_open_repository": {
+        "message": "リポジトリーを開く"
     },
     "advanced_setting_h1": {
         "message": "詳細設定"

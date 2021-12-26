@@ -1,4 +1,5 @@
 import { CheckListItem } from "@material/mwc-list/mwc-check-list-item";
+import { initialize_tooltip } from "./../common/tooltip";
 
 /**
  * Shift the scroll position by the height of the header.
@@ -137,6 +138,8 @@ class Menu {
 }
 
 new Menu();
+initialize_tooltip();
+
 window.addEventListener("load", () => {
     if (location.hash) {
         const target_element = document.querySelector(location.hash);
