@@ -2,6 +2,12 @@
     "manifest_description": {
         "message": "Protects you from tweets that are harassing or threatening. You can set the environment for muting \"By your standards\"."
     },
+    "browser_action_tooltip_open_repository": {
+        "message": "Open repository"
+    },
+    "browser_action_tooltip_open_release_note": {
+        "message": "Open release note"
+    },
     "browser_action_tab_switcher_general": {
         "message": "Settings"
     },
@@ -43,6 +49,15 @@
     },
     "advanced_setting_title_tag": {
         "message": "Detailed Settings - Spam Tweets Compressor"
+    },
+    "advanced_setting_tooltip_open_menu": {
+        "message": "Open menu"
+    },
+    "advanced_setting_tooltip_close_menu": {
+        "message": "Close menu"
+    },
+    "advanced_setting_tooltip_open_repository": {
+        "message": "Open repository"
     },
     "advanced_setting_h1": {
         "message": "Detailed Settings"
