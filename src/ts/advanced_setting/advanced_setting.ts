@@ -10,7 +10,7 @@ import "@material/mwc-list";
 import "@material/mwc-textarea";
 import "@material/mwc-top-app-bar-fixed";
 import "@material/mwc-list/mwc-check-list-item";
-import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
+import { adjust_appearance, create_separator, generate_check_list_item, show_alert } from "./advanced_setting_view";
 import { advanced_filter_type, is_advanced_filter_type } from "../types/common/advanced_filter_type";
 import { get_setting_validator, setting_object } from "../types/common/setting";
 // eslint-disable-next-line no-duplicate-imports
@@ -278,15 +278,15 @@ const initialize_import_button = (setting_instance: Setting) => {
                             const error_message = validate.errors
                                 .map((err) => `place: ${err.instancePath}\nmessage: ${err.message || "undefined"}`)
                                 .join("\n\n");
-                            alert(error_message);
+                            show_alert(error_message);
                         } else {
-                            alert("Setting is not valid");
+                            // TODO: i18n
+                            show_alert("Setting is not valid");
                         }
                     })
                     .catch((error) => {
                         console.error(error);
-                        // TODO: エラー時のダイアログ実装
-                        if (is_error(error)) alert(error.message);
+                        if (is_error(error)) show_alert(error.message);
                     });
             });
 
