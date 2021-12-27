@@ -10,6 +10,7 @@ const choose_file = async () => {
     const file_input = document.createElement("input");
     file_input.type = "file";
     file_input.accept = "application/json";
+    file_input.style.display = "none";
     document.body.appendChild(file_input);
 
     file_input.click();
