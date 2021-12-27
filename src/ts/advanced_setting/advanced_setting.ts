@@ -250,6 +250,7 @@ const initialize_download_button = (setting: setting_object) => {
  */
 const initialize_import_button = (setting_instance: Setting) => {
     const import_button = document.getElementById("import_button");
+
     if (import_button) {
         import_button.addEventListener("click", () => {
             const file_input = document.createElement("input");
@@ -262,14 +263,27 @@ const initialize_import_button = (setting_instance: Setting) => {
                 if (!(files && files.length)) return;
 
                 const file = files[0];
-                // TODO: ファイルのMIMEタイプがJSONじゃなかった時の処理
 
                 file.text()
                     .then((text) => {
+                        const setting = ((): object | null => {
+                            try {
+                                return JSON.parse(text) as object;
+                            } catch {
+                                return null;
+                            }
+                        })();
+
+                        if (!setting) {
+                            // TODO: i18n
+                            show_alert("有効なJSONファイルを選択してください。");
+                            return;
+                        }
+
                         const validate = get_setting_validator();
-                        const validation = validate(JSON.parse(text));
+                        const validation = validate(setting);
                         if (validation) {
-                            const imported_setting = JSON.parse(text) as setting_object;
+                            const imported_setting = setting;
                             setting_instance.overwrite(imported_setting);
                             setting_instance.readonly = true;
                             location.reload();
@@ -291,7 +305,6 @@ const initialize_import_button = (setting_instance: Setting) => {
             });
 
             file_input.click();
-
             file_input.remove();
         });
     } else console.error("Import button was not found.");
