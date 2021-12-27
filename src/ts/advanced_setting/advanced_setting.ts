@@ -246,6 +246,47 @@ const initialize_download_button = (setting: setting_object) => {
 };
 
 /**
+ * Initialize the setting import button.
+ */
+const initialize_import_button = (setting_instance: Setting) => {
+    const import_button = document.getElementById("import_button");
+    if (import_button) {
+        import_button.addEventListener("click", () => {
+            const file_input = document.createElement("input");
+            file_input.type = "file";
+            file_input.accept = "application/json";
+            document.body.appendChild(file_input);
+
+            file_input.addEventListener("change", () => {
+                const { files } = file_input;
+                if (!(files && files.length)) return;
+
+                const file = files[0];
+                // TODO: ファイルのMIMEタイプがJSONじゃなかった時の処理
+
+                file.text()
+                    .then((text) => {
+                        // TODO: JSONのバリデーション処理
+                        const imported_setting = JSON.parse(text) as setting_object;
+                        setting_instance.overwrite(imported_setting);
+                        setting_instance.readonly = true;
+                        location.reload();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        // TODO: エラー時のダイアログ実装
+                        if (is_error(error)) alert(error.message);
+                    });
+            });
+
+            file_input.click();
+
+            file_input.remove();
+        });
+    } else console.error("Import button was not found.");
+};
+
+/**
  * Initialize the setting reset button.
  * @param setting_instance instance of setting class
  */
@@ -286,6 +327,7 @@ void (() => {
 
             initialize_copy_button(setting);
             initialize_download_button(setting);
+            initialize_import_button(setting_instance);
             initialize_reset_button(setting_instance);
         })
         .catch((error) => {

@@ -149,6 +149,17 @@ export class Setting {
     }
 
     /**
+     * Overwrite all settings with the argument.
+     * @param setting new setting
+     */
+    overwrite(setting: setting_object): void {
+        if (this.readonly) return;
+
+        this.setting = setting;
+        this.save();
+    }
+
+    /**
      * Set callback that is called when the setting has been updated.
      * @param callback callback
      */

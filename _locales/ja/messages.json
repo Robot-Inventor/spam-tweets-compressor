@@ -92,6 +92,15 @@
     "advanced_setting_export_saved": {
         "message": "保存しました"
     },
+    "advanced_setting_import_title": {
+        "message": "設定のインポート"
+    },
+    "advanced_setting_import_description": {
+        "message": "Spam Tweets Compressorの設定をインポートします。Spam Tweets Compressorからエクスポートした設定ファイルを読み込んでください。"
+    },
+    "advanced_setting_import_import": {
+        "message": "インポート"
+    },
     "advanced_setting_ng_word_title": {
         "message": "NGワード"
     },

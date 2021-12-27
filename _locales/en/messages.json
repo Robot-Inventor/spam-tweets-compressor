@@ -92,6 +92,15 @@
     "advanced_setting_export_saved": {
         "message": "Saved"
     },
+    "advanced_setting_import_title": {
+        "message": "Import Settings"
+    },
+    "advanced_setting_import_description": {
+        "message": "Import the settings from Spam Tweets Compressor, which should be the settings file exported from Spam Tweets Compressor."
+    },
+    "advanced_setting_import_import": {
+        "message": "Import"
+    },
     "advanced_setting_ng_word_title": {
         "message": "Mute Words"
     },
