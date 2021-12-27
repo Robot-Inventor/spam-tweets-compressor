@@ -30,7 +30,7 @@
         "message": "高度なフィルター: "
     },
     "browser_action_hide_completely": {
-        "message": "完全に非表示にする（非推奨）"
+        "message": "完全に非表示にする"
     },
     "browser_action_include_user_name": {
         "message": "ユーザー名をNGワードの判定対象に含める"
