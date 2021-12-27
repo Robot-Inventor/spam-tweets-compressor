@@ -10,6 +10,7 @@ body {
 body {
     padding: 2rem;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -54,6 +55,66 @@ mwc-tab-bar {
 
 .setting_item_group {
     display: none;
+}
+
+.change_to_right_transition_in {
+    animation: 0.5s cubic-bezier(0, 0, 0, 1) 1 right_in_animation;
+}
+
+@keyframes right_in_animation {
+    from {
+        opacity: 0;
+        transform: translate(50%);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.change_to_left_transition_in {
+    animation: 0.5s cubic-bezier(0, 0, 0, 1) 1 left_in_animation;
+}
+
+@keyframes left_in_animation {
+    from {
+        opacity: 0;
+        transform: translate(-50%);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.change_to_right_transition_out {
+    animation: 0.5s cubic-bezier(0, 0, 0, 1) 1 right_out_animation;
+}
+
+@keyframes right_out_animation {
+    from {
+        opacity: 1;
+        transform: none;
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%);
+    }
+}
+
+.change_to_left_transition_out {
+    animation: 0.5s cubic-bezier(0, 0, 0, 1) 1 left_out_animation;
+}
+
+@keyframes left_out_animation {
+    from {
+        opacity: 1;
+        transform: none;
+    }
+    to {
+        opacity: 0;
+        transform: translate(50%);
+    }
 }
 
 .setting_item_outer,
