@@ -85,7 +85,6 @@ const is_setting_object = (input: unknown): input is setting_object => {
     return true;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const get_setting_validator = () => {
     const validate = validate20 as ValidateFunction<setting_object>;
     return validate;
