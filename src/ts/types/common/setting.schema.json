@@ -1,0 +1,114 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": {
+        "anyOf": [
+            {
+                "items": {
+                    "type": "string"
+                },
+                "type": "array"
+            },
+            {
+                "$ref": "#/definitions/ColorSetting"
+            },
+            {
+                "additionalProperties": {
+                    "properties": {
+                        "url": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "object"
+            },
+            {
+                "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                ]
+            }
+        ]
+    },
+    "definitions": {
+        "ColorSetting": {
+            "properties": {
+                "background": {
+                    "type": "string"
+                },
+                "card": {
+                    "type": "string"
+                },
+                "card_hover": {
+                    "type": "string"
+                },
+                "drawer": {
+                    "type": "string"
+                },
+                "high_emphasize_text": {
+                    "type": "string"
+                },
+                "main": {
+                    "type": "string"
+                },
+                "main_light": {
+                    "type": "string"
+                },
+                "medium_emphasize_text": {
+                    "type": "string"
+                },
+                "top_app_bar": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "advanced_filter": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "allow_list": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "color": {
+            "$ref": "#/definitions/ColorSetting"
+        },
+        "decompress_on_hover": {
+            "type": "boolean"
+        },
+        "exclude_url": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "hide_completely": {
+            "type": "boolean"
+        },
+        "include_user_name": {
+            "type": "boolean"
+        },
+        "include_verified_account": {
+            "type": "boolean"
+        },
+        "ng_word": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "show_reason": {
+            "type": "boolean"
+        }
+    },
+    "type": "object"
+}
+

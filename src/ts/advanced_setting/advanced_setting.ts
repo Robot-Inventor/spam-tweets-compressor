@@ -12,6 +12,7 @@ import "@material/mwc-top-app-bar-fixed";
 import "@material/mwc-list/mwc-check-list-item";
 import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
 import { advanced_filter_type, is_advanced_filter_type } from "../types/common/advanced_filter_type";
+import { get_setting_validator, setting_object } from "../types/common/setting";
 // eslint-disable-next-line no-duplicate-imports
 import { Dialog } from "@material/mwc-dialog";
 import { Setting } from "../common/setting";
@@ -19,7 +20,6 @@ import { Setting } from "../common/setting";
 import { TextArea } from "@material/mwc-textarea";
 import { is_error } from "../types/common/type_predicate_utility";
 import { load_color_setting } from "../common/color";
-import { setting_object } from "../types/common/setting";
 
 /**
  * Get setting name information from input element.
@@ -266,11 +266,22 @@ const initialize_import_button = (setting_instance: Setting) => {
 
                 file.text()
                     .then((text) => {
-                        // TODO: JSONのバリデーション処理
-                        const imported_setting = JSON.parse(text) as setting_object;
-                        setting_instance.overwrite(imported_setting);
-                        setting_instance.readonly = true;
-                        location.reload();
+                        const validate = get_setting_validator();
+                        const validation = validate(JSON.parse(text));
+                        if (validation) {
+                            const imported_setting = JSON.parse(text) as setting_object;
+                            setting_instance.overwrite(imported_setting);
+                            setting_instance.readonly = true;
+                            location.reload();
+                        } else if (validate.errors) {
+                            // TODO: エラーメッセージのi18n対応
+                            const error_message = validate.errors
+                                .map((err) => `place: ${err.instancePath}\nmessage: ${err.message || "undefined"}`)
+                                .join("\n\n");
+                            alert(error_message);
+                        } else {
+                            alert("Setting is not valid");
+                        }
                     })
                     .catch((error) => {
                         console.error(error);
