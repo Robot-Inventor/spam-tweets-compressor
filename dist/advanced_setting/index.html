@@ -42,14 +42,6 @@
             </mwc-top-app-bar-fixed>
             <main>
                 <h1 data-i18n="advanced_setting_h1">Spam Tweets Compressorの詳細設定</h1>
-                <div class="setting_card" style="display: none;">
-                    <!-- The settings export function is hidden because the settings import function has not been implemented. -->
-                    <h2 data-i18n="advanced_setting_export_title" style="display: none;">設定のエクスポート</h2>
-                    <p data-i18n="advanced_setting_export_description" style="display: none;">
-                        Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
-                    </p>
-                    <button data-i18n="advanced_setting_export_copy" id="copy_button" style="display: none;">コピー</button><button data-i18n="advanced_setting_export_save" id="save_button" style="display: none;">保存</button>
-                </div>
                 <div class="setting_card">
                     <h2 id="ng_word_title"><mwc-icon>spellcheck</mwc-icon><span data-i18n="advanced_setting_ng_word_title">NGワード</span></h2>
                     <p data-i18n="advanced_setting_ng_word_description1">
@@ -96,6 +88,15 @@
                         <div id="filter_loading_screen">
                             <mwc-circular-progress indeterminate></mwc-circular-progress>
                         </div>
+                    </div>
+                </div>
+                <div class="setting_card">
+                    <h2><mwc-icon>publish</mwc-icon><span data-i18n="advanced_setting_export_title">設定のエクスポート</span></h2>
+                    <p data-i18n="advanced_setting_export_description">
+                        Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。
+                    </p>
+                    <div class="button_group">
+                        <mwc-button data-i18n="advanced_setting_export_copy" id="copy_button">コピー</mwc-button><mwc-button data-i18n="advanced_setting_export_save" id="save_button">保存</mwc-button>
                     </div>
                 </div>
                 <div class="setting_card">

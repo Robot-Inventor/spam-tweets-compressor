@@ -132,6 +132,11 @@ ul {
     }
 }
 
+.button_group {
+    display: flex;
+    justify-content: end;
+}
+
 mwc-formfield {
     display: block;
 }
