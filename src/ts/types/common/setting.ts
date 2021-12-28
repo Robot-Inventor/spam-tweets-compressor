@@ -1,7 +1,6 @@
 import { is_object, is_string_array } from "./type_predicate_utility";
 import { ValidateFunction } from "ajv/dist/types/index";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-expect-error There is no type declaration because ./setting.validate is an automatically generated script.
 import validate20 from "./setting.validate";
 
 interface ColorSetting {
@@ -16,11 +15,8 @@ interface ColorSetting {
     card_hover: string;
 }
 
-type setting_value_type = number | string | boolean | Array<string> | { [key: string]: { url: string } } | ColorSetting;
-
 // When edit this interface, please run ``npm run update-validator`` to update the JSON validator for settings.
 interface setting_object {
-    [key: string]: setting_value_type;
     advanced_filter: Array<string>;
     allow_list: Array<string>;
     color: ColorSetting;
@@ -90,5 +86,5 @@ const get_setting_validator = () => {
     return validate;
 };
 
-export { ColorSetting, setting_value_type, setting_object };
+export { ColorSetting, setting_object };
 export { is_setting_object, get_setting_validator };

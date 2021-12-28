@@ -1,36 +1,5 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": {
-        "anyOf": [
-            {
-                "items": {
-                    "type": "string"
-                },
-                "type": "array"
-            },
-            {
-                "$ref": "#/definitions/ColorSetting"
-            },
-            {
-                "additionalProperties": {
-                    "properties": {
-                        "url": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "object"
-            },
-            {
-                "type": [
-                    "string",
-                    "number",
-                    "boolean"
-                ]
-            }
-        ]
-    },
     "definitions": {
         "ColorSetting": {
             "properties": {
