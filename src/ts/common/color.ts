@@ -82,7 +82,6 @@ const load_color_setting = async (): Promise<void> => {
     const style_element = document.createElement("style");
     style_element.textContent = `
 :root {
-    --mdc-theme-surface: ${color_setting.drawer};
     --main_color: ${color_setting.main};
     --main_color_light: ${color_setting.main_light};
     --background_color: ${color_setting.background};
@@ -92,6 +91,11 @@ const load_color_setting = async (): Promise<void> => {
 
 mwc-top-app-bar-fixed {
     --mdc-theme-primary: ${color_setting.top_app_bar};
+}
+
+mwc-drawer,
+mwc-dialog {
+    --mdc-theme-surface: ${color_setting.drawer};
 }
 
 .setting_card {

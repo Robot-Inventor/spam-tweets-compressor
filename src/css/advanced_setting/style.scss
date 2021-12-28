@@ -62,6 +62,7 @@ h3 {
 }
 
 mwc-drawer {
+    --mdc-theme-surface: var(--background_color);
     --mdc-drawer-width: auto;
 }
 
@@ -194,6 +195,8 @@ mwc-button {
 }
 
 mwc-dialog {
+    --mdc-theme-surface: var(--background_color);
+
     mwc-button {
         margin: 0.5em;
     }
