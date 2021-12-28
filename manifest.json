@@ -36,6 +36,7 @@
     },
     "default_locale": "en",
     "permissions": [
+        "downloads",
         "storage",
         "https://cdn.statically.io/gh/Robot-Inventor/stc-filter/*/*"
     ],

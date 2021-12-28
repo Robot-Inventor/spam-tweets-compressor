@@ -92,6 +92,9 @@
     "advanced_setting_export_saved": {
         "message": "Saved"
     },
+    "advanced_setting_export_download_failed": {
+        "message": "Download failed."
+    },
     "advanced_setting_import_title": {
         "message": "Import Settings"
     },
