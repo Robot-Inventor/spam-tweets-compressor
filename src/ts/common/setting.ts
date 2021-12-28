@@ -7,7 +7,6 @@ import { is_object } from "../types/common/type_predicate_utility";
 const default_setting: setting_object = {
     advanced_filter: [""],
     allow_list: [""],
-    background_color: "rgb(0, 0, 0)",
     color: {
         background: "rgb(0, 0, 0)",
         card: "rgb(25, 25, 25)",
@@ -21,7 +20,6 @@ const default_setting: setting_object = {
     },
     decompress_on_hover: false,
     exclude_url: ["https://twitter.com/home"],
-    font_color: "rgb(255, 255, 255)",
     hide_completely: false,
     include_user_name: false,
     include_verified_account: false,
@@ -87,19 +85,25 @@ export class Setting {
      * @returns proxy object
      */
     generate_proxy<T extends object>(object: T): T {
-        const target_object = object as { [key: string]: unknown };
+        const target_object = object;
 
         const proxy = new Proxy(target_object, {
             get: (target, key: string) => {
+                const index = key as keyof typeof target_object;
+
+                const value = target_object[index];
+
                 // Support for nested objects.
-                const value = target_object[key];
                 if (is_object(value)) return this.generate_proxy(value);
                 else return value;
             },
 
             set: (target, key: string, value: unknown) => {
-                target_object[key] = value;
+                const index = key as keyof typeof target_object;
+
+                target_object[index] = value as typeof target_object[keyof typeof target_object];
                 this.save();
+
                 return true;
             }
         });

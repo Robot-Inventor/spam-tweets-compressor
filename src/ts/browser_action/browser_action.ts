@@ -28,10 +28,17 @@ new Setting()
         switch_list.forEach((switch_element) => {
             const setting_name = get_setting_name(switch_element);
 
-            const saved_value = setting[setting_name];
-            switch_element.selected = typeof saved_value === "boolean" ? saved_value : false;
+            if (!(setting_name in setting)) return;
 
-            switch_element.addEventListener("click", () => (setting[setting_name] = switch_element.selected));
+            const keyof_setting = setting_name as keyof typeof setting;
+
+            const saved_value = setting[keyof_setting];
+            if (!(typeof saved_value === "boolean")) return;
+
+            switch_element.selected = saved_value;
+
+            // @ts-expect-error This is not a problem because we have checked that setting[keyof_setting] is a boolean before proceeding to this process.
+            switch_element.addEventListener("click", () => (setting[keyof_setting] = switch_element.selected));
         });
     })
     .catch(() => console.error("設定を読み込めませんでした"));

@@ -1,38 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": {
-        "anyOf": [
-            {
-                "items": {
-                    "type": "string"
-                },
-                "type": "array"
-            },
-            {
-                "$ref": "#/definitions/ColorSetting"
-            },
-            {
-                "additionalProperties": {
-                    "properties": {
-                        "url": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "object"
-            },
-            {
-                "type": [
-                    "string",
-                    "number",
-                    "boolean"
-                ]
-            }
-        ]
-    },
+    "additionalProperties": false,
     "definitions": {
         "ColorSetting": {
+            "additionalProperties": false,
             "properties": {
                 "background": {
                     "type": "string"
@@ -62,6 +33,17 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "background",
+                "card",
+                "card_hover",
+                "drawer",
+                "high_emphasize_text",
+                "main",
+                "main_light",
+                "medium_emphasize_text",
+                "top_app_bar"
+            ],
             "type": "object"
         }
     },
@@ -109,6 +91,18 @@
             "type": "boolean"
         }
     },
+    "required": [
+        "advanced_filter",
+        "allow_list",
+        "color",
+        "decompress_on_hover",
+        "exclude_url",
+        "hide_completely",
+        "include_user_name",
+        "include_verified_account",
+        "ng_word",
+        "show_reason"
+    ],
     "type": "object"
 }
 
