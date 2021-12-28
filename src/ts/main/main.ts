@@ -92,9 +92,9 @@ const load_advanced_filter = async (filter_id_list: Array<string>): Promise<quer
     );
     if (!is_advanced_filter_type(filter_url_data)) throw new Error("Invalid type of filter_url_data.");
 
-    const url_list = Object.keys(filter_url_data)
-        .filter((key) => filter_id_list.includes(filter_url_data[key].id))
-        .map((key) => filter_url_data[key].url);
+    const url_list = Object.values(filter_url_data)
+        .filter((filter) => filter_id_list.includes(filter.id))
+        .map((filter) => filter.url);
 
     const get_rule = async (url: string) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

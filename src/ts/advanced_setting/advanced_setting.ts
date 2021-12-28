@@ -12,11 +12,11 @@ import "@material/mwc-top-app-bar-fixed";
 import "@material/mwc-list/mwc-check-list-item";
 import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
 import { advanced_filter_type, is_advanced_filter_type } from "../types/common/advanced_filter_type";
+import { is_error, is_string_array } from "../types/common/type_predicate_utility";
 import { Setting } from "../common/setting";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
 import { initialize_button } from "./initialize/initialize";
-import { is_error } from "../types/common/type_predicate_utility";
 import { load_color_setting } from "../common/color";
 import { setting_object } from "../types/common/setting";
 
@@ -145,30 +145,35 @@ const initialize_textarea_validation = () => {
  */
 const initialize_textarea = (textarea: TextArea, setting: setting_object) => {
     const setting_name = get_setting_name(textarea);
+    if (!(setting_name in setting)) return;
 
-    if (Object.keys(setting).includes(setting_name)) {
-        const saved_value = setting[setting_name];
-        textarea.value = Array.isArray(saved_value) ? saved_value.join("\n") : "";
+    const keyof_setting = setting_name as keyof typeof setting;
 
-        const process_string = (text: string) =>
-            text
-                .split("\n")
-                .map((txt) => txt.trim())
-                .filter((txt) => txt);
+    const saved_value = setting[keyof_setting];
+    if (!is_string_array(saved_value)) return;
 
-        const save_textarea = () => {
-            if (textarea.validity.valid) setting[setting_name] = process_string(textarea.value);
-        };
+    textarea.value = saved_value.join("\n");
 
-        window.addEventListener("beforeunload", save_textarea);
-        // eslint-disable-next-line init-declarations
-        let textarea_timeout: NodeJS.Timeout;
-        textarea.addEventListener("input", () => {
-            clearTimeout(textarea_timeout);
-            const save_interval = 5000;
-            textarea_timeout = setTimeout(save_textarea, save_interval);
-        });
-    }
+    const process_string = (text: string) =>
+        text
+            .split("\n")
+            .map((txt) => txt.trim())
+            .filter((txt) => txt);
+
+    const save_textarea = () => {
+        if (textarea.validity.valid)
+            // @ts-expect-error This is not a problem because we have confirmed that setting[keyof_setting] is an array of strings before proceeding to this process.
+            setting[keyof_setting] = process_string(textarea.value);
+    };
+
+    window.addEventListener("beforeunload", save_textarea);
+    // eslint-disable-next-line init-declarations
+    let textarea_timeout: NodeJS.Timeout;
+    textarea.addEventListener("input", () => {
+        clearTimeout(textarea_timeout);
+        const save_interval = 5000;
+        textarea_timeout = setTimeout(save_textarea, save_interval);
+    });
 };
 
 void (() => {
