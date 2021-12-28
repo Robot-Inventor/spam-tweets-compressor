@@ -1,5 +1,6 @@
 import { get_setting_validator, setting_object } from "../../types/common/setting";
 import { Setting } from "../../common/setting";
+import { get_message } from "../../common/i18n";
 import { is_error } from "../../types/common/type_predicate_utility";
 import { show_alert } from "../advanced_setting_view";
 
@@ -72,8 +73,7 @@ const initialize_import_button = (setting_instance: Setting) => {
             const text = await file.text();
 
             if (!is_valid_json(text)) {
-                // TODO: i18n
-                show_alert("有効なJSONファイルを選択してください。");
+                show_alert(get_message("advanced_setting_import_select_valid_json"));
                 return;
             }
 
@@ -85,13 +85,11 @@ const initialize_import_button = (setting_instance: Setting) => {
             if (validation) {
                 overwrite_setting(setting_instance, parsed_json);
             } else if (validate.errors) {
-                // TODO: i18n
                 const error_message = validate.errors
                     .map((err) => `place: ${err.instancePath}\nmessage: ${err.message || "undefined"}`)
                     .join("\n\n");
-                show_alert(error_message);
+                show_alert(get_message("advanced_setting_import_invalid_format", error_message));
             } else {
-                // TODO: i18n
                 show_alert("Setting is not valid");
             }
         })().catch((error) => {

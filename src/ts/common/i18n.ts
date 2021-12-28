@@ -58,7 +58,8 @@ const init_i18n_validation_message = () => {
  * Get i18n message.
  * @param message_name message name
  */
-const get_message = (message_name: string) => browser.i18n.getMessage(message_name);
+const get_message = (message_name: string, substitutions?: string | string[]) =>
+    browser.i18n.getMessage(message_name, substitutions);
 
 const init_i18n = () => {
     init_i18n_text();

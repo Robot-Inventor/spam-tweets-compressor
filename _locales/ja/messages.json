@@ -101,6 +101,20 @@
     "advanced_setting_import_import": {
         "message": "インポート"
     },
+    "advanced_setting_import_select_valid_json": {
+        "message": "有効なJSONファイルを選択してください。"
+    },
+    "advanced_setting_import_invalid_format": {
+        "message": "ファイルが正しい形式ではありません。\n\n問題の詳細:\n$ERROR_MESSAGE$",
+        "placeholders": {
+            "error_message": {
+                "content": "$1"
+            }
+        }
+    },
+    "advanced_setting_import_something_wrong": {
+        "message": "設定ファイルが間違っています。"
+    },
     "advanced_setting_ng_word_title": {
         "message": "NGワード"
     },
