@@ -1,6 +1,7 @@
 import { is_object, is_string_array } from "./type_predicate_utility";
 import { ValidateFunction } from "ajv/dist/types/index";
-// @ts-expect-error There is no type declaration because ./setting.validate is an automatically generated script.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore There is no type declaration because ./setting.validate is an automatically generated script.
 import validate20 from "./setting.validate";
 
 interface ColorSetting {
