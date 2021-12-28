@@ -92,6 +92,9 @@
     "advanced_setting_export_saved": {
         "message": "保存しました"
     },
+    "advanced_setting_export_download_failed": {
+        "message": "ダウンロードに失敗しました。"
+    },
     "advanced_setting_import_title": {
         "message": "設定のインポート"
     },
