@@ -132,6 +132,11 @@ ul {
     }
 }
 
+.button_group {
+    display: flex;
+    justify-content: end;
+}
+
 mwc-formfield {
     display: block;
 }
@@ -184,11 +189,14 @@ mwc-button {
     margin-top: 2em;
 }
 
+#import_button,
 #advanced_setting_reset_button {
     width: 100%;
 }
 
 mwc-dialog {
+    --mdc-theme-surface: var(--background_color);
+
     mwc-button {
         margin: 0.5em;
     }

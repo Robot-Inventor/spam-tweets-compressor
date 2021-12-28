@@ -66,14 +66,6 @@ const update_color_setting = async (retry = true): Promise<void> => {
     return result;
 };
 
-interface ColorScheme {
-    background_color: string;
-    high_emphasize_text_color: string;
-    main_color: string;
-    main_color_light: string;
-    medium_emphasize_text_color: string;
-}
-
 /**
  * Load color scheme, return it and initialize CSS variables. The supported CSS variables are below:
  * - ``--main_color``: main color like Twitter Blue
@@ -101,7 +93,8 @@ mwc-top-app-bar-fixed {
     --mdc-theme-primary: ${color_setting.top_app_bar};
 }
 
-mwc-drawer {
+mwc-drawer,
+mwc-dialog {
     --mdc-theme-surface: ${color_setting.drawer};
 }
 
@@ -116,6 +109,5 @@ mwc-drawer {
     document.body.appendChild(style_element);
 };
 
-export { ColorScheme };
 export { update_color_setting };
 export { load_color_setting };

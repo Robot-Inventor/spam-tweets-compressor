@@ -92,6 +92,29 @@
     "advanced_setting_export_saved": {
         "message": "保存しました"
     },
+    "advanced_setting_import_title": {
+        "message": "設定のインポート"
+    },
+    "advanced_setting_import_description": {
+        "message": "Spam Tweets Compressorの設定をインポートします。Spam Tweets Compressorからエクスポートした設定ファイルを読み込んでください。"
+    },
+    "advanced_setting_import_import": {
+        "message": "インポート"
+    },
+    "advanced_setting_import_select_valid_json": {
+        "message": "有効なJSONファイルを選択してください。"
+    },
+    "advanced_setting_import_invalid_format": {
+        "message": "ファイルが正しい形式ではありません。\n\n問題の詳細:\n$ERROR_MESSAGE$",
+        "placeholders": {
+            "error_message": {
+                "content": "$1"
+            }
+        }
+    },
+    "advanced_setting_import_something_wrong": {
+        "message": "設定ファイルが間違っています。"
+    },
     "advanced_setting_ng_word_title": {
         "message": "NGワード"
     },

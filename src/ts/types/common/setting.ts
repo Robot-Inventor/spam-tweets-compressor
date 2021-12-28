@@ -1,4 +1,8 @@
 import { is_object, is_string_array } from "./type_predicate_utility";
+import { ValidateFunction } from "ajv/dist/types/index";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import validate20 from "./setting.validate";
 
 interface ColorSetting {
     main: string;
@@ -14,6 +18,7 @@ interface ColorSetting {
 
 type setting_value_type = number | string | boolean | Array<string> | { [key: string]: { url: string } } | ColorSetting;
 
+// When edit this interface, please run ``npm run update-validator`` to update the JSON validator for settings.
 interface setting_object {
     [key: string]: setting_value_type;
     advanced_filter: Array<string>;
@@ -80,5 +85,10 @@ const is_setting_object = (input: unknown): input is setting_object => {
     return true;
 };
 
+const get_setting_validator = () => {
+    const validate = validate20 as ValidateFunction<setting_object>;
+    return validate;
+};
+
 export { ColorSetting, setting_value_type, setting_object };
-export { is_setting_object };
+export { is_setting_object, get_setting_validator };

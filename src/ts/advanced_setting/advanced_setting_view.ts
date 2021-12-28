@@ -1,5 +1,8 @@
+import "@material/mwc-dialog";
+import "@material/mwc-button";
 import { CheckListItem } from "@material/mwc-list/mwc-check-list-item";
 import { initialize_tooltip } from "./../common/tooltip";
+import { is_error } from "../types/common/type_predicate_utility";
 
 /**
  * Shift the scroll position by the height of the header.
@@ -137,6 +140,35 @@ class Menu {
     }
 }
 
+const show_alert = (message: string) => {
+    try {
+        const dialog = document.createElement("mwc-dialog");
+
+        const text_outer = document.createElement("pre");
+        text_outer.style.whiteSpace = "pre-wrap";
+        text_outer.textContent = message;
+
+        const ok_button = document.createElement("mwc-button");
+        ok_button.slot = "primaryAction";
+        ok_button.setAttribute("dialogAction", "ok");
+        ok_button.textContent = "OK";
+
+        dialog.appendChild(text_outer);
+        dialog.appendChild(ok_button);
+
+        dialog.addEventListener("closed", () => {
+            dialog.remove();
+        });
+
+        document.body.appendChild(dialog);
+        dialog.show();
+    } catch (error) {
+        // eslint-disable-next-line no-alert
+        alert(message);
+        if (is_error(error)) console.error(error);
+    }
+};
+
 new Menu();
 initialize_tooltip();
 
@@ -151,6 +183,5 @@ window.addEventListener("load", () => {
         }
     }
 });
-export { create_separator };
-export { generate_check_list_item };
-export { adjust_appearance };
+
+export { create_separator, generate_check_list_item, adjust_appearance, show_alert };

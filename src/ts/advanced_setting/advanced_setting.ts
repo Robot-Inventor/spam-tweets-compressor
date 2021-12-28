@@ -12,11 +12,10 @@ import "@material/mwc-top-app-bar-fixed";
 import "@material/mwc-list/mwc-check-list-item";
 import { adjust_appearance, create_separator, generate_check_list_item } from "./advanced_setting_view";
 import { advanced_filter_type, is_advanced_filter_type } from "../types/common/advanced_filter_type";
-// eslint-disable-next-line no-duplicate-imports
-import { Dialog } from "@material/mwc-dialog";
 import { Setting } from "../common/setting";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
+import { initialize_button } from "./initialize/initialize";
 import { is_error } from "../types/common/type_predicate_utility";
 import { load_color_setting } from "../common/color";
 import { setting_object } from "../types/common/setting";
@@ -120,51 +119,6 @@ const load_filter_list = async (setting: setting_object): Promise<void> => {
     }
 };
 
-/**
- * Copy specified text to clipboard.
- * @param text text to copy
- */
-const copy_text = (text: string) => {
-    void navigator.clipboard.writeText(text);
-};
-
-/**
- * Download json file.
- * @param json json string to download
- * @param file_name file name to download
- */
-const download_json = (json: string, file_name: string) => {
-    const download_link = document.createElement("a");
-    download_link.href = URL.createObjectURL(new Blob([json], { type: "text/json" }));
-    download_link.download = file_name;
-    download_link.style.display = "none";
-    document.body.appendChild(download_link);
-    download_link.click();
-    download_link.remove();
-};
-
-/**
- * Convert setting object to JSON string.
- * @param setting setting object
- * @returns json string
- */
-const convert_setting_to_json = (setting: setting_object) => {
-    const indent = 4;
-    return JSON.stringify(setting, null, indent);
-};
-
-/**
- * Change the text of the button, then change it back after 5 seconds.
- * @param button target button
- * @param text text after change
- */
-const temporarily_change_button_text = (button: HTMLElement, text: string) => {
-    const button_text_change_time = 5000;
-    const default_text = button.textContent;
-    button.textContent = text;
-    setTimeout(() => (button.textContent = default_text), button_text_change_time);
-};
-
 const initialize_textarea_validation = () => {
     const allow_list = document.getElementById("allow_list") as TextArea | null;
     if (allow_list) {
@@ -217,56 +171,6 @@ const initialize_textarea = (textarea: TextArea, setting: setting_object) => {
     }
 };
 
-/**
- * Initialize the setting copy button.
- * @param setting setting object
- */
-const initialize_copy_button = (setting: setting_object) => {
-    const copy_button = document.getElementById("copy_button");
-    if (copy_button) {
-        copy_button.addEventListener("click", () => {
-            copy_text(convert_setting_to_json(setting));
-            temporarily_change_button_text(copy_button, browser.i18n.getMessage("advanced_setting_export_copied"));
-        });
-    } else console.error("Copy button was not found.");
-};
-
-/**
- * Initialize the setting download button.
- * @param setting setting object
- */
-const initialize_download_button = (setting: setting_object) => {
-    const download_button = document.getElementById("save_button");
-    if (download_button) {
-        download_button.addEventListener("click", () => {
-            download_json(convert_setting_to_json(setting), "stc_setting.json");
-            temporarily_change_button_text(download_button, browser.i18n.getMessage("advanced_setting_export_saved"));
-        });
-    } else console.error("Download button was not found.");
-};
-
-/**
- * Initialize the setting reset button.
- * @param setting_instance instance of setting class
- */
-const initialize_reset_button = (setting_instance: Setting) => {
-    const reset_button = document.getElementById("advanced_setting_reset_button");
-    const reset_dialog = document.getElementById("advanced_setting_reset_confirm_dialog") as Dialog | null;
-    if (reset_button && reset_dialog) {
-        reset_button.addEventListener("click", () => {
-            reset_dialog.show();
-            reset_dialog.addEventListener("closed", (event: unknown) => {
-                const { detail } = event as { detail: { action: "ok" | "cancel" } };
-                if (detail.action === "ok") {
-                    setting_instance.readonly = true;
-                    void setting_instance.clear();
-                    location.reload();
-                }
-            });
-        });
-    }
-};
-
 void (() => {
     const setting_instance = new Setting();
 
@@ -284,9 +188,7 @@ void (() => {
             });
             initialize_textarea_validation();
 
-            initialize_copy_button(setting);
-            initialize_download_button(setting);
-            initialize_reset_button(setting_instance);
+            initialize_button(setting_instance, setting);
         })
         .catch((error) => {
             console.error(error);

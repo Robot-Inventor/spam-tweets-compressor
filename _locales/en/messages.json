@@ -92,6 +92,29 @@
     "advanced_setting_export_saved": {
         "message": "Saved"
     },
+    "advanced_setting_import_title": {
+        "message": "Import Settings"
+    },
+    "advanced_setting_import_description": {
+        "message": "Import the settings from Spam Tweets Compressor, which should be the settings file exported from Spam Tweets Compressor."
+    },
+    "advanced_setting_import_import": {
+        "message": "Import"
+    },
+    "advanced_setting_import_select_valid_json": {
+        "message": "Select a valid JSON file."
+    },
+    "advanced_setting_import_invalid_format": {
+        "message": "File is not in correct format.\n\nProblem details:\n$ERROR_MESSAGE$",
+        "placeholders": {
+            "error_message": {
+                "content": "$1"
+            }
+        }
+    },
+    "advanced_setting_import_something_wrong": {
+        "message": "The setting file is wrong."
+    },
     "advanced_setting_ng_word_title": {
         "message": "Mute Words"
     },

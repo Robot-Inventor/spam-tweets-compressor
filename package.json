@@ -15,7 +15,10 @@
     "lint:css": "stylelint src/**/*.{css,scss,sass}",
     "lint": "npm-run-all --parallel lint:*",
     "format": "npx prettier --write \"src/**/*.{js,ts,css,scss}\"",
-    "pack": "npx web-ext build --ignore-files \"./**/*.md\" \"./src/\" \"./docs/\" \"./gh-pages/\" \"./image/for_readme/\" package.json package-lock.json \"tsconfig*.json\" webpack.config.js \"./image/logo.*\""
+    "pack": "npx web-ext build --ignore-files \"./**/*.md\" \"./src/\" \"./docs/\" \"./gh-pages/\" \"./image/for_readme/\" package.json package-lock.json \"tsconfig*.json\" webpack.config.js \"./image/logo.*\"",
+    "generate-schema": "npx typescript-json-schema \"src/ts/types/common/setting.ts\" \"setting_object\" -o \"src/ts/types/common/setting.schema.json\"",
+    "compile-validator": "npx ajv compile -s \"src/ts/types/common/setting.schema.json\" -o \"src/ts/types/common/setting.validate.js\"",
+    "update-validator": "npm-run-all --serial generate-schema compile-validator"
   },
   "repository": {
     "type": "git",
@@ -48,6 +51,8 @@
     "@types/jest": "27.0.3",
     "@typescript-eslint/eslint-plugin": "5.8.1",
     "@typescript-eslint/parser": "5.8.1",
+    "ajv": "^8.8.2",
+    "ajv-cli": "^5.0.0",
     "chroma-js": "2.1.2",
     "css-loader": "6.5.1",
     "deep-diff": "1.0.2",
@@ -68,6 +73,7 @@
     "ts-jest": "27.1.2",
     "ts-loader": "9.2.6",
     "typescript": "4.5.4",
+    "typescript-json-schema": "^0.52.0",
     "web-ext": "6.6.0",
     "web-ext-types": "3.2.1",
     "webpack": "5.65.0",
