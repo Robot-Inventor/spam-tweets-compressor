@@ -20,7 +20,8 @@ const initialize_tooltip = () => {
         tippy(element, {
             arrow: false,
             content: message,
-            delay: [delay_begin, delay_end]
+            delay: [delay_begin, delay_end],
+            theme: "original"
         });
     });
 };
