@@ -48,8 +48,7 @@ const update_color_setting = async (retry = true): Promise<void> => {
 
         const chroma_bg = chroma(background_color);
 
-        setting.color.top_app_bar = `rgb(${chroma_bg.brighten().rgb().join()})`;
-        setting.color.drawer = setting.color.top_app_bar;
+        setting.color.background_light = `rgb(${chroma_bg.brighten().rgb().join()})`;
         setting.color.card = `rgb(${chroma_bg.brighten(card_brighten).rgb().join()})`;
         setting.color.card_hover = `rgb(${chroma_bg.brighten(card_hover_brighten).rgb().join()})`;
     } else if (retry) {
@@ -71,6 +70,7 @@ const update_color_setting = async (retry = true): Promise<void> => {
  * - ``--main_color``: main color like Twitter Blue
  * - ``--main_color_light``: light main color like Twitter Blue (opacity: 0.6)
  * - ``--background_color``: document background color
+ * - ``--background_color_light``: light background color;
  * - ``--high_emphasize_text_color``: color of normal text
  * - ``--medium_emphasize_text_color``: color of text that medium importance
  */
@@ -85,17 +85,9 @@ const load_color_setting = async (): Promise<void> => {
     --main_color: ${color_setting.main};
     --main_color_light: ${color_setting.main_light};
     --background_color: ${color_setting.background};
+    --background_color_light: ${color_setting.background_light};
     --high_emphasize_text_color: ${color_setting.high_emphasize_text};
     --medium_emphasize_text_color: ${color_setting.medium_emphasize_text};
-}
-
-mwc-top-app-bar-fixed {
-    --mdc-theme-primary: ${color_setting.top_app_bar};
-}
-
-mwc-drawer,
-mwc-dialog {
-    --mdc-theme-surface: ${color_setting.drawer};
 }
 
 .setting_card {

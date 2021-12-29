@@ -2,19 +2,19 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
-        "ColorSetting": {
+        "ColorScheme": {
             "additionalProperties": false,
             "properties": {
                 "background": {
+                    "type": "string"
+                },
+                "background_light": {
                     "type": "string"
                 },
                 "card": {
                     "type": "string"
                 },
                 "card_hover": {
-                    "type": "string"
-                },
-                "drawer": {
                     "type": "string"
                 },
                 "high_emphasize_text": {
@@ -28,21 +28,17 @@
                 },
                 "medium_emphasize_text": {
                     "type": "string"
-                },
-                "top_app_bar": {
-                    "type": "string"
                 }
             },
             "required": [
                 "background",
+                "background_light",
                 "card",
                 "card_hover",
-                "drawer",
                 "high_emphasize_text",
                 "main",
                 "main_light",
-                "medium_emphasize_text",
-                "top_app_bar"
+                "medium_emphasize_text"
             ],
             "type": "object"
         }
@@ -61,7 +57,7 @@
             "type": "array"
         },
         "color": {
-            "$ref": "#/definitions/ColorSetting"
+            "$ref": "#/definitions/ColorScheme"
         },
         "decompress_on_hover": {
             "type": "boolean"
