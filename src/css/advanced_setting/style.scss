@@ -15,7 +15,7 @@ body {
 }
 
 mwc-top-app-bar-fixed {
-    --mdc-theme-primary: var(--background_color);
+    --mdc-theme-primary: var(--background_color_light);
     position: fixed;
     top: 0;
     left: 0;
@@ -62,7 +62,7 @@ h3 {
 }
 
 mwc-drawer {
-    --mdc-theme-surface: var(--background_color);
+    --mdc-theme-surface: var(--background_color_light);
     --mdc-drawer-width: auto;
 }
 
@@ -195,7 +195,7 @@ mwc-button {
 }
 
 mwc-dialog {
-    --mdc-theme-surface: var(--background_color);
+    --mdc-theme-surface: var(--background_color_light);
 
     mwc-button {
         margin: 0.5em;

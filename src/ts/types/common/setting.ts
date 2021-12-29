@@ -4,14 +4,13 @@ import { ValidateFunction } from "ajv/dist/types/index";
 // @ts-ignore There is no type declaration because ./setting.validate is an automatically generated script.
 import validate20 from "./setting.validate";
 
-interface ColorSetting {
+interface ColorScheme {
     main: string;
     main_light: string;
     background: string;
+    background_light: string;
     high_emphasize_text: string;
     medium_emphasize_text: string;
-    top_app_bar: string;
-    drawer: string;
     card: string;
     card_hover: string;
 }
@@ -20,7 +19,7 @@ interface ColorSetting {
 interface setting_object {
     advanced_filter: Array<string>;
     allow_list: Array<string>;
-    color: ColorSetting;
+    color: ColorScheme;
     decompress_on_hover: boolean;
     exclude_url: Array<string>;
     hide_completely: boolean;
@@ -30,17 +29,16 @@ interface setting_object {
     show_reason: boolean;
 }
 
-const is_color_setting = (input: unknown): input is ColorSetting => {
+const is_color_setting = (input: unknown): input is ColorScheme => {
     if (!is_object(input)) return false;
 
-    const all_properties = [
+    const all_properties: Array<keyof ColorScheme> = [
         "main",
         "main_light",
         "background",
+        "background_light",
         "high_emphasize_text",
         "medium_emphasize_text",
-        "top_app_bar",
-        "drawer",
         "card",
         "card_hover"
     ];
@@ -53,7 +51,7 @@ const is_color_setting = (input: unknown): input is ColorSetting => {
 const is_setting_object = (input: unknown): input is setting_object => {
     if (!is_object(input)) return false;
 
-    const all_properties = [
+    const all_properties: Array<keyof setting_object> = [
         "advanced_filter",
         "allow_list",
         "color",
@@ -87,5 +85,5 @@ const get_setting_validator = () => {
     return validate;
 };
 
-export { ColorSetting, setting_object };
+export { setting_object };
 export { is_setting_object, get_setting_validator };

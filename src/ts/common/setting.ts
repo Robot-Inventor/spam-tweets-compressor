@@ -9,14 +9,13 @@ const default_setting: setting_object = {
     allow_list: [""],
     color: {
         background: "rgb(0, 0, 0)",
+        background_light: "rgb(44, 44, 44)",
         card: "rgb(25, 25, 25)",
         card_hover: "rgb(29, 29, 29)",
-        drawer: "rgb(44, 44, 44)",
         high_emphasize_text: "rgba(217, 217, 217, 1)",
         main: "rgb(29, 155, 240)",
         main_light: "rgba(29, 155, 240, 0.6)",
-        medium_emphasize_text: "rgba(217, 217, 217, 0.87)",
-        top_app_bar: "rgb(44, 44, 44)"
+        medium_emphasize_text: "rgba(217, 217, 217, 0.87)"
     },
     decompress_on_hover: false,
     exclude_url: ["https://twitter.com/home"],
