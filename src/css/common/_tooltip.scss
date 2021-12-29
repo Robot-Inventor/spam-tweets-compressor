@@ -1,0 +1,8 @@
+.tippy-box[data-theme~="original"] {
+    background: var(--high_emphasize_text_color);
+    opacity: 0.75;
+
+    .tippy-content {
+        color: var(--background_color);
+    }
+}
