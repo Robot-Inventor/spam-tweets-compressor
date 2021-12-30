@@ -78,19 +78,10 @@
         "message": "Export Settings"
     },
     "advanced_setting_export_description": {
-        "message": "Exports the settings of the Spam Tweets Compressor. You can copy them to the clipboard or save them to a file."
+        "message": "Exports the settings of the Spam Tweets Compressor."
     },
-    "advanced_setting_export_copy": {
-        "message": "Copy"
-    },
-    "advanced_setting_export_copied": {
-        "message": "Copied"
-    },
-    "advanced_setting_export_save": {
-        "message": "Save"
-    },
-    "advanced_setting_export_saved": {
-        "message": "Saved"
+    "advanced_setting_export_export": {
+        "message": "Export"
     },
     "advanced_setting_export_download_failed": {
         "message": "Download failed."
