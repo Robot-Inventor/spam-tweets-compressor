@@ -78,19 +78,10 @@
         "message": "設定のエクスポート"
     },
     "advanced_setting_export_description": {
-        "message": "Spam Tweets Compressorの設定をエクスポートします。クリップボードにコピーするか、ファイルに保存します。"
+        "message": "Spam Tweets Compressorの設定をエクスポートします。"
     },
-    "advanced_setting_export_copy": {
-        "message": "コピー"
-    },
-    "advanced_setting_export_copied": {
-        "message": "コピーしました"
-    },
-    "advanced_setting_export_save": {
-        "message": "保存"
-    },
-    "advanced_setting_export_saved": {
-        "message": "保存しました"
+    "advanced_setting_export_export": {
+        "message": "エクスポート"
     },
     "advanced_setting_export_download_failed": {
         "message": "ダウンロードに失敗しました。"
