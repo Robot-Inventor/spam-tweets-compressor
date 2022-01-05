@@ -74,7 +74,7 @@
     "ts-loader": "9.2.6",
     "typescript": "4.5.4",
     "typescript-json-schema": "0.52.0",
-    "url2emoji": "^1.0.1",
+    "url2emoji": "1.0.1",
     "web-ext": "6.6.0",
     "web-ext-types": "3.2.1",
     "webpack": "5.65.0",
