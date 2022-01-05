@@ -1,7 +1,7 @@
 import { hash_symbol, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { TweetElement } from "./tweet_element";
 import { selector } from "./selector";
-import { url_to_emoji } from "./emoji";
+import { url2emoji } from "url2emoji";
 
 /**
  * Analyse tweet and provide compressing feature.
@@ -22,7 +22,7 @@ export class TweetAnalyser {
         const temp = document.createElement("div");
         temp.appendChild(clone);
         temp.querySelectorAll("img").forEach((img) => {
-            const emoji = url_to_emoji(img.src) || "";
+            const emoji = url2emoji(img.src) || "";
             if (emoji) img.insertAdjacentText("afterend", emoji);
             img.remove();
         });
