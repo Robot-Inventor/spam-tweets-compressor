@@ -97,11 +97,15 @@
                     </p>
                     <mwc-button data-i18n="advanced_setting_export_export" id="save_button" outlined>エクスポート</mwc-button>
                 </div>
-                <div class="setting_card">
+                <div class="setting_card" id="setting_import">
                     <h2><mwc-icon>download</mwc-icon><span data-i18n="advanced_setting_import_title">設定のインポート</span></h2>
                     <p data-i18n="advanced_setting_import_description">
-                        Spam Tweets Compressorの設定をインポートします。Spam Tweets Compressorからエクスポートした設定ファイルを読み込んでください。
+                        Spam Tweets Compressorの設定をインポートします。Spam Tweets Compressorからエクスポートした設定ファイルを選択するか、ここにドラッグアンドドロップしてください。
                     </p>
+                    <div id="drop_area" class="drop_area">
+                        <p data-i18n="advanced_setting_import_drop_here" class="drop_area-text">ここにファイルをドラッグアンドドロップしてください。</p>
+                        <mwc-icon class="drop_area-icon">insert_drive_file</mwc-icon>
+                    </div>
                     <mwc-button data-i18n="advanced_setting_import_import" id="import_button" outlined>インポート</mwc-button>
                 </div>
                 <div class="setting_card">

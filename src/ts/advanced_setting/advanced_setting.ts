@@ -16,7 +16,7 @@ import { is_error, is_string_array } from "../types/common/type_predicate_utilit
 import { Setting } from "../common/setting";
 // eslint-disable-next-line no-duplicate-imports
 import { TextArea } from "@material/mwc-textarea";
-import { initialize_button } from "./initialize/initialize";
+import { initialize } from "./initialize/initialize";
 import { load_color_setting } from "../common/color";
 import { setting_object } from "../types/common/setting";
 
@@ -193,7 +193,7 @@ void (() => {
             });
             initialize_textarea_validation();
 
-            initialize_button(setting_instance, setting);
+            initialize(setting_instance, setting);
         })
         .catch((error) => {
             console.error(error);
