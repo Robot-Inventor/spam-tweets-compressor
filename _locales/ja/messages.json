@@ -90,7 +90,10 @@
         "message": "設定のインポート"
     },
     "advanced_setting_import_description": {
-        "message": "Spam Tweets Compressorの設定をインポートします。Spam Tweets Compressorからエクスポートした設定ファイルを読み込んでください。"
+        "message": "Spam Tweets Compressorの設定をインポートします。Spam Tweets Compressorからエクスポートした設定ファイルを選択するか、ここにドラッグアンドドロップしてください。"
+    },
+    "advanced_setting_import_drop_here": {
+        "message": "ここにファイルをドラッグアンドドロップしてください。"
     },
     "advanced_setting_import_import": {
         "message": "インポート"

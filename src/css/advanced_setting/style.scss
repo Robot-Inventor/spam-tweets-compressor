@@ -191,6 +191,53 @@ mwc-button {
     width: 100%;
 }
 
+#setting_import {
+    .drop_area {
+        --highlight_color: var(--main_color);
+
+        display: none;
+        border: 0.1rem solid var(--highlight_color);
+        border-radius: 0.5em;
+        min-height: 10rem;
+        margin-top: 2em;
+        animation: none;
+        user-select: none;
+
+        &-text {
+            color: var(--main_color);
+        }
+
+        &-icon {
+            font-size: 5rem;
+            color: var(--highlight_color);
+            margin: 1rem 0;
+        }
+    }
+
+    &.setting_card-drag_over {
+        .drop_area {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: 0.5s linear drop_area_animation alternate infinite;
+        }
+
+        #import_button {
+            display: none;
+        }
+    }
+}
+
+@keyframes drop_area_animation {
+    from {
+        border-color: var(--highlight_color);
+    }
+    to {
+        border-color: transparent;
+    }
+}
+
 mwc-dialog {
     --mdc-theme-surface: var(--background_color_light);
 
