@@ -2,6 +2,27 @@
 
 ## Released
 
+### [v2.0.12.8] - 2021-02-13
+
+#### Added
+
+- browser actionのタブ切り替えにトランジションを追加 [#383](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/383)
+- browser actionのチェックボックスの右にマージンを追加 [#607](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/607)
+- 設定のインポート機能を実装 [#23](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/23)
+- 設定のエクスポート時に名前をつけて保存できるように [#$1](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/$1)
+- 設定ファイルのドラッグアンドドロップに対応 [#641](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/641)
+
+#### Fixed
+
+- ツールチップの配色を改善#622
+- node-forgeの脆弱性修正 [#684](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/684)
+- NGワードが正規化されていないバグを修正 [#685](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/685)
+
+#### Deleted
+
+- 完全に非表示にするオプションの「非推奨」表記を削除 [#605](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/605)
+- 設定のコピーボタンを削除 [#624](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/624)
+
 ### [v2.0.11.7] - 2021-12-26
 
 #### Added
