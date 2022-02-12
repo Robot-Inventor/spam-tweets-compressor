@@ -18,7 +18,8 @@
     "pack": "npx web-ext build --ignore-files \"./**/*.md\" \"./src/\" \"./docs/\" \"./gh-pages/\" \"./image/for_readme/\" package.json package-lock.json \"tsconfig*.json\" webpack.config.js \"./image/logo.*\"",
     "generate-schema": "npx typescript-json-schema --noExtraProps --required --strictNullChecks \"src/ts/types/common/setting.ts\" \"setting_object\" -o \"src/ts/types/common/setting.schema.json\"",
     "compile-validator": "npx ajv compile -s \"src/ts/types/common/setting.schema.json\" -o \"src/ts/types/common/setting.validate.js\"",
-    "update-validator": "npm-run-all --serial generate-schema compile-validator"
+    "update-validator": "npm-run-all --serial generate-schema compile-validator",
+    "version": "node ./src/script/version.js && git add ."
   },
   "repository": {
     "type": "git",
