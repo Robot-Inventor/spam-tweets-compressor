@@ -1,6 +1,6 @@
 import { is_query_element, query_type } from "../types/main/advanced_spam_detection";
 import { is_regexp, parse_regexp } from "./parse_regexp";
-import { normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
+import { normalize, normalize_hashtag, normalize_link, normalize_user_id } from "./normalize";
 import { TweetElement } from "./tweet_element";
 
 const judge = (target: string | Array<string>, pattern: string) => {
@@ -35,7 +35,7 @@ const advanced_spam_detection = (query: query_type, tweet: TweetElement): boolea
 
             switch (query_obj.type) {
                 case "text":
-                    includes_text = judge(tweet.content, query_obj.string);
+                    includes_text = judge(normalize(tweet.content), normalize(query_obj.string));
                     break;
 
                 case "hashtag":
@@ -47,7 +47,7 @@ const advanced_spam_detection = (query: query_type, tweet: TweetElement): boolea
                     break;
 
                 case "name":
-                    includes_text = judge(tweet.user_name, query_obj.string);
+                    includes_text = judge(normalize(tweet.user_name), normalize(query_obj.string));
                     break;
 
                 case "link":
