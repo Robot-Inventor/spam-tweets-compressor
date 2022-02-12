@@ -42,10 +42,11 @@ const detect_spam = (
 ): [false] | [true, string] => {
     const normal_judgement = (() => {
         const content = normalize(target.content);
+        const ng_word = setting.ng_word.map((word) => normalize(word));
 
         const has_ng_word =
-            detect_ng_word(content, setting.ng_word) ||
-            (setting.include_user_name && detect_ng_word(normalize(target.user_name), setting.ng_word));
+            detect_ng_word(content, ng_word) ||
+            (setting.include_user_name && detect_ng_word(normalize(target.user_name), ng_word));
         if (has_ng_word) return browser.i18n.getMessage("compress_reason_ng_word");
 
         const advanced_detection = advanced_spam_detection(advanced_filter, target);
