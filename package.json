@@ -71,7 +71,7 @@
     "stylelint-config-recommended-scss": "6.0.0",
     "stylelint-scss": "4.2.0",
     "tippy.js": "6.3.7",
-    "ts-jest": "28.0.1",
+    "ts-jest": "28.0.2",
     "ts-loader": "9.3.0",
     "typescript": "4.6.4",
     "typescript-json-schema": "0.53.0",
