@@ -2,6 +2,12 @@
 
 ## Released
 
+### [v2.0.13.9] - 2021-09-06
+
+#### Fixed
+
+- Twitterの仕様変更に対応 [9640581](https://github.com/Robot-Inventor/spam-tweets-compressor/commit/9640581a2b3c016b3f8a6bfafe82045b75236680)
+
 ### [v2.0.12.8] - 2021-02-13
 
 #### Added
@@ -9,12 +15,12 @@
 - browser actionのタブ切り替えにトランジションを追加 [#383](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/383)
 - browser actionのチェックボックスの右にマージンを追加 [#607](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/607)
 - 設定のインポート機能を実装 [#23](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/23)
-- 設定のエクスポート時に名前をつけて保存できるように [#$1](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/$1)
+- 設定のエクスポート時に名前をつけて保存できるように [#610](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/$610)
 - 設定ファイルのドラッグアンドドロップに対応 [#641](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/641)
 
 #### Fixed
 
-- ツールチップの配色を改善#622
+- ツールチップの配色を改善 [#622](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/622)
 - node-forgeの脆弱性修正 [#684](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/684)
 - NGワードが正規化されていないバグを修正 [#685](https://github.com/Robot-Inventor/spam-tweets-compressor/issues/685)
 
