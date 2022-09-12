@@ -200,8 +200,11 @@ mwc-button {
         border-radius: 0.5em;
         min-height: 10rem;
         margin-top: 2em;
+        padding: 0 1em;
         animation: none;
         user-select: none;
+        text-align: justify;
+        text-justify: inter-character;
 
         &-text {
             color: var(--main_color);
