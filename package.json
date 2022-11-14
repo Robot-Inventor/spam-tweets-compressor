@@ -67,7 +67,7 @@
     "prettier": "2.7.1",
     "sass": "1.56.1",
     "style-loader": "3.3.1",
-    "stylelint": "14.14.1",
+    "stylelint": "14.15.0",
     "stylelint-config-recommended-scss": "8.0.0",
     "stylelint-scss": "4.3.0",
     "tippy.js": "6.3.7",
