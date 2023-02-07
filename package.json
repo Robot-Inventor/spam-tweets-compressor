@@ -57,7 +57,7 @@
     "chroma-js": "2.4.2",
     "css-loader": "6.7.3",
     "deep-diff": "1.0.2",
-    "deepmerge": "4.2.2",
+    "deepmerge": "4.3.0",
     "dot-object": "2.1.4",
     "eslint": "8.33.0",
     "eslint-config-prettier": "8.6.0",
