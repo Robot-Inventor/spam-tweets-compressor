@@ -46,7 +46,7 @@
     "@material/mwc-tab-bar": "0.27.0",
     "@material/mwc-textarea": "0.27.0",
     "@material/mwc-top-app-bar-fixed": "0.27.0",
-    "@types/chroma-js": "2.1.4",
+    "@types/chroma-js": "2.4.0",
     "@types/deep-diff": "1.0.2",
     "@types/dot-object": "2.1.2",
     "@types/jest": "29.5.0",
